@@ -9,13 +9,13 @@ image: assets/images/post_functional_programming/cover.jpg
 You've probably heard of list comprehension in Python before. It is declarative-like, concise, and generally easier to read than a simple for loop.
 
 Example: 
-```python linenos
+```python
 [x ** 2 for x in [0,1,2]]
 ```
 
 Have you also heard of what in Python is called a "generator expression"?
 
-```python linenos
+```python
 (x ** 2 for x in [0,1,2])
 ```
 
@@ -110,7 +110,7 @@ This iterator could use data stored in memory (from a list by iterating on it), 
 Here is a ***Counter*** class which defines an iterator, here the values ​​are generated on-the-fly rather than stored previously in a list. You are probably starting to understand now the crucial functionality that some iterators bring, if you do not need to store all the values ​​in memory, where in the case of infinite sequence, you can successively generate the values ​​and do calculations on these at the time of iteration / "lazy generation" which results in less memory usage.
 
 
-```python
+{% highlight ruby linenos %}
 class Counter:
     def __init__(self, low, high):
         self.current = low - 1
@@ -124,7 +124,10 @@ class Counter:
         if self.current < self.high:
             return self.current
         raise StopIteration
-```
+{% endhighlight %}
+
+
+
 
 ```python
 for c in Counter(3, 9):
@@ -137,11 +140,11 @@ for c in Counter(3, 9):
 8
 ```
 
-Use case: opening a file using the built-in open() function generates a file object which turns out to be an iterator!
+*Use case*: opening a file using the built-in open() function generates a file object which turns out to be an iterator!
 Reading line by line using a for loop implicitly calls the readline method, so only certain lines can be re-requisitioned on demand, rather than storing the whole file in memory, particularly useful in the event of a large file!
 
 
-We can therefore only traverse the file once (unless we reopen and recreate another iterator), and can just load the lines on demand that we want!
-https://stackoverflow.com/questions/25645039/readline-in-a-loop-is-not-working-in-python
+We can therefore [only traverse the file once](https://stackoverflow.com/questions/25645039/readline-in-a-loop-is-not-working-in-python
+) (unless we reopen and recreate another iterator), and can just load the lines on demand that we want!
  
 step could be calculated "on-the-fly".
