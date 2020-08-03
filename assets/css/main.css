@@ -6,7 +6,7 @@
  */
 
  @import "pygments/default.css";
- 
+ @import "custom.css"
 :root {
   --blue: #7832e2;
   --indigo: #502c6c;
