@@ -4,6 +4,7 @@ title:  "Introduction to functional programming"
 author: luc
 categories: [ TDs, Lecture, Python]
 image: assets/images/post_functional_programming/cover.jpg
+image_folder: assets/images/post_functional_programming/
 ---
 
 You've probably heard of list comprehension in Python before. It is declarative-like, concise, and generally easier to read than a simple for loop.
@@ -23,6 +24,9 @@ If we reduce to appearance, the only notable difference would be the removal of 
 
 Have you noticed that you can easily iterate over a list, dictionary, tuple, or string with a for loop?
 What are the shared similarities among all of these (which I recall are built-in types) ?
+
+
+![image1]({{page.image_folder}}post_image1.png)
 
 #### Why functional programming ? 
 
