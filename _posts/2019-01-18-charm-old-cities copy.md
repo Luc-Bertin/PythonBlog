@@ -2,7 +2,7 @@
 layout: post
 title:  "Test"
 author: luc
-categories: [ Jekyll, tutorial ]
+categories: [ TDs ]
 image: assets/images/home.jpg
 ---
 

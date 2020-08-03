@@ -2,7 +2,7 @@
 layout: post
 title:  "Go to all course practice sessions !"
 author: luc
-categories: [ Jekyll, tutorial ]
+categories: [ TDs ]
 image: assets/images/github_octocat.jpg
 ---
 
