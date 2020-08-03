@@ -9,10 +9,15 @@ image: assets/images/post_functional_programming/cover.jpg
 You've probably heard of list comprehension in Python before. It is declarative-like, concise, and generally easier to read than a simple for loop.
 
 Example: 
-```[x ** 2 for x in [0,1,2]]```
+```python 
+[x ** 2 for x in [0,1,2]]
+```
 
 Have you also heard of what in Python is called a "generator expression"?
-```(x ** 2 for x in [0,1,2])```
+
+```python
+(x ** 2 for x in [0,1,2])
+```
 
 If we reduce to appearance, the only notable difference would be the removal of brackets for the addition of parentheses? But is this really the case in practice?
 
@@ -39,7 +44,7 @@ Here, of course, I show a fairly simplistic but totally viable diagram, for exam
  -->
 ##### 1st step: the iterators
 
-Again based on the official python documentation: an Iterator is an object representing a sequence of data. The object returns data one item at a time, much like a bookmark in a book announces the page of that book.
+Again, based on the official python documentation: **an Iterator is an object representing a sequence of data**. The object returns data one item at a time, much **like a bookmark in a book announces the page of that book.**
 
 To know if we are dealing with an iterator we must look in the magic methods associated with this object: if the object contains the ```__next__()``` method then it is an iterator.
 This method can also be called by the function: ```next(iterator)``` and simply allows you to return the next element of the sequence, as by moving the bookmark of the book.
@@ -58,7 +63,7 @@ What does ```iter()``` produce from this list?
 Iter seems to return an iterator from the list
 We can verify it as follows:
 
- 
+
 
 
 If we do the same thing on a dictionary, this is what we get.

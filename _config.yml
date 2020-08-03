@@ -47,7 +47,7 @@ defaults:
       
 # Syntax
 markdown: kramdown
-highlighter: rouge
+highlighter: pygments
 
 # Paginate
 paginate: 10
