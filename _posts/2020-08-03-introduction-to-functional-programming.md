@@ -9,21 +9,15 @@ image: assets/images/post_functional_programming/cover.jpg
 You've probably heard of list comprehension in Python before. It is declarative-like, concise, and generally easier to read than a simple for loop.
 
 Example: 
-```python 
+```python linenos
 [x ** 2 for x in [0,1,2]]
 ```
 
 Have you also heard of what in Python is called a "generator expression"?
 
-```python
+```python linenos
 (x ** 2 for x in [0,1,2])
 ```
-
-{% highlight ruby linenos %}
-def foo
-  puts 'foo'
-end
-{% endhighlight %}
 
 If we reduce to appearance, the only notable difference would be the removal of brackets for the addition of parentheses? But is this really the case in practice?
 
@@ -96,16 +90,14 @@ Isn't this behavior similar to what you would get by looping with for?
 This is what is implicitly done when looping through a dictionary or a list:
 As the python documentation shows, these 2 loops are equivalent.
 ```python
-for i in iter (obj):
-    print (i)
+for i in iter(obj):
+    print(i)
 for i in obj:
-    print (i)
+    print(i)
 ```
-So that's what's behind it when you loop through a sequence of tuple, list, or dictionary elements.
+So that's what's behind it when you loop through a sequence of tuple, list, or dictionary elements. Note that we can also express an iterator as a list or tuple from the constructor of these objects which can admit an iterator as a parameter.
 
-Note that we can also express an iterator as a list or tuple from the constructor of these objects which can admit an iterator as a parameter.
-
-To get the original dictionary from the old example again we can also call the dict constructor on the previously discussed item_iterator.
+To get the original dictionary from the old example again we can also call the ```dict()``` constructor on the previously discussed item_iterator.
    
 
 If we can extract an iterator from an iterable, and iterate over it, what's the point of this extra step, why doesn't list understand the ```__next__``` method?
@@ -113,13 +105,9 @@ If we can extract an iterator from an iterable, and iterate over it, what's the 
 Well because an iterator can only be iterated once, once "consumed" it is necessary to recreate a new iterator.
 The idea is that a new iterator will start at the beginning, while a partially used iterator picks up where it left off.
 
+This iterator could use data stored in memory (from a list by iterating on it), or read a file or generate each value ["on-the-fly".](https://stackoverflow.com/questions/19151/build-a-basic-python-iterator)
 
-This iterator could use data stored in memory (from a list by iterating (list)), or read a file or generate each value "on-the-fly"
-
-
-https://stackoverflow.com/questions/19151/build-a-basic-python-iterator
-
-Here is a Counter class which defines an iterator, here the values ​​are generated on-the-fly rather than stored previously in a list. You are probably starting to understand now the crucial functionality that some iterators bring, if you do not need to store all the values ​​in memory, where in the case of infinite sequence, you can successively generate the values ​​and do calculations on these at the time of iteration / "lazy generation" which results in less memory usage.
+Here is a ***Counter*** class which defines an iterator, here the values ​​are generated on-the-fly rather than stored previously in a list. You are probably starting to understand now the crucial functionality that some iterators bring, if you do not need to store all the values ​​in memory, where in the case of infinite sequence, you can successively generate the values ​​and do calculations on these at the time of iteration / "lazy generation" which results in less memory usage.
 
 
 ```python
