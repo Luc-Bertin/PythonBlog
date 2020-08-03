@@ -6,15 +6,15 @@ categories: [ TDs, Lecture, Python]
 image: assets/images/home.jpg
 ---
 
-You've probably heard of list comprehension in Python before. It is declarative, concise, and generally easier to read than its equivalent with a for loop.
+You've probably heard of list comprehension in Python before. It is declarative-like, concise, and generally easier to read than a simple for loop.
 
 Example:
-```python
+```
 [x ** 2 for x in [0,1,2]]
 ```
 
 Have you also heard of what in Python is called a "generator expression"?
-```python
+```
 (x ** 2 for x in [0,1,2])
 ```
 
@@ -25,21 +25,22 @@ What are the shared similarities among all of these (which I recall are built-in
 
 #### Why functional programming ? 
 
-Picking up the definition from the python docs: functional programming is the principle of breaking down a problem into a set of functions which take inputs and produce outputs. They have no internal states subject to altering the output produced for a given input, and therefore act deterministically for some given conditions.
+Picking up the definition from the python docs: functional programming is the principle of breaking down a problem into a set of functions which take inputs and produce outputs. They have no internal states subject to altering the output produced for a given input, and act deterministically for some given conditions.
 We can therefore in a certain way oppose functional programming to object oriented in which an instance of a class can see its attributes be modified internally by the call of associated methods.
 
 Thanks to this definition we can already understand the assets of functional programming. First by its modularity: each function would fulfill a precise, well-defined task and we could therefore break down a large problem into several mini-problems in the form of functions.
+
 Then each function would be easy to test (by that I mean develop an associated unit-test) due to its reduced action spectrum and its deterministic side.
 
-In a data scientist approach, this approach would allow us to build pipelines, in which some flow of data would pass through different processing functions, the output of one of which would be the input of another and so on.
+In a data scientist approach, this approach would allow us to build pipelines, in which some flow of data would pass through different processing functions, the output of one would be the input for another, and so on.
 
-Another big advantage is the parallelization: as each function is stateless and deterministic i.e. f(x)=y, if we wish to transform a sequence of elements, we can transform parallely each element x1, x2, x3 of this sequence into y1, y2, y3
+Another big advantage is the parallelization: as each function is stateless and deterministic i.e. f(x)=y, if we wish to transform a sequence of elements, we can transform parallely each element x1, x2, x3,...  of this sequence into y1, y2, y3 by calling f in parallel.
 
 Here, of course, I show a fairly simplistic but totally viable diagram, for example transforming the column of a dataset into a log.
 
-Functional programming in Python can also be seen similar to declarative programming in the sense that we [describe what we want to achieve](https://stackoverflow.com/questions/128057/what-are-the-benefits-of-functional-programming
+<!-- Functional programming in Python can also be seen similar to declarative programming in the sense that we [describe what we want to achieve](https://stackoverflow.com/questions/128057/what-are-the-benefits-of-functional-programming
 ) rather than a set of imperative instructions to achieve it.
-
+ -->
 ##### 1st step: the iterators
 
 Again based on the official python documentation: an Iterator is an object representing a sequence of data. The object returns data one item at a time, much like a bookmark in a book announces the page of that book.
@@ -53,7 +54,7 @@ If the last element is reached and ```__next__()``` is called again, a StopItera
 We can call ```dir()```, a built-in function that returns a list of attributes and methods (magic or not) for a given object.
 
 We can see that ```__next__``` does not exist here. List is therefore *not* an iterator.
-On the other hand, we see that the ```__iter__ ()``` method exists:
+On the other hand, we see that the ```__iter__()``` method exists:
   
 This method can also be invoked from the ```iter(list)``` function.
 What does ```iter()``` produce from this list?
@@ -147,8 +148,5 @@ Reading line by line using a for loop implicitly calls the readline method, so o
 
 We can therefore only traverse the file once (unless we reopen and recreate another iterator), and can just load the lines on demand that we want!
 https://stackoverflow.com/questions/25645039/readline-in-a-loop-is-not-working-in-python
-
-
-
  
 step could be calculated "on-the-fly".
