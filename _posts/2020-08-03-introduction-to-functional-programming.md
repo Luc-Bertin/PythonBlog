@@ -26,9 +26,9 @@ Have you noticed that you can easily iterate over a list, dictionary, tuple, or 
 What are the shared similarities among all of these (which I recall are built-in types) ?
 
 
-![image1]({{page.image_folder}}post_image1.png)
-![image2]({{page.image_folder}}post_image2.png)
-
+<img src="{page.image_folder}}post_image1.png width=20%>
+"<img src="{page.image_folder}}post_image2.png width=20%>
+"
 #### Why functional programming ? 
 
 Picking up the definition from the python docs: functional programming is the principle of breaking down a problem into a set of functions which take inputs and produce outputs. They have no internal states subject to altering the output produced for a given input, and act deterministically for some given conditions.
@@ -59,46 +59,50 @@ If the last element is reached and ```__next__()``` is called again, a StopItera
 
 We can call ```dir()```, a built-in function that returns a list of attributes and methods (magic or not) for a given object.
 
-![image3]({{page.image_folder}}post_image3.png)
-
+<img src="{page.image_folder}}post_image3.png width=20%>
+"
 
 We can see that ```__next__``` does not exist here. List is therefore *not* an iterator.
 On the other hand, we see that the ```__iter__()``` method exists:
 
-![image4]({{page.image_folder}}post_image4.png)
-
+<img src="{page.image_folder}}post_image4.png width=20%>
+"
 
 This method can also be invoked from the ```iter(list)``` function.
 What does ```iter()``` produce from this list?
 
-![image5]({{page.image_folder}}post_image5.png)
-
+<img src="{page.image_folder}}post_image5.png width=20%>
+"
 
 Iter seems to return an iterator from the list
 We can verify it as follows:
 
-![image6]({{page.image_folder}}post_image6.png)
-
+<img src="{page.image_folder}}post_image6.png width=20%>
+"
 
 If we do the same thing on a dictionary, this is what we get.
-![image7]({{page.image_folder}}post_image7.png)
-
+<img src="{page.image_folder}}post_image7.png width=20%>
+"
 Again an iterator.
 Now, we can return each of the elements sequentially by calling next().
-![image8]({{page.image_folder}}post_image8.png)
-
+<img src="{page.image_folder}}post_image8.png width=20%>
+"
 
 
 Conversely, we can also call ```iterator.__next__()```
 Note again that ```next(a_list)``` cannot be done, the error message is self-explanatory.
- 
+
+<img src="{page.image_folder}}post_image9.png width=20%>
+"
 
 Thus we see that a dictionary or a list, although being a sequence of objects, are not iterators, but iterables, that is to say that we can create an iterator from those - here by calling the ```__iter__``` method, the iterator being, I remind you, is an object, which returns its elements one by one thanks to the implementation of its ```__next__``` method.
 
 
-In a similar way, we can therefore consider the book as an iterable, i.e. a sequence of elements from which we can create an object that returns each of its pages one by one.
+In a similar fashion, we can therefore consider the book as an iterable, i.e. a sequence of elements from which we can create an object that returns each of its pages one by one.
 
 We also see that only the dictionary keys are returned here. (Reminder, if we want to return tuples of (key, value) we can use the items () method in python 3+).
+<img src="{{page.image_folder}}post_image10.png" width=20%>
+
  
 Isn't this behavior similar to what you would get by looping with for?
  
@@ -113,12 +117,16 @@ for i in obj:
 So that's what's behind it when you loop through a sequence of tuple, list, or dictionary elements. Note that we can also express an iterator as a list or tuple from the constructor of these objects which can admit an iterator as a parameter.
 
 To get the original dictionary from the old example again we can also call the ```dict()``` constructor on the previously discussed item_iterator.
-   
+<img src="{{page.image_folder}}post_image11.png" width=20%>
+
 
 If we can extract an iterator from an iterable, and iterate over it, what's the point of this extra step, why doesn't list understand the ```__next__``` method?
 
 Well because an iterator can only be iterated once, once "consumed" it is necessary to recreate a new iterator.
 The idea is that a new iterator will start at the beginning, while a partially used iterator picks up where it left off.
+
+<img src="{{page.image_folder}}post_image12.png" width=20%>
+
 
 This iterator could use data stored in memory (from a list by iterating on it), or read a file or generate each value ["on-the-fly".](https://stackoverflow.com/questions/19151/build-a-basic-python-iterator)
 
@@ -158,4 +166,8 @@ Reading line by line using a for loop implicitly calls the readline method, so o
 We can therefore [only traverse the file once](https://stackoverflow.com/questions/25645039/readline-in-a-loop-is-not-working-in-python
 ) (unless we reopen and recreate another iterator), and can just load the lines on demand that we want!
  
+<img src="{{page.image_folder}}post_image13.png" width=20%>
+
+<img src="{{page.image_folder}}post_image14.png" width=20%>
+
 step could be calculated "on-the-fly".
