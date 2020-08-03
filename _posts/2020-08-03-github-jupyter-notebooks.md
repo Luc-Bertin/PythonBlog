@@ -4,6 +4,7 @@ title:  "Go to all course practice sessions !"
 author: luc
 categories: [ TDs ]
 image: assets/images/github_octocat.jpg
+tags: [sticky]
 ---
 
 
