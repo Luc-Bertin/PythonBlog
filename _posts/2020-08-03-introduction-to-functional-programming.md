@@ -19,6 +19,12 @@ Have you also heard of what in Python is called a "generator expression"?
 (x ** 2 for x in [0,1,2])
 ```
 
+{% highlight ruby linenos %}
+def foo
+  puts 'foo'
+end
+{% endhighlight %}
+
 If we reduce to appearance, the only notable difference would be the removal of brackets for the addition of parentheses? But is this really the case in practice?
 
 Have you noticed that you can easily iterate over a list, dictionary, tuple, or string with a for loop?
