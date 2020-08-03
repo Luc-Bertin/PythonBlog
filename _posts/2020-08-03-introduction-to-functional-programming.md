@@ -8,15 +8,11 @@ image: assets/images/post_functional_programming/cover.jpg
 
 You've probably heard of list comprehension in Python before. It is declarative-like, concise, and generally easier to read than a simple for loop.
 
-Example:
-```
-[x ** 2 for x in [0,1,2]]
-```
+Example: 
+```[x ** 2 for x in [0,1,2]]```
 
 Have you also heard of what in Python is called a "generator expression"?
-```
-(x ** 2 for x in [0,1,2])
-```
+```(x ** 2 for x in [0,1,2])```
 
 If we reduce to appearance, the only notable difference would be the removal of brackets for the addition of parentheses? But is this really the case in practice?
 
