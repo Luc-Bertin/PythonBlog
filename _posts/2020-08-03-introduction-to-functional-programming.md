@@ -4,7 +4,7 @@ title:  "Introduction to functional programming"
 author: luc
 categories: [ TDs, Lecture, Python]
 image: assets/images/post_functional_programming/cover.jpg
-image_folder: assets/images/post_functional_programming/
+image_folder: /assets/images/post_functional_programming/
 ---
 
 You've probably heard of list comprehension in Python before. It is declarative-like, concise, and generally easier to read than a simple for loop.
@@ -27,6 +27,7 @@ What are the shared similarities among all of these (which I recall are built-in
 
 
 ![image1]({{page.image_folder}}post_image1.png)
+![image2]({{page.image_folder}}post_image2.png)
 
 #### Why functional programming ? 
 
@@ -58,24 +59,34 @@ If the last element is reached and ```__next__()``` is called again, a StopItera
 
 We can call ```dir()```, a built-in function that returns a list of attributes and methods (magic or not) for a given object.
 
+![image3]({{page.image_folder}}post_image3.png)
+
+
 We can see that ```__next__``` does not exist here. List is therefore *not* an iterator.
 On the other hand, we see that the ```__iter__()``` method exists:
-  
+
+![image4]({{page.image_folder}}post_image4.png)
+
+
 This method can also be invoked from the ```iter(list)``` function.
 What does ```iter()``` produce from this list?
- 
+
+![image5]({{page.image_folder}}post_image5.png)
+
+
 Iter seems to return an iterator from the list
 We can verify it as follows:
 
-
+![image6]({{page.image_folder}}post_image6.png)
 
 
 If we do the same thing on a dictionary, this is what we get.
- 
+![image7]({{page.image_folder}}post_image7.png)
 
 Again an iterator.
 Now, we can return each of the elements sequentially by calling next().
- 
+![image8]({{page.image_folder}}post_image8.png)
+
 
 
 Conversely, we can also call ```iterator.__next__()```
