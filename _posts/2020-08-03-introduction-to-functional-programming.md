@@ -101,7 +101,7 @@ Thus we see that a dictionary or a list, although being a sequence of objects, a
 In a similar fashion, we can therefore consider the book as an iterable, i.e. a sequence of elements from which we can create an object that returns each of its pages one by one.
 
 We also see that only the dictionary keys are returned here. (Reminder, if we want to return tuples of (key, value) we can use the items () method in python 3+).
-<img src={{page.image_folder}}post_image10.png width=50%>
+<img src="{{page.image_folder}}post_image10.png" width=50%>
 
  
 Isn't this behavior similar to what you would get by looping with for?
@@ -117,7 +117,7 @@ for i in obj:
 So that's what's behind it when you loop through a sequence of tuple, list, or dictionary elements. Note that we can also express an iterator as a list or tuple from the constructor of these objects which can admit an iterator as a parameter.
 
 To get the original dictionary from the old example again we can also call the ```dict()``` constructor on the previously discussed item_iterator.
-<img src={{page.image_folder}}post_image11.png width=50%>
+<img src="{{page.image_folder}}post_image11.png" width=50%>
 
 
 If we can extract an iterator from an iterable, and iterate over it, what's the point of this extra step, why doesn't list understand the ```__next__``` method?
@@ -125,7 +125,7 @@ If we can extract an iterator from an iterable, and iterate over it, what's the 
 Well because an iterator can only be iterated once, once "consumed" it is necessary to recreate a new iterator.
 The idea is that a new iterator will start at the beginning, while a partially used iterator picks up where it left off.
 
-<img src={{page.image_folder}}post_image12.png width=50%>
+<img src="{{page.image_folder}}post_image12.png" width=50%>
 
 
 This iterator could use data stored in memory (from a list by iterating on it), or read a file or generate each value ["on-the-fly".](https://stackoverflow.com/questions/19151/build-a-basic-python-iterator)
@@ -166,8 +166,8 @@ Reading line by line using a for loop implicitly calls the readline method, so o
 We can therefore [only traverse the file once](https://stackoverflow.com/questions/25645039/readline-in-a-loop-is-not-working-in-python
 ) (unless we reopen and recreate another iterator), and can just load the lines on demand that we want!
  
-<img src={{page.image_folder}}post_image13.png width=50%>
+<img src="{{page.image_folder}}post_image13.png" width=50%>
 
-<img src={{page.image_folder}}post_image14.png width=50%>
+<img src="{{page.image_folder}}post_image14.png" width=50%>
 
 step could be calculated "on-the-fly".
