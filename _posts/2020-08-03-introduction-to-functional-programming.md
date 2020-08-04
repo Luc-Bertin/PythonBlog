@@ -61,42 +61,42 @@ If the last element is reached and ```__next__()``` is called again, a StopItera
 
 We can call ```dir()```, a built-in function that returns a list of attributes and methods (magic or not) for a given object.
 
-<img src="{{page.image_folder}}post_image3.png" width="40%" class=".center">
+<img src="{{page.image_folder}}post_image3.png" width="8rem" class=".center">
 
 
 We can see that ```__next__``` does not exist here. List is therefore *not* an iterator.
 On the other hand, we see that the ```__iter__()``` method exists:
 
-<img src="{{page.image_folder}}post_image4.png" width="40%" class=".center">
+<img src="{{page.image_folder}}post_image4.png" width="8rem" class=".center">
 
 
 This method can also be invoked from the ```iter(list)``` function.
 What does ```iter()``` produce from this list?
 
-<img src="{{page.image_folder}}post_image5.png" width="40%" class=".center">
+<img src="{{page.image_folder}}post_image5.png" width="8rem" class=".center">
 
 Iter seems to return an iterator from the list.
 
 We can verify it as follows:
 
-<img src="{{page.image_folder}}post_image6.png" width="40%" class=".center">
+<img src="{{page.image_folder}}post_image6.png" width="8rem" class=".center">
 
 
 If we do the same thing on a dictionary, this is what we get.
 
-<img src="{{page.image_folder}}post_image7.png" width="40%" class=".center">
+<img src="{{page.image_folder}}post_image7.png" width="8rem" class=".center">
 
 Again an iterator.
 
 Now, we can return each of the elements sequentially by calling next().
 
-<img src="{{page.image_folder}}post_image8.png" width="40%" class=".center">
+<img src="{{page.image_folder}}post_image8.png" width="8rem" class=".center">
 
 
 Conversely, we can also call ```iterator.__next__()```
 Note again that ```next(a_list)``` cannot be done, the error message is self-explanatory.
 
-<img src="{{page.image_folder}}post_image9.png" width="40%" class=".center">
+<img src="{{page.image_folder}}post_image9.png" width="8rem" class=".center">
 
 
 Thus we see that a dictionary or a list, although being a sequence of objects, are not iterators, but iterables, that is to say that we can create an iterator from those - here by calling the ```__iter__``` method, the iterator being, I remind you, is an object, which returns its elements one by one thanks to the implementation of its ```__next__``` method.
@@ -106,7 +106,7 @@ In a similar fashion, we can therefore consider the book as an iterable, i.e. a 
 
 We also see that only the dictionary keys are returned here. (Reminder, if we want to return tuples of (key, value) we can use the items () method in python 3+).
 
-<img src="{{page.image_folder}}post_image10.png" width="40%" class=".center">
+<img src="{{page.image_folder}}post_image10.png" width="8rem" class=".center">
 
  
 Isn't this behavior similar to what you would get by looping with for?
@@ -122,7 +122,8 @@ for i in obj:
 So that's what's behind it when you loop through a sequence of tuple, list, or dictionary elements. Note that we can also express an iterator as a list or tuple from the constructor of these objects which can admit an iterator as a parameter.
 
 To get the original dictionary from the old example again we can also call the ```dict()``` constructor on the previously discussed item_iterator.
-<img src="{{page.image_folder}}post_image11.png" width="40%" class=".center">
+
+<img src="{{page.image_folder}}post_image11.png" width="8rem" class=".center">
 
 
 If we can extract an iterator from an iterable, and iterate over it, what's the point of this extra step, why doesn't list understand the ```__next__``` method?
@@ -130,7 +131,7 @@ If we can extract an iterator from an iterable, and iterate over it, what's the 
 Well because an iterator can only be iterated once, once "consumed" it is necessary to recreate a new iterator from the iterable.
 The idea is that a new iterator will start at the beginning, while a partially used iterator picks up where it left off.
 
-<img src="{{page.image_folder}}post_image12.png" width="40%" class=".center">
+<img src="{{page.image_folder}}post_image12.png" width="8rem" class=".center">
 
 Wikipedia defines it well: you must see an iterator as an object that enables a programmer to traverse a container and gives access to data elements from this container.
 
@@ -173,11 +174,12 @@ Reading line by line using a for loop implicitly calls the readline method, so o
 We can therefore [only traverse the file once](https://stackoverflow.com/questions/25645039/readline-in-a-loop-is-not-working-in-python
 ) (unless we reopen and recreate another iterator), and can just load the lines on demand that we want!
  
-<img src="{{page.image_folder}}post_image13.png" width="40%" class=".center">
+<img src="{{page.image_folder}}post_image13.png" width="8rem" class=".center">
 
 
 Something interesting to mention, calling ```__iter__``` on a iterable such as a list returns a new iterator each time (reading the beginning of this article should help you understand why). However, doing the same thing on an iterator returns himself. Have a look at the below screenshot and then look back at the **Counter** class definition.
-<img src="{{page.image_folder}}post_image15.png" width="40%" class=".center">
+
+<img src="{{page.image_folder}}post_image15.png" width="8rem" class=".center">
 
 
 ## 2. the generators
@@ -195,17 +197,23 @@ I will then break this section in 2 parts: generators expression and generators 
 ### Generators expressions:
 
 Back to the first paragraphe of this chapter, we talked about list comprehension and generator expression.
-<img src="{{page.image_folder}}post_image17.png" width="40%" class=".center">
+
+<img src="{{page.image_folder}}post_image17.png" width="8rem" class=".center">
+
 Here you can see the object returned behaves exactly as an iterator. It is indeed an iterator. But, once again, why not using simply list comprehension rather than generator expression? because of memory usage and lazyness evaluation of each item.
 When we use a list comprehension, every element of the list have been computed and the whole result is returned as a list with allocated memory space.
-<img src="{{page.image_folder}}post_image18.png" width="40%" class=".center">
+
+<img src="{{page.image_folder}}post_image18.png" width="8rem" class=".center">
+
 When we use a gen expression, elements of the sequence are evaluated only when requested (lazy evaluation). This lead to use less memory and sometimes, depending on what you do thereafter, an increase in performance. 
 
 Note that ```range(start, stop[, step])``` here is actually an iterable. It does not implement ```__next__``` unless you call ```iter()``` on it. However, range implement lazyness implementation, just like previously showed iterators, it will [always take the same (small) amount of memory, no matter the size of the range it represents (as it only stores the start, stop and step values, calculating individual items and subranges as needed)](https://docs.python.org/3/library/functions.html). Also range has the nice property to be indexable, which is not the case of our simple generator expression.
-<img src="{{page.image_folder}}post_image20.png" width="40%" class=".center">
+
+<img src="{{page.image_folder}}post_image20.png" width="8rem" class=".center">
 
 I can then start doing fancy stuff such as piping generator expression:
-<img src="{{page.image_folder}}post_image19.png" width="40%" class=".center">
+
+<img src="{{page.image_folder}}post_image19.png" width="8rem" class=".center">
 
 [Here](http://code.activestate.com/recipes/578000-indexable-generator/) is a code to make an generator indexable, seems beautiful. Have to test it .
 
@@ -223,7 +231,9 @@ def generate_ints(N):
 {% endhighlight %}
 
 The generator function, when called, returns a generator object, which is an iterator, which implements next and iter and controls the execution of the generator function. Close behavior to a generator expression here. Hence the close names. ```yield``` operates just like a ```return``` statement then, but preserved the state of the local variables for later 'next' calls.
-<img src="{{page.image_folder}}post_image21.png" width="40%" class=".center">
+
+<img src="{{page.image_folder}}post_image21.png" width="8rem" class=".center">
+
 As you can also see, the above function is easier to write than Counter although achieving the same thing at last.
 
 As highlighted by the Python docs, you can also send values to the generator by writing: ```val = (yield i)```. Actually, the value of the yield expression after resuming the function is None if ```__next__()``` has been used. Otherwise, if send() was used, then the result will be the value passed in to that method.
@@ -290,7 +300,8 @@ By the way, you can delete the parentheses when the generator expression is used
 In Python 2 (deprecated as of 2020), imap is the lazy version of map.
 In Python 3+, map replaced imap. 
 Thus as of Python3+, just use only map. **map** returns a map object an iterator and evaluates an iterator as parameter lazily evaluated.
-<img src="{{page.image_folder}}post_image22.png" width="40%" class=".center">
+
+<img src="{{page.image_folder}}post_image22.png" width="8rem" class=".center">
 
 Interesting sidenote i didn't know before reading the docs, you can use map with 2 or more iterators and encapsulate them in the lambda x1,x2,x3,… function.
 
