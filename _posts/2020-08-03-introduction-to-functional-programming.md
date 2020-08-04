@@ -65,7 +65,7 @@ We can call ```dir()```, a built-in function that returns a list of attributes a
 
 
 We can see that ```__next__``` does not exist here. List is therefore *not* an iterator.
-On the other hand, we see that the ```__iter__()``` method exists:
+On the other hand, we see that the ```__iter__()``` method exists: 
 
 <img src="{{page.image_folder}}post_image4.png" width="300px" class=".center">
 
