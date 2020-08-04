@@ -285,9 +285,59 @@ compare the difference in execution time, why do the second one stop so quickly 
 
 By the way, you can delete the parentheses when the generator expression is used directly in a function that can expect to take iterators as parameter.
 
-#### map() (imap in Python 2+)
+#### map(function, sequence(s)) (imap in Python 2+)
 
 In Python 2 (deprecated as of 2020), imap is the lazy version of map.
 In Python 3+, map replaced imap. 
-Thus as of Python3+, use only map. **map** returns a map object an iterator and evaluates an iterator as parameter lazily evaluated.
+Thus as of Python3+, just use only map. **map** returns a map object an iterator and evaluates an iterator as parameter lazily evaluated.
 <img src="{{page.image_folder}}post_image22.png" width="40%" class=".center">
+
+Interesting sidenote i didn't know before reading the docs, you can use map with 2 or more iterators and encapsulate them in the lambda x1,x2,x3,… function.
+
+#### filter(function, sequence)
+
+Also returns an iterator, whose content has been filtered from another sequence.
+* 1st parameter: a function to evaluate trueness, if ```None``` : return only non-falsy elements from the sequence
+* 2nd parameter: iterable
+evaluation
+
+Note that filter(function, iterable) is equivalent to the generator expression (item for item in iterable if function(item)) if function is not None and (item for item in iterable if item) if function is None. 
+
+```filter(None, range(0,10000000000000000000))```
+
+Very fast isn't it? once again, the iterator returned is evaluated only on demand when calling ```__next__```
+
+
+#### itertools module
+
+The Python docs also mention the itertools module that add some other functions making use of (or returning) iterators, i will just then pick the one that i found quite important:
+
+- itertools.count(start, step) => returns an infinite stream of evenly spaced values.
+- itertools.cycle(iterable) => from an iterable, returns an infinite stream of copies of this iterable
+- itertools.repeat(elem, [n]) => similar to iterable, but with an element only, repeated infinitely or n times
+- itertools.chain(iterA, iterB, ...) => concatenates the iterables
+- itertools.islice(iter, [start], stop, [step]) => from an iterator, return a slice of it.
+- itertools.tee(iter, [n]) => copy n times the provided iterator (reminder: once consumed, an iterator cannot be used anymore)
+- itertools.starmap(function, iterable) => the name is actually well chosen, think of it as a ```*map``` or maybe more like ```map(function, *sequence_of_tuples)```. For sequences being tuples: it will unpack each tuple and apply the function with multiple unpacked paramaters f(*tuple)
+- itertools.takewhile(predicate, iter): returned an iterator sliced from the iterable till the first falsy value from the predicate is encountered.
+- itertools.dropwhile(predicate, iter): inverse of takewhile
+
+###### Combinations
+For some use-cases (when creating unit-testing during an internship trying to cover all possible cases, some combinatoric functions where really useful):
+- itertools.combinations(iter, n): returns an iterator of all psosible combinations of n elements (order doesn't matter)
+- itertools.permutations(iterable, n): ordre matter (2 different order = 2 possible combinations)
+For statistics, can be useful to simulate the sample of balls **with replacement**.
+- itertools.combinations_with_replacement(iterable, n)
+
+
+#### functools module
+- functools.partial(function, \*args, \*\*kwargs): create a partial object, (callable object, just like a function) which when called will behave like the function in parameter, with positional and keyword arguments passed in.
+VERY USEFUL:
+- functools.reduce(function, sequence, [initial_value]): cumulately perform an operation on each element: ```function(function(function(x1, x2), x3), x4))```
+For example for a prod: ```((x1*x2)*x3)*x4```
+you can provide an initial value (optional) for starting conditions just before x1.
+
+
+That's all for this tutorial, I hope it was informative and concise enough, don't hesitate to reach me or comment below for any questions.
+
+
