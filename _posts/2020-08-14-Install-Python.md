@@ -1,9 +1,9 @@
 ---
 layout: post
-title:  "Install Python for the first time"
+title:  "Install Python !"
 author: luc
 categories: [ TDs, Python ]
-image: assets/images/post_install_python_for_the_first_time/cover_photo.jpg
+image: assets/images/post_install_python/cover_photo.jpeg
 ---
 
 This tutorial helps newcomers to install Python properly and manage different Python versions, especially for Mac users having a system 2.7 Python installed already.
