@@ -1,9 +1,9 @@
 ---
 layout: post
-title:  "Coding a perceptron with Numpy"
+title:  "Install Python for the first time"
 author: luc
-categories: [ TDs, Deep Learning ]
-image: assets/images/post_coding_a_perceptron/cover.png
+categories: [ TDs, Python ]
+image: assets/images/post_install_python_for_the_first_time/cover_photo.jpg
 ---
 
 This tutorial helps newcomers to install Python properly and manage different Python versions, especially for Mac users having a system 2.7 Python installed already.
