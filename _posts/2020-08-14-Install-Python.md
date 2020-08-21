@@ -77,32 +77,25 @@ You can then define a Python version to run globally, or per-project basis !
  Check which versions are available:
  - ```pyenv install list```
  - ```pyenv global 3.8.5```
-
- then run ```python``` and check the output.
+ - then run ```python``` and check the output/
 2. Wanna define this version of Python as per-project basis ?
  - ```cd project/```
  - ```pyenv local 3.8.5```
- 
- this writes a *.python-version* file in working directory.
- 
- Then run ```python``` in and outside the directory and notice the difference ;
+ - this writes a *.python-version* file in working directory.
+ - Then run ```python``` in and outside the directory and notice the difference ;
 3. Remove any versions ?
  - ```pyenv uninstall 3.8.5```
 4. See which versions you can have and switch in:
  - ```pyenv versions```
- 
- to switch between one another: use global as in **1.**
+ - to switch between one another: use global as in **1.**
 5. See where is the real executable path (not renaming based on intercepting the command, which is what shims do)
  - ```pyenv which python```
-6. Better: using virtualenv AND pyenv using pyenv-virtualenv plugin
- Create new environment with Python version and name_of_environment
+6. Better:
+ - using virtualenv AND pyenv using pyenv-virtualenv plugin, create a new environment with a **Python version**
  - ```pyenv virtualenv 3.8.5 myenv```
  - ```cd project_where_i_should_need_to_active_myenv/```
  - ```pyenv local myenv```
 
-1. faire
-2. faire
-3. faire
 
 ### 4. Anaconda
 You can simply install the installer from anaconda, you shouldn't modify PATH:
