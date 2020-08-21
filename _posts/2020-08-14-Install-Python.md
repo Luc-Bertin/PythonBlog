@@ -102,7 +102,7 @@ You can then define a Python version to run globally, or per-project basis !
 
 
 
-### 3. Anaconda
+### 4. Anaconda
 You can simply install the installer from anaconda, you shouldn't modify PATH:
 > Should I add Anaconda to the macOS or Linux PATH? We do not recommend adding Anaconda to the PATH manually. During installation, you will be asked “Do you wish the installer to initialize Anaconda3 by running conda init?” We recommend “yes”. If you enter “no”, then conda will not modify your shell scripts at all. In order to initialize after the installation process is done, first run source <path to conda>/bin/activate and then run conda init.
 
