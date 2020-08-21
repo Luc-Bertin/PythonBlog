@@ -100,7 +100,9 @@ You can then define a Python version to run globally, or per-project basis !
  - ```cd project_where_i_should_need_to_active_myenv/```
  - ```pyenv local myenv```
 
-
+1. faire
+2. faire
+3. faire
 
 ### 4. Anaconda
 You can simply install the installer from anaconda, you shouldn't modify PATH:
