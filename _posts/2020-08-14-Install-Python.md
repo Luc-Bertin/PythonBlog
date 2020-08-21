@@ -86,21 +86,14 @@ You can then define a Python version to run globally, or per-project basis !
  - ```cd project/```
  - ```pyenv local 3.8.5```
  
- this writes a .python-version file in working directory.
+ this writes a *.python-version* file in working directory.
  
- Then run in directory:
- 
- - ```python```
- 
- and outside directory:
- 
- - ```python```
- 
- Notice the difference ;)
+ Then run ```python``` in and outside the directory and notice the difference ;)
 3. Remove any versions ?
  - ```pyenv uninstall 3.8.5```
 4. See which versions you can have and switch in:
  - ```pyenv versions```
+ 
  to switch between one another: use global as in **1.**
 5. See where is the real executable path (not renaming based on intercepting the command, which is what shims do)
  - ```pyenv which python```
