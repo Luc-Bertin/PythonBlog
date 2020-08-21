@@ -77,11 +77,8 @@ You can then define a Python version to run globally, or per-project basis !
  Check which versions are available:
  - ```pyenv install list```
  - ```pyenv global 3.8.5```
- 
- then run :
- - ```python```
- 
- and check the output.
+
+ then run ```python``` and check the output.
 2. Wanna define this version of Python as per-project basis ?
  - ```cd project/```
  - ```pyenv local 3.8.5```
