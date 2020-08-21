@@ -52,12 +52,18 @@ This is different from virtualenv : a tool which creates isolated virtual python
 
 You can then define a Python version to run globally, or per-project basis !
 
-Step-by-Step processes:
+**Step-by-Step process:**
+
  Install pyenv using Homebrew 
+ 
  - ```brew install pyenv```
+ 
  Install a version of Python using pyenv
+ 
  ```pyenv install 3.8.5```
+ 
  To have pyenv effects available at each shell instantiation you need to modify the bashrc or zshrc file:
+ 
  ```sh
  ## does pyenv exist as a command ? then init pyenv and virtualenv
  if command -v pyenv 1>/dev/null 2>&1; then
@@ -65,11 +71,11 @@ Step-by-Step processes:
  fi
  ```
  
-Use cases 
+**Use cases:**
+
 1. Wanna define this version of Python as a global version ? (and not care about system Python):
  Check which versions are available:
  - ```pyenv install list```
- 
  - ```pyenv global 3.8.5```
  
  then run :
