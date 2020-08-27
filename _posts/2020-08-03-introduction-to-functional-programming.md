@@ -234,7 +234,7 @@ The generator function, when called, returns a generator object, which is an ite
 
 <img src="{{page.image_folder}}post_image21.png" width="500px" style="display: inline-block;" class=".center">
 
-As you can also see, the above function is easier to write than Counter although achieving the same thing at last.
+As you can also see, the above function is [easier](https://stackoverflow.com/questions/2776829/difference-between-pythons-generators-and-iterators) to write than Counter although achieving the same thing at last.
 
 As highlighted by the Python docs, you can also send values to the generator by writing: ```val = (yield i)```. Actually, the value of the yield expression after resuming the function is None if ```__next__()``` has been used. Otherwise, if send() was used, then the result will be the value passed in to that method.
 
