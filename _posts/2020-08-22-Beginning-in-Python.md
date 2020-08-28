@@ -2388,7 +2388,7 @@ for key, value in dico_des_contacts.items():
     0820202020
 
 
-### les fonctions
+### Functions
 
 Defining a function
 
@@ -2960,6 +2960,188 @@ dico_des_contacts['remi'] = "067234099"
 
 
 
+#### Decorators
+
+<u>**A decorator:**</u>
+ * takes a function as argument (remembered? function is a object, all objects are first-class objects by design)
+ * return a function
+
+Aim is to provide a wrapper function that implements additional feature for an existing function
+
+
+```python
+def unefonction():
+    print("Hello")
+```
+
+
+```python
+import inspect
+print( inspect.getsource(function) ) 
+```
+
+    def function():
+        return 2+"2"
+    
+
+
+Here the function take a function as argument, but does not return a function
+
+
+```python
+def une_autre(func):
+    func()
+    return "yes"
+```
+
+
+```python
+une_autre(unefonction)
+```
+
+    Hello
+
+
+
+
+
+    'yes'
+
+
+
+We must then define a new function (to be returned) **inside** the body of the calling function
+
+
+```python
+def une_autre(func):
+    def wrapper():
+        func()
+        print("yes")
+    return wrapper
+```
+
+
+```python
+une_autre(unefonction)()
+```
+
+    Hello
+    yes
+
+
+une_autre is a function, we can then assign it to a variable:
+
+
+```python
+unefonction = une_autre(unefonction)
+```
+
+assigning back to ```unefonction``` just changed the consecutive calls of unefontion to a new behavior with added functionnality
+
+
+```python
+unefonction()
+```
+
+    Hello
+    yes
+
+
+Note we could have used this syntactic sugar syntax during definition of the decorated function to had permanently the functionnality added by ```une_autre``` decorator :<br>
+```
+@une_autre
+def unefonction():
+    pass
+```
+
+##### passing arguments to the decorated function 
+
+
+```python
+def une_autre(func):
+    ## adding undefining number of positional and keyword params
+    def wrapper(*args, **kwargs):
+        result = func(*args, **kwargs)
+        print("yes")
+        return result
+    return wrapper
+```
+
+Let's now use the newer shortcut syntax
+
+
+```python
+@une_autre
+def unefonction(name):
+    ## fonction to be decorated
+    print("Hello")
+    return name
+```
+
+
+```python
+unefonction("Luc")
+```
+
+    Hello
+    yes
+
+
+
+
+
+    'Luc'
+
+
+
+wrapper replaces func, then if func was often being passed an argument, wrapper must handle it
+
+##### passing arguments to the decorator
+
+"higher higher"-order function 😜
+
+
+```python
+def togiveargs(argument):
+    def decorator(func):
+        def wrapper(*args, **kwargs):
+            print("Hello")
+            result = func(*args, **kwargs)
+            if argument:
+                print("Yes")
+            else:
+                print("No")
+            return result
+        return wrapper
+    return decorator
+```
+
+
+```python
+@togiveargs(False)
+def unefonction(name):
+    ## fonction to be decorated
+    print("Hello")
+    return name 
+```
+
+
+```python
+unefonction("Luc")
+```
+
+    Hello
+    Hello
+    No
+
+
+
+
+
+    'Luc'
+
+
+
 ### End (Rest of the practice session will be on another page)
 
 ### Classes
@@ -3287,7 +3469,7 @@ for element in liste_:
 !git init
 ```
 
-    Initialized empty Git repository in /Users/lucbertin/Desktop/IIM/.git/
+    Reinitialized existing Git repository in /Users/lucbertin/Desktop/TDs_Python_ESILV_5A/.git/
 
 
 
@@ -3297,11 +3479,11 @@ for element in liste_:
 
 
 ```python
-!git commit -m "test avec les etudiants de l'IIM"
+!git commit -m "reformed course"
 ```
 
-    [master bf19f88] test avec les etudiants de l'IIM
-     1 file changed, 19 insertions(+), 16 deletions(-)
+    [master 5267bc0] reformed course
+     1 file changed, 4043 insertions(+), 1367 deletions(-)
 
 
 
@@ -3314,8 +3496,8 @@ for element in liste_:
 !git remote -v
 ```
 
-    origin	https://github.com/Luc-Bertin/TDs_ESILV.git (fetch)
-    origin	https://github.com/Luc-Bertin/TDs_ESILV.git (push)
+    origin  https://github.com/Luc-Bertin/TDs_ESILV.git (fetch)
+    origin  https://github.com/Luc-Bertin/TDs_ESILV.git (push)
 
 
 
@@ -3327,9 +3509,14 @@ for element in liste_:
     Counting objects: 100% (5/5), done.
     Delta compression using up to 8 threads
     Compressing objects: 100% (3/3), done.
-    Writing objects: 100% (3/3), 704 bytes | 704.00 KiB/s, done.
+    Writing objects: 100% (3/3), 13.62 KiB | 4.54 MiB/s, done.
     Total 3 (delta 2), reused 0 (delta 0)
     remote: Resolving deltas: 100% (2/2), completed with 2 local objects.[K
     To https://github.com/Luc-Bertin/TDs_ESILV.git
-       05b44d5..bf19f88  master -> master
+       ea2ff39..5267bc0  master -> master
 
+
+
+```python
+
+```
