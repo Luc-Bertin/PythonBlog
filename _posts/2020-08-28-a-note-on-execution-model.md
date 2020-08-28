@@ -18,10 +18,11 @@ we already saw what are names/variables = pointers refering to an object locatio
 You can then adress the object by using its associated name.
 
 <p style="font-size: 16px; font-family: Menlo">But is any binding created within a block still visible anywhere in the code?<br> By "visible" we not only mean <strong>nameA</strong> exists, but that the relation to the object <strong>objectA</strong> is still valid. 
-<br><br>The "where (which region of the code)" the bindings, defined in a block, are visible, is also named <strong>scope</strong> of a name/variable.
+<br><br>The "where" the bindings, defined in a block, are "visible/meaningful", is also named <strong>scope</strong> of a name/variable.<br>
+<a href="https://stackoverflow.com/questions/39801617/what-does-it-mean-that-a-scope-is-determined-statically-and-used-dynamically">scopes are determined statically, they are used dynamically</a>
 </p>
 
-Sometimes, scope is also defined as the set of variables/names available at a certain point in the code.
+Sometimes, scope is also defined as the set of variables/names available at a certain point in the code, but this refers more to the context of namespaces.
 
 but it is better to take the definition of W3Schools:
 > A variable is only available from inside the region it is created. This is called scope.
