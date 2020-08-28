@@ -3,7 +3,7 @@ layout: post
 title:  "A note on execution model"
 author: luc
 categories: [ TDs, Lecture, Python]
-image: assets/images/post_execution_model/namespaces.png
+image: assets/images/post_execution_model/namespaces.svg
 image_folder: /assets/images/post_execution_model/
 ---
 
