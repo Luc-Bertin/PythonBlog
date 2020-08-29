@@ -327,7 +327,7 @@ The Python docs also mention the itertools module that add some other functions 
 - itertools.cycle(iterable) => from an iterable, returns an infinite stream of copies of this iterable
 - itertools.repeat(elem, [n]) => similar to iterable, but with an element only, repeated infinitely or n times
 - itertools.chain(iterA, iterB, ...) => concatenates the iterables
-- itertools.islice(iter, [start], stop, [step]) => from an iterator, return a slice of it.
+- itertools.islice(iterable, [start], stop, [step]) => from an iterable, return a slice of it.
 - itertools.tee(iter, [n]) => copy n times the provided iterator (reminder: once consumed, an iterator cannot be used anymore)
 - itertools.starmap(function, iterable) => the name is actually well chosen, think of it as a ```*map``` or maybe more like ```map(function, *sequence_of_tuples)```. For sequences being tuples: it will unpack each tuple and apply the function with multiple unpacked paramaters f(*tuple)
 - itertools.takewhile(predicate, iter): returned an iterator sliced from the iterable till the first falsy value from the predicate is encountered.
@@ -347,6 +347,34 @@ VERY USEFUL:
 - functools.reduce(function, sequence, [initial_value]): cumulately perform an operation on each element: ```function(function(function(x1, x2), x3), x4))```
 For example for a prod: ```((x1*x2)*x3)*x4```
 you can provide an initial value (optional) for starting conditions just before x1.
+
+
+#### What about multiprocessing ?
+
+With reduced memory usage [in certain cases](https://stackoverflow.com/questions/60802328/how-can-i-use-python-multiprocessing-with-generators), and lazy evaluation of each item, iterators/generators are somehow appealing to create pipelines in Data Science for example.
+
+One might want to involve multiprocessing with iterators/generators, by splitting the latter in multiple processes. However, even functions defined within generators/iterators are stateless, the iterator construct is inherently **stateful**: each item are requested using the ```next()``` after one has been consumed already. Splitting a generator into multiple processes would lead to make multiple copies of this generator (one for each process: remember that processes have separate memory). You could still use [some techniques](https://docs.python.org/3/library/multiprocessing.html) but sharing memory should be avoided in general, and in most cases would lead no performance gains from the one expected doing true parallelization.
+
+
+So where could we leverage multiprocessing while creating some pipelines and making use of iterators/generators? <br>
+Well, I see 2 uses cases here, although I'm open to suggestions.
+
+Instead of seeing multiprocessing as *a posteriori* computations on an iterator, we could rather use multiprocessing to **return** an iterator out of an iterable  stored in-memory (and that can be then splitted in different chunks for each independent process). 
+
+```multiprocessing.imap``` is the function we need for that. We can have an in-memory ```list(range(100000))``` where each worker can process each **element** independently, or each chunk or elements, so to speed-up the computations in case of CPU-bound performances for the computations of each elements sequentially. Hence it results in a lazy approach.
+
+```multiprocessing.map``` does exist too, but blocks the [calling process](https://stackoverflow.com/questions/53109249/python-multiprocessing-pool-blocking-main-thread) until all the processes complete and return the result.
+
+<img src="{{page.image_folder}}multiprocessing_pool_imap_vs_pool_map.png" width="500px" style="display: inline-block;" class=".center">
+
+<img src="{{page.image_folder}}multiprocessing_template_script.png" width="500px" style="display: inline-block;" class=".center">
+
+What if we want to consume a generator/iterator rather than an in-memory stored list ? 
+I've found a smart implementation of such thing using ```itertools.islice```, which will **still go through** the iterator (can't slice at any place without calling next on preceding elements as iterator are stateful), but has the benefit to be lazy: 
+    ```pool.imap(function, itertools.islice(iter, N))```
+[here](https://stackoverflow.com/questions/5318936/python-multiprocessing-pool-lazy-iteration)
+
+<img src="{{page.image_folder}}itertools_islice_is_lazy_but_still_go_through_iterator.png" width="500px" style="display: inline-block;" class=".center">
 
 
 That's all for this tutorial, I hope it was informative and concise enough, don't hesitate to reach me or comment below for any questions.
