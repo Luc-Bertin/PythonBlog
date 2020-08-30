@@ -35,9 +35,9 @@ Upon a request, the server (which can be the built-in WSGI flask dev-server, or 
 This handling function is called a **route**.
 
 ```python
-	# creation of the application instance (there could be many)
-	from flask import Flask
-	app = Flask(__name__) # so flask knows where is the root path of the app
+# creation of the application instance (there could be many)
+from flask import Flask
+app = Flask(__name__) # so flask knows where is the root path of the app
 ```
 
 ```python
@@ -112,61 +112,58 @@ the value could be of any type (`dict`, `list`, `user-defined objects`, etc.)
 - example2:  `safe` to avoid escaping the content of the variable (hence you can put some html tags inside variable it will be rendered as is). Be careful though on security concerns (malicious code that can be inserted into your website).
 
 * conditional statements and loops:
-```python
-{% raw %}
-{% if  --- %}
-{% else %}
-{% endif %}
-{% endraw %}
-```
-```python
-{% raw %}
-<ul>
-{% for key, val in dico.items() %}
-	<li> {{key}} : {{val}}</li>
-{% endfor %}
-</ul>
-{% endraw %}
-```
+<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%">{% <span style="color: #008800; font-weight: bold">if</span> xxxx %}
+{% <span style="color: #008800; font-weight: bold">else</span> %}
+{% <span style="color: #008800; font-weight: bold">endif</span> %}
+</pre></div>
+
+<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%">&lt;<span style="color: #007020">ul</span>&gt;
+{% <span style="color: #008800; font-weight: bold">for</span> <span style="color: #007020">key</span>, val <span style="color: #008800; font-weight: bold">in</span> dico.items() %}
+	&lt;li&gt; {{<span style="color: #007020">key</span>}} : {{val}}&lt;/li&gt;
+{% <span style="color: #008800; font-weight: bold">endfor</span> %}
+&lt;/<span style="color: #007020">ul</span>&gt;
+</pre></div>
+
+
 
 * include an html file as is — for example a navigation bar that does not need to be changed — from a template file to another 
 
-```python
-{% include 'file.html' %}
-```
+<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%">{% <span style="color: #007020">include</span> <span style="background-color: #fff0f0">&#39;file.html&#39;</span> %}
+</pre></div>
+
+
 
 * for portion of html code that need to be modified by a template you can use 
 
-```python 
-{% raw %}
-{% extends file_with_blocs.html %}
-
-## you simply have to rewrite the block definition
+<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%">{% extends file_with_blocs.html %}
+## you simply have <span style="color: #008800; font-weight: bold">to</span> rewrite the block definition
 {% block name_of_block %}
 	# ... 
 	# ...
 	# or inherit from the already parent defined block using super()
 {% endblock %}
-{% endraw %}
-```
+</pre></div>
+
+
 
 and in ```file_with_blocs.html```:
 
-```python 
-{% raw %}
-<html>
-	<body>
+<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%">&lt;html&gt;
+	&lt;body&gt;
 		{% block name_of_block %}
 		{% endblock %}
-	</body>
-</html>
-{% endraw %}
-```
+	&lt;/body&gt;
+&lt;/html&gt;
+</pre></div>
+
+
 
 A good practice would be to create different categories of pages with a layout by creating ```base.html``` file(s) and derive them for all pages being part of some kind of subcategory. Subcategories can also further be extended:
-```python
-{%  extends "file_who_extended.html" %}
-```
+
+<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%">{%  extends <span style="background-color: #fff0f0">&quot;file_who_extended.html&quot;</span> %}
+</pre></div>
+
+
 
 #### adding an error handler for a webpage returning some error code
 
@@ -218,9 +215,12 @@ with app.app_context():
 We obtain **'/home/luc'** which makes sense with the route logic.
 Now we can use it in our template file, for example in the `navigation.html`
 
-```python
-<a href="{{ url_for('second_url_function_handler', name=name) }}">{{name | capitalize}} Profile</a>
-```
+<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%">&lt;<span style="color: #008800; font-weight: bold">a</span> href=<span style="background-color: #fff0f0">&quot;{{ url_for(&#39;second_url_function_handler&#39;, name=name) }}&quot;</span>&gt;{{name | capitalize}} Profile&lt;/<span style="color: #008800; font-weight: bold">a</span>&gt;
+</pre></div>
+
+
+
+
 Hence we just linked the route url with the navigation link
 
 But `url_for` can also be used in the routes handling:
