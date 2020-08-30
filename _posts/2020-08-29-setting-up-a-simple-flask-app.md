@@ -70,7 +70,7 @@ Finally, `g`  and ```current_app``` depend on the `application context`, `g` is 
 
 - returned value(s) from the route as a tuple.
 - better: ```make_response(data, HTTP_code, [dict_of_header])```, you can set additional things using methods of the `response` object such as setting cookies
-- ```redirect(url_to_redirect)``` (flask automatically set the default ```302``` HTTP response code used for redirection).
+- ```redirect(url_to_redirect)``` \(flask automatically set the default ```302``` HTTP response code used for redirection\).
 
 
 ### Adding extension(s):
@@ -115,13 +115,13 @@ the value could be of any type (`dict`, `list`, `user-defined objects`, etc.)
 ```
 ```jinja
 <ul>
-{% for key, val in dico.items() %}
+\{\% for key, val in dico.items() \%\}
 	<li> {{key}} : {{val}}</li>
-{% endfor %}
+\{\% endfor \%\}
 </ul>
 ```
 
-* include html (navigation for example) define from a template file in another 
+* include html \(navigation for example\) define from a template file in another 
 ```python
 {% include 'file.html' %}
 ```
