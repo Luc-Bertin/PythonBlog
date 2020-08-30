@@ -50,10 +50,105 @@ def root_url():
 	return "<h1>Hello !</h1>"
 
 # endpoint here is '/home/'
-@app.route('/home/')
-def root_url():
-	return "<h1>Home !</h1>"
+# with dynamic url routing
+@app.route('/home/<name>/')
+def second_url_function_handler():
+	# name becomes an argument that you can use in the decorated function wrapped by flask decorator
+	response_string = "<h1>Hello to Home {}!</h1>".format(name)
+	return response_string
 ```
 
+You can access the ```request``` object within route functions to get more insight of the incoming request (`args`, `method`, `json`).
+This "context glocal" variable is accessible **by pushing** the `request context` so Flask knows in which environment/thread/client request he is operating on.
+The same way, `session` object is persistent between requests (can be used to store user informations) and depends on the `request context` too.
+
+Finally, `g`  and ```current_app``` depend on the `application context`, `g` is reset between each request and used as storage during handling of requests.
+
+```app.url_map``` shows all the mapped URL endpoint to routes.
+
+### Responses:
+
+- returned value(s) from the route as a tuple.
+- better: ```make_response(data, HTTP_code, [dict_of_header])```, you can set additional things using methods of the `response` object such as setting cookies
+- ```redirect(url_to_redirect)``` (flask automatically set the default ```302``` HTTP response code used for redirection).
 
 
+### Adding extension(s):
+```python 
+from flask_extension import TheClass
+the_instance = TheClass(app) # app instance goes in the constructor of the extension
+```
+
+- `flask-script`: add command-line parser instead of modifying args in ```app.run()```
+- `pip install flask-bootstrap`: open source CSS framework from Twitter (also include some js animations)
+
+
+
+To connect from another host in the network:
+```FLASK_ENV=development python ./script.py runserver -h 192.168.0.16```
+
+
+`presentation logic`: what the user sees and interact with.
+`business logic`: processings invisible to the user.
+
+view functions handle both logics by design, but it is better to allocate presentation logic to the templating engine **Jinja** to improve readibility and maintainability of the app.
+
+The **template** is a file that contains the text of the response, with placeholder variables or dynamic parts (loops/conditions) changing from a request to the other.
+The **rendering** is the process of associating the computed value from the request to the template placeholders.
+
+Templates are located in "templates" subfolder by default (can be change in Flask constructor)
+
+Then in the view function:
+```render_template(file.html, key1=val1, key2=val2)```
+
+the value could be of any type (`dict`, `list`, `user-defined objects`, etc.)
+
+* filters modify variables in-place \{\{ variable \| filter_name \}\}
+- example1: `capitalize` to capitalize the variable : "luc" -> "Luc"
+- example2:  `safe` to avoid escaping the content of the variable (hence you can put some html tags inside variable it will be rendered as is). Be careful though on security concerns (malicious code that can be inserted into your website).
+
+* conditional statements and loops:
+```python
+{% if  --- %}
+{% else %}
+{% endif %}
+```
+```python
+<ul>
+{% for key, val in dico.items() %}
+	<li> {{key}} : {{val}}</li>
+{% endfor %}
+</ul>
+```
+
+* include html (navigation for example) define from a template file in another 
+```python
+{% include 'file.html' %}
+```
+* for portion of html code that need to be modified by a template you can use 
+```python 
+{% extends file_with_blocs.html %}
+## you simply have to rewrite the block definition
+{% block name_of_block %}
+	# ... 
+	# ...
+	# or inherit from the already parent defined block using super()
+{% endblock %}
+
+```
+
+and in ```file_with_blocs.html```:
+
+```python 
+<html>
+	<body>
+		{% block name_of_block %}
+		{% endblock %}
+	</body>
+</html>
+```
+
+A good practice would be to create different categories of pages with a layout by creating ```base.html``` file(s) and derive them for all pages being part of some kind of subcategory. Subcategories can also further be extended:
+```python
+{%  extends "file_who_extended.html" %}
+```
