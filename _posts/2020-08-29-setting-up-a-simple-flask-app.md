@@ -134,9 +134,10 @@ and in ```file_with_blocs.html```:
 
 
 A good practice would be to create different categories of pages with a layout by creating ```base.html``` file(s) and derive them for all pages being part of some kind of subcategory. Subcategories can also further be extended:
-```python
-{%  extends "file_who_extended.html" %}
-```
+
+
+<img src="{{page.image_folder}}img_jinja7.png" width="500px" style="display: inline-block;" class=".center">
+
 
 #### adding an error handler for a webpage returning some error code
 
