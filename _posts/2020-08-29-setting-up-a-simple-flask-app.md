@@ -109,15 +109,15 @@ the value could be of any type (`dict`, `list`, `user-defined objects`, etc.)
 
 * conditional statements and loops:
 ```python
-"{% if  --- %}"
-"{% else %}"
-"{% endif %}"
+"{%" if  --- "%}"
+"{%" else "%}"
+"{%" endif "%}"
 ```
 ```python
 <ul>
-"{% for key, val in dico.items() %}"
-	"<li> {{key}} : {{val}}</li>"
-"{% endfor %}"
+"{%" for key, val in dico.items() "%}"
+	<li> "\{\{"key"\}\}" : "\{\{"val"\}\}"</li>
+"{%" endfor "%}"
 </ul>
 ``` -->
 
