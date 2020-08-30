@@ -99,11 +99,11 @@ The **rendering** is the process of associating the computed value from the requ
 Templates are located in "templates" subfolder by default (can be change in Flask constructor)
 
 Then in the view function:
-```render_template(file.html, key1=val1, key2=val2)```
+```"render_template(file.html, key1=val1, key2=val2)"```
 
 the value could be of any type (`dict`, `list`, `user-defined objects`, etc.)
 
-* filters modify variables in-place \{\{ variable \| filter_name \}\}
+* filters modify variables in-place "{{" variable \| filter_name "}}"
 - example1: `capitalize` to capitalize the variable : "luc" -> "Luc"
 - example2:  `safe` to avoid escaping the content of the variable (hence you can put some html tags inside variable it will be rendered as is). Be careful though on security concerns (malicious code that can be inserted into your website).
 
@@ -123,7 +123,7 @@ the value could be of any type (`dict`, `list`, `user-defined objects`, etc.)
 
 * include an html file as is — for example a navigation bar that does not need to be changed — from a template file to another 
 ```python
-{% include 'file.html' %}
+"{%" include 'file.html' %}
 ```
 * for portion of html code that need to be modified by a template you can use 
 ```python 
