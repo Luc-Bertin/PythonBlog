@@ -113,13 +113,7 @@ the value could be of any type (`dict`, `list`, `user-defined objects`, etc.)
 {% else %}
 {% endif %}
 ```
-```python
-<ul>
-\{% for key, val in dico.items() %}
-	<li> {{key}} : {{val}}</li>
-\{% endfor %}
-</ul>
-```
+
 
 * include an html file as is — for example a navigation bar that does not need to be changed — from a template file to another 
 ```python
