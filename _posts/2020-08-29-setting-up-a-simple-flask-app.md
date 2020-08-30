@@ -113,30 +113,30 @@ the value could be of any type (`dict`, `list`, `user-defined objects`, etc.)
 
 * conditional statements and loops:
 
-<img src="{{page.image_folder}}img_jinja1.png" width="500px" style="display: inline-block;" class=".center">
+<img src="{{page.image_folder}}img_jinja1.png" width="300px" style="display: inline-block;" class=".center">
 
 
-<img src="{{page.image_folder}}img_jinja2.png" width="500px" style="display: inline-block;" class=".center">
+<img src="{{page.image_folder}}img_jinja2.png" width="300px" style="display: inline-block;" class=".center">
 
 
 * include an html file as is — for example a navigation bar that does not need to be changed — from a template file to another 
 
-<img src="{{page.image_folder}}img_jinja3.png" width="500px" style="display: inline-block;" class=".center">
+<img src="{{page.image_folder}}img_jinja3.png" width="300px" style="display: inline-block;" class=".center">
 
 
 * for portion of html code that need to be modified by a template you can use
 
-<img src="{{page.image_folder}}img_jinja4.png" width="500px" style="display: inline-block;" class=".center">
+<img src="{{page.image_folder}}img_jinja4.png" width="300px" style="display: inline-block;" class=".center">
 
 and in ```file_with_blocs.html```:
 
-<img src="{{page.image_folder}}img_jinja5.png" width="500px" style="display: inline-block;" class=".center">
+<img src="{{page.image_folder}}img_jinja5.png" width="300px" style="display: inline-block;" class=".center">
 
 
 A good practice would be to create different categories of pages with a layout by creating ```base.html``` file(s) and derive them for all pages being part of some kind of subcategory. Subcategories can also further be extended:
 
 
-<img src="{{page.image_folder}}img_jinja7.png" width="500px" style="display: inline-block;" class=".center">
+<img src="{{page.image_folder}}img_jinja7.png" width="300px" style="display: inline-block;" class=".center">
 
 
 #### adding an error handler for a webpage returning some error code
@@ -189,7 +189,7 @@ with app.app_context():
 We obtain **'/home/luc'** which makes sense with the route logic.
 Now we can use it in our template file, for example in the `navigation.html`
 
-<img src="{{page.image_folder}}img_jinja6.png" width="500px" style="display: inline-block;" class=".center">
+<img src="{{page.image_folder}}img_jinja6.png" width="300px" style="display: inline-block;" class=".center">
 
 
 
