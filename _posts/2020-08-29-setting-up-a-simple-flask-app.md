@@ -140,8 +140,9 @@ the value could be of any type (`dict`, `list`, `user-defined objects`, etc.)
 * for portion of html code that need to be modified by a template you can use 
 
 ```python 
-{% raw %}
 {% extends file_with_blocs.html %}
+
+{% raw %}
 ## you simply have to rewrite the block definition
 {% block name_of_block %}
 	# ... 
@@ -149,7 +150,6 @@ the value could be of any type (`dict`, `list`, `user-defined objects`, etc.)
 	# or inherit from the already parent defined block using super()
 {% endblock %}
 {% endraw %}
-
 ```
 
 and in ```file_with_blocs.html```:
