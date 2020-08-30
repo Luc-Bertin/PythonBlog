@@ -113,48 +113,61 @@ the value could be of any type (`dict`, `list`, `user-defined objects`, etc.)
 
 * conditional statements and loops:
 ```python
-{% if  --- | escape %}
-{% else | escape %}
-{% endif | escape %}
+{% raw %}
+{% if  --- %}
+{% else %}
+{% endif %}
+{% endraw %}
 ```
 ```python
+{% raw %}
 <ul>
-{% for key, val in dico.items() | escape %}
+{% for key, val in dico.items() %}
 	<li> {{key}} : {{val}}</li>
-{% endfor | escape %}
+{% endfor %}
 </ul>
+{% endraw %}
 ```
 
 * include an html file as is — for example a navigation bar that does not need to be changed — from a template file to another 
+
 ```python
-{% include 'file.html' | escape %}
+{% raw %}
+{% include 'file.html' %}
+{% endraw %}
 ```
+
 * for portion of html code that need to be modified by a template you can use 
+
 ```python 
-{% extends file_with_blocs.html | escape %}
+{% raw %}
+{% extends file_with_blocs.html %}
 ## you simply have to rewrite the block definition
-{% block name_of_block | escape %}
+{% block name_of_block %}
 	# ... 
 	# ...
 	# or inherit from the already parent defined block using super()
-{% endblock | escape %}
+{% endblock %}
+{% endraw %}
 
 ```
 
 and in ```file_with_blocs.html```:
 
 ```python 
+{% raw %}
 <html>
 	<body>
-		{% block name_of_block | escape %}
-		{% endblock | escape %}
+		{% block name_of_block %}
+		{% endblock %}
 	</body>
 </html>
+{% endraw %}
 ```
 
 A good practice would be to create different categories of pages with a layout by creating ```base.html``` file(s) and derive them for all pages being part of some kind of subcategory. Subcategories can also further be extended:
 ```python
-{%  extends "file_who_extended.html" | escape %}
+{%  extends "file_who_extended.html" %}
 ```
 
 #### adding an error handler for a webpage returning some error code
