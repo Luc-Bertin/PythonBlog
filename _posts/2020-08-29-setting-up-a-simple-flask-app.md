@@ -115,9 +115,9 @@ the value could be of any type (`dict`, `list`, `user-defined objects`, etc.)
 ```
 ```python
 <ul>
-{% for key, val in dico.items() %}
+\{% for key, val in dico.items() %}
 	<li> {{key}} : {{val}}</li>
-{% endfor %}
+\{% endfor %}
 </ul>
 ```
 
