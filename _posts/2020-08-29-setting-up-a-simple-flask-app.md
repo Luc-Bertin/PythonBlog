@@ -113,15 +113,15 @@ the value could be of any type (`dict`, `list`, `user-defined objects`, etc.)
 {% else %}
 {% endif %}
 ```
-```jinja
+```python
 <ul>
-\{\% for key, val in dico.items() \%\}
+{% for key, val in dico.items() %}
 	<li> {{key}} : {{val}}</li>
-\{\% endfor \%\}
+{% endfor %}
 </ul>
 ```
 
-* include html \(navigation for example\) define from a template file in another 
+* include html, for example navigation define from a template file in another 
 ```python
 {% include 'file.html' %}
 ```
