@@ -106,14 +106,14 @@ the value could be of any type (`dict`, `list`, `user-defined objects`, etc.)
 * filters modify variables in-place \{\{ variable \| filter_name \}\}
 - example1: `capitalize` to capitalize the variable : "luc" -> "Luc"
 - example2:  `safe` to avoid escaping the content of the variable (hence you can put some html tags inside variable it will be rendered as is). Be careful though on security concerns (malicious code that can be inserted into your website).
-
+<!-- 
 * conditional statements and loops:
 ```python
 {% if  --- %}
 {% else %}
 {% endif %}
 ```
-<!-- ```python
+ --><!-- ```python
 <ul>
 {% for key, val in dico.items() %}
 	<li> {{key}} : {{val}}</li>
