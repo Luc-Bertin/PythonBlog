@@ -138,8 +138,9 @@ the value could be of any type (`dict`, `list`, `user-defined objects`, etc.)
 * for portion of html code that need to be modified by a template you can use 
 
 ```python 
-{% extends file_with_blocs.html %}
 {% raw %}
+{% extends file_with_blocs.html %}
+
 ## you simply have to rewrite the block definition
 {% block name_of_block %}
 	# ... 
