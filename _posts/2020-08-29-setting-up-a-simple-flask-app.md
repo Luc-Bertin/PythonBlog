@@ -132,16 +132,13 @@ the value could be of any type (`dict`, `list`, `user-defined objects`, etc.)
 * include an html file as is — for example a navigation bar that does not need to be changed — from a template file to another 
 
 ```python
-{% raw %}
 {% include 'file.html' %}
-{% endraw %}
 ```
 
 * for portion of html code that need to be modified by a template you can use 
 
 ```python 
 {% extends file_with_blocs.html %}
-
 {% raw %}
 ## you simply have to rewrite the block definition
 {% block name_of_block %}
