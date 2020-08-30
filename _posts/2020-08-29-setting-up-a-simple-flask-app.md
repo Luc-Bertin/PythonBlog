@@ -113,7 +113,7 @@ the value could be of any type (`dict`, `list`, `user-defined objects`, etc.)
 
 * conditional statements and loops:
 
-<img src="{{page.image_folder}}img_jinja1.png" width="300px" style="display: block; margin-left: auto; margin-right: auto;">
+<img src="{{page.image_folder}}img_jinja1.png" width="100px" style="display: block; margin-left: auto; margin-right: auto;">
 
 
 <img src="{{page.image_folder}}img_jinja2.png" width="300px" style="display: block; margin-left: auto; margin-right: auto;">
@@ -121,12 +121,12 @@ the value could be of any type (`dict`, `list`, `user-defined objects`, etc.)
 
 * include an html file as is — for example a navigation bar that does not need to be changed — from a template file to another 
 
-<img src="{{page.image_folder}}img_jinja3.png" width="300px" style="display: block; margin-left: auto; margin-right: auto;">
+<img src="{{page.image_folder}}img_jinja3.png" width="220px" style="display: block; margin-left: auto; margin-right: auto;">
 
 
 * for portion of html code that need to be modified by a template you can use
 
-<img src="{{page.image_folder}}img_jinja4.png" width="300px" style="display: block; margin-left: auto; margin-right: auto;">
+<img src="{{page.image_folder}}img_jinja4.png" width="500px" style="display: block; margin-left: auto; margin-right: auto;">
 
 and in ```file_with_blocs.html```:
 
