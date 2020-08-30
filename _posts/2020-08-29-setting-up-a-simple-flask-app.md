@@ -189,7 +189,7 @@ with app.app_context():
 We obtain **'/home/luc'** which makes sense with the route logic.
 Now we can use it in our template file, for example in the `navigation.html`
 
-<img src="{{page.image_folder}}img_jinja6.png" width="300px" style="display: block; margin-left: auto; margin-right: auto;">
+<img src="{{page.image_folder}}img_jinja6.png" width="800px" style="display: block; margin-left: auto; margin-right: auto;">
 
 
 
