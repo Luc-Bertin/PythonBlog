@@ -113,7 +113,7 @@ the value could be of any type (`dict`, `list`, `user-defined objects`, etc.)
 {% else %}
 {% endif %}
 ```
-```python
+```jinja
 <ul>
 {% for key, val in dico.items() %}
 	<li> {{key}} : {{val}}</li>
@@ -152,3 +152,5 @@ A good practice would be to create different categories of pages with a layout b
 ```python
 {%  extends "file_who_extended.html" %}
 ```
+
+
