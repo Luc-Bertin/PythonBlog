@@ -35,9 +35,9 @@ Upon a request, the server (which can be the built-in WSGI flask dev-server, or 
 This handling function is called a **route**.
 
 ```python
-# creation of the application instance (there could be many)
-from flask import Flask
-app = Flask(__name__) # so flask knows where is the root path of the app
+	# creation of the application instance (there could be many)
+	from flask import Flask
+	app = Flask(__name__) # so flask knows where is the root path of the app
 ```
 
 ```python
@@ -112,228 +112,18 @@ the value could be of any type (`dict`, `list`, `user-defined objects`, etc.)
 - example2:  `safe` to avoid escaping the content of the variable (hence you can put some html tags inside variable it will be rendered as is). Be careful though on security concerns (malicious code that can be inserted into your website).
 
 * conditional statements and loops:
-<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%">{% <span style="color: #008800; font-weight: bold">if</span> xxxx %}
+{% raw %}
+<div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%">{% <span style="color: #008800; font-weight: bold">if</span>  --- %}
 {% <span style="color: #008800; font-weight: bold">else</span> %}
 {% <span style="color: #008800; font-weight: bold">endif</span> %}
 </pre></div>
+{% endraw %}
 
-<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%">&lt;<span style="color: #007020">ul</span>&gt;
+{% raw %}
+<div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%">&lt;<span style="color: #007020">ul</span>&gt;
 {% <span style="color: #008800; font-weight: bold">for</span> <span style="color: #007020">key</span>, val <span style="color: #008800; font-weight: bold">in</span> dico.items() %}
 	&lt;li&gt; {{<span style="color: #007020">key</span>}} : {{val}}&lt;/li&gt;
 {% <span style="color: #008800; font-weight: bold">endfor</span> %}
 &lt;/<span style="color: #007020">ul</span>&gt;
 </pre></div>
-
-
-
-* include an html file as is — for example a navigation bar that does not need to be changed — from a template file to another 
-
-<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%">{% <span style="color: #007020">include</span> <span style="background-color: #fff0f0">&#39;file.html&#39;</span> %}
-</pre></div>
-
-
-
-* for portion of html code that need to be modified by a template you can use 
-
-<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%">{% extends file_with_blocs.html %}
-## you simply have <span style="color: #008800; font-weight: bold">to</span> rewrite the block definition
-{% block name_of_block %}
-	# ... 
-	# ...
-	# or inherit from the already parent defined block using super()
-{% endblock %}
-</pre></div>
-
-
-
-and in ```file_with_blocs.html```:
-
-<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%">&lt;html&gt;
-	&lt;body&gt;
-		{% block name_of_block %}
-		{% endblock %}
-	&lt;/body&gt;
-&lt;/html&gt;
-</pre></div>
-
-
-
-A good practice would be to create different categories of pages with a layout by creating ```base.html``` file(s) and derive them for all pages being part of some kind of subcategory. Subcategories can also further be extended:
-
-<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%">{%  extends <span style="background-color: #fff0f0">&quot;file_who_extended.html&quot;</span> %}
-</pre></div>
-
-
-
-#### adding an error handler for a webpage returning some error code
-
-```python
-@app.errorhandler(404)
-def page_not_found(e):
-	return render_template('404.html'), 404
-```
-
-This handler function won't be call **unless** an Exception is raised, here an HTTPException. 
-Hence we need to import and raises it first:
-
-```python
-from werkzeug.exceptions import HTTPException
-```
-
-Then for any endpoint that does not match our previous urls in the ```url_map```, an ```HTTPException``` is raised along with the path variable.
-
-```python
-@app.route('/<path:nompath>')
-def error_test(nompath):
-	# raises an HTTPException of status code 404
-	# nompath is the error message
-	# retrieved from e in page_not_found(e)
-	abort(404, nompath)
-```
-
-Links should not be hard-coded into the templates folder either.
- - to respect the DRY principle (**Don't Repeat Yourself**) 
- - also because it is too complex to write dynamic paths (based on the name provided by a person for example just as for routes handling)
-
-```url_for``` is here for the rescue!, its parameters are the:
-- 1st parameter: the name of the routed function
-- any number of keyword arguments, each corresponding to a variable part of the URL rule.
-- `_external`(Boolean): if evaluated to True, returns the absolute URL, otherwise relative to the root '/'.
-- unrecognized params are appended to the URL as query parameters e.g. test=25 /?test=25
-
-```python
-from flask import url_for
-```
-
-Opening the interpreter we can check what url_for could build us:
-
-```python
-with app.app_context():
-	with current_app.test_request_context():
-		url_for('second_url_function_handler', name="luc")
-```
-We obtain **'/home/luc'** which makes sense with the route logic.
-Now we can use it in our template file, for example in the `navigation.html`
-
-<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%">&lt;<span style="color: #008800; font-weight: bold">a</span> href=<span style="background-color: #fff0f0">&quot;{{ url_for(&#39;second_url_function_handler&#39;, name=name) }}&quot;</span>&gt;{{name | capitalize}} Profile&lt;/<span style="color: #008800; font-weight: bold">a</span>&gt;
-</pre></div>
-
-
-
-
-Hence we just linked the route url with the navigation link
-
-But `url_for` can also be used in the routes handling:
-
-```python
-# just as an example
-@app.route('/admin/')
-def admin():
-    if not loggedin:
-    	# should login endpoint exist
-        return redirect(url_for('login'))
-```
-
-And even querying static files (images, assets, CSS) using url_for('static') along with the **filename** param (e.g. ```filename='logos/favicon.ico'```).
-
-### Forms
-
-You can access data from POST requests on forms using ```request.form```.
-Why using an extension for forms then ? 
-- For automatic rendering of HTML for the forms (based on a library call WTForms), mainly based on the data type required for each component of the form.
-- data validation (critical, before storing in a database for example)
-- CSRF protection: to avoid malicious persons making hidden malicious requests from another website visited by a user who is logged-in to the first, and on behalf on him/her (cookies are sent automatically along with the request).
-
-
-##### CSRF protection
-
-We first need a key which create encrypted tokens passed along with the form to make sure of user authenticity. the server would generate a **random** string and add it as an hidden field to the form which is accessible only by the [user](https://stackoverflow.com/questions/5207160/what-is-a-csrf-token-what-is-its-importance-and-how-does-it-work)
-
-```python
-app.config["SECRET_KEY"] = "randomly generated string"
-```
-
-### A Form Class
-
-To create a form, define a Class "data model".
-Each class attribute = a field
-Each field can have multiple validations hence validators with it.
-1st argument is the label of the field, visible to the user.
-
-```python
-from wtforms import Form, StringField, SubmitField, IntegerField
-from wtforms.validators import DataRequired, Length
-
-class MyForm(Form):
-    name = StringField("Name", validators=[DataRequired()])
-    age = IntegerField("Age", validators=[Length(min=13,max=19), Required()])
-    submit = SubmitField("Submit")
-```
-
-Here is a list of built-in [validators](https://wtforms.readthedocs.io/en/2.3.x/validators/) provided by the extension.
-You can also build your custom validators by creating [callable classes](https://wtforms.readthedocs.io/en/2.3.x/validators/#custom-validators)
-
-After that, you can simply import functions for WTF forms rendering using Bootstrap and call ```wtf.quick_form()``` directly on the `MyForm` object instance.
-
-To pass the form object, we need to change a bit the index function, corresponding to the url endpoint hit by the client where the form will be visible.
-
-from Miguel Grinberg's book:
-> Adding POST to the method list is necessary because form submissions are much more conveniently handled as POST requests. It is possible to submit a form as a GET request, but as GET requests have no body, the data is appended to the URL as a query string and becomes visible in the browser’s address bar. For this and several other reasons, form submissions are almost universally done as POST requests.
-
-
-instance_Form.validate_on_submit(): True if form submitted and data valid. 
-
-When a browser is refresh, the last request is submitted again, which is a form submission, leading to a warning by the browser of a double submit. To counteract this we have to do redirect HTTP get request back to the form or in another endpoint/place.
-
-But then, after an HTTP redirect, we don't have memory anymmore of the values submitted by the user, we then use the request-context global variable `session`for memorizing informations among different requests.
-
-> From [pythonise.com](https://pythonise.com/series/learning-flask/flask-session-object) Sessions in Flask are a way to store information about a specific user from one request to the next. They work by storing a cryptographically signed cookie on the users browser and decoding it on every request. 
-
-You can set the datetime.delta for when the session should be erased.
-They expire if the user close the browser, unless we specify:
-
-flask sessions expire once you close the browser, unless modify the permanent attribute and set a timeout for expiration.
-
-```python
-session.permanent = True
-app.permanent_session_lifetime = timedelta(minutes=30) # lasts 30 minutes
-```
-
-Those line can be encapsulated within a request hook i.e. : 
-
-```python
-@app.before_first_request
-def permanent_session():
-	...
-	# here
-	...
-```
-
-You can also play with those items to set a short timedelta value within a ```before_request``` hook. Hence an short inactivity would lead to the user being kicked out of the website.
-
-
-### Databases
-
-We will use the ORM **SQLAlchemy** using the extension Flask-SQLAlchemy. 
-ORM is short for **Object-relational mapper**. 
-It is an higher level of abstraction that enables you to define the data model for your website using Python classes. One class for each table, each class attribute for a field, in an analogous way when we created forms using `Flask WTForms`.
-
-The main advantage of doing so is mainly because it makes it a very easy-to-use and highly **portable** solution, since you can sometimes use the same classes for different databases engine (SQLAlchemy will take care of converting those Python representations of the data model into a set of SQL instructions for the proper database engine to create the corresponding table(s)).
-
-```bash
-pip install flask-sqlalchemy
-```
-
-We now have to create a new entry in the flask `app.config` object to incorporate the URI location for the database engine (i.e. “where can i locate the database").
-
-```python
-# we will use here the SQLite as it is stored in a disk in the computer rather that relying on another server hosting the database service (either on the same computer or outside).
-
-# absolute path of the directory containing this file
-basedir = os.path.abspath(os.path.dirname(__file__))
-app.config["SQLALCHEMY_DATABASE_URI"] = 'sqlite:///' + os.path.join(basedir, 'data.sqlite')
- ```
-
-
-
-
+{% endraw %}
