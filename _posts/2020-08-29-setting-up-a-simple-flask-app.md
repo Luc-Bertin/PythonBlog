@@ -121,7 +121,7 @@ the value could be of any type (`dict`, `list`, `user-defined objects`, etc.)
 </ul>
 ```
 
-* include html, for example navigation define from a template file in another 
+* include an html file as is — for example a navigation bar that does not need to be changed — from a template file to another 
 ```python
 {% include 'file.html' %}
 ```
