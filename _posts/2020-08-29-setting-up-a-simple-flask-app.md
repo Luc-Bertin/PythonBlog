@@ -306,4 +306,136 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 app.config["SQLALCHEMY_DATABASE_URI"] = 'sqlite:///' + os.path.join(basedir, 'data.sqlite')
  ```
 
+Here are the defined models. 
+1 User can have multiple Posts
+1 Post have 1 User only
+Hence Post is the thinnest degree of granularity if we where to join those 2 tables.
+It has a foreign key of user representing the user.id_ values.
+And a relationship is created on the User model with respect to Post to make SQLAlchemy understand the relationship, giving meanwhile a `backref` for how to refer to a user instance from a post level. 
+
+```python
+### models ####
+
+class Post(db.Model):
+    __tablename__ = "posts"
+    id_ = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(64), unique=True)
+    # 1 User can have multiple Posts.
+    # Hence we need to put a foreignkey on the Posts, 
+    # where the level of granularity is the thinnest 
+    # (idpost1-user1, idpost2, user1, etc.)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id_")) # the ids in this column match with the ids column in user.
+    # and a relationship in the "Parent" to link them.
+
+    def __repr__(self):
+        return "Post: {}: name {}".format(self.id_, self.name)
+
+class User(db.Model):
+    # renaming the table and not default user
+    __tablename__ = "users"
+    id_ = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(64), unique=True, index=True)
+    # this is how SQLAlchemy understand there is a relationship with the model Post
+    posts = db.relationship("Post", backref="user")
+    # posts will show a list of related post to one user
+    # from post, you can access to the user as an object using the backref instead of the "user" foreign_key (which returns only the user id)
+    
+    def __repr__(self):
+        return "User {}: with name: {}".format(self.id_, self.username)
+
+###############
+```
+using `uselist=False` (in the `db.relationship()`) lead to a one-to-one relationship instead of one-to-many relationship.
+
+To create the tables from the models we can interactively open a python interpreter using:
+
+```bash
+python script.py shell
+```
+
+and instruct:
+
+```python
+from script import db
+db.create_all()
+```
+
+A new `data.sqlite` file is created (using the URI defined in the `app.config`).
+
+As highlighted by Miguel Grinberg, `db.create_all()` does not update on models changes in the code. Hence a base solution (not the best, especially if your website run and you want to migrate smoothly without loosing your data) is to do a:
+
+```bash
+db.drop_all()
+db.create_all()
+```
+
+note the during the `db.drop_all()` process, only the tables are being deleted/dropped, not the database-file itself (same for `db.create_all()` if a database-file at the URI does already exist).
+
+
+Below is a cope snipped to play with the database, create new entries, set them, filter some
+
+```python
+python script.py shell
+from script import db
+from script import User, Post
+
+db.create_all()
+# You can query using the `ModelClass.query`
+# From simple query
+User.query.all() # all users
+Post.query.all() # all posts
+
+# You can insert new elements / rows by first creating the higher-level Python instances
+user1 = User(username = "David")
+user2 = User(username = "Corentin")
+user3 = User(username = "Joséphine")
+post1 = Post(name = "Le savoir-faire", user = user1)
+post2 = Post(name = "L'étrange Noël", user = user1)
+post3 = Post(name = "coder en Python", user = user2)
+
+# Using a dict and unpacking it inside the function signature
+post4_dict = { "name": "coder en C", "user": user2 }
+post4 = Post( **post4_dict ) 
+
+
+# SQLAlchemy will take care of assigning a primary key id_ when writing into the database
+# print(user1.id_) output None so far
+# add the changes to be made
+db.session.add(user1) 
+db.session.add(user2)
+db.session.add(user3)
+db.session.add(post1)
+db.session.add_all( [ post2, post3, post4 ])
+
+# write the changes to the database
+# “All-or-nothing”, if any error occurs, the previous state is unchanged.
+db.session.commit()
+# Querying again
+User.query.all() # all users
+Post.query.all() # all posts
+
+# To more advanced ones
+# We define a query object
+one_query = Post.query.filter_by(name="Le savoir-faire")
+# We execute the query using `all()`
+one_query.all()
+
+# Some other examples
+Post.query.filter_by(user=user1).all()
+# the equivalent using `filter`
+Post.query.filter(Post.user == user1).all()
+Post.query.filter(Post.user.has(username="David")).all()
+# we can also use other type of operators
+Post.query.group_by(Post.name).all()
+
+executed_query = Post.query.group_by(Post.name).all()
+one_post = executed_query[0]
+one_post.user
+
+executed_query = User.query.filter_by(username="David").all()
+executed_query[0].posts
+
+# when using `posts` from the  db.relationship, a query is issued but it returns here a list, no longer queryable, we would want to query the objects it could contain. This can be circumvented using `lazy = 'dynamic’` in `db.relationship` so query is not issued too soon
+```
+
 
