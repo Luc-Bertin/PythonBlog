@@ -513,4 +513,8 @@ output:
 INFO  [alembic.runtime.migration] Running upgrade  -> 3dc85275c029, first migration
 ```
 
-
+You can finally:
+- create a GitHub repository
+- create a `.gitignore` file (to exclude including unecessary `myenv` virtual environment)
+- create a `requirements.txt` file where all files will be 
+- create a `READMe.md` markdown file for the users who will go to this GitHub repository
