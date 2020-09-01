@@ -4,7 +4,7 @@ description: ''
 logo: 'assets/images/logo.png'
 favicon: 'assets/images/favicon.ico'
 baseurl: ''
-email: 'lucbertin@outlook.com'
+email: 'contact@lucbertin.com'
 mailchimp-list: ''
 
 include: ["_pages"]
