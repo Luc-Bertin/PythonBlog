@@ -2,7 +2,7 @@
 layout: post
 title:  "Go to all course practice sessions !"
 author: luc
-categories: [ TDs, featured ]
+categories: [ TDs ]
 image: assets/images/github_octocat.jpg
 tags: [sticky]
 ---
