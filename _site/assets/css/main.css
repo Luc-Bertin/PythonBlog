@@ -4,6 +4,9 @@
  * Copyright 2011-2018 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
+
+ @import "pygments/default.css";
+ @import "custom.css"
 :root {
   --blue: #7832e2;
   --indigo: #502c6c;
