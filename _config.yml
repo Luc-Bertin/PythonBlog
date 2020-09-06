@@ -1,6 +1,15 @@
 # Site
+### For SEO : see https://github.com/jekyll/jekyll-seo-tag/blob/master/docs/usage.md
+title: "PythonMood | Let's code with Lulu"
+tagline: "Luc Bertin's Python tutorials"
+description: "Luc Bertin's blog of Python theoretical and hands-on tutorials. Here we cover Python from scratch and some use cases for Data Science related subjects"
+url: "blog.lucbertin.com"
+lang: "en_US"
+##### 
+
+
 name: 'PythonMood'
-description: ''
+#description: ''
 logo: 'assets/images/logo.png'
 favicon: 'assets/images/favicon.ico'
 baseurl: ''
