@@ -5,7 +5,7 @@ author: luc
 categories: [ TDs ]
 image_folder: assets/images/post_github_jupyter_notebooks/
 image: assets/images/github_octocat.png
-image_index: assets/images/post_some_exercices_in_python/index_img/cover.png
+image_index: assets/images/post_github_jupyter_notebooks/index_img/github_octocat.png
 tags: [sticky]
 ---
 
