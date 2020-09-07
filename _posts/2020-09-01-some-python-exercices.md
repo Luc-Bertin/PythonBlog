@@ -9,19 +9,19 @@ image_index: assets/images/post_some_exercices_in_python/index_img/cover.png
 
 ---
 
-This is some exercices to after "Beginning in Python" so to make you more comfortable using the object-oriented side of Python ;) 
+Some exercices following tutorial *Beginning in Python* to make you more comfortable with some object-oriented concepts in Python ;) 
 
-## Exo 1: Comptez le nombre d'occurences de chaque lettre dans ce texte
+## Ex. 1: Counting letter frequencies in a text.
 
-- en utilisant un dictionnaire
-- en utilisant un `defaultdict` (une sous-classe bien sympa de dictionnaire)
-- en utilisant `Counter` (encore mieux)
+- using a simple Python dictionary
+- using `defaultdict` (subclass of `dict`)
+- using `Counter` (subclass of `dict`)
 
-`defaultdict` et `Counter` se trouvent dans le package `collections` (e.g `mfrom collections import Counter`)
+`defaultdict` and `Counter` can be found in `collections` (i.e. `from collections import defaultdict, Counter`)
 
 
 ```python
-texte = """Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sagittis neque turpis, in gravida erat tincidunt a. Maecenas lobortis rutrum arcu, in posuere dolor fermentum sed. Duis imperdiet laoreet nibh, a pretium lectus condimentum eget. Maecenas eu elit vitae nibh euismod lacinia et a tortor. Donec at egestas leo, eget molestie quam. Sed elementum scelerisque sapien, quis suscipit ex malesuada vel. Aenean non mollis erat, in tincidunt massa.
+text = """Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sagittis neque turpis, in gravida erat tincidunt a. Maecenas lobortis rutrum arcu, in posuere dolor fermentum sed. Duis imperdiet laoreet nibh, a pretium lectus condimentum eget. Maecenas eu elit vitae nibh euismod lacinia et a tortor. Donec at egestas leo, eget molestie quam. Sed elementum scelerisque sapien, quis suscipit ex malesuada vel. Aenean non mollis erat, in tincidunt massa.
 
 Mauris semper, purus in dictum imperdiet, libero nunc bibendum ex, eget facilisis turpis lorem ac lorem. Sed bibendum scelerisque tortor vel dictum. Aliquam dignissim eget erat non mollis. Maecenas vehicula feugiat tortor, in vulputate ex molestie nec. Ut suscipit iaculis nulla, auctor elementum urna dapibus non. Fusce facilisis mollis tellus sit amet venenatis. Praesent metus enim, tincidunt posuere tellus et, placerat tincidunt justo.
 
@@ -33,64 +33,61 @@ Quisque quis magna malesuada, ultricies leo eget, elementum est. Praesent enim p
 """
 ```
 
-## Exo2: voici un dictionnaire, le trier par valeurs, ressortir un dictionnaire.
+## Ex. 2: Sort the  a sorted dictionary, sorted by values
 
-(vous pouvez utiliser "Orderdict")
-
+Hint: use `Ordereddict`
 
 ```python
 x = {1: 2, 3: 4, 4: 3, 2: 1, 0: 0}
 ```
 
-## Exo3: un décorateur fait à partir de la définition d'une classe
+## Ex. 3: Let's create a decorator using class definition
 
-Un décorateur écrit sous forme de fonction **étend** le comportement d'une **fonction passée en paramètre** pour lui fournir des **fonctionnalités supplémentaires**. Il se doit donc de retourner une **fonction** (celle qui aura "wrappé" la première).
+A decorator is a construct often written as a function, that takes a **function as parameter** and returns **another one which extends** the behavior of the passed-in function.
+It thus needs to return a new function who had been defined in its inner scope and wrapped the first one.
 
-On peut aussi écrire un décorateur à partir d'une classe : la méthode `__call__` (méthode d'instance) permet à une instance d'une classe de se comporter comme fonction quand on la "call") (l'instance, pas la classe! Sinon c'est un constructeur qu'on appelle, e.g. People("boulanger"))
+We can also write a decorator using a class: the method  `__call__` (instance method) enables to an instance of a class to behave just like a function by being callable (the instance, not the class! "Calling" the class equals to calling its constructor e.g. `People("boulanger")`)
 
-1 / créez une classe `NbFunctionCalls`. 
+1 / Create a class `NbFunctionCalls`. 
 
-2/ Chaque instance se voit attribuée une fonction pendant l'étape d'initialisation
+2/ Each instance need to have one instance attribute to which is assigned a function during the initialization process.
 
-2/ l'instance ( pas la classe ) doit aussi contenir une variable `counter`
+2/ The instance (not the class) also needs to have `counter`.
 
-3/ Utilisez la méthode d'instance `__call__` pour pouvoir **appeler** l'instance comme si c'était une fonction
+3/ Use the `__call__` instance method so to be able to **call** the instance as if it was a function.
 
-4/ A chaque, appel de l'instance, la fonction mise en paramètre doit être appelée et le compteur incrémenté de 1.
+4/ To each call, the instance attribute function needs to be called and the counter incremented by 1.
 
-5/ Définissez une fonction `somme` qui calcule la somme d'un nombre indéfini d'arguments passés.
+5/ Define a function `somme` which compute the sum of an undefined number of params passed to it.
 
-6/ Utilisez la notation `@NbFunctionCalls` pour ajouter la fonctionnalité apportée par le décorateur précédent.
+6/ Use the notation `@NbFunctionCalls` to add the functionality brought by the decorator.
 
-7/ À Quelle formule équivaut l'utilisation de cette notation précédente ?
+7/ Which formula equals to the preceding notation ?
 
-7b/ Que devient le type de `somme`? 
+7b/ What does `somme`'s type become ? 
 
-7c/ Accédez à son compteur
+7c/ Access to the `counter`.
 
-8/ Quelle fonctionnalité apporte `NbFunctionCalls` ? 
+8/ What functionality does `NbFunctionCalls` bring ? 
 
-9/ Garder la structure `NbFunctionCalls` précédente. Mais cette fois-ci bougez `counter` comme variable de la classe et non de l'instance
+9/ Keep the overall structure from `NbFunctionCalls` . But this time, move `counter` as class variable and not instance variable.
 
-10/ Créez une fonction `multiply` qui multiplie tous les éléments donnés en paramètres (a*b*c*...*z)
+10/ Create a `multiply` function, that multiplies all passed-in args (a * b * c * ... * z)
 
-11/ Créez une fonction `divide` qui divise les éléments donnés en paramètres (a/b/c/d...)
+11/ Create a `divide` function that divides all passed-in args (a / b / c / d ...)
 
-12/ Appliquez leur à tous les deux `@NbOfAllFunctionCalls`
+12/ Add `@NbOfAllFunctionCalls` to both of those functions.
 
-13/ Appelez-les séparément plusieurs fois et checkez leur compteurs, que se passe t-il ? 
+13/ Call them separately and check their respective counters, what is happening ?
 
-14/ Créez un décorateur dans le même contexte pour enregistrer les différents résultats d'une fonction.
+14/ Create a decorator in the same context to record the different results from those functions.
 
-Les résultats doivent être sauvegardés sous forme d'un dictionnaire de:
- * clés    = paramètres utilisés
- * valeurs = résultats obtenus
+The results must be saved in a dictionary:
+ * keys    = params used
+ * values  = results obtained
 
-## Exo4: Créez sa propre liste custom 😉
+## Ex. 4: Create a custom list 😉
 
-Créez une classe "Liste" 
-qui permet quand l'on fait 
-`liste1 + liste2` de faire 
-une addition sur chacun de 
-leurs éléments 2 à 2. 
-(les listes doivent avoir même longueurs) 
+Create a class `List` whose behavior upon doing `liste1 + liste2`  (with `liste1` and `liste2` being `List` instances), is to add each of their elements element-wise i.e. `liste1[i] + liste2[i]` for each `i`.
+
+If the lists have different length, the sum is considered `longestliste[i] + 0`.
