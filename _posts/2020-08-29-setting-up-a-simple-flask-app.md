@@ -3,7 +3,7 @@ layout: post
 title:  "Setting up a simple Flask app"
 author: luc
 categories: [ TDs, Flask, Python ]
-image: assets/images/post_setting_up_a_simple_flask_app/flask.svg
+image: assets/images/post_setting_up_a_simple_flask_app/flask2.png
 image_folder: /assets/images/post_setting_up_a_simple_flask_app/
 ---
 
