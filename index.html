@@ -55,7 +55,7 @@ pagination:
                 <div class="col-md-4">
                 <a href="{{site.baseurl}}{{second_post.url}}">
                  {% responsive_image_block %}
-                    path: "assets/images/post_install_python/Python_logo_and_wordmark.png"
+                    path: {% if second_post.image contains "://" %}{{ second_post.image }}{% else %}{{ second_post.image }}{% endif %}
                     alt: {{ second_post.title }}
                  {% endresponsive_image_block %}
 
