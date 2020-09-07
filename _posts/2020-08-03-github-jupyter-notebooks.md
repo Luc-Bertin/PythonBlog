@@ -3,9 +3,9 @@ layout: post
 title:  "Go to all course practice sessions !"
 author: luc
 categories: [ TDs ]
-image_folder: assets/images/post_github_jupyter_notebooks/
-image: assets/images/post_github_jupyter_notebooks/cover.png
-image_index: assets/images/post_github_jupyter_notebooks/index_img/cover.jpg
+image_folder: /assets/images/post_github_jupyter_notebooks/
+image: assets/images/post_github_jupyter_notebooks/cover.jpg
+image_index: assets/images/post_github_jupyter_notebooks/cover.jpg
 tags: [sticky]
 ---
 

@@ -3,9 +3,9 @@ layout: post
 title:  "A note on execution model"
 author: luc
 categories: [ TDs, Lecture, Python]
-image_folder: assets/images/post_execution_model/
+image_folder: /assets/images/post_execution_model/
 image: assets/images/post_execution_model/namespaces.svg
-image_index: assets/images/post_execution_model/index_img/namespaces.png
+image_index: assets/images/post_execution_model/index_img/cover.jpg
 
 ---
 

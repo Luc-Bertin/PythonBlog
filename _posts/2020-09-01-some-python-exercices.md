@@ -3,7 +3,7 @@ layout: post
 title:  "Some Python exercices"
 author: luc
 categories: [ TDs, Exercices, Python]
-image_folder: assets/images/post_some_exercices_in_python/
+image_folder: /assets/images/post_some_exercices_in_python/
 image: assets/images/post_some_exercices_in_python/index_img/cover.png
 image_index: assets/images/post_some_exercices_in_python/index_img/cover.png
 ---
