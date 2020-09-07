@@ -4,7 +4,7 @@ title:  "Install Python !"
 author: luc
 categories: [ TDs, Python ]
 image_folder: assets/images/post_install_python/
-image: assets/images/post_install_python/cover_photo.png
+image: assets/images/post_install_python/cover.png
 image_index: assets/images/post_install_python/index_img/cover.png
 
 ---
