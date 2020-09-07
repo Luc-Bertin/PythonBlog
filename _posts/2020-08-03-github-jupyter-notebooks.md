@@ -5,7 +5,7 @@ author: luc
 categories: [ TDs ]
 image_folder: assets/images/post_github_jupyter_notebooks/
 image: assets/images/post_github_jupyter_notebooks/cover.png
-image_index: assets/images/post_github_jupyter_notebooks/index_img/cover.png
+image_index: assets/images/post_github_jupyter_notebooks/index_img/cover.jpg
 tags: [sticky]
 ---
 
