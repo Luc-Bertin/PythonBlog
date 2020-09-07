@@ -4,9 +4,8 @@ title:  "Some Python exercices"
 author: luc
 categories: [ TDs, Exercices, Python]
 image_folder: assets/images/post_some_exercices_in_python/
-image: assets/images/post_some_exercices_in_python/chris-ried-unsplash.jpg
+image: assets/images/post_some_exercices_in_python/index_img/cover.png
 image_index: assets/images/post_some_exercices_in_python/index_img/cover.png
-
 ---
 
 Some exercices following tutorial *Beginning in Python* to make you more comfortable with some object-oriented concepts in Python ;) 
