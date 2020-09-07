@@ -14,7 +14,7 @@ logo: 'assets/images/logo.png'
 favicon: 'assets/images/favicon.ico'
 baseurl: ''
 email: 'contact@lucbertin.com'
-mailchimp-list: ''
+mailchimp-list: 'https://lucbertin.us17.list-manage.com/subscribe/post?u=d6950dcfd0604ff36eab68a15&amp;id=3816b7374b'
 
 include: ["_pages"]
 permalink: /:title/
