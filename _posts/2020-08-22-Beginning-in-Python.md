@@ -3,7 +3,10 @@ layout: post
 title:  "Begginning in Python"
 author: luc
 categories: [ TDs ]
+image_folder: assets/images/post_approaching_python_programming/
 image: assets/images/post_approaching_python_programming/python_logo.png
+image_index: assets/images/post_approaching_python_programming/index_img/cover.png
+
 ---
 
 1st course will mainly focus on how to approach Python for the first time. For that we will use Jupyter module.

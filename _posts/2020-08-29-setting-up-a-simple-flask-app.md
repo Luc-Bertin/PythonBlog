@@ -3,8 +3,10 @@ layout: post
 title:  "Setting up a simple Flask app"
 author: luc
 categories: [ TDs, Flask, Python ]
+image_folder: assets/images/post_setting_up_a_simple_flask_app/
 image: assets/images/post_setting_up_a_simple_flask_app/flask2.png
-image_folder: /assets/images/post_setting_up_a_simple_flask_app/
+image_index: assets/images/post_setting_up_a_simple_flask_app/index_img/cover.png
+
 ---
 
 Flask is a **micro web framework** written in **Python**, first released in 2010. It is **lightweight** (hence the "micro"), has more stars on GitHub that is "concurrent" Django — first released in 2005 — and is based on the philosophy that the main fundations and services are built into Flask and ready-to-use, while additional features can be seamlessly added to your app by installing extensions and initializing them to your app.

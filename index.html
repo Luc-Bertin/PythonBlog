@@ -21,7 +21,7 @@ pagination:
     <div class="col-md-6">
     <div class="card border-0 mb-4 box-shadow">   
     <a href="{{site.baseurl}}{{latest_post.url}}">
-    <div class="topfirstimage" style="background-image: url({% if latest_post.image contains "://" %}{{ latest_post.image }}{% else %} {{site.baseurl}}/{{ latest_post.image}}{% endif %}); height: 200px;    background-size: cover;    background-repeat: no-repeat;"></div>     
+    <div class="topfirstimage" style="background-image: url({% if latest_post.image_index contains "://" %}{{ latest_post.image_index }}{% else %} {{site.baseurl}}/{{ latest_post.image_index}}{% endif %}); height: 200px;    background-size: cover;    background-repeat: no-repeat;"></div>     
     </a>
     <div class="card-body px-0 pb-0 d-flex flex-column align-items-start">
     <h2 class="h4 font-weight-bold">
@@ -51,10 +51,10 @@ pagination:
         <!-- second latest post -->
         {%- assign second_post = site.posts[1] -%}        
         <div class="mb-3 d-flex align-items-center">                
-                {% if second_post.image %}
+                {% if second_post.image_index %}
                 <div class="col-md-4">
                 <a href="{{site.baseurl}}{{second_post.url}}">
-                 <img class="w-100" src="{% if second_post.image contains "://" %}{{ second_post.image }}{% else %}{{ second_post.image | absolute_url }}{% endif %}" alt="{{ second_post.title }}">
+                 <img class="w-100" src="{% if second_post.image_index contains "://" %}{{ second_post.image_index }}{% else %}{{ second_post.image_index | absolute_url }}{% endif %}" alt="{{ second_post.title }}">
                 </a>
                 </div>
                 {% endif %}                
@@ -78,10 +78,10 @@ pagination:
         <!-- third latest post -->
         {%- assign third_post = site.posts[2] -%}        
         <div class="mb-3 d-flex align-items-center">                
-                {% if third_post.image %}
+                {% if third_post.image_index %}
                 <div class="col-md-4">
                 <a href="{{site.baseurl}}{{third_post.url}}">
-                 <img class="w-100" src="{% if third_post.image contains "://" %}{{ third_post.image }}{% else %}{{site.baseurl}}/{{ third_post.image }}{% endif %}" alt="{{ third_post.title }}">
+                 <img class="w-100" src="{% if third_post.image_index contains "://" %}{{ third_post.image_index }}{% else %}{{site.baseurl}}/{{ third_post.image_index }}{% endif %}" alt="{{ third_post.title }}">
                 </a>
                 </div>
                 {% endif %}                
@@ -105,10 +105,10 @@ pagination:
         <!-- fourth latest post -->
         {%- assign fourth_post = site.posts[3] -%}        
         <div class="mb-3 d-flex align-items-center">                
-                {% if fourth_post.image %}
+                {% if fourth_post.image_index %}
                 <div class="col-md-4">
                 <a href="{{site.baseurl}}{{fourth_post.url}}">
-                <img class="w-100" src="{% if fourth_post.image contains "://" %}{{ fourth_post.image }}{% else %}{{site.baseurl}}/{{ fourth_post.image }}{% endif %}" alt="{{ fourth_post.title }}">
+                <img class="w-100" src="{% if fourth_post.image_index contains "://" %}{{ fourth_post.image_index }}{% else %}{{site.baseurl}}/{{ fourth_post.image_index }}{% endif %}" alt="{{ fourth_post.title }}">
                 </a>
                 </div>
                 {% endif %}                
@@ -146,7 +146,7 @@ pagination:
                 </p>
                 <a href="{{site.baseurl}}{{post.url}}" class="btn btn-dark">Read More</a>
             </div>
-            <div class="col-md-6 d-none d-md-block pr-0" style="background-size:cover;background-image:url({{site.baseurl}}/{{ post.image }});">	
+            <div class="col-md-6 d-none d-md-block pr-0" style="background-size:cover;background-image:url({{site.baseurl}}/{{ post.image_index }});">	
             </div>
         </div>
     </div>

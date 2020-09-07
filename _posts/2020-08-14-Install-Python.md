@@ -3,7 +3,10 @@ layout: post
 title:  "Install Python !"
 author: luc
 categories: [ TDs, Python ]
+image_folder: assets/images/post_install_python/
 image: assets/images/post_install_python/cover_photo.jpeg
+image_index: assets/images/post_install_python/index_img/cover.png
+
 ---
 
 This tutorial helps newcomers to install Python properly and manage different Python versions, especially for Mac users having a system 2.7 Python installed already.

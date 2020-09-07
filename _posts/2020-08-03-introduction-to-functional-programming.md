@@ -3,8 +3,9 @@ layout: post
 title:  "Introduction to functional programming"
 author: luc
 categories: [ TDs, Lecture, Python]
-image: assets/images/post_functional_programming/cover.jpg
-image_folder: /assets/images/post_functional_programming/
+image_folder: assets/images/post_functional_programming/
+image: assets/images/post_functional_programming/cover.png
+image_index: assets/images/post_functional_programming/index_img/cover.png
 ---
 
 You've probably heard of list comprehension in Python before. It is a declarative-like, concise, and generally easier way to read than a simple for loop.
