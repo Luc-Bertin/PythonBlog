@@ -11,8 +11,9 @@ image_index: assets/images/post_webscrapping/index_img/cover.jpg
 
 Selenium is an open-source automated testing suite for web apps. It was at first used to automate tests for web applications as it can emulate user interactions with browsers, although its scope is wider as it can be used for other purposes: such as webscrapping for example.
 
+## How does Selenium Webdriver work ?
 
-How to programmatically create user interactions with Selenium ? through its WebDriver.
+How to programmatically create user interactions with Selenium ? through its WebDriver component
 
 > It allows users to simulate common activities performed by end-users; entering text into fields, selecting drop-down values and checking boxes, and clicking links in documents. It also provides many other controls such as mouse movement, arbitrary JavaScript execution, and much more.
 
@@ -36,6 +37,8 @@ You can communicate directly with the Webdriver implementation API (e.g. Chromed
 
 When these commands come in the form of HTTP ones, the Webdriver implementation interprets those, ordering the underlying browser to perform them, and then returns the results back to the Webdriver API through the wire protocol.
 
+WebDriver became recently a W3C standard, it is an interface provided by Selenium. Thus, all classes (e.g. ChromeDriver) implementing this interface need to have a certain set of methods. It is then a structure/syntax that allows the computer to enforce certain properties on a class, certain behavior or requirements any object instanciated with that class must fulfill.
+
 A good example to [read](
 https://engineering.zalando.com/posts/2016/03/selenium-webdriver-explained.html?gh_src=4n3gxh1?gh_src=4n3gxh1).
 
@@ -48,4 +51,17 @@ https://www.guru99.com/introduction-webdriver-comparison-selenium-rc.html
 > Note from wikipedia: *Where possible*, WebDriver uses native operating system level functionality rather than browser-based JavaScript commands to drive the browser. This bypasses problems with subtle differences between native and JavaScript commands, including security restrictions.
 
 Interesting article to read [too](https://stackoverflow.com/questions/42562963/why-we-dont-need-server-in-selenium-webdriver)
+
+
+
+## Making use of Selenium webdriver !
+
+Reading the installation process from the [unofficial but thorough community docs](https://selenium-python.readthedocs.io/installation.html)
+is a good starting point to set the tools we need.
+
+1. Create a virtual environement
+2. Install Python bindings client library:
+`pip install selenium`
+3. Takes a (web)driver matching with the browser you want to automate a session in. I.E. I have Chrome, i can download the ChromeDriver [here](https://sites.google.com/a/chromium.org/chromedriver/downloads) for **the matching version** of Chrome I have.
+4. You can install the driver in the current working directory and use it for instanciation of a ChromeDriver. Or 
 
