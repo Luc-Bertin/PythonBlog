@@ -41,7 +41,6 @@ WebDriver became recently a W3C standard, it is an interface provided by Seleniu
 
 A good example to [read](
 https://engineering.zalando.com/posts/2016/03/selenium-webdriver-explained.html?gh_src=4n3gxh1?gh_src=4n3gxh1).
-
 Also Safari Dev docs [highlights this schema](https://developer.apple.com/documentation/webkit/testing_with_webdriver_in_safari)
 
 
