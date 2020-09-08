@@ -27,7 +27,7 @@ To do so, it uses the automation APIs provided by the browser vendors.
 
 Thus, referring to both the language bindings and the browsers controlling codes, the Webdriver API aims to abstract differences among all browsers by providing a common object-oriented interface.
 
-<img src="{{page.image_folder}}selenium_schema.png" width="500px" style="display: inline-block;" class=".center">
+<img src="{{page.image_folder}}selenium_schema.png" width="800px" style="display: inline-block;" class="center">
 
 How does your Python code get executed in the browser?
 By JSON Wire Protocol, tie to the Webdriver API.
