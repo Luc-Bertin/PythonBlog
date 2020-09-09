@@ -107,6 +107,9 @@ driver.find_element() # private method, you can use By from selenium.webdriver.c
 
 # Note that you can use directly on a webelement:
 # <webelement>.find_element_by...()  will use the element as the scope in which to search for your selector. https://stackoverflow.com/questions/26882604/selenium-difference-between-webdriver-findelement-and-webelement-findelement
+# An example provided here https://github.com/Luc-Bertin/TDs_ESILV/blob/master/webscrapping_test2find_element.ipynb
+# 
+# 
 # When no element exist: NoSuchElementException is raised
 
 # ! find elementS return a list of Web elements !
@@ -180,7 +183,6 @@ driver.switch_to.frame(0)
 driver.switch_to.frame("name_of_frame1.0.frame3")
 # going back to parent frame
 driver.switch_to.default_content()
-
 ```
 8. Cookies
 ```python
@@ -255,5 +257,9 @@ driver.get_cookies()
   'value': 'GA1.2.669605950.1599658190'}]
 
 ```
-When 
+
+## XPath
+
+Although it is part of the navigation, I think it should be dedicated an entire section
+
 
