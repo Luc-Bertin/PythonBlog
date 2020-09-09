@@ -44,8 +44,7 @@ https://engineering.zalando.com/posts/2016/03/selenium-webdriver-explained.html?
 Also Safari Dev docs [highlights this schema](https://developer.apple.com/documentation/webkit/testing_with_webdriver_in_safari)
 
 
-**Edit:**  WebDriver W3C Living Document has replaced JSON Wire Protocol. 
-https://www.guru99.com/introduction-webdriver-comparison-selenium-rc.html
+**Edit:**  WebDriver W3C Living Document has [replaced](https://www.guru99.com/introduction-webdriver-comparison-selenium-rc.html) JSON Wire Protocol. 
 
 > Note from wikipedia: *Where possible*, WebDriver uses native operating system level functionality rather than browser-based JavaScript commands to drive the browser. This bypasses problems with subtle differences between native and JavaScript commands, including security restrictions.
 
@@ -55,6 +54,7 @@ Interesting article to read [too](https://stackoverflow.com/questions/42562963/w
 
 ## Making use of Selenium webdriver !
 
+### The Installation
 Reading the installation process from the [unofficial but thorough community docs](https://selenium-python.readthedocs.io/installation.html)
 is a good starting point to set the tools we need.
 
@@ -62,5 +62,97 @@ is a good starting point to set the tools we need.
 2. Install Python bindings client library:
 `pip install selenium`
 3. Takes a (web)driver matching with the browser you want to automate a session in. I.E. I have Chrome, i can download the ChromeDriver [here](https://sites.google.com/a/chromium.org/chromedriver/downloads) for **the matching version** of Chrome I have.
-4. You can install the driver in the current working directory and use it for instanciation of a ChromeDriver. Or 
+4. You can put the downloaded driver (e.g. `chromedriver.exe`) in the current working directory and reference its path `./chromedriver.exe` later in the webscrapping code for the instanciation of a `ChromeDriver` instance. Altough this may not seem ideal as the script will rely on the path where any person put the driver in. Hence it is better to `export` the executable driver path first and then not use anything in the code.
+
+As per the requirements of ChromeDriver:
+> The ChromeDriver consists of three separate pieces. There is the **browser itself** i.e. chrome, the **language bindings** provided by the Selenium project i.e. the driver and an **executable** downloaded from the Chromium project which acts as a **bridge between chrome and the driver**. This executable is called the **chromedriver**, we generally refer to it as the server to reduce confusion.
+
+Later on I will use the term browser driver for the controlling code provided by browser-vendors, to not confuse with language driver, the bindings provided by Selenium project as a client library for communciating with the Webdriver (or one of its implementation).
+
+###  The Script
+
+```python
+from selenium import webdriver # 
+driver = webdriver.ChromeDriver() 
+# I use the Chrome Webdriver hence the line above does set up a Webdriver server and ultimately launch a new browser session using the browser driver.
+
+##
+## Your operations
+##
+
+driver.close() # to close the browser tab (window if there is only one tab.)
+```
+
+
+### Operations
+
+#### Navigating
+
+1. Going to an url:
+```python
+driver.get(url_name) # loaded when `onload` even has fired
+```
+2. Selecting an element: 
+```python
+# ! find element return the first element matching !
+driver.find_element_by_class_name()
+driver.find_element_by_css_selectorn()
+driver.find_element_by_link_text()
+driver.find_element_by_partial_link_text()
+driver.find_element_by_name()
+driver.find_element_by_id()
+driver.find_element_by_xpath()
+driver.find_element_by_tag_name()
+driver.find_element()
+
+# ! find elementS return a list of Web elements !
+driver.find_elements_by_class_name()
+driver.find_elements_by_css_selectorn()
+driver.find_elements_by_link_text()
+## ...
+## ...
+```
+3. Interacting with forms:
+ - send keys to a form field / input:
+```python
+element = driver.find_element_by_name("loginform")
+element.send_keys("mot_de_passe")
+## To add use special keys in the keyboard:
+from selenium.webdriver.common.keys import Keys
+```
+ - clear the content of the form
+ ```python
+ element = driver.find_element_by_name("loginform")
+ element.clear()
+ ```
+4. Toggle the selection of checkboxes:
+```python
+# example: https://www.w3schools.com/howto/howto_custom_select.asp
+from selenium.webdriver.support.ui import Select
+select = Select(driver.find_element_by_tag_name("select"))
+# Select by index
+select.select_by_index(2)
+# Select by visible text
+#select.select_by_visible_text("text")
+# Select by value
+select.select_by_value(value)
+# Deselecting all the selected options
+select.deselect_all()
+ ```
+5. Managing Pop-Up dialogs (javascript `alerts`):
+```python
+# Wait for the alert to be displayed
+alert = wait.until(expected_conditions.alert_is_present())
+# Switch to the alert pop-up
+alert = driver.switch_to.alert
+# Check the content of the alert
+alert.text
+# Click on the OK button / accept the alert the pop-up
+alert.accept()
+# or dismiss it: alert.dissmiss()
+ ```
+
+
+http://demo.guru99.com/test/delete_customer.php
+When 
 
