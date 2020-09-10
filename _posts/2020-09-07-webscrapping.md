@@ -269,6 +269,8 @@ A good read for XPath: https://www.w3schools.com/xml/xpath_syntax.asp
 on the dot notation in startswith in XPath
 https://stackoverflow.com/questions/29526080/xpath-attribute-wildcard-not-returning-element-with-attribute-named-value
 
+
+
 ## Waits
 
 A lot of browser are using AJAX (*asynchronous javascript and XML*), hence making calls from a client to the server asynchronously to modify components in a web page without needing to refresh the concerned page.
@@ -315,3 +317,40 @@ Directly from the [docs](https://selenium-python.readthedocs.io/waits.html) here
 * alert_is_present
 
 Custom wait conditions are also interesting to [check](https://selenium-python.readthedocs.io/waits.html) as it uses some concepts (`__call__`) we have covered elsewhere in this blog.
+
+## Action chains
+
+One of the most useful WebDriver tool:
+
+> ActionChains are a way to automate low level interactions such as mouse movements, mouse button actions, key press, and context menu interactions. This is useful for doing more complex actions like hover over and drag and drop.
+
+Usage:
+```python
+# 1. import the class ActionChains
+from selenium.webdriver.common.actions_chains import ActionChains
+# 2. Keep for later the elements you are going to interact with
+menu = driver.find_element_by_css_selector(".nav")
+hidden_submenu = driver.find_element_by_css_selector(".nav #submenu1")
+# 3. ActionChains constructor expects the driver
+pile_of_actions = ActionChains(driver)
+# 3. stack of actions (not performed yet)
+actions.move_to_element(menu) # moving the mouse to the middle of the element
+actions.click(hidden_submenu)
+# 4. perform the stored actions in the order it was defined (top to bottom) 
+actions.perform()
+```
+
+`move_by_offset(xoffset, yoffset)` is really useful to cause web animations/interactions which rely heavily on the user's mouse moves. It moves to an offset (x or y coordinates) from current mouse position.
+See example below (this is for educational purposes only !)
+
+
+## injecting js code in the browser
+One use case could be to scroll in a news or social network feed.
+Here is an example of such:
+
+
+## DOM: Document Object Model 
+Wikipedia best describes it:
+
+<img src="{{page.image_folder}}DOM.png" width="800px" style="display: inline-block;" class="center">
+
