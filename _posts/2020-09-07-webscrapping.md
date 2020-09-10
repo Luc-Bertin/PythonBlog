@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Webscrapping"
+title:  "Webscrapping using Selenium"
 author: luc
 categories: [ TDs, Lecture, Selenium, BeautifulSoup, Python]
 image_folder: /assets/images/post_webscrapping/
