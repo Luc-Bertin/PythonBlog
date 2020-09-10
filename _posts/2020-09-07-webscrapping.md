@@ -95,6 +95,7 @@ driver.get(url_name) # loaded when `onload` even has fired
 ```
 
 2. Selecting an element:
+
 ```python
 # ! find element return the first element matching !
 driver.find_element_by_class_name()
@@ -190,6 +191,7 @@ driver.switch_to.frame("name_of_frame1.0.frame3")
 # going back to parent frame
 driver.switch_to.default_content()
 ```
+
 8. Cookies
 ```python
 # 1. Go to the correct url / domain
@@ -264,7 +266,7 @@ driver.get_cookies()
 
 ```
 
-## XPath
+#### XPath
 
 Although it is part of the navigation, I think it should be dedicated an entire section.
 
@@ -281,15 +283,15 @@ https://stackoverflow.com/questions/35606708/what-is-the-difference-between-and-
 
 node-set passes to starts-with function as 1st argument (@\*). The starts-with function converts a node-set to a string by returning the string value of the first node in the node-set, i.e. only 1st attribute
 
-## Waits
+#### Waits
 
 A lot of browser are using AJAX (*asynchronous javascript and XML*), hence making calls from a client to the server asynchronously to modify components in a web page without needing to refresh the concerned page.
 Although this separates the presentation logic from the data exchange logic and greatly improve user experience, a "loaded" page doesn't mean other scripts won't display other elements later on.
 
-### implicit wait:
+##### implicit wait:
 For the whole lifetime of the WebDriver object, each time an object is not available on request, repeat till **n** seconds elapsed.
 
-### explicit wait:
+##### explicit wait:
 Makes the webdriver wait for a certain condition to execute further instructions.
 
 ```python
@@ -328,13 +330,14 @@ Directly from the [docs](https://selenium-python.readthedocs.io/waits.html) here
 
 Custom wait conditions are also interesting to [check](https://selenium-python.readthedocs.io/waits.html) as it uses some concepts (`__call__`) we have covered elsewhere in this blog.
 
-## Action chains
+##### Action chains
 
 One of the most useful WebDriver tool:
 
 > ActionChains are a way to automate low level interactions such as mouse movements, mouse button actions, key press, and context menu interactions. This is useful for doing more complex actions like hover over and drag and drop.
 
 Usage:
+
 ```python
 # 1. import the class ActionChains
 from selenium.webdriver.common.actions_chains import ActionChains
@@ -356,13 +359,12 @@ See example below (this is for educational purposes only !)
 
 <iframe width="800" src="https://youtu.be/jm_Lmq50oAs" frameborder="0" allowfullscreen></iframe>
 
-
-## injecting js code in the browser
+##### injecting js code in the browser
 One use case could be to scroll in a news or social network feed.
 Here is an example of such:
 
 
-## DOM: Document Object Model 
+##### DOM: Document Object Model 
 Wikipedia best describes it:
 
 <img src="{{page.image_folder}}DOM.png" width="800px" style="display: inline-block;" class="center">
