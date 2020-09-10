@@ -266,10 +266,14 @@ In XPath you can select a lot type of objects (also designed as nodes). Among th
 
 A good read for XPath: https://www.w3schools.com/xml/xpath_syntax.asp
 
-on the dot notation in startswith in XPath
-https://stackoverflow.com/questions/29526080/xpath-attribute-wildcard-not-returning-element-with-attribute-named-value
+on [dot notation in startswith in XPath](https://stackoverflow.com/questions/29526080/xpath-attribute-wildcard-not-returning-element-with-attribute-named-value)
+on [dot versus text()](https://stackoverflow.com/questions/38240763/xpath-difference-between-dot-and-text)
 
 
+https://stackoverflow.com/questions/35606708/what-is-the-difference-between-and-in-xpath/35606964
+```//ol/descendant::code[contains(text(), "//*")][2]```
+
+node-set passes to starts-with function as 1st argument (@\*). The starts-with function converts a node-set to a string by returning the string value of the first node in the node-set, i.e. only 1st attribute
 
 ## Waits
 
@@ -341,7 +345,10 @@ actions.perform()
 ```
 
 `move_by_offset(xoffset, yoffset)` is really useful to cause web animations/interactions which rely heavily on the user's mouse moves. It moves to an offset (x or y coordinates) from current mouse position.
+
 See example below (this is for educational purposes only !)
+
+<iframe width="800" src="https://youtu.be/jm_Lmq50oAs" frameborder="0" allowfullscreen></iframe>
 
 
 ## injecting js code in the browser
