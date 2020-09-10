@@ -260,6 +260,58 @@ driver.get_cookies()
 
 ## XPath
 
-Although it is part of the navigation, I think it should be dedicated an entire section
+Although it is part of the navigation, I think it should be dedicated an entire section.
 
+In XPath you can select a lot type of objects (also designed as nodes). Among them: attribute, text, or element.
 
+A good read for XPath: https://www.w3schools.com/xml/xpath_syntax.asp
+
+on the dot notation in startswith in XPath
+https://stackoverflow.com/questions/29526080/xpath-attribute-wildcard-not-returning-element-with-attribute-named-value
+
+## Waits
+
+A lot of browser are using AJAX (*asynchronous javascript and XML*), hence making calls from a client to the server asynchronously to modify components in a web page without needing to refresh the concerned page.
+Although this separates the presentation logic from the data exchange logic and greatly improve user experience, a "loaded" page doesn't mean other scripts won't display other elements later on.
+
+### implicit wait:
+For the whole lifetime of the WebDriver object, each time an object is not available on request, repeat till **n** seconds elapsed.
+
+### explicit wait:
+Makes the webdriver wait for a certain condition to execute further instructions.
+
+```python
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as ec
+
+# timeout after 10s without success
+# or returning the web element otherwise
+
+try:
+	element = WebDriverWait(driver, timeout=10).until(
+		ec.presence_of_element_located((By.ID, "myDynamicElement")))
+except TimeoutException:
+	print("Looks like it didn't work out during the time requested")
+# caution: inside the expected condition class constructor, you must fill a locator in the form of a tuple (by, path)
+```
+
+Directly from the [docs](https://selenium-python.readthedocs.io/waits.html) here are some convenient expected conditions class'constructors you can use:
+* title_is
+* title_contains
+* presence_of_element_located
+* visibility_of_element_located
+* visibility_of
+* presence_of_all_elements_located
+* text_to_be_present_in_element
+* text_to_be_present_in_element_value
+* frame_to_be_available_and_switch_to_it
+* invisibility_of_element_located
+* element_to_be_clickable
+* staleness_of
+* element_to_be_selected
+* element_located_to_be_selected
+* element_selection_state_to_be
+* element_located_selection_state_to_be
+* alert_is_present
+
+Custom wait conditions are also interesting to [check](https://selenium-python.readthedocs.io/waits.html) as it uses some concepts (`__call__`) we have covered elsewhere in this blog.
