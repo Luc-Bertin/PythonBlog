@@ -20,6 +20,7 @@ How to programmatically create user interactions with Selenium ? through its Web
 Every web browser are different in their ways of performing operations, *Selenium WebDriver API* aims at giving a common language neutral interface, whichever browser you may use, whichever language you code with.
 
 * Downstream, one * " browser driver"* (many exist), i.e. *"**one** Selenium WebDriver implementation"* , is a layer:
+
 > responsible for delegating down to the browser, and handles communication to and from Selenium and the browser.
 To do so, it uses the automation APIs provided by the browser vendors. 
 
@@ -54,7 +55,7 @@ Interesting article to read [too](https://stackoverflow.com/questions/42562963/w
 
 ## Making use of Selenium webdriver !
 
-### The Installation
+### 1. The Installation
 Reading the installation process from the [unofficial but thorough community docs](https://selenium-python.readthedocs.io/installation.html)
 is a good starting point to set the tools we need.
 
@@ -69,7 +70,7 @@ As per the requirements of ChromeDriver:
 
 Later on I will use the term browser driver for the controlling code provided by browser-vendors, to not confuse with language driver, the bindings provided by Selenium project as a client library for communciating with the Webdriver (or one of its implementation).
 
-###  The Script
+### 2. The Script
 
 ```python
 from selenium import webdriver # 
@@ -84,7 +85,7 @@ driver.close() # to close the browser tab (window if there is only one tab.)
 ```
 
 
-### Operations
+### 3. Operations
 
 #### Navigating
 
@@ -92,7 +93,8 @@ driver.close() # to close the browser tab (window if there is only one tab.)
 ```python
 driver.get(url_name) # loaded when `onload` even has fired
 ```
-2. Selecting an element: 
+
+2. Selecting an element:
 ```python
 # ! find element return the first element matching !
 driver.find_element_by_class_name()
