@@ -93,7 +93,6 @@ driver.close() # to close the browser tab (window if there is only one tab.)
 ```python
 driver.get(url_name) # loaded when `onload` even has fired
 ```
-
 2. Selecting an element:
 ```python
 # ! find element return the first element matching !
@@ -121,7 +120,6 @@ driver.find_elements_by_link_text()
 ## ...
 # When no elements exist: just an empty list
 ```
-
 3. Interacting with forms:
  - send keys to a form field / input:
 ```python
@@ -154,7 +152,6 @@ for option in select.options:
 	# print their text
     print( option.text )
 ```
-
 5. Managing Pop-Up dialogs (javascript `alerts`):
 ```python
 # A good example of alert here: http://demo.guru99.com/test/delete_customer.php
@@ -168,7 +165,6 @@ alert.text
 alert.accept()
 # or dismiss it: alert.dissmiss()
 ```
-
 6. Moving between windows
 ```python
 driver.switch_to.window("windowName")
@@ -178,7 +174,6 @@ driver.switch_to.window("windowName")
 for window in driver.windows:
 	driver.switch_to.window(window)
 ```
-
 7. Moving between frames
 ```python
 # by name of the frame
@@ -190,7 +185,6 @@ driver.switch_to.frame("name_of_frame1.0.frame3")
 # going back to parent frame
 driver.switch_to.default_content()
 ```
-
 8. Cookies
 ```python
 # 1. Go to the correct url / domain
