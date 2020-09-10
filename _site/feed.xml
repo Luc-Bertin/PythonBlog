@@ -1,4 +1,375 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en_US"><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="en_US" /><updated>2020-09-07T17:06:25+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">PythonMood | Let’s code with Lulu</title><subtitle>Luc Bertin's blog of Python theoretical and hands-on tutorials. Here we cover Python from scratch and some use cases for Data Science related subjects</subtitle><entry><title type="html">Some Python exercices</title><link href="http://localhost:4000/some-python-exercices/" rel="alternate" type="text/html" title="Some Python exercices" /><published>2020-09-01T00:00:00+02:00</published><updated>2020-09-01T00:00:00+02:00</updated><id>http://localhost:4000/some-python-exercices</id><content type="html" xml:base="http://localhost:4000/some-python-exercices/">&lt;p&gt;Some exercices following tutorial &lt;em&gt;Beginning in Python&lt;/em&gt; to make you more comfortable with some object-oriented concepts in Python ;)&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en_US"><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="en_US" /><updated>2020-09-10T16:12:24+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">PythonMood | Let’s code with Lulu</title><subtitle>Luc Bertin's blog of Python theoretical and hands-on tutorials. Here we cover Python from scratch and some use cases for Data Science related subjects</subtitle><entry><title type="html">Webscrapping</title><link href="http://localhost:4000/webscrapping/" rel="alternate" type="text/html" title="Webscrapping" /><published>2020-09-07T00:00:00+02:00</published><updated>2020-09-07T00:00:00+02:00</updated><id>http://localhost:4000/webscrapping</id><content type="html" xml:base="http://localhost:4000/webscrapping/">&lt;p&gt;Selenium is an open-source automated testing suite for web apps. It was at first used to automate tests for web applications as it can emulate user interactions with browsers, although its scope is wider as it can be used for other purposes: such as webscrapping for example.&lt;/p&gt;
+
+&lt;h2 id=&quot;how-does-selenium-webdriver-work-&quot;&gt;How does Selenium Webdriver work ?&lt;/h2&gt;
+
+&lt;p&gt;How to programmatically create user interactions with Selenium ? through its WebDriver component&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;It allows users to simulate common activities performed by end-users; entering text into fields, selecting drop-down values and checking boxes, and clicking links in documents. It also provides many other controls such as mouse movement, arbitrary JavaScript execution, and much more.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Every web browser are different in their ways of performing operations, &lt;em&gt;Selenium WebDriver API&lt;/em&gt; aims at giving a common language neutral interface, whichever browser you may use, whichever language you code with.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Downstream, one * “ browser driver”* (many exist), i.e. &lt;em&gt;“&lt;strong&gt;one&lt;/strong&gt; Selenium WebDriver implementation”&lt;/em&gt; , is a layer:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;responsible for delegating down to the browser, and handles communication to and from Selenium and the browser.
+To do so, it uses the automation APIs provided by the browser vendors.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Upstream, Webdriver API also refers to the language bindings to enable developpers to write test cases in different languages like Python, Java, C#, Ruby or NodeJS.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Thus, referring to both the language bindings and the browsers controlling codes, the Webdriver API aims to abstract differences among all browsers by providing a common object-oriented interface.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/post_webscrapping/selenium_schema.png&quot; width=&quot;800px&quot; style=&quot;display: inline-block;&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;How does your Python code get executed in the browser?
+By JSON Wire Protocol, tie to the Webdriver API.&lt;/p&gt;
+
+&lt;p&gt;Each webdriver implementation (e.g. ChromeDriver) has a little server waiting for the Python commands (try to execute the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;chromedriver.exe&lt;/code&gt; file and you will see on which port it is listening too).
+You can communicate directly with the Webdriver implementation API (e.g. Chromedriver API), but also can use a selenium Python client library for issuing those requests one by one as HTTP client requests for the WebDriver server.&lt;/p&gt;
+
+&lt;p&gt;When these commands come in the form of HTTP ones, the Webdriver implementation interprets those, ordering the underlying browser to perform them, and then returns the results back to the Webdriver API through the wire protocol.&lt;/p&gt;
+
+&lt;p&gt;WebDriver became recently a W3C standard, it is an interface provided by Selenium. Thus, all classes (e.g. ChromeDriver) implementing this interface need to have a certain set of methods. It is then a structure/syntax that allows the computer to enforce certain properties on a class, certain behavior or requirements any object instanciated with that class must fulfill.&lt;/p&gt;
+
+&lt;p&gt;A good example to &lt;a href=&quot;https://engineering.zalando.com/posts/2016/03/selenium-webdriver-explained.html?gh_src=4n3gxh1?gh_src=4n3gxh1&quot;&gt;read&lt;/a&gt;.
+Also Safari Dev docs &lt;a href=&quot;https://developer.apple.com/documentation/webkit/testing_with_webdriver_in_safari&quot;&gt;highlights this schema&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Edit:&lt;/strong&gt;  WebDriver W3C Living Document has &lt;a href=&quot;https://www.guru99.com/introduction-webdriver-comparison-selenium-rc.html&quot;&gt;replaced&lt;/a&gt; JSON Wire Protocol.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;Note from wikipedia: &lt;em&gt;Where possible&lt;/em&gt;, WebDriver uses native operating system level functionality rather than browser-based JavaScript commands to drive the browser. This bypasses problems with subtle differences between native and JavaScript commands, including security restrictions.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Interesting article to read &lt;a href=&quot;https://stackoverflow.com/questions/42562963/why-we-dont-need-server-in-selenium-webdriver&quot;&gt;too&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;making-use-of-selenium-webdriver-&quot;&gt;Making use of Selenium webdriver !&lt;/h2&gt;
+
+&lt;h3 id=&quot;1-the-installation&quot;&gt;1. The Installation&lt;/h3&gt;
+&lt;p&gt;Reading the installation process from the &lt;a href=&quot;https://selenium-python.readthedocs.io/installation.html&quot;&gt;unofficial but thorough community docs&lt;/a&gt;
+is a good starting point to set the tools we need.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Create a virtual environement&lt;/li&gt;
+  &lt;li&gt;Install Python bindings client library:
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pip install selenium&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;Takes a (web)driver matching with the browser you want to automate a session in. I.E. I have Chrome, i can download the ChromeDriver &lt;a href=&quot;https://sites.google.com/a/chromium.org/chromedriver/downloads&quot;&gt;here&lt;/a&gt; for &lt;strong&gt;the matching version&lt;/strong&gt; of Chrome I have.&lt;/li&gt;
+  &lt;li&gt;You can put the downloaded driver (e.g. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;chromedriver.exe&lt;/code&gt;) in the current working directory and reference its path &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;./chromedriver.exe&lt;/code&gt; later in the webscrapping code for the instanciation of a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ChromeDriver&lt;/code&gt; instance. Altough this may not seem ideal as the script will rely on the path where any person put the driver in. Hence it is better to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;export&lt;/code&gt; the executable driver path first and then not use anything in the code.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;As per the requirements of ChromeDriver:&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;The ChromeDriver consists of three separate pieces. There is the &lt;strong&gt;browser itself&lt;/strong&gt; i.e. chrome, the &lt;strong&gt;language bindings&lt;/strong&gt; provided by the Selenium project i.e. the driver and an &lt;strong&gt;executable&lt;/strong&gt; downloaded from the Chromium project which acts as a &lt;strong&gt;bridge between chrome and the driver&lt;/strong&gt;. This executable is called the &lt;strong&gt;chromedriver&lt;/strong&gt;, we generally refer to it as the server to reduce confusion.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;Later on I will use the term browser driver for the controlling code provided by browser-vendors, to not confuse with language driver, the bindings provided by Selenium project as a client library for communciating with the Webdriver (or one of its implementation).&lt;/p&gt;
+
+&lt;h3 id=&quot;2-the-script&quot;&gt;2. The Script&lt;/h3&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;selenium&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;webdriver&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# 
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;driver&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;webdriver&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ChromeDriver&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; 
+&lt;span class=&quot;c1&quot;&gt;# I use the Chrome Webdriver hence the line above does set up a Webdriver server and ultimately launch a new browser session using the browser driver.
+&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;##
+## Your operations
+##
+&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;driver&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;close&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# to close the browser tab (window if there is only one tab.)
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;3-operations&quot;&gt;3. Operations&lt;/h3&gt;
+
+&lt;h4 id=&quot;navigating&quot;&gt;Navigating&lt;/h4&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Going to an url:&lt;/p&gt;
+
+    &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;   &lt;span class=&quot;n&quot;&gt;driver&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;url_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# loaded when `onload` even has fired
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Selecting an element:&lt;/p&gt;
+
+    &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; &lt;span class=&quot;c1&quot;&gt;# ! find element return the first element matching !
+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;driver&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;find_element_by_class_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+ &lt;span class=&quot;n&quot;&gt;driver&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;find_element_by_css_selectorn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+ &lt;span class=&quot;n&quot;&gt;driver&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;find_element_by_link_text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# the text attached to the link
+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;driver&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;find_element_by_partial_link_text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# part of the text attached to the link
+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;driver&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;find_element_by_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;#name attribute of the element
+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;driver&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;find_element_by_id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;#id attribute of the element
+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;driver&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;find_element_by_xpath&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;#using XPath, see later
+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;driver&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;find_element_by_tag_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;#tag name
+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;driver&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;find_element&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# private method, you can use By from selenium.webdriver.common.by import By, rather than using the shortcuts methods https://stackoverflow.com/questions/29065653/what-is-the-difference-between-findelementby-findelementby
+&lt;/span&gt;
+ &lt;span class=&quot;c1&quot;&gt;# Note that you can use directly on a webelement:
+&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# &amp;lt;webelement&amp;gt;.find_element_by...()  will use the element as the scope in which to search for your selector. https://stackoverflow.com/questions/26882604/selenium-difference-between-webdriver-findelement-and-webelement-findelement
+&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# An example provided here https://github.com/Luc-Bertin/TDs_ESILV/blob/master/webscrapping_test2find_element.ipynb
+&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# 
+&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# 
+&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# When no element exist: NoSuchElementException is raised
+&lt;/span&gt;
+ &lt;span class=&quot;c1&quot;&gt;# ! find elementS return a list of Web elements !
+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;driver&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;find_elements_by_class_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+ &lt;span class=&quot;n&quot;&gt;driver&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;find_elements_by_css_selectorn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+ &lt;span class=&quot;n&quot;&gt;driver&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;find_elements_by_link_text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+ &lt;span class=&quot;c1&quot;&gt;## ...
+&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# When no elements exist: just an empty list
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Interacting with forms:
+    &lt;ul&gt;
+      &lt;li&gt;send keys to a form field / input:
+        &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; &lt;span class=&quot;n&quot;&gt;element&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;driver&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;find_element_by_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;loginform&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+ &lt;span class=&quot;n&quot;&gt;element&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;send_keys&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;mot_de_passe&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+ &lt;span class=&quot;c1&quot;&gt;## To add use special keys in the keyboard:
+&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;selenium.webdriver.common.keys&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Keys&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;        &lt;/div&gt;
+      &lt;/li&gt;
+      &lt;li&gt;clear the content of the form
+        &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;n&quot;&gt;element&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;driver&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;find_element_by_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;loginform&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;element&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;clear&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;        &lt;/div&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Toggle the selection of checkboxes:
+    &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;c1&quot;&gt;# example: https://www.w3schools.com/howto/howto_custom_select.asp
+&lt;/span&gt;  &lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;selenium.webdriver.support.ui&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Select&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;select&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Select&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;driver&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;find_element_by_tag_name&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;select&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;# Select by index (starts at 0)
+&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;select&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;select_by_index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;# Select by visible text
+&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;#select.select_by_visible_text(&quot;text&quot;)
+&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;# Select by value
+&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;select&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;select_by_value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;# Deselecting all the selected options (for mutliselect elements only), a good example of multiselect
+&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;# https://www.w3schools.com/tags/tryit.asp?filename=tryhtml_select_multiple
+&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;select&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;deselect_all&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;# loop over options available
+&lt;/span&gt;  &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;option&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;select&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;options&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+  	&lt;span class=&quot;c1&quot;&gt;# print their text
+&lt;/span&gt;   &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;option&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Managing Pop-Up dialogs (javascript &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;alerts&lt;/code&gt;):
+    &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;c1&quot;&gt;# A good example of alert here: http://demo.guru99.com/test/delete_customer.php
+&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;# Wait for the alert to be displayed
+&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;alert&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;wait&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;until&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;expected_conditions&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;alert_is_present&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;# Switch to the alert pop-up
+&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;alert&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;driver&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;switch_to&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;alert&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;# Check the content of the alert
+&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;# Click on the OK button / accept the alert the pop-up
+&lt;/span&gt;  &lt;span class=&quot;n&quot;&gt;alert&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;accept&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;# or dismiss it: alert.dissmiss()
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Moving between windows
+    &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; &lt;span class=&quot;n&quot;&gt;driver&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;switch_to&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;windowName&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+ &lt;span class=&quot;c1&quot;&gt;# to find out the name of the window you can check the link or js code that generated it
+&lt;/span&gt;
+ &lt;span class=&quot;c1&quot;&gt;# or loop other all windows handles by the driver
+&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;window&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;driver&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;windows&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+   &lt;span class=&quot;n&quot;&gt;driver&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;switch_to&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;window&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Moving between frames
+    &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; &lt;span class=&quot;c1&quot;&gt;# by name of the frame
+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;driver&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;switch_to_frame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;name_of_frame&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+ &lt;span class=&quot;c1&quot;&gt;# by index
+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;driver&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;switch_to&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;frame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+ &lt;span class=&quot;c1&quot;&gt;# a subframe of a frame
+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;driver&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;switch_to&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;frame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;name_of_frame1.0.frame3&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+ &lt;span class=&quot;c1&quot;&gt;# going back to parent frame
+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;driver&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;switch_to&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;default_content&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Cookies&lt;/p&gt;
+
+    &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; &lt;span class=&quot;c1&quot;&gt;# 1. Go to the correct url / domain
+&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# 2. Set the cookie, it is valid for the entire domain
+&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# the cookie needs a 2 key:vals at least:
+&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;#  - 'name':&amp;lt;name&amp;gt; of the cookie
+&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;#  - 'value':&amp;lt;thevalue&amp;gt; of the cookie
+&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;#  You can set additional params such as if the cookie is HTTPOnly or not
+&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;#  E.g.
+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;driver&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;add_cookie&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'name'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'test'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'value'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'thevalue'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+ &lt;span class=&quot;c1&quot;&gt;# 4. Get all cookies
+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;driver&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;get_cookies&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+ &lt;span class=&quot;c1&quot;&gt;# As an exercice you can apply this to check that you have a new EU cookie consent record after clicking the pop-up where you accept the use of cookies by the website
+&lt;/span&gt;
+ &lt;span class=&quot;p&quot;&gt;[{&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'domain'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'.w3schools.com'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+   &lt;span class=&quot;s&quot;&gt;'expiry'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1633354196&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+   &lt;span class=&quot;s&quot;&gt;'httpOnly'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+   &lt;span class=&quot;s&quot;&gt;'name'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'euconsent-v2'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+   &lt;span class=&quot;s&quot;&gt;'path'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'/'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+   &lt;span class=&quot;s&quot;&gt;'sameSite'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Lax'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+   &lt;span class=&quot;s&quot;&gt;'secure'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+   &lt;span class=&quot;s&quot;&gt;'value'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'CO5eHhQO5eHhQDlBzAENA2CsAP_AAH_AACiQGetf_X_fb2vj-_599_t0eY1f9_63v-wzjheNs-8NyZ_X_L4Xv2MyvB36pq4KuR4ku3bBAQdtHOncTQmRwIlVqTLsbk2Mr7NKJ7LEmlsbe2dYGH9vn8XT_ZKZ70_v___7_3______777-YGekEmGpfAQJCWMBJNmlUKIEIVxIVAOACihGFo0sNCRwU7K4CPUECABAagIwIgQYgoxZBAAAAAElEQAkBwIBEARAIAAQArQEIACJAEFgBIGAQACgGhYARRBKBIQZHBUcogQFSLRQTzRgSQAA'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'domain'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'.w3schools.com'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+   &lt;span class=&quot;s&quot;&gt;'expiry'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1633354196&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+   &lt;span class=&quot;s&quot;&gt;'httpOnly'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+   &lt;span class=&quot;s&quot;&gt;'name'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'snconsent'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+   &lt;span class=&quot;s&quot;&gt;'path'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'/'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+   &lt;span class=&quot;s&quot;&gt;'sameSite'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Lax'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+   &lt;span class=&quot;s&quot;&gt;'secure'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+   &lt;span class=&quot;s&quot;&gt;'value'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'eyJwdWJsaXNoZXIiOjAsInZlbmRvciI6MywiY3ZDb25zZW50cyI6e319'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'domain'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'.www.w3schools.com'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+   &lt;span class=&quot;s&quot;&gt;'expiry'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;253402257600&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+   &lt;span class=&quot;s&quot;&gt;'httpOnly'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+   &lt;span class=&quot;s&quot;&gt;'name'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'G_ENABLED_IDPS'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+   &lt;span class=&quot;s&quot;&gt;'path'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'/'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+   &lt;span class=&quot;s&quot;&gt;'secure'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+   &lt;span class=&quot;s&quot;&gt;'value'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'google'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'domain'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'.w3schools.com'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+   &lt;span class=&quot;s&quot;&gt;'expiry'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1599744590&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+   &lt;span class=&quot;s&quot;&gt;'httpOnly'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+   &lt;span class=&quot;s&quot;&gt;'name'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'_gid'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+   &lt;span class=&quot;s&quot;&gt;'path'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'/'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+   &lt;span class=&quot;s&quot;&gt;'secure'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+   &lt;span class=&quot;s&quot;&gt;'value'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'GA1.2.1056235777.1599658190'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'domain'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'www.w3schools.com'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+   &lt;span class=&quot;s&quot;&gt;'httpOnly'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+   &lt;span class=&quot;s&quot;&gt;'name'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'test'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+   &lt;span class=&quot;s&quot;&gt;'path'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'/'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+   &lt;span class=&quot;s&quot;&gt;'secure'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+   &lt;span class=&quot;s&quot;&gt;'value'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'thevalue'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'domain'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'.w3schools.com'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+   &lt;span class=&quot;s&quot;&gt;'expiry'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1606003200&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+   &lt;span class=&quot;s&quot;&gt;'httpOnly'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+   &lt;span class=&quot;s&quot;&gt;'name'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'_gaexp'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+   &lt;span class=&quot;s&quot;&gt;'path'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'/'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+   &lt;span class=&quot;s&quot;&gt;'secure'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+   &lt;span class=&quot;s&quot;&gt;'value'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'GAX1.2.U2DF0lIpTsOVepnCdIak9A.18588.0'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'domain'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'.w3schools.com'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+   &lt;span class=&quot;s&quot;&gt;'expiry'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1662730198&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+   &lt;span class=&quot;s&quot;&gt;'httpOnly'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+   &lt;span class=&quot;s&quot;&gt;'name'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'__gads'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+   &lt;span class=&quot;s&quot;&gt;'path'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'/'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+   &lt;span class=&quot;s&quot;&gt;'secure'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+   &lt;span class=&quot;s&quot;&gt;'value'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'ID=34d373f41409cec7-229cd97515a60048:T=1599658198:S=ALNI_MaHAR9T3-JOlXvVv0J_m6hrSCzcPQ'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'domain'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'.w3schools.com'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+   &lt;span class=&quot;s&quot;&gt;'expiry'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1662730190&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+   &lt;span class=&quot;s&quot;&gt;'httpOnly'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+   &lt;span class=&quot;s&quot;&gt;'name'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'_ga'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+   &lt;span class=&quot;s&quot;&gt;'path'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'/'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+   &lt;span class=&quot;s&quot;&gt;'secure'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+   &lt;span class=&quot;s&quot;&gt;'value'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'GA1.2.669605950.1599658190'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}]&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h4 id=&quot;xpath&quot;&gt;XPath&lt;/h4&gt;
+
+&lt;p&gt;Although it is part of the navigation, I think it should be dedicated an entire section.&lt;/p&gt;
+
+&lt;p&gt;In XPath you can select a lot type of objects (also designed as nodes). Among them: attribute, text, or element.&lt;/p&gt;
+
+&lt;p&gt;A good read for &lt;a href=&quot;https://www.w3schools.com/xml/xpath_syntax.asp&quot;&gt;XPath&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Here on &lt;a href=&quot;https://stackoverflow.com/questions/29526080/xpath-attribute-wildcard-not-returning-element-with-attribute-named-value&quot;&gt;dot notation in startswith in XPath&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Here on &lt;a href=&quot;https://stackoverflow.com/questions/38240763/xpath-difference-between-dot-and-text&quot;&gt;dot versus text()&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;And on the &lt;a href=&quot;https://stackoverflow.com/questions/35606708/what-is-the-difference-between-and-in-xpath/35606964&quot;&gt;current node vs everywhere&lt;/a&gt;
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;//ol/descendant::code[contains(text(), &quot;//*&quot;)][2]&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;node-set passes to starts-with function as 1st argument (@*). The starts-with function converts a node-set to a string by returning the string value of the first node in the node-set, i.e. only 1st attribute&lt;/p&gt;
+
+&lt;h4 id=&quot;waits&quot;&gt;Waits&lt;/h4&gt;
+
+&lt;p&gt;A lot of browser are using AJAX (&lt;em&gt;asynchronous javascript and XML&lt;/em&gt;), hence making calls from a client to the server asynchronously to modify components in a web page without needing to refresh the concerned page.
+Although this separates the presentation logic from the data exchange logic and greatly improve user experience, a “loaded” page doesn’t mean other scripts won’t display other elements later on.&lt;/p&gt;
+
+&lt;h5 id=&quot;implicit-wait&quot;&gt;implicit wait:&lt;/h5&gt;
+&lt;p&gt;For the whole lifetime of the WebDriver object, each time an object is not available on request, repeat till &lt;strong&gt;n&lt;/strong&gt; seconds elapsed.&lt;/p&gt;
+
+&lt;h5 id=&quot;explicit-wait&quot;&gt;explicit wait:&lt;/h5&gt;
+&lt;p&gt;Makes the webdriver wait for a certain condition to execute further instructions.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;selenium.webdriver.support.ui&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;WebDriverWait&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;selenium.webdriver.support&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;expected_conditions&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ec&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# timeout after 10s without success
+# or returning the web element otherwise
+&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;try&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;element&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;WebDriverWait&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;driver&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;timeout&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;until&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;ec&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;presence_of_element_located&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;By&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ID&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;myDynamicElement&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;except&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;TimeoutException&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Looks like it didn't work out during the time requested&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# caution: inside the expected condition class constructor, you must fill a locator in the form of a tuple (by, path)
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Directly from the &lt;a href=&quot;https://selenium-python.readthedocs.io/waits.html&quot;&gt;docs&lt;/a&gt; here are some convenient expected conditions class’constructors you can use:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;title_is&lt;/li&gt;
+  &lt;li&gt;title_contains&lt;/li&gt;
+  &lt;li&gt;presence_of_element_located&lt;/li&gt;
+  &lt;li&gt;visibility_of_element_located&lt;/li&gt;
+  &lt;li&gt;visibility_of&lt;/li&gt;
+  &lt;li&gt;presence_of_all_elements_located&lt;/li&gt;
+  &lt;li&gt;text_to_be_present_in_element&lt;/li&gt;
+  &lt;li&gt;text_to_be_present_in_element_value&lt;/li&gt;
+  &lt;li&gt;frame_to_be_available_and_switch_to_it&lt;/li&gt;
+  &lt;li&gt;invisibility_of_element_located&lt;/li&gt;
+  &lt;li&gt;element_to_be_clickable&lt;/li&gt;
+  &lt;li&gt;staleness_of&lt;/li&gt;
+  &lt;li&gt;element_to_be_selected&lt;/li&gt;
+  &lt;li&gt;element_located_to_be_selected&lt;/li&gt;
+  &lt;li&gt;element_selection_state_to_be&lt;/li&gt;
+  &lt;li&gt;element_located_selection_state_to_be&lt;/li&gt;
+  &lt;li&gt;alert_is_present&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Custom wait conditions are also interesting to &lt;a href=&quot;https://selenium-python.readthedocs.io/waits.html&quot;&gt;check&lt;/a&gt; as it uses some concepts (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;__call__&lt;/code&gt;) we have covered elsewhere in this blog.&lt;/p&gt;
+
+&lt;h5 id=&quot;action-chains&quot;&gt;Action chains&lt;/h5&gt;
+
+&lt;p&gt;One of the most useful WebDriver tool:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;ActionChains are a way to automate low level interactions such as mouse movements, mouse button actions, key press, and context menu interactions. This is useful for doing more complex actions like hover over and drag and drop.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;u&gt;Usage:&lt;/u&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# 1. import the class ActionChains
+&lt;/span&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;selenium.webdriver.common.actions_chains&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ActionChains&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# 2. Keep for later the elements you are going to interact with
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;menu&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;driver&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;find_element_by_css_selector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;.nav&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;hidden_submenu&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;driver&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;find_element_by_css_selector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;.nav #submenu1&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# 3. ActionChains constructor expects the driver
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pile_of_actions&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ActionChains&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;driver&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# 3. stack of actions (not performed yet)
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;actions&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;move_to_element&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;menu&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# moving the mouse to the middle of the element
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;actions&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;click&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;hidden_submenu&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# 4. perform the stored actions in the order it was defined (top to bottom) 
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;actions&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;perform&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;move_by_offset(xoffset, yoffset)&lt;/code&gt; is really useful to cause web animations/interactions which rely heavily on the user’s mouse moves. It moves to an offset (x or y coordinates) from current mouse position.&lt;/p&gt;
+
+&lt;p&gt;See example below (this is for educational purposes only !)&lt;/p&gt;
+
+&lt;iframe width=&quot;800&quot; src=&quot;https://youtu.be/jm_Lmq50oAs&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
+
+&lt;h5 id=&quot;injecting-js-code-in-the-browser&quot;&gt;injecting js code in the browser&lt;/h5&gt;
+&lt;p&gt;One use case could be to scroll in a news or social network feed.
+Here is an example of such:&lt;/p&gt;
+
+&lt;h5 id=&quot;dom-document-object-model&quot;&gt;DOM: Document Object Model&lt;/h5&gt;
+&lt;p&gt;Wikipedia best describes it:&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/assets/images/post_webscrapping/DOM.png&quot; width=&quot;600px&quot; style=&quot;display: inline-block;&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;</content><author><name>luc</name></author><summary type="html">Selenium is an open-source automated testing suite for web apps. It was at first used to automate tests for web applications as it can emulate user interactions with browsers, although its scope is wider as it can be used for other purposes: such as webscrapping for example.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/images/post_webscrapping/index_img/cover.jpg" /><media:content medium="image" url="http://localhost:4000/assets/images/post_webscrapping/index_img/cover.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Some Python exercices</title><link href="http://localhost:4000/some-python-exercices/" rel="alternate" type="text/html" title="Some Python exercices" /><published>2020-09-01T00:00:00+02:00</published><updated>2020-09-01T00:00:00+02:00</updated><id>http://localhost:4000/some-python-exercices</id><content type="html" xml:base="http://localhost:4000/some-python-exercices/">&lt;p&gt;Some exercices following tutorial &lt;em&gt;Beginning in Python&lt;/em&gt; to make you more comfortable with some object-oriented concepts in Python ;)&lt;/p&gt;
 
 &lt;h2 id=&quot;ex-1-counting-letter-frequencies-in-a-text&quot;&gt;Ex. 1: Counting letter frequencies in a text.&lt;/h2&gt;
 

@@ -90,174 +90,179 @@ driver.close() # to close the browser tab (window if there is only one tab.)
 #### Navigating
 
 1. Going to an url:
-```python
-driver.get(url_name) # loaded when `onload` even has fired
-```
+
+    ```python
+      driver.get(url_name) # loaded when `onload` even has fired
+    ```
+
 2. Selecting an element:
-```python
-# ! find element return the first element matching !
-driver.find_element_by_class_name()
-driver.find_element_by_css_selectorn()
-driver.find_element_by_link_text() # the text attached to the link
-driver.find_element_by_partial_link_text() # part of the text attached to the link
-driver.find_element_by_name() #name attribute of the element
-driver.find_element_by_id() #id attribute of the element
-driver.find_element_by_xpath() #using XPath, see later
-driver.find_element_by_tag_name() #tag name
-driver.find_element() # private method, you can use By from selenium.webdriver.common.by import By, rather than using the shortcuts methods https://stackoverflow.com/questions/29065653/what-is-the-difference-between-findelementby-findelementby
 
-# Note that you can use directly on a webelement:
-# <webelement>.find_element_by...()  will use the element as the scope in which to search for your selector. https://stackoverflow.com/questions/26882604/selenium-difference-between-webdriver-findelement-and-webelement-findelement
-# An example provided here https://github.com/Luc-Bertin/TDs_ESILV/blob/master/webscrapping_test2find_element.ipynb
-# 
-# 
-# When no element exist: NoSuchElementException is raised
+    ```python
+    # ! find element return the first element matching !
+    driver.find_element_by_class_name()
+    driver.find_element_by_css_selectorn()
+    driver.find_element_by_link_text() # the text attached to the link
+    driver.find_element_by_partial_link_text() # part of the text attached to the link
+    driver.find_element_by_name() #name attribute of the element
+    driver.find_element_by_id() #id attribute of the element
+    driver.find_element_by_xpath() #using XPath, see later
+    driver.find_element_by_tag_name() #tag name
+    driver.find_element() # private method, you can use By from selenium.webdriver.common.by import By, rather than using the shortcuts methods https://stackoverflow.com/questions/29065653/what-is-the-difference-between-findelementby-findelementby
 
-# ! find elementS return a list of Web elements !
-driver.find_elements_by_class_name()
-driver.find_elements_by_css_selectorn()
-driver.find_elements_by_link_text()
-## ...
-# When no elements exist: just an empty list
-```
+    # Note that you can use directly on a webelement:
+    # <webelement>.find_element_by...()  will use the element as the scope in which to search for your selector. https://stackoverflow.com/questions/26882604/selenium-difference-between-webdriver-findelement-and-webelement-findelement
+    # An example provided here https://github.com/Luc-Bertin/TDs_ESILV/blob/master/webscrapping_test2find_element.ipynb
+    # 
+    # 
+    # When no element exist: NoSuchElementException is raised
+
+    # ! find elementS return a list of Web elements !
+    driver.find_elements_by_class_name()
+    driver.find_elements_by_css_selectorn()
+    driver.find_elements_by_link_text()
+    ## ...
+    # When no elements exist: just an empty list
+    ```
 3. Interacting with forms:
  - send keys to a form field / input:
-```python
-element = driver.find_element_by_name("loginform")
-element.send_keys("mot_de_passe")
-## To add use special keys in the keyboard:
-from selenium.webdriver.common.keys import Keys
-```
+    ```python
+    element = driver.find_element_by_name("loginform")
+    element.send_keys("mot_de_passe")
+    ## To add use special keys in the keyboard:
+    from selenium.webdriver.common.keys import Keys
+    ```
  - clear the content of the form
-```python
- element = driver.find_element_by_name("loginform")
- element.clear()
-```
+    ```python
+     element = driver.find_element_by_name("loginform")
+     element.clear()
+    ```
 4. Toggle the selection of checkboxes:
-```python
-# example: https://www.w3schools.com/howto/howto_custom_select.asp
-from selenium.webdriver.support.ui import Select
-select = Select(driver.find_element_by_tag_name("select"))
-# Select by index (starts at 0)
-select.select_by_index(2)
-# Select by visible text
-#select.select_by_visible_text("text")
-# Select by value
-select.select_by_value(value)
-# Deselecting all the selected options (for mutliselect elements only), a good example of multiselect
-# https://www.w3schools.com/tags/tryit.asp?filename=tryhtml_select_multiple
-select.deselect_all()
-# loop over options available
-for option in select.options:
-	# print their text
-    print( option.text )
-```
+  ```python
+  # example: https://www.w3schools.com/howto/howto_custom_select.asp
+  from selenium.webdriver.support.ui import Select
+  select = Select(driver.find_element_by_tag_name("select"))
+  # Select by index (starts at 0)
+  select.select_by_index(2)
+  # Select by visible text
+  #select.select_by_visible_text("text")
+  # Select by value
+  select.select_by_value(value)
+  # Deselecting all the selected options (for mutliselect elements only), a good example of multiselect
+  # https://www.w3schools.com/tags/tryit.asp?filename=tryhtml_select_multiple
+  select.deselect_all()
+  # loop over options available
+  for option in select.options:
+  	# print their text
+      print( option.text )
+  ```
 5. Managing Pop-Up dialogs (javascript `alerts`):
-```python
-# A good example of alert here: http://demo.guru99.com/test/delete_customer.php
-# Wait for the alert to be displayed
-alert = wait.until(expected_conditions.alert_is_present())
-# Switch to the alert pop-up
-alert = driver.switch_to.alert
-# Check the content of the alert
-alert.text
-# Click on the OK button / accept the alert the pop-up
-alert.accept()
-# or dismiss it: alert.dissmiss()
-```
+  ```python
+  # A good example of alert here: http://demo.guru99.com/test/delete_customer.php
+  # Wait for the alert to be displayed
+  alert = wait.until(expected_conditions.alert_is_present())
+  # Switch to the alert pop-up
+  alert = driver.switch_to.alert
+  # Check the content of the alert
+  alert.text
+  # Click on the OK button / accept the alert the pop-up
+  alert.accept()
+  # or dismiss it: alert.dissmiss()
+  ```
 6. Moving between windows
-```python
-driver.switch_to.window("windowName")
-# to find out the name of the window you can check the link or js code that generated it
+    ```python
+    driver.switch_to.window("windowName")
+    # to find out the name of the window you can check the link or js code that generated it
 
-# or loop other all windows handles by the driver
-for window in driver.windows:
-	driver.switch_to.window(window)
-```
+    # or loop other all windows handles by the driver
+    for window in driver.windows:
+      driver.switch_to.window(window)
+    ```
 7. Moving between frames
-```python
-# by name of the frame
-driver.switch_to_frame("name_of_frame")
-# by index
-driver.switch_to.frame(0)
-# a subframe of a frame
-driver.switch_to.frame("name_of_frame1.0.frame3")
-# going back to parent frame
-driver.switch_to.default_content()
-```
+    ```python
+    # by name of the frame
+    driver.switch_to_frame("name_of_frame")
+    # by index
+    driver.switch_to.frame(0)
+    # a subframe of a frame
+    driver.switch_to.frame("name_of_frame1.0.frame3")
+    # going back to parent frame
+    driver.switch_to.default_content()
+    ```
 8. Cookies
-```python
-# 1. Go to the correct url / domain
-# 2. Set the cookie, it is valid for the entire domain
-# the cookie needs a 2 key:vals at least:
-#  - 'name':<name> of the cookie
-#  - 'value':<thevalue> of the cookie
-#  You can set additional params such as if the cookie is HTTPOnly or not
-#  E.g.
-driver.add_cookie({'name':'test', 'value':'thevalue'})
-# 4. Get all cookies
-driver.get_cookies()
-# As an exercice you can apply this to check that you have a new EU cookie consent record after clicking the pop-up where you accept the use of cookies by the website
 
-[{'domain': '.w3schools.com',
-  'expiry': 1633354196,
-  'httpOnly': False,
-  'name': 'euconsent-v2',
-  'path': '/',
-  'sameSite': 'Lax',
-  'secure': True,
-  'value': 'CO5eHhQO5eHhQDlBzAENA2CsAP_AAH_AACiQGetf_X_fb2vj-_599_t0eY1f9_63v-wzjheNs-8NyZ_X_L4Xv2MyvB36pq4KuR4ku3bBAQdtHOncTQmRwIlVqTLsbk2Mr7NKJ7LEmlsbe2dYGH9vn8XT_ZKZ70_v___7_3______777-YGekEmGpfAQJCWMBJNmlUKIEIVxIVAOACihGFo0sNCRwU7K4CPUECABAagIwIgQYgoxZBAAAAAElEQAkBwIBEARAIAAQArQEIACJAEFgBIGAQACgGhYARRBKBIQZHBUcogQFSLRQTzRgSQAA'},
- {'domain': '.w3schools.com',
-  'expiry': 1633354196,
-  'httpOnly': False,
-  'name': 'snconsent',
-  'path': '/',
-  'sameSite': 'Lax',
-  'secure': True,
-  'value': 'eyJwdWJsaXNoZXIiOjAsInZlbmRvciI6MywiY3ZDb25zZW50cyI6e319'},
- {'domain': '.www.w3schools.com',
-  'expiry': 253402257600,
-  'httpOnly': False,
-  'name': 'G_ENABLED_IDPS',
-  'path': '/',
-  'secure': False,
-  'value': 'google'},
- {'domain': '.w3schools.com',
-  'expiry': 1599744590,
-  'httpOnly': False,
-  'name': '_gid',
-  'path': '/',
-  'secure': False,
-  'value': 'GA1.2.1056235777.1599658190'},
- {'domain': 'www.w3schools.com',
-  'httpOnly': False,
-  'name': 'test',
-  'path': '/',
-  'secure': True,
-  'value': 'thevalue'},
- {'domain': '.w3schools.com',
-  'expiry': 1606003200,
-  'httpOnly': False,
-  'name': '_gaexp',
-  'path': '/',
-  'secure': False,
-  'value': 'GAX1.2.U2DF0lIpTsOVepnCdIak9A.18588.0'},
- {'domain': '.w3schools.com',
-  'expiry': 1662730198,
-  'httpOnly': False,
-  'name': '__gads',
-  'path': '/',
-  'secure': False,
-  'value': 'ID=34d373f41409cec7-229cd97515a60048:T=1599658198:S=ALNI_MaHAR9T3-JOlXvVv0J_m6hrSCzcPQ'},
- {'domain': '.w3schools.com',
-  'expiry': 1662730190,
-  'httpOnly': False,
-  'name': '_ga',
-  'path': '/',
-  'secure': False,
-  'value': 'GA1.2.669605950.1599658190'}]
+    ```python
+    # 1. Go to the correct url / domain
+    # 2. Set the cookie, it is valid for the entire domain
+    # the cookie needs a 2 key:vals at least:
+    #  - 'name':<name> of the cookie
+    #  - 'value':<thevalue> of the cookie
+    #  You can set additional params such as if the cookie is HTTPOnly or not
+    #  E.g.
+    driver.add_cookie({'name':'test', 'value':'thevalue'})
+    # 4. Get all cookies
+    driver.get_cookies()
+    # As an exercice you can apply this to check that you have a new EU cookie consent record after clicking the pop-up where you accept the use of cookies by the website
 
-```
+    [{'domain': '.w3schools.com',
+      'expiry': 1633354196,
+      'httpOnly': False,
+      'name': 'euconsent-v2',
+      'path': '/',
+      'sameSite': 'Lax',
+      'secure': True,
+      'value': 'CO5eHhQO5eHhQDlBzAENA2CsAP_AAH_AACiQGetf_X_fb2vj-_599_t0eY1f9_63v-wzjheNs-8NyZ_X_L4Xv2MyvB36pq4KuR4ku3bBAQdtHOncTQmRwIlVqTLsbk2Mr7NKJ7LEmlsbe2dYGH9vn8XT_ZKZ70_v___7_3______777-YGekEmGpfAQJCWMBJNmlUKIEIVxIVAOACihGFo0sNCRwU7K4CPUECABAagIwIgQYgoxZBAAAAAElEQAkBwIBEARAIAAQArQEIACJAEFgBIGAQACgGhYARRBKBIQZHBUcogQFSLRQTzRgSQAA'},
+     {'domain': '.w3schools.com',
+      'expiry': 1633354196,
+      'httpOnly': False,
+      'name': 'snconsent',
+      'path': '/',
+      'sameSite': 'Lax',
+      'secure': True,
+      'value': 'eyJwdWJsaXNoZXIiOjAsInZlbmRvciI6MywiY3ZDb25zZW50cyI6e319'},
+     {'domain': '.www.w3schools.com',
+      'expiry': 253402257600,
+      'httpOnly': False,
+      'name': 'G_ENABLED_IDPS',
+      'path': '/',
+      'secure': False,
+      'value': 'google'},
+     {'domain': '.w3schools.com',
+      'expiry': 1599744590,
+      'httpOnly': False,
+      'name': '_gid',
+      'path': '/',
+      'secure': False,
+      'value': 'GA1.2.1056235777.1599658190'},
+     {'domain': 'www.w3schools.com',
+      'httpOnly': False,
+      'name': 'test',
+      'path': '/',
+      'secure': True,
+      'value': 'thevalue'},
+     {'domain': '.w3schools.com',
+      'expiry': 1606003200,
+      'httpOnly': False,
+      'name': '_gaexp',
+      'path': '/',
+      'secure': False,
+      'value': 'GAX1.2.U2DF0lIpTsOVepnCdIak9A.18588.0'},
+     {'domain': '.w3schools.com',
+      'expiry': 1662730198,
+      'httpOnly': False,
+      'name': '__gads',
+      'path': '/',
+      'secure': False,
+      'value': 'ID=34d373f41409cec7-229cd97515a60048:T=1599658198:S=ALNI_MaHAR9T3-JOlXvVv0J_m6hrSCzcPQ'},
+     {'domain': '.w3schools.com',
+      'expiry': 1662730190,
+      'httpOnly': False,
+      'name': '_ga',
+      'path': '/',
+      'secure': False,
+      'value': 'GA1.2.669605950.1599658190'}]
+
+    ```
+
 
 #### XPath
 
@@ -265,13 +270,13 @@ Although it is part of the navigation, I think it should be dedicated an entire 
 
 In XPath you can select a lot type of objects (also designed as nodes). Among them: attribute, text, or element.
 
-A good read for XPath: https://www.w3schools.com/xml/xpath_syntax.asp
+A good read for [XPath](https://www.w3schools.com/xml/xpath_syntax.asp)
 
-on [dot notation in startswith in XPath](https://stackoverflow.com/questions/29526080/xpath-attribute-wildcard-not-returning-element-with-attribute-named-value)
-on [dot versus text()](https://stackoverflow.com/questions/38240763/xpath-difference-between-dot-and-text)
+Here on [dot notation in startswith in XPath](https://stackoverflow.com/questions/29526080/xpath-attribute-wildcard-not-returning-element-with-attribute-named-value)
 
+Here on [dot versus text()](https://stackoverflow.com/questions/38240763/xpath-difference-between-dot-and-text)
 
-https://stackoverflow.com/questions/35606708/what-is-the-difference-between-and-in-xpath/35606964
+And on the [current node vs everywhere](https://stackoverflow.com/questions/35606708/what-is-the-difference-between-and-in-xpath/35606964)
 ```//ol/descendant::code[contains(text(), "//*")][2]```
 
 node-set passes to starts-with function as 1st argument (@\*). The starts-with function converts a node-set to a string by returning the string value of the first node in the node-set, i.e. only 1st attribute
@@ -329,7 +334,7 @@ One of the most useful WebDriver tool:
 
 > ActionChains are a way to automate low level interactions such as mouse movements, mouse button actions, key press, and context menu interactions. This is useful for doing more complex actions like hover over and drag and drop.
 
-Usage:
+**<u>Usage:</u>**
 
 ```python
 # 1. import the class ActionChains
@@ -356,9 +361,8 @@ See example below (this is for educational purposes only !)
 One use case could be to scroll in a news or social network feed.
 Here is an example of such:
 
-
 ##### DOM: Document Object Model 
 Wikipedia best describes it:
 
-<img src="{{page.image_folder}}DOM.png" width="800px" style="display: inline-block;" class="center">
+<img src="{{page.image_folder}}DOM.png" width="600px" style="display: inline-block;" class="center">
 
