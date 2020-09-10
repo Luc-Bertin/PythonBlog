@@ -355,11 +355,14 @@ actions.perform()
 
 See example below (this is for educational purposes only !)
 
-<iframe width="800" src="https://youtu.be/jm_Lmq50oAs" frameborder="0" allowfullscreen></iframe>
+<iframe width="800" src="http://www.youtube.com/embed/jm_Lmq50oAs" frameborder="0" allowfullscreen></iframe>
 
 ##### injecting js code in the browser
 One use case could be to scroll in a news or social network feed.
 Here is an example of such:
+
+<iframe width="800" src="http://www.youtube.com/embed/bpa7dS3iO3U" frameborder="0" allowfullscreen></iframe>
+
 
 ##### DOM: Document Object Model 
 Wikipedia best describes it:
