@@ -121,6 +121,7 @@ driver.find_elements_by_link_text()
 ## ...
 # When no elements exist: just an empty list
 ```
+
 3. Interacting with forms:
  - send keys to a form field / input:
 ```python
@@ -130,10 +131,10 @@ element.send_keys("mot_de_passe")
 from selenium.webdriver.common.keys import Keys
 ```
  - clear the content of the form
- ```python
+```python
  element = driver.find_element_by_name("loginform")
  element.clear()
- ```
+```
 4. Toggle the selection of checkboxes:
 ```python
 # example: https://www.w3schools.com/howto/howto_custom_select.asp
@@ -153,6 +154,7 @@ for option in select.options:
 	# print their text
     print( option.text )
 ```
+
 5. Managing Pop-Up dialogs (javascript `alerts`):
 ```python
 # A good example of alert here: http://demo.guru99.com/test/delete_customer.php
@@ -165,7 +167,8 @@ alert.text
 # Click on the OK button / accept the alert the pop-up
 alert.accept()
 # or dismiss it: alert.dissmiss()
- ```
+```
+
 6. Moving between windows
 ```python
 driver.switch_to.window("windowName")
@@ -175,6 +178,7 @@ driver.switch_to.window("windowName")
 for window in driver.windows:
 	driver.switch_to.window(window)
 ```
+
 7. Moving between frames
 ```python
 # by name of the frame
