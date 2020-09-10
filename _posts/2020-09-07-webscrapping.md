@@ -95,7 +95,6 @@ driver.get(url_name) # loaded when `onload` even has fired
 ```
 
 2. Selecting an element:
-
 ```python
 # ! find element return the first element matching !
 driver.find_element_by_class_name()
