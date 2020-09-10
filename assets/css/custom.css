@@ -10,6 +10,8 @@
   /* 16:9 aspect ratio */
   padding-top: 56.25%;
   position: relative;
+
+  width:100%;
 }
 
 .iframe-container iframe {
