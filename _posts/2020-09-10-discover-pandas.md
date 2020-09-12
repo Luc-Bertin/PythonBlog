@@ -5,7 +5,7 @@ author: luc
 categories: [ TDs, Python ]
 image_folder: /assets/images/post_discover_pandas/
 image: assets/images/post_discover_pandas/cover.jpg
-image_index: assets/images/post_discover_pandas/cover.jpg
+image_index: assets/images/post_discover_pandas/index_img/cover.jpg
 
 ---
 
