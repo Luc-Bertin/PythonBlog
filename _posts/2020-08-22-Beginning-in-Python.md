@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Begginning in Python"
+title:  "Beginning in Python"
 author: luc
 categories: [ TDs ]
 image_folder: /assets/images/post_approaching_python_programming/

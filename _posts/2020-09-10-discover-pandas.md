@@ -10,11 +10,7 @@ tags: [featured]
 
 ---
 
-Pandas is built on top of Numpy
-
-`pandas.DataFrame`: multidimensional arrays with rows and columns' labels (but in most cases, you're better off using 2 dimensions) with in most cases heterogeneous types or missing data.
-
-dealing with less structured, clean and complete data consists in most of the time spent by the data scientist
+Pandas is built on top of Numpy. `pandas.DataFrame` is a class to construct multidimensional arrays with rows and columns' labels (although, in most cases, you're better-off using 2 dimensions) and usually with heterogeneous types or missing data. Dealing with less structured, clean and complete data consists in most of the time spent by the data scientist.
 
 
 ```python
