@@ -6,6 +6,7 @@ categories: [ TDs, Python ]
 image_folder: /assets/images/post_install_python/
 image: assets/images/post_install_python/cover.jpg
 image_index: assets/images/post_install_python/index_img/cover.jpg
+tags: [featured]
 
 ---
 

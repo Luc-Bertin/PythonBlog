@@ -2,10 +2,12 @@
 layout: post
 title:  "Webscrapping using Selenium"
 author: luc
-categories: [ TDs, Lecture, Selenium, BeautifulSoup, Python]
+categories: [ TDs, Lecture, Selenium, Python]
 image_folder: /assets/images/post_webscrapping/
 image: assets/images/post_webscrapping/index_img/cover.jpg
 image_index: assets/images/post_webscrapping/index_img/cover.jpg
+tags: [featured]
+
 ---
 
 
@@ -372,3 +374,4 @@ Wikipedia best describes it:
 
 <img src="{{page.image_folder}}DOM.png" width="600px" style="display: inline-block;" class="center">
 
+##### Another interesting link on the [difference](https://stackoverflow.com/questions/57528987/what-is-the-difference-between-remotewebdriver-and-webdriver) between `RemoteWebDriver` and `Webdriver`
