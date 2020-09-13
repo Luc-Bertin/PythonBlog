@@ -4,13 +4,17 @@ title:  "Discover Pandas"
 author: luc
 categories: [ TDs, Python ]
 image_folder: /assets/images/post_discover_pandas/
-image: assets/images/post_discover_pandas/cover.jpg
+image: assets/images/post_discover_pandas/index_img/cover.jpg
 image_index: assets/images/post_discover_pandas/index_img/cover.jpg
 tags: [featured]
 
 ---
 
-Pandas is built on top of Numpy. `pandas.DataFrame` is a class to construct multidimensional arrays with rows and columns' labels (although, in most cases, you're better-off using 2 dimensions) and usually with heterogeneous types or missing data. Dealing with less structured, clean and complete data consists in most of the time spent by the data scientist.
+>`pandas.DataFrame` is a 2-dimensional labeled data structure with columns of potentially different types. You can think of it like a spreadsheet or SQL table. It got rows and columns' labels and can contain and handle missing data.
+
+Dealing with initially less structured, clean and complete data consists in most of the time spent by the data scientist.
+
+First, check the overview of the package [here](https://pandas.pydata.org/docs/getting_started/overview.html)
 
 
 ```python
@@ -42,6 +46,8 @@ pd?
 
     14.7 ns ± 0.386 ns per loop (mean ± std. dev. of 7 runs, 100000000 loops each)
 
+
+In the rest of this tutorial we will mainly work on the `DataFrame` class, although we first have to introduce 2 other core data structures provided by the package: the `Series` and the `Index`, as they are each constitutive of `DataFrame` and the former share very similar API with the DataFrame class.
 
 ## Series
 
@@ -263,13 +269,14 @@ print("jean" in serie)
 
 
 
-using a `dict` in the `pd.Series` constructor automatically assigns the index as the ordered keys in the `dict`
+using a `dict` in the `pd.Series` constructor automatically assigns the index as the ordered keys in the `dict` (for Python 3.6 and later though, the index is in the same order as the insertion order).
+
 
 
 ```python
 test = pd.Series(dict(zip(["ea","fzf","aeif"], [2,3,2])))
 # with zip or using a dict
-test2 = pd.Series({"ea":2, "fzf":3, "aeif":2})
+test2 = pd.Series({"ea":2, "fzf":3, "aeif":2}, index=["ea"])
 ```
 
 
@@ -295,33 +302,52 @@ test2
 
 
 
-    aeif    2
-    ea      2
-    fzf     3
+    ea    2
     dtype: int64
+
+
+
+**If multiple different types reside in a Series, all of the data will get upcasted to a dtype that accommodates all of the data involved.**
 
 
 
 
 ```python
-test
+test2 = pd.Series({"ea":2, "fzf":3, "aeif":"zf"}, index=["ea"])
+test2
 ```
 
 
 
 
-    aeif    2
-    ea      2
-    fzf     3
-    dtype: int64
+    ea    2
+    dtype: object
 
 
+
+
+```python
+test2 = pd.Series({"ea":2, "fzf":3, "aeif":2.4}, index=["ea"])
+test2
+```
+
+
+
+
+    ea    2.0
+    dtype: float64
+
+
+
+**dtype=object** means that the best common type infered representation for the contents of the `pd.Series` is that they are Python objects.
+
+this also mean performance decreases, **any operations on the data will be done at the Python level** (1)
 
 ## selection in Series
 
 
 ```python
-(test>2)
+(test>2) # return a boolean array we can later use to filter the values we want (returning True)
 ```
 
 
@@ -398,7 +424,7 @@ test[mask]
 
 
 ```python
-# fancy indexing
+# fancy indexing (<=> selecting multiple indexes using a list of indexes)
 test[["ea", "fzf"]]
 ```
 
@@ -413,7 +439,7 @@ test[["ea", "fzf"]]
 
 
 ```python
-# explicit index slicing
+# explicit index slicing (using the labels of the indexes)
 test["aeif": "fzf"]
 ```
 
@@ -429,7 +455,7 @@ test["aeif": "fzf"]
 
 
 ```python
-# implicit index slicing
+# implicit index slicing (using integers)
 test[0: 2]
 ```
 
@@ -442,95 +468,139 @@ test[0: 2]
 
 
 
-using explicit indexes while slicing makes the final index ***included*** in the slice hence the results
+- using explicit indexes while slicing ***include*** the final index
 
-using implicit index in slicing ***exclude*** the final index during slicing 
+- using implicit index in slicing ***exclude*** the final index
 
-what about i defined explicit integer indexes and i want to slice ? 🙄
+What about i defined **explicit integer indexes at first** and i want to slice ? 🙄
 
 ## using loc
 
 
 ```python
-serie2 = pd.Series({1:2, 5:3, 7:2})
-```
-
-
-```python
+serie2 = pd.Series({1:4, 2:8, 3:51})
 serie2
 ```
 
 
 
 
-    1    2
-    5    3
-    7    2
+    1     4
+    2     8
+    3    51
     dtype: int64
 
 
 
 
 ```python
-serie2.loc[1] # explicit index
+serie2[3] # indexing: defaults to select explicit index /  with label 3
+serie2[2:3] # slicing: defaults to select implicit index
 ```
 
 
 
 
-    2
+    51
 
 
 
 
-```python
-serie2.iloc[1] # implicit index
-```
 
 
-
-
-    3
-
-
-
-
-```python
-serie2.iloc[1:2] # implicit index for slicing
-```
-
-
-
-
-    5    3
+    3    51
     dtype: int64
 
 
 
 
 ```python
-serie2.loc[1:5] # explicit index for slicing
+serie2.loc[1] # indexing: on explicit index
+serie2.loc[2:3] # slicing: on explicit index
 ```
 
 
 
 
-    1    2
-    5    3
+    4
+
+
+
+
+
+
+    2     8
+    3    51
     dtype: int64
 
 
 
 
 ```python
-serie2.loc[[1,5]] # fancy indexing
+serie2.iloc[1] # indexing: on implicit index
+serie2.iloc[2:3] # slicing: on implicit index
 ```
 
 
 
 
-    1    2
-    5    3
+    8
+
+
+
+
+
+
+    3    51
+    dtype: int64
+
+
+
+
+```python
+serie2.loc[1:5] # slicing: explicit index 
+serie2.iloc[1:5] # slicing: implicit index 
+```
+
+
+
+
+    1     4
+    2     8
+    3    51
+    dtype: int64
+
+
+
+
+
+
+    2     8
+    3    51
+    dtype: int64
+
+
+
+
+```python
+serie2.loc[[1,2]] # fancy indexing
+serie2.iloc[[1,2]] # fancy indexing 
+```
+
+
+
+
+    1    4
+    2    8
+    dtype: int64
+
+
+
+
+
+
+    2     8
+    3    51
     dtype: int64
 
 
@@ -541,15 +611,15 @@ serie2.loc[[1,5]] # fancy indexing
 
 
 ```python
-df2.index[0]=18
+serie2.index[0]=18
 ```
 
 
     Traceback (most recent call last):
 
 
-      File "<ipython-input-386-c2c5c1024f29>", line 1, in <module>
-        df2.index[0]=18
+      File "<ipython-input-1096-707f9cda8675>", line 1, in <module>
+        serie2.index[0]=18
 
 
       File "/Users/lucbertin/.pyenv/versions/3.5.7/lib/python3.5/site-packages/pandas/core/indexes/base.py", line 4260, in __setitem__
@@ -564,49 +634,49 @@ df2.index[0]=18
 
 
 ```python
-df2.index[0]
+serie2.index[0]
 ```
 
 
 
 
-    0
+    1
 
 
 
 
 ```python
-df.index[:2]
+serie2.index[:2]
 ```
 
 
 
 
-    Index(['Corentin', 'Luc'], dtype='object')
+    Int64Index([1, 2], dtype='int64')
 
 
 
 
 ```python
-df.index & {'Corentin', 'Yolo'}
+serie2.index & {1, 5}
 ```
 
 
 
 
-    Index(['Corentin'], dtype='object')
+    Int64Index([1], dtype='int64')
 
 
 
 
 ```python
-df.index ^ {'Corentin', 'Yolo'}
+serie2.index ^ {1,5}
 ```
 
 
 
 
-    Index(['Luc', 'René', 'Yolo'], dtype='object')
+    Int64Index([2, 3, 5], dtype='int64')
 
 
 
@@ -618,7 +688,7 @@ df.index ^ {'Corentin', 'Yolo'}
 
 * Hence `pd.DataFrame` can be seen as dictionnary of Series objects
 
-* Flexible rows and columns' labels
+* Flexible rows and columns' labels (`Index` objects for both)
 
 
 ```python
@@ -628,6 +698,7 @@ serie2 = pd.Series({"René": "100%", "Corentin": "25%", "Luc": "20%"})
 
 
 ```python
+# dictionnary of pd.Series
 df = pd.DataFrame({"note": serie1, 
                    "charge_de_travail": serie2})
 ```
@@ -686,7 +757,9 @@ df
 
 
 ```python
+# index objects on both columns and rows
 df.index
+df.columns
 ```
 
 
@@ -697,14 +770,69 @@ df.index
 
 
 
+
+
+    Index(['charge_de_travail', 'note'], dtype='object')
+
+
+
+> If you pass an index and / or columns, you are guaranteeing the index and / or columns of the resulting DataFrame. Thus, a dict of Series plus a specific index will discard all data not matching up to the passed index.
+
+
 ```python
-df.columns
+df2 = pd.DataFrame({"note": serie1, 
+                    "charge_de_travail": serie2}, 
+                   index=["Corentin", "Luc", "Julie"],
+                   columns=["note", "autre"])
+df2 
+# filled with NaN ("Not A Number") 
+# when no value exist for the given (row_index, column_index)
 ```
 
 
 
 
-    Index(['charge_de_travail', 'note'], dtype='object')
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>note</th>
+      <th>autre</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Corentin</th>
+      <td>29.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Luc</th>
+      <td>25.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Julie</th>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
 
 
 
@@ -726,20 +854,20 @@ For a 1D array, the shape would be (n,) where n is the number of elements in you
 
 For a 2D array, the shape would be (n,m) where n is the number of rows and m is the number of columns in your array
 
-accessing columns by key : 
+accessing a column/`Serie` by key : 
 
 
 ```python
-df['note'] /2
+df['note']
 ```
 
 
 
 
-    Corentin    14.5
-    Luc         12.5
-    René        20.0
-    Name: note, dtype: float64
+    Corentin    29
+    Luc         25
+    René        40
+    Name: note, dtype: int64
 
 
 
@@ -768,10 +896,6 @@ each key of each dict refers a column
 
 ```python
 df2 = pd.DataFrame([{'a': 1, 'b': 2}, {'b': 3, 'c': 4}])
-```
-
-
-```python
 df2
 ```
 
@@ -822,8 +946,61 @@ df2
 
 
 ```python
-# filled with NaN ("Not A Number") when no value is given
+pd.DataFrame([(1, 1, 3), (1, 2,4), (1,1,1)],
+             columns=["a", "b", "c"],
+            index=["Jean", "Jacques", "René"])
 ```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>a</th>
+      <th>b</th>
+      <th>c</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Jean</th>
+      <td>1</td>
+      <td>1</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>Jacques</th>
+      <td>1</td>
+      <td>2</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>René</th>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
 
 Indexing works the same way as for Series, but you have to account this time for the second dimension
 
@@ -832,7 +1009,7 @@ Indexing works the same way as for Series, but you have to account this time for
 
 
 ```python
-df.iloc[:3, :1]
+df.iloc[:3, :1] # implicit indexing
 ```
 
 
@@ -878,7 +1055,7 @@ df.iloc[:3, :1]
 
 
 
-columns slicing/indexing is optional here, without specifying it, you select only rows 
+**columns slicing/indexing** is optional here, without specifying it, you **select only rows** 
 
 
 ```python
@@ -934,6 +1111,97 @@ df.iloc[:3]
 
 
 ```python
+df.loc["Corentin":"Luc","charge_de_travail":"note"] # explicit indexing
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>charge_de_travail</th>
+      <th>note</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Corentin</th>
+      <td>25%</td>
+      <td>29</td>
+    </tr>
+    <tr>
+      <th>Luc</th>
+      <td>20%</td>
+      <td>25</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+same thing here, **only rows selected**
+
+
+```python
+df.loc[:"Corentin"]
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>charge_de_travail</th>
+      <th>note</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Corentin</th>
+      <td>25%</td>
+      <td>29</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
 df.loc[["Corentin", "Luc"], :] # mixing slicing and fancy indexing
 ```
 
@@ -979,62 +1247,15 @@ df.loc[["Corentin", "Luc"], :] # mixing slicing and fancy indexing
 
 
 
-
-```python
-df.loc[["Corentin", "Luc"]] # without the "col argument"
-```
-
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>charge_de_travail</th>
-      <th>note</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>Corentin</th>
-      <td>25%</td>
-      <td>29</td>
-    </tr>
-    <tr>
-      <th>Luc</th>
-      <td>20%</td>
-      <td>25</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-
-
-Something to mention here, by default:
-- indexing directly `df`, performs the indexing on its columns (1)
-- slicing by conditions, or using a slice notation (::), is performed on rows (2)
+Something to mention here, by default, without using indexers like `loc` and `iloc`:
+- indexing directly `df`, performs the indexing on its columns **(ex:1)**
+- slicing by conditions, or using a slice notation (::), is performed on rows **(ex:2)**
 
 (1)
 
 
 ```python
-df[["charge_de_travail"]] # indexing, defaults to columns
+df[["charge_de_travail"]] # indexing directly df defaults to columns
 ```
 
 
@@ -1100,7 +1321,7 @@ mask
 
 
 ```python
-df[mask] # masking, on lines
+df[mask] # masking directly df is operated on rows
 ```
 
 
@@ -1142,7 +1363,7 @@ df[mask] # masking, on lines
 
 
 ```python
-df[:3] # slicing, on rows
+df[:3] # slicing directly df is operated on rows
 ```
 
 
@@ -1194,7 +1415,5585 @@ df[:3] # slicing, on rows
 
 ## Operations on Pandas
 
+Element-wise operations are made easy in `Pandas`.
+
+
+* 3 - 2 <=> substract(3,2) <=> binary operation (2 inputs)
+* -2 <=> neg(2) <=> unary operation (one input)
+* sin(2) <=> unary operation (one input)
+
+in `Pandas` : 
+  - unary operations on `df`s elements preserve the indexes.
+  - binary operations on elements from 2 `df`s align the operations on the indexes.
+
 
 ```python
-
+import numpy as np 
 ```
+
+
+```python
+rng = np.random.RandomState(42) # for reproducibility
+data = rng.randint(0,10, (3,4)) # creating an array of random integer values
+```
+
+
+```python
+df = pd.DataFrame(data)
+df
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>6</td>
+      <td>3</td>
+      <td>7</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>6</td>
+      <td>9</td>
+      <td>2</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>7</td>
+      <td>4</td>
+      <td>3</td>
+      <td>7</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
+df2 = pd.DataFrame(rng.randint(0,10, (4,4)))
+df2
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>7</td>
+      <td>2</td>
+      <td>5</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>7</td>
+      <td>5</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>4</td>
+      <td>0</td>
+      <td>9</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>8</td>
+      <td>0</td>
+      <td>9</td>
+      <td>2</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
+df2 = df2.reindex([1,0,2,3]) #just to show rearranged indexes (does not change the association with the indexed data)
+df2
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>1</td>
+      <td>7</td>
+      <td>5</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>7</td>
+      <td>2</td>
+      <td>5</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>4</td>
+      <td>0</td>
+      <td>9</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>8</td>
+      <td>0</td>
+      <td>9</td>
+      <td>2</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
+df + df2
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>13.0</td>
+      <td>5.0</td>
+      <td>12.0</td>
+      <td>8.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>7.0</td>
+      <td>16.0</td>
+      <td>7.0</td>
+      <td>7.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>11.0</td>
+      <td>4.0</td>
+      <td>12.0</td>
+      <td>12.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+on line of index 0, `7+6 = 13`
+ which shows indexes had been aligned during the binary operation
+
+also notice the union of the indices during the binary operation. If one may not exist in either of the dataframes and the result can't be evalutated, `NaN` fill the concerned entries
+
+
+```python
+df.__add__(df2, fill_value=25) # used in the binary operation 25+8 = 33)
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>13.0</td>
+      <td>5.0</td>
+      <td>12.0</td>
+      <td>8.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>7.0</td>
+      <td>16.0</td>
+      <td>7.0</td>
+      <td>7.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>11.0</td>
+      <td>4.0</td>
+      <td>12.0</td>
+      <td>12.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>33.0</td>
+      <td>25.0</td>
+      <td>34.0</td>
+      <td>27.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+#### Operation between pandas series and a pandas dataframe
+
+From the Numpy Docs
+
+> Broadcasting is **how numpy treats arrays with different shapes during arithmetic operations**. 
+Subject to certain constraints, the smaller array is “broadcast” across the larger array so that they **have compatible shapes.**
+Broadcasting provides a means of vectorizing array operations so that looping occurs in C instead of Python
+
+The only requirement for broadcasting is a way aligning array dimensions such that either :
+* aligned dimensions are equal (so that operations are done on an element-by-element basis from 2 arrays of same shape)
+* one of the aligned dimensions is 1 (in other words, dimensions with size 1 are stretched or “copied” to match the dimension of the other array)
+
+Operations between `pandas.Series` and `pandas.DataFram` respect the numpy broadcasting rules:
+>  If the two arrays **differ in their number of dimensions**, the shape of the one with **fewer dimensions is padded with ones on its leading (left) side.'**  (2)
+
+
+```python
+df.shape, df.iloc[1].shape, df.iloc[1][np.newaxis, :].shape
+```
+
+
+
+
+    ((3, 4), (4,), (1, 4))
+
+
+
+
+```python
+df
+df.iloc[1]
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>6</td>
+      <td>3</td>
+      <td>7</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>6</td>
+      <td>9</td>
+      <td>2</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>7</td>
+      <td>4</td>
+      <td>3</td>
+      <td>7</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+
+
+    0    6
+    1    9
+    2    2
+    3    6
+    Name: 1, dtype: int64
+
+
+
+
+```python
+df - df.iloc[1] #row-wise (1,4) copied other 3 times => (3,4)
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+      <td>-6</td>
+      <td>5</td>
+      <td>-2</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1</td>
+      <td>-5</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
+df - df.iloc[1].sample(4) # again: kept the index alignements during computation
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0</td>
+      <td>-6</td>
+      <td>5</td>
+      <td>-2</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1</td>
+      <td>-5</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+if you want to do it columnwise and not row wise
+
+
+```python
+df.__sub__(df.iloc[1], axis=0) # caution, the indexes operations will be based on the column indexes
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+      <th>2</th>
+      <th>3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.0</td>
+      <td>-3.0</td>
+      <td>1.0</td>
+      <td>-2.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>-3.0</td>
+      <td>0.0</td>
+      <td>-7.0</td>
+      <td>-3.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>5.0</td>
+      <td>2.0</td>
+      <td>1.0</td>
+      <td>5.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
+df.columns = ["a","b",0,"d"]
+df
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>a</th>
+      <th>b</th>
+      <th>0</th>
+      <th>d</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>6</td>
+      <td>3</td>
+      <td>7</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>6</td>
+      <td>9</td>
+      <td>2</td>
+      <td>6</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>7</td>
+      <td>4</td>
+      <td>3</td>
+      <td>7</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
+df.iloc[1]
+```
+
+
+
+
+    a    6
+    b    9
+    0    2
+    d    6
+    Name: 1, dtype: int64
+
+
+
+
+```python
+df.__sub__(df.iloc[1], axis=0) 
+# based on the column indexes
+# only 0 match with one of the column index label
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>a</th>
+      <th>b</th>
+      <th>0</th>
+      <th>d</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>4.0</td>
+      <td>1.0</td>
+      <td>5.0</td>
+      <td>2.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>a</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>b</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>d</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
+df[0].shape, df.shape
+```
+
+
+
+
+    ((3,), (3, 4))
+
+
+
+
+```python
+df2 = df - pd.DataFrame([(1,2), (4,5), (9,19)], columns=["a","b"])
+df2
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>a</th>
+      <th>b</th>
+      <th>d</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>NaN</td>
+      <td>5</td>
+      <td>1</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>NaN</td>
+      <td>2</td>
+      <td>4</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>NaN</td>
+      <td>-2</td>
+      <td>-15</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+### dtypes
+
+
+```python
+print(df.dtypes)
+print(df2.dtypes) 
+# NaN is a floating-point value, 
+# hence the Series embedding it gets its dtype upcasted to float (if it were an int)
+# this pd.Series supports fast operations
+```
+
+    a    int64
+    b    int64
+    0    int64
+    d    int64
+    dtype: object
+    0    float64
+    a      int64
+    b      int64
+    d    float64
+    dtype: object
+
+
+
+```python
+%timeit np.arange(1E6, dtype="int").sum()
+```
+
+    1.14 ms ± 142 µs per loop (mean ± std. dev. of 7 runs, 1000 loops each)
+
+
+
+```python
+%timeit np.arange(1E6, dtype="object").sum()
+```
+
+    77.8 ms ± 4.15 ms per loop (mean ± std. dev. of 7 runs, 10 loops each)
+
+
+
+```python
+%timeit np.arange(1E6, dtype="float").sum()
+```
+
+    1.25 ms ± 17.7 µs per loop (mean ± std. dev. of 7 runs, 1000 loops each)
+
+
+### Managing missing values
+
+
+```python
+pd.Series([2, np.nan]).isnull()
+```
+
+
+
+
+    0    False
+    1     True
+    dtype: bool
+
+
+
+
+```python
+df2.iloc[0,2] = np.nan
+```
+
+
+```python
+df2
+df2.isnull()
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>a</th>
+      <th>b</th>
+      <th>d</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>NaN</td>
+      <td>5</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>NaN</td>
+      <td>2</td>
+      <td>4.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>NaN</td>
+      <td>-2</td>
+      <td>-15.0</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>a</th>
+      <th>b</th>
+      <th>d</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>True</td>
+      <td>False</td>
+      <td>True</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>True</td>
+      <td>False</td>
+      <td>False</td>
+      <td>True</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
+pd.Series([2, np.nan]).dropna()
+```
+
+
+
+
+    0    2.0
+    dtype: float64
+
+
+
+
+```python
+df2
+df2.dropna(axis=1) # drop a column when contains one NA value
+df2.dropna(axis=0) # drop a row when contains one NA value
+df2.dropna(axis=1, how="all") # drop a column when contains all NA value
+df2.dropna(axis=1, thresh=3) # drop a column if below 3 non-NA value
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>a</th>
+      <th>b</th>
+      <th>d</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>NaN</td>
+      <td>5</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>NaN</td>
+      <td>2</td>
+      <td>4.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>NaN</td>
+      <td>-2</td>
+      <td>-15.0</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>a</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>-2</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>a</th>
+      <th>b</th>
+      <th>d</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+</div>
+
+
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>a</th>
+      <th>b</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>5</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>4.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>-2</td>
+      <td>-15.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>a</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>-2</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
+df2
+df2.fillna(value=2) #fill NA with specified value
+# fill NA backwards 
+# i.e. using the following non-null element
+# to fill preceding NA ones
+# defaults on rows basis
+df2.fillna(method="bfill") 
+df2.fillna(method="bfill", axis=1) # on column basis
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>a</th>
+      <th>b</th>
+      <th>d</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>NaN</td>
+      <td>5</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>NaN</td>
+      <td>2</td>
+      <td>4.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>NaN</td>
+      <td>-2</td>
+      <td>-15.0</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>a</th>
+      <th>b</th>
+      <th>d</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2.0</td>
+      <td>5</td>
+      <td>2.0</td>
+      <td>2.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2.0</td>
+      <td>2</td>
+      <td>4.0</td>
+      <td>2.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2.0</td>
+      <td>-2</td>
+      <td>-15.0</td>
+      <td>2.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>a</th>
+      <th>b</th>
+      <th>d</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>NaN</td>
+      <td>5</td>
+      <td>4.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>NaN</td>
+      <td>2</td>
+      <td>4.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>NaN</td>
+      <td>-2</td>
+      <td>-15.0</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>a</th>
+      <th>b</th>
+      <th>d</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>5.0</td>
+      <td>5.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2.0</td>
+      <td>2.0</td>
+      <td>4.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>-2.0</td>
+      <td>-2.0</td>
+      <td>-15.0</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+### MultiIndex
+
+
+```python
+data = {('group1', 'Luc'): 18,
+        ('group2', 'Jean'): 23,
+        ('group1', 'Seb'): 17,
+        ('group1', 'René'): 4,
+        ('group2', 'Alex'): 4,
+        ('group3', 'Sophie'): 25,
+        ('group2', 'Camille'): 2 }
+serie = pd.Series(data)
+serie
+```
+
+
+
+
+    group1  Luc        18
+            René        4
+            Seb        17
+    group2  Alex        4
+            Camille     2
+            Jean       23
+    group3  Sophie     25
+    dtype: int64
+
+
+
+
+```python
+serie[:,"Luc"]
+```
+
+
+
+
+    group1    18
+    dtype: int64
+
+
+
+
+```python
+serie["group1"]
+```
+
+
+
+
+    Luc     18
+    René     4
+    Seb     17
+    dtype: int64
+
+
+
+
+```python
+serie[serie>=18]
+```
+
+
+
+
+    group1  Luc       18
+    group2  Jean      23
+    group3  Sophie    25
+    dtype: int64
+
+
+
+
+```python
+# creating the multi-index using cartesian product
+index = pd.MultiIndex.from_arrays([['group1', 'a', 'b', 'b'], ["Luc", 2, 1, 2]])
+```
+
+
+```python
+serie.reindex(index) # works for multi-index too !
+# Conform Series to new index with optional filling logic, placing
+# NA/NaN in locations having no value in the previous index
+```
+
+
+
+
+    group1  Luc    18.0
+    a       2       NaN
+    b       1       NaN
+            2       NaN
+    dtype: float64
+
+
+
+
+```python
+# hierarchical indices and columns
+index = pd.MultiIndex.from_product([[2013, 2014], [1, 2]],
+                                   names=['year', 'visit'])
+columns = pd.MultiIndex.from_product(
+    [['Bob', 'Guido', 'Sue'], ['HR', 'Temp']],names=['subject', 'type'])
+# mock some data
+data = np.round(np.random.randn(4, 6), 1)
+data[:, ::2] *= 10
+data += 37
+# create the DataFrame
+health_data = pd.DataFrame(data, index=index, columns=columns) 
+health_data
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+
+    .dataframe thead tr:last-of-type th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th>subject</th>
+      <th colspan="2" halign="left">Bob</th>
+      <th colspan="2" halign="left">Guido</th>
+      <th colspan="2" halign="left">Sue</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>type</th>
+      <th>HR</th>
+      <th>Temp</th>
+      <th>HR</th>
+      <th>Temp</th>
+      <th>HR</th>
+      <th>Temp</th>
+    </tr>
+    <tr>
+      <th>year</th>
+      <th>visit</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="2" valign="top">2013</th>
+      <th>1</th>
+      <td>52.0</td>
+      <td>36.4</td>
+      <td>38.0</td>
+      <td>36.6</td>
+      <td>32.0</td>
+      <td>38.1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>28.0</td>
+      <td>37.7</td>
+      <td>47.0</td>
+      <td>35.4</td>
+      <td>50.0</td>
+      <td>36.4</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">2014</th>
+      <th>1</th>
+      <td>30.0</td>
+      <td>37.0</td>
+      <td>16.0</td>
+      <td>36.6</td>
+      <td>49.0</td>
+      <td>37.7</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>52.0</td>
+      <td>36.8</td>
+      <td>31.0</td>
+      <td>35.5</td>
+      <td>36.0</td>
+      <td>37.6</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
+health_data.loc[:2013 , ("Bob")]
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>type</th>
+      <th>HR</th>
+      <th>Temp</th>
+    </tr>
+    <tr>
+      <th>year</th>
+      <th>visit</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="2" valign="top">2013</th>
+      <th>1</th>
+      <td>52.0</td>
+      <td>36.4</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>28.0</td>
+      <td>37.7</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
+#health_data.loc[(:,1),["Bob"]] # can't use the tuple to define index
+```
+
+
+```python
+idx = pd.IndexSlice
+health_data.loc[idx[:, 1], idx[:, 'HR']]
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+
+    .dataframe thead tr:last-of-type th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th>subject</th>
+      <th>Bob</th>
+      <th>Guido</th>
+      <th>Sue</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>type</th>
+      <th>HR</th>
+      <th>HR</th>
+      <th>HR</th>
+    </tr>
+    <tr>
+      <th>year</th>
+      <th>visit</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2013</th>
+      <th>1</th>
+      <td>52.0</td>
+      <td>38.0</td>
+      <td>32.0</td>
+    </tr>
+    <tr>
+      <th>2014</th>
+      <th>1</th>
+      <td>30.0</td>
+      <td>16.0</td>
+      <td>49.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+### Unstacking and Stacking: a matter of dimnesionality
+
+Creating a multiIndex rather than a simlpe Index is like **creating an extra-dimension in our dataset.**
+
+We can take for **each year**, a **2D sub-dataframe** composed of **Bob's HR visits**.
+
+This DataFrame hence can be seen as having **4 dimensions.**
+
+we can go back and forth from a multi-index series to a dataframe using unstack, so that one of the index level occupies the extra dimension given by the transition to a `DataFrame`
+
+
+
+```python
+serie
+```
+
+
+
+
+    group1  Luc        18
+            René        4
+            Seb        17
+    group2  Alex        4
+            Camille     2
+            Jean       23
+    group3  Sophie     25
+    dtype: int64
+
+
+
+
+```python
+serie.unstack() #level -1 by default = most inner one
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Alex</th>
+      <th>Camille</th>
+      <th>Jean</th>
+      <th>Luc</th>
+      <th>René</th>
+      <th>Seb</th>
+      <th>Sophie</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>group1</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>18.0</td>
+      <td>4.0</td>
+      <td>17.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>group2</th>
+      <td>4.0</td>
+      <td>2.0</td>
+      <td>23.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>group3</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>25.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
+df3 = serie.unstack(level=0)
+df3
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>group1</th>
+      <th>group2</th>
+      <th>group3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Alex</th>
+      <td>NaN</td>
+      <td>4.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Camille</th>
+      <td>NaN</td>
+      <td>2.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Jean</th>
+      <td>NaN</td>
+      <td>23.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Luc</th>
+      <td>18.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>René</th>
+      <td>4.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Seb</th>
+      <td>17.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>Sophie</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>25.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
+# to reset the index and create it as a simple new column you can use reset_index()
+df3.reset_index()
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>index</th>
+      <th>group1</th>
+      <th>group2</th>
+      <th>group3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Alex</td>
+      <td>NaN</td>
+      <td>4.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Camille</td>
+      <td>NaN</td>
+      <td>2.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Jean</td>
+      <td>NaN</td>
+      <td>23.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Luc</td>
+      <td>18.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>René</td>
+      <td>4.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Seb</td>
+      <td>17.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Sophie</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>25.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+You can do some aggregation by index level (we are going to see this extensively on `GroupBy` section
+
+
+
+```python
+health_data.mean(level='year')
+health_data.mean(level='visit')
+health_data.mean(axis=1, level='type')
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+
+    .dataframe thead tr:last-of-type th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th>subject</th>
+      <th colspan="2" halign="left">Bob</th>
+      <th colspan="2" halign="left">Guido</th>
+      <th colspan="2" halign="left">Sue</th>
+    </tr>
+    <tr>
+      <th>type</th>
+      <th>HR</th>
+      <th>Temp</th>
+      <th>HR</th>
+      <th>Temp</th>
+      <th>HR</th>
+      <th>Temp</th>
+    </tr>
+    <tr>
+      <th>year</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2013</th>
+      <td>40.0</td>
+      <td>37.05</td>
+      <td>42.5</td>
+      <td>36.00</td>
+      <td>41.0</td>
+      <td>37.25</td>
+    </tr>
+    <tr>
+      <th>2014</th>
+      <td>41.0</td>
+      <td>36.90</td>
+      <td>23.5</td>
+      <td>36.05</td>
+      <td>42.5</td>
+      <td>37.65</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+
+    .dataframe thead tr:last-of-type th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th>subject</th>
+      <th colspan="2" halign="left">Bob</th>
+      <th colspan="2" halign="left">Guido</th>
+      <th colspan="2" halign="left">Sue</th>
+    </tr>
+    <tr>
+      <th>type</th>
+      <th>HR</th>
+      <th>Temp</th>
+      <th>HR</th>
+      <th>Temp</th>
+      <th>HR</th>
+      <th>Temp</th>
+    </tr>
+    <tr>
+      <th>visit</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>1</th>
+      <td>41.0</td>
+      <td>36.70</td>
+      <td>27.0</td>
+      <td>36.60</td>
+      <td>40.5</td>
+      <td>37.9</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>40.0</td>
+      <td>37.25</td>
+      <td>39.0</td>
+      <td>35.45</td>
+      <td>43.0</td>
+      <td>37.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>type</th>
+      <th>HR</th>
+      <th>Temp</th>
+    </tr>
+    <tr>
+      <th>year</th>
+      <th>visit</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="2" valign="top">2013</th>
+      <th>1</th>
+      <td>40.666667</td>
+      <td>37.033333</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>41.666667</td>
+      <td>36.500000</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">2014</th>
+      <th>1</th>
+      <td>31.666667</td>
+      <td>37.100000</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>39.666667</td>
+      <td>36.633333</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+### pd.concat
+
+
+```python
+df1
+df2
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>a</th>
+      <th>b</th>
+      <th>d</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2.0</td>
+      <td>False</td>
+      <td>2.0</td>
+      <td>2.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2.0</td>
+      <td>False</td>
+      <td>0.0</td>
+      <td>2.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2.0</td>
+      <td>False</td>
+      <td>0.0</td>
+      <td>2.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>a</th>
+      <th>b</th>
+      <th>d</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>NaN</td>
+      <td>5</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>NaN</td>
+      <td>2</td>
+      <td>4.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>NaN</td>
+      <td>-2</td>
+      <td>-15.0</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
+pd.concat([df1, df2], axis=0) # concatenate rows (default)
+pd.concat([df1, df2], axis=1) # concatenate columns (default)
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>a</th>
+      <th>b</th>
+      <th>d</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2.0</td>
+      <td>0</td>
+      <td>2.0</td>
+      <td>2.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2.0</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>2.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2.0</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>2.0</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>NaN</td>
+      <td>5</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>NaN</td>
+      <td>2</td>
+      <td>4.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>NaN</td>
+      <td>-2</td>
+      <td>-15.0</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>a</th>
+      <th>b</th>
+      <th>d</th>
+      <th>0</th>
+      <th>a</th>
+      <th>b</th>
+      <th>d</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2.0</td>
+      <td>False</td>
+      <td>2.0</td>
+      <td>2.0</td>
+      <td>NaN</td>
+      <td>5</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2.0</td>
+      <td>False</td>
+      <td>0.0</td>
+      <td>2.0</td>
+      <td>NaN</td>
+      <td>2</td>
+      <td>4.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2.0</td>
+      <td>False</td>
+      <td>0.0</td>
+      <td>2.0</td>
+      <td>NaN</td>
+      <td>-2</td>
+      <td>-15.0</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+the indices are preserved, even duplicated
+
+`verify_integrity=True` can check if index from each df are differents
+
+`ignore_index=True` just override the indexes after concatenation by a new integer one
+
+`keys = ["source1", "source2"]` leave the indexes as is but create a new outer level from the 2 different sources/df of the data concatenated
+
+
+```python
+pd.concat([df1, df2], axis=0, keys=["source1", "source2"])
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th>0</th>
+      <th>a</th>
+      <th>b</th>
+      <th>d</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="3" valign="top">source1</th>
+      <th>0</th>
+      <td>2.0</td>
+      <td>0</td>
+      <td>2.0</td>
+      <td>2.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2.0</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>2.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2.0</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>2.0</td>
+    </tr>
+    <tr>
+      <th rowspan="3" valign="top">source2</th>
+      <th>0</th>
+      <td>NaN</td>
+      <td>5</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>NaN</td>
+      <td>2</td>
+      <td>4.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>NaN</td>
+      <td>-2</td>
+      <td>-15.0</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+`join='inner'` keeps only the columns in common from the concatenation
+
+
+```python
+df2["note"] = 2
+df2
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>a</th>
+      <th>b</th>
+      <th>d</th>
+      <th>note</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>NaN</td>
+      <td>5</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>NaN</td>
+      <td>2</td>
+      <td>4.0</td>
+      <td>NaN</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>NaN</td>
+      <td>-2</td>
+      <td>-15.0</td>
+      <td>NaN</td>
+      <td>2</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
+pd.concat([df1, df2], axis=0, join='inner')
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>a</th>
+      <th>b</th>
+      <th>d</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2.0</td>
+      <td>0</td>
+      <td>2.0</td>
+      <td>2.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2.0</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>2.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2.0</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>2.0</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>NaN</td>
+      <td>5</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>NaN</td>
+      <td>2</td>
+      <td>4.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>NaN</td>
+      <td>-2</td>
+      <td>-15.0</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
+serie1
+serie2
+serie1.append(serie2)
+```
+
+
+
+
+    Corentin    29
+    Luc         25
+    René        40
+    dtype: int64
+
+
+
+
+
+
+    Corentin     25%
+    Luc          20%
+    René        100%
+    dtype: object
+
+
+
+
+
+
+    Corentin      29
+    Luc           25
+    René          40
+    Corentin     25%
+    Luc          20%
+    René        100%
+    dtype: object
+
+
+
+
+```python
+df1.append(df2)
+```
+
+    /Users/lucbertin/.pyenv/versions/3.5.7/lib/python3.5/site-packages/pandas/core/frame.py:7138: FutureWarning: Sorting because non-concatenation axis is not aligned. A future version
+    of pandas will change to not sort by default.
+    
+    To accept the future behavior, pass 'sort=False'.
+    
+    To retain the current behavior and silence the warning, pass 'sort=True'.
+    
+      sort=sort,
+
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>a</th>
+      <th>b</th>
+      <th>d</th>
+      <th>note</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2.0</td>
+      <td>0</td>
+      <td>2.0</td>
+      <td>2.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2.0</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>2.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2.0</td>
+      <td>0</td>
+      <td>0.0</td>
+      <td>2.0</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>NaN</td>
+      <td>5</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>NaN</td>
+      <td>2</td>
+      <td>4.0</td>
+      <td>NaN</td>
+      <td>2.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>NaN</td>
+      <td>-2</td>
+      <td>-15.0</td>
+      <td>NaN</td>
+      <td>2.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+### Merge
+
+
+```python
+df_account = pd.DataFrame({'accountNumber': ["AC1", "AC2", "AC3", "AC4"],
+                   'Amount': [10000, 109300, 2984, 1999],
+                   'Name': ["LIVRET A", "Compte Épargne Retraite", "Quadretto", "Compte Courant"]})
+df_client = pd.DataFrame({'id_account': ["AC1", "AC2", "AC3", "AC4", "AC5"],
+                   'Name': ["Luc", "René", "Jean", "Jean", "Joseph"],
+                   'id_client': ["ID1099", "ID1091", "ID1018", "ID1018", "ID1021"]})
+df_account
+df_client
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Amount</th>
+      <th>Name</th>
+      <th>accountNumber</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>10000</td>
+      <td>LIVRET A</td>
+      <td>AC1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>109300</td>
+      <td>Compte Épargne Retraite</td>
+      <td>AC2</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2984</td>
+      <td>Quadretto</td>
+      <td>AC3</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1999</td>
+      <td>Compte Courant</td>
+      <td>AC4</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Name</th>
+      <th>id_account</th>
+      <th>id_client</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Luc</td>
+      <td>AC1</td>
+      <td>ID1099</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>René</td>
+      <td>AC2</td>
+      <td>ID1091</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Jean</td>
+      <td>AC3</td>
+      <td>ID1018</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Jean</td>
+      <td>AC4</td>
+      <td>ID1018</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Joseph</td>
+      <td>AC5</td>
+      <td>ID1021</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
+pd.merge(left=df_account, right=df_client, 
+         left_on="accountNumber", 
+         right_on="id_account",
+         how='inner')
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Amount</th>
+      <th>Name_x</th>
+      <th>accountNumber</th>
+      <th>Name_y</th>
+      <th>id_account</th>
+      <th>id_client</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>10000</td>
+      <td>LIVRET A</td>
+      <td>AC1</td>
+      <td>Luc</td>
+      <td>AC1</td>
+      <td>ID1099</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>109300</td>
+      <td>Compte Épargne Retraite</td>
+      <td>AC2</td>
+      <td>René</td>
+      <td>AC2</td>
+      <td>ID1091</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2984</td>
+      <td>Quadretto</td>
+      <td>AC3</td>
+      <td>Jean</td>
+      <td>AC3</td>
+      <td>ID1018</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1999</td>
+      <td>Compte Courant</td>
+      <td>AC4</td>
+      <td>Jean</td>
+      <td>AC4</td>
+      <td>ID1018</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
+df_merged = pd.merge(left=df_account, right=df_client, 
+         left_on="accountNumber", 
+         right_on="id_account",
+         how='right',
+         suffixes=["_account", "_client"])
+df_merged
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Amount</th>
+      <th>Name_account</th>
+      <th>accountNumber</th>
+      <th>Name_client</th>
+      <th>id_account</th>
+      <th>id_client</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>10000.0</td>
+      <td>LIVRET A</td>
+      <td>AC1</td>
+      <td>Luc</td>
+      <td>AC1</td>
+      <td>ID1099</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>109300.0</td>
+      <td>Compte Épargne Retraite</td>
+      <td>AC2</td>
+      <td>René</td>
+      <td>AC2</td>
+      <td>ID1091</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2984.0</td>
+      <td>Quadretto</td>
+      <td>AC3</td>
+      <td>Jean</td>
+      <td>AC3</td>
+      <td>ID1018</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1999.0</td>
+      <td>Compte Courant</td>
+      <td>AC4</td>
+      <td>Jean</td>
+      <td>AC4</td>
+      <td>ID1018</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Joseph</td>
+      <td>AC5</td>
+      <td>ID1021</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
+# to drop the (same) column we have been merging on
+df_merged.drop('id_account', axis=1)
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Amount</th>
+      <th>Name_account</th>
+      <th>accountNumber</th>
+      <th>Name_client</th>
+      <th>id_client</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>10000.0</td>
+      <td>LIVRET A</td>
+      <td>AC1</td>
+      <td>Luc</td>
+      <td>ID1099</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>109300.0</td>
+      <td>Compte Épargne Retraite</td>
+      <td>AC2</td>
+      <td>René</td>
+      <td>ID1091</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2984.0</td>
+      <td>Quadretto</td>
+      <td>AC3</td>
+      <td>Jean</td>
+      <td>ID1018</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>1999.0</td>
+      <td>Compte Courant</td>
+      <td>AC4</td>
+      <td>Jean</td>
+      <td>ID1018</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Joseph</td>
+      <td>ID1021</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
+#df_notes["eleve"] = (df_notes
+# .eleve
+# .astype("category")
+# .cat.rename_categories(
+#     new_categories=
+#        ["eleve{}".format(i) for i in range(df_notes.eleve.nunique())]
+# )
+#)
+```
+
+### Manipulating columns with strings
+
+For the following sections, we are going to use real world data of students'grades from an exam I gave 😜 The data has been anonymised to fit GDPR regulation.
+
+It has been retrieved by scrapping automatically the online web app that stores the results from each passed quizz.
+
+You will see along the way we will need to make multiple modifications to our original data.
+
+
+```python
+# !curl --help 
+# option :  -o, --output <file> 
+# Write to file instead of stdout
+```
+
+
+```python
+!curl https://raw.githubusercontent.com/Luc-Bertin/TDs_ESILV/master/td3_discover_pandas/notes_eleves.csv -o "notes.csv"
+```
+
+      % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                     Dload  Upload   Total   Spent    Left  Speed
+    100 21979  100 21979    0     0  66805      0 --:--:-- --:--:-- --:--:-- 66805
+
+
+
+```python
+df_notes = pd.read_csv("notes.csv", index_col=0)
+# showing just the first n rows
+df_notes.head(5)
+# or the last n rows
+df_notes.tail(5)
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>eleve</th>
+      <th>note</th>
+      <th>groupe</th>
+      <th>quizz</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>eleve0</td>
+      <td>71,43 %</td>
+      <td>Unknown</td>
+      <td>td1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>eleve1</td>
+      <td>100 %</td>
+      <td>Unknown</td>
+      <td>td1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>eleve4</td>
+      <td>71,43 %</td>
+      <td>Unknown</td>
+      <td>td1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>eleve6</td>
+      <td>42,86 %</td>
+      <td>Unknown</td>
+      <td>td1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>eleve8</td>
+      <td>57,14 %</td>
+      <td>Unknown</td>
+      <td>td1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>eleve</th>
+      <th>note</th>
+      <th>groupe</th>
+      <th>quizz</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>741</th>
+      <td>eleve174</td>
+      <td>100 %</td>
+      <td>ibo5</td>
+      <td>td3</td>
+    </tr>
+    <tr>
+      <th>742</th>
+      <td>eleve166</td>
+      <td>66,67 %</td>
+      <td>ibo5</td>
+      <td>td3</td>
+    </tr>
+    <tr>
+      <th>743</th>
+      <td>eleve176</td>
+      <td>83,33 %</td>
+      <td>ibo5</td>
+      <td>td3</td>
+    </tr>
+    <tr>
+      <th>744</th>
+      <td>eleve186</td>
+      <td>100 %</td>
+      <td>ibo5</td>
+      <td>td3</td>
+    </tr>
+    <tr>
+      <th>745</th>
+      <td>eleve196</td>
+      <td>66,67 %</td>
+      <td>ibo5</td>
+      <td>td3</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+What is a vectorized function: it is a function that applies on the whole sequence rather than each element as input.
+
+This is the case for numpy functions like `np.mean`, `np.sum`, `np.std` which apply on a numerically valued input array as a whole, so the loop is moved from the Python-level to the [C one](https://stackoverflow.com/questions/58071631/is-numpy-vectorization-using-c-loops)
+
+> Numeric types include: `int`, `float`, `datetime`, `bool`, `category`. They exclude `object` dtype and can be held in **contiguous memory blocks**. See [here too, concerning C contiguous array stored in memory when creating a numpy array](https://stackoverflow.com/questions/26998223/what-is-the-difference-between-contiguous-and-non-contiguous-arrays).
+
+> Why are numpy operations more efficient than simple crude Python ?  as we've seen earlier **Everything in Python is an object**. This includes, unlike C, numbers. Python types therefore have an **overhead which does not exist with native C types**. NumPy methods are **usually C-based.** 
+
+check [here](https://stackoverflow.com/questions/52673285/performance-of-pandas-apply-vs-np-vectorize-to-create-new-column-from-existing-c)
+
+> np.vectorize is fake vectorisation. According to [documentation]( https://docs.scipy.org/doc/numpy-1.9.1/reference/generated/numpy.vectorize.html): The vectorize function is provided primarily for convenience, not for performance. The implementation is essentially a for loop. It means there is no reazon in vectorize of function wich could be applied directly as it is in your example. Actually this could lead to degraded performance. Main goal of the "vectorize" is to hide a for loop from you code. But it will not avoid it neither change expected results.
+
+
+This link provides a good an example of simple [vectorization](https://engineering.upside.com/a-beginners-guide-to-optimizing-pandas-code-for-speed-c09ef2c6a4d6).
+
+Numpy does not provide vectorization functions for arrays of strings.
+
+Pandas provide vectorized [str operations](https://stackoverflow.com/questions/50744369/how-to-speed-up-pandas-string-function). Pros are that you don't have to write any loop and can take the column/Series as a whole. Cons are that they are not actually faster than using a simply apply. String operations are inherently difficult to vectorize. Pandas treats strings as objects, and all operations on objects fall back to a slow, loopy implementation. 
+
+Already provided Pandas vectorized string methods available in `.str.`
+
+
+```python
+df_notes["eleve"] = df_notes.eleve.str.capitalize()
+df_notes
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>eleve</th>
+      <th>note</th>
+      <th>groupe</th>
+      <th>quizz</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Eleve0</td>
+      <td>71,43 %</td>
+      <td>Unknown</td>
+      <td>td1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Eleve1</td>
+      <td>100 %</td>
+      <td>Unknown</td>
+      <td>td1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Eleve4</td>
+      <td>71,43 %</td>
+      <td>Unknown</td>
+      <td>td1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Eleve6</td>
+      <td>42,86 %</td>
+      <td>Unknown</td>
+      <td>td1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Eleve8</td>
+      <td>57,14 %</td>
+      <td>Unknown</td>
+      <td>td1</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>741</th>
+      <td>Eleve174</td>
+      <td>100 %</td>
+      <td>ibo5</td>
+      <td>td3</td>
+    </tr>
+    <tr>
+      <th>742</th>
+      <td>Eleve166</td>
+      <td>66,67 %</td>
+      <td>ibo5</td>
+      <td>td3</td>
+    </tr>
+    <tr>
+      <th>743</th>
+      <td>Eleve176</td>
+      <td>83,33 %</td>
+      <td>ibo5</td>
+      <td>td3</td>
+    </tr>
+    <tr>
+      <th>744</th>
+      <td>Eleve186</td>
+      <td>100 %</td>
+      <td>ibo5</td>
+      <td>td3</td>
+    </tr>
+    <tr>
+      <th>745</th>
+      <td>Eleve196</td>
+      <td>66,67 %</td>
+      <td>ibo5</td>
+      <td>td3</td>
+    </tr>
+  </tbody>
+</table>
+<p>746 rows × 4 columns</p>
+</div>
+
+
+
+
+```python
+mask = df_notes.groupe.str.startswith("U")
+mask
+```
+
+
+
+
+    0       True
+    1       True
+    2       True
+    3       True
+    4       True
+           ...  
+    741    False
+    742    False
+    743    False
+    744    False
+    745    False
+    Name: groupe, Length: 746, dtype: bool
+
+
+
+
+```python
+df_notes[mask]
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>eleve</th>
+      <th>note</th>
+      <th>groupe</th>
+      <th>quizz</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Eleve0</td>
+      <td>71,43 %</td>
+      <td>Unknown</td>
+      <td>td1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Eleve1</td>
+      <td>100 %</td>
+      <td>Unknown</td>
+      <td>td1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Eleve4</td>
+      <td>71,43 %</td>
+      <td>Unknown</td>
+      <td>td1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Eleve6</td>
+      <td>42,86 %</td>
+      <td>Unknown</td>
+      <td>td1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Eleve8</td>
+      <td>57,14 %</td>
+      <td>Unknown</td>
+      <td>td1</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>87</th>
+      <td>Eleve202</td>
+      <td>57,14 %</td>
+      <td>Unknown</td>
+      <td>td1</td>
+    </tr>
+    <tr>
+      <th>88</th>
+      <td>Eleve203</td>
+      <td>57,14 %</td>
+      <td>Unknown</td>
+      <td>td1</td>
+    </tr>
+    <tr>
+      <th>89</th>
+      <td>Eleve204</td>
+      <td>71,43 %</td>
+      <td>Unknown</td>
+      <td>td1</td>
+    </tr>
+    <tr>
+      <th>90</th>
+      <td>Eleve205</td>
+      <td>42,86 %</td>
+      <td>Unknown</td>
+      <td>td1</td>
+    </tr>
+    <tr>
+      <th>91</th>
+      <td>Eleve207</td>
+      <td>42,86 %</td>
+      <td>Unknown</td>
+      <td>td1</td>
+    </tr>
+  </tbody>
+</table>
+<p>92 rows × 4 columns</p>
+</div>
+
+
+
+
+```python
+df_notes.note.str.split(',')
+```
+
+
+
+
+    0      [71, 43 %]
+    1         [100 %]
+    2      [71, 43 %]
+    3      [42, 86 %]
+    4      [57, 14 %]
+              ...    
+    741       [100 %]
+    742    [66, 67 %]
+    743    [83, 33 %]
+    744       [100 %]
+    745    [66, 67 %]
+    Name: note, Length: 746, dtype: object
+
+
+
+
+```python
+(df_notes.note
+ .str.replace("%","") # replace all occurences of "%" as ""
+ .str.replace(",", ".") # replace all occurences of "," as "."
+ .astype(float)
+)
+```
+
+
+
+
+    0       71.43
+    1      100.00
+    2       71.43
+    3       42.86
+    4       57.14
+            ...  
+    741    100.00
+    742     66.67
+    743     83.33
+    744    100.00
+    745     66.67
+    Name: note, Length: 746, dtype: float64
+
+
+
+
+```python
+(df_notes.note
+ .str.findall("(\d+),?(\d+)?") #regex to find all matching groups in each element of the Series
+ .str[0] # vectorized element access in the column, works for all iterable, hence even a list in a pd.Series, 
+ .str.join(".") # join the lists with "." rather than ','
+ .str.rstrip('.') # take off the last dot if exists
+ .astype(float) # convert to float type
+) 
+```
+
+
+
+
+    0       71.43
+    1      100.00
+    2       71.43
+    3       42.86
+    4       57.14
+            ...  
+    741    100.00
+    742     66.67
+    743     83.33
+    744    100.00
+    745     66.67
+    Name: note, Length: 746, dtype: float64
+
+
+
+
+```python
+serie_notes =\
+( 
+df_notes.note
+ .str.extract("(\d+),?(\d+)?") # expand to multiple cols
+ .fillna(0) # fill NaN as 0 when no matched group
+ .astype(float) # convert to float
+)
+serie_notes[0] += serie_notes[1]/100
+serie_notes.drop(1, axis=1,inplace=True)
+```
+
+
+```python
+df_notes.note = serie_notes
+```
+
+
+```python
+df_notes
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>eleve</th>
+      <th>note</th>
+      <th>groupe</th>
+      <th>quizz</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Eleve0</td>
+      <td>71.43</td>
+      <td>Unknown</td>
+      <td>td1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Eleve1</td>
+      <td>100.00</td>
+      <td>Unknown</td>
+      <td>td1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Eleve4</td>
+      <td>71.43</td>
+      <td>Unknown</td>
+      <td>td1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Eleve6</td>
+      <td>42.86</td>
+      <td>Unknown</td>
+      <td>td1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Eleve8</td>
+      <td>57.14</td>
+      <td>Unknown</td>
+      <td>td1</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>741</th>
+      <td>Eleve174</td>
+      <td>100.00</td>
+      <td>ibo5</td>
+      <td>td3</td>
+    </tr>
+    <tr>
+      <th>742</th>
+      <td>Eleve166</td>
+      <td>66.67</td>
+      <td>ibo5</td>
+      <td>td3</td>
+    </tr>
+    <tr>
+      <th>743</th>
+      <td>Eleve176</td>
+      <td>83.33</td>
+      <td>ibo5</td>
+      <td>td3</td>
+    </tr>
+    <tr>
+      <th>744</th>
+      <td>Eleve186</td>
+      <td>100.00</td>
+      <td>ibo5</td>
+      <td>td3</td>
+    </tr>
+    <tr>
+      <th>745</th>
+      <td>Eleve196</td>
+      <td>66.67</td>
+      <td>ibo5</td>
+      <td>td3</td>
+    </tr>
+  </tbody>
+</table>
+<p>746 rows × 4 columns</p>
+</div>
+
+
+
+## GroupBy
+
+
+```python
+df_notes.head(3)
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>eleve</th>
+      <th>note</th>
+      <th>groupe</th>
+      <th>quizz</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Eleve0</td>
+      <td>71.43</td>
+      <td>Unknown</td>
+      <td>td1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Eleve1</td>
+      <td>100.00</td>
+      <td>Unknown</td>
+      <td>td1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Eleve4</td>
+      <td>71.43</td>
+      <td>Unknown</td>
+      <td>td1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+Groupby applies the ***"split, apply, combine"*** method.
+
+- We first have to use a `key` to groupby, i.e. a column of different labels that will serve to ***split*** the main `df` into different subsets (one for each label in the concerned column), just as we would do a GROUP BY in SQL syntax.
+
+
+```python
+df_notes.groupby('groupe') 
+```
+
+
+
+
+    <pandas.core.groupby.generic.DataFrameGroupBy object at 0x1187d9a90>
+
+
+
+No computation is done yet
+
+This result in a DataFrameGroupBy object we can iterate on.
+
+
+```python
+for name_group, group in df_notes.groupby('groupe'):
+    # the label used , the df subset (one for each label)
+    print( "label used {}, dataframe shape {}".format(name_group,group.shape)) 
+```
+
+    label used Unknown, dataframe shape (92, 4)
+    label used ibo1, dataframe shape (117, 4)
+    label used ibo2, dataframe shape (57, 4)
+    label used ibo3, dataframe shape (85, 4)
+    label used ibo4, dataframe shape (81, 4)
+    label used ibo5, dataframe shape (115, 4)
+    label used ibo6, dataframe shape (85, 4)
+    label used ibo7, dataframe shape (114, 4)
+
+
+- Notice that we are not limited by grouping over one column keys.
+
+
+```python
+for name_group, group in df_notes.groupby(['groupe', "quizz"]):
+    # the label used , the df subset (one for each label)
+    print( "label used {}, dataframe shape {}".format(name_group,group.shape)) 
+```
+
+    label used ('Unknown', 'td1'), dataframe shape (92, 4)
+    label used ('ibo1', 'td1'), dataframe shape (30, 4)
+    label used ('ibo1', 'td2'), dataframe shape (30, 4)
+    label used ('ibo1', 'td3'), dataframe shape (27, 4)
+    label used ('ibo1', 'td4'), dataframe shape (30, 4)
+    label used ('ibo2', 'td2'), dataframe shape (30, 4)
+    label used ('ibo2', 'td3'), dataframe shape (27, 4)
+    label used ('ibo3', 'td2'), dataframe shape (30, 4)
+    label used ('ibo3', 'td3'), dataframe shape (27, 4)
+    label used ('ibo3', 'td4'), dataframe shape (28, 4)
+    label used ('ibo4', 'td2'), dataframe shape (27, 4)
+    label used ('ibo4', 'td3'), dataframe shape (28, 4)
+    label used ('ibo4', 'td4'), dataframe shape (26, 4)
+    label used ('ibo5', 'td1'), dataframe shape (27, 4)
+    label used ('ibo5', 'td2'), dataframe shape (30, 4)
+    label used ('ibo5', 'td3'), dataframe shape (28, 4)
+    label used ('ibo5', 'td4'), dataframe shape (30, 4)
+    label used ('ibo6', 'td2'), dataframe shape (29, 4)
+    label used ('ibo6', 'td3'), dataframe shape (28, 4)
+    label used ('ibo6', 'td4'), dataframe shape (28, 4)
+    label used ('ibo7', 'td1'), dataframe shape (29, 4)
+    label used ('ibo7', 'td2'), dataframe shape (28, 4)
+    label used ('ibo7', 'td3'), dataframe shape (28, 4)
+    label used ('ibo7', 'td4'), dataframe shape (29, 4)
+
+
+This results in a mutli-index with:
+- level0 = the group
+- level1 = the quizz number
+
+We can also index the `GroupByDataFrame` object by retrieving one Series (again no computation is done yet)
+
+
+```python
+df_notes.groupby(['groupe', "quizz"])["note"]
+```
+
+
+
+
+    <pandas.core.groupby.generic.SeriesGroupBy object at 0x1188bdeb8>
+
+
+
+
+```python
+for name_group, group in df_notes.groupby(['groupe', "quizz"])["note"]:
+    print( "label used {}, \n{} shape {}".format(name_group, type(group), group.shape)) 
+```
+
+    label used ('Unknown', 'td1'), 
+    <class 'pandas.core.series.Series'> shape (92,)
+    label used ('ibo1', 'td1'), 
+    <class 'pandas.core.series.Series'> shape (30,)
+    label used ('ibo1', 'td2'), 
+    <class 'pandas.core.series.Series'> shape (30,)
+    label used ('ibo1', 'td3'), 
+    <class 'pandas.core.series.Series'> shape (27,)
+    label used ('ibo1', 'td4'), 
+    <class 'pandas.core.series.Series'> shape (30,)
+    label used ('ibo2', 'td2'), 
+    <class 'pandas.core.series.Series'> shape (30,)
+    label used ('ibo2', 'td3'), 
+    <class 'pandas.core.series.Series'> shape (27,)
+    label used ('ibo3', 'td2'), 
+    <class 'pandas.core.series.Series'> shape (30,)
+    label used ('ibo3', 'td3'), 
+    <class 'pandas.core.series.Series'> shape (27,)
+    label used ('ibo3', 'td4'), 
+    <class 'pandas.core.series.Series'> shape (28,)
+    label used ('ibo4', 'td2'), 
+    <class 'pandas.core.series.Series'> shape (27,)
+    label used ('ibo4', 'td3'), 
+    <class 'pandas.core.series.Series'> shape (28,)
+    label used ('ibo4', 'td4'), 
+    <class 'pandas.core.series.Series'> shape (26,)
+    label used ('ibo5', 'td1'), 
+    <class 'pandas.core.series.Series'> shape (27,)
+    label used ('ibo5', 'td2'), 
+    <class 'pandas.core.series.Series'> shape (30,)
+    label used ('ibo5', 'td3'), 
+    <class 'pandas.core.series.Series'> shape (28,)
+    label used ('ibo5', 'td4'), 
+    <class 'pandas.core.series.Series'> shape (30,)
+    label used ('ibo6', 'td2'), 
+    <class 'pandas.core.series.Series'> shape (29,)
+    label used ('ibo6', 'td3'), 
+    <class 'pandas.core.series.Series'> shape (28,)
+    label used ('ibo6', 'td4'), 
+    <class 'pandas.core.series.Series'> shape (28,)
+    label used ('ibo7', 'td1'), 
+    <class 'pandas.core.series.Series'> shape (29,)
+    label used ('ibo7', 'td2'), 
+    <class 'pandas.core.series.Series'> shape (28,)
+    label used ('ibo7', 'td3'), 
+    <class 'pandas.core.series.Series'> shape (28,)
+    label used ('ibo7', 'td4'), 
+    <class 'pandas.core.series.Series'> shape (29,)
+
+
+#### Aggregation functions
+
+We can now think about the "apply, combine" part
+
+
+```python
+df_notes.dtypes 
+```
+
+
+
+
+    eleve      object
+    note      float64
+    groupe     object
+    quizz      object
+    dtype: object
+
+
+
+Pandas provides us some functions to be applied on a dataframe or Series (.mean(), .sum(), .std(), .describe(), .min(), etc...), we can seemlessly append one of them to the GroupBy Object to operate **on each of the subsets DataFrames/Series created on the split step** (this is the ***apply*** step).
+
+After applying the function to each split, a ***combined*** result is returned, in the form of a Series object or DataFrame.
+
+Note that for those aggregating functions reduce the shape of the data e.g. summing or meaning on a Series result in a scalar (the sum or the mean), this will be operated over each Series groups from the **split** step.
+
+
+```python
+df_notes.groupby(['groupe'])["note"].mean()
+```
+
+
+
+
+    groupe
+    Unknown    63.664022
+    ibo1       87.337607
+    ibo2       97.251053
+    ibo3       86.418824
+    ibo4       87.953580
+    ibo5       80.288957
+    ibo6       83.484000
+    ibo7       86.402456
+    Name: note, dtype: float64
+
+
+
+
+```python
+df_notes.groupby(['groupe', 'quizz'])["note"].mean()
+```
+
+
+
+
+    groupe   quizz
+    Unknown  td1      63.664022
+    ibo1     td1      67.618000
+             td2      94.666667
+             td3      90.739630
+             td4      96.666333
+    ibo2     td2      98.666667
+             td3      95.678148
+    ibo3     td2      88.666667
+             td3      88.887037
+             td4      81.630357
+    ibo4     td2      87.407407
+             td3      87.500000
+             td4      89.009231
+    ibo5     td1      53.967407
+             td2      90.000000
+             td3      90.475714
+             td4      84.759667
+    ibo6     td2      90.344828
+             td3      83.332857
+             td4      76.529286
+    ibo7     td1      74.875517
+             td2      85.714286
+             td3      94.642500
+             td4      90.637931
+    Name: note, dtype: float64
+
+
+
+as we get a hierarchical index we can unstack to make use of the dimensionality brought by column indexesm
+
+
+```python
+_.unstack()
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>quizz</th>
+      <th>td1</th>
+      <th>td2</th>
+      <th>td3</th>
+      <th>td4</th>
+    </tr>
+    <tr>
+      <th>groupe</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Unknown</th>
+      <td>63.664022</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>ibo1</th>
+      <td>67.618000</td>
+      <td>94.666667</td>
+      <td>90.739630</td>
+      <td>96.666333</td>
+    </tr>
+    <tr>
+      <th>ibo2</th>
+      <td>NaN</td>
+      <td>98.666667</td>
+      <td>95.678148</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>ibo3</th>
+      <td>NaN</td>
+      <td>88.666667</td>
+      <td>88.887037</td>
+      <td>81.630357</td>
+    </tr>
+    <tr>
+      <th>ibo4</th>
+      <td>NaN</td>
+      <td>87.407407</td>
+      <td>87.500000</td>
+      <td>89.009231</td>
+    </tr>
+    <tr>
+      <th>ibo5</th>
+      <td>53.967407</td>
+      <td>90.000000</td>
+      <td>90.475714</td>
+      <td>84.759667</td>
+    </tr>
+    <tr>
+      <th>ibo6</th>
+      <td>NaN</td>
+      <td>90.344828</td>
+      <td>83.332857</td>
+      <td>76.529286</td>
+    </tr>
+    <tr>
+      <th>ibo7</th>
+      <td>74.875517</td>
+      <td>85.714286</td>
+      <td>94.642500</td>
+      <td>90.637931</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+Something is unusual? why is there `NaN`? some class groups should have grades for each quizz.
+
+
+```python
+df_notes.isnull().sum()
+```
+
+
+
+
+    eleve     0
+    note      0
+    groupe    0
+    quizz     0
+    dtype: int64
+
+
+
+though all the data seems complete...
+
+
+```python
+df_notes.isnull().apply(sum, axis=0)
+```
+
+
+
+
+    eleve     0
+    note      0
+    groupe    0
+    quizz     0
+    dtype: int64
+
+
+
+Notice the `Unknown` group, we should look more into this...
+
+
+```python
+df_notes[df_notes.groupe == "Unknown"]
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>eleve</th>
+      <th>note</th>
+      <th>groupe</th>
+      <th>quizz</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Eleve0</td>
+      <td>71.43</td>
+      <td>Unknown</td>
+      <td>td1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Eleve1</td>
+      <td>100.00</td>
+      <td>Unknown</td>
+      <td>td1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Eleve4</td>
+      <td>71.43</td>
+      <td>Unknown</td>
+      <td>td1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Eleve6</td>
+      <td>42.86</td>
+      <td>Unknown</td>
+      <td>td1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Eleve8</td>
+      <td>57.14</td>
+      <td>Unknown</td>
+      <td>td1</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>87</th>
+      <td>Eleve202</td>
+      <td>57.14</td>
+      <td>Unknown</td>
+      <td>td1</td>
+    </tr>
+    <tr>
+      <th>88</th>
+      <td>Eleve203</td>
+      <td>57.14</td>
+      <td>Unknown</td>
+      <td>td1</td>
+    </tr>
+    <tr>
+      <th>89</th>
+      <td>Eleve204</td>
+      <td>71.43</td>
+      <td>Unknown</td>
+      <td>td1</td>
+    </tr>
+    <tr>
+      <th>90</th>
+      <td>Eleve205</td>
+      <td>42.86</td>
+      <td>Unknown</td>
+      <td>td1</td>
+    </tr>
+    <tr>
+      <th>91</th>
+      <td>Eleve207</td>
+      <td>42.86</td>
+      <td>Unknown</td>
+      <td>td1</td>
+    </tr>
+  </tbody>
+</table>
+<p>92 rows × 4 columns</p>
+</div>
+
+
+
+
+```python
+_.shape[0]
+```
+
+
+
+
+    92
+
+
+
+To apply multiple aggregate functions at once using a list of the functions you want to apply in aggregate
+
+
+```python
+df_notes.groupby('quizz').agg({'note': ['max', min]})
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+
+    .dataframe thead tr:last-of-type th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th colspan="2" halign="left">note</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>max</th>
+      <th>min</th>
+    </tr>
+    <tr>
+      <th>quizz</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>td1</th>
+      <td>100.0</td>
+      <td>0.00</td>
+    </tr>
+    <tr>
+      <th>td2</th>
+      <td>100.0</td>
+      <td>40.00</td>
+    </tr>
+    <tr>
+      <th>td3</th>
+      <td>100.0</td>
+      <td>50.00</td>
+    </tr>
+    <tr>
+      <th>td4</th>
+      <td>100.0</td>
+      <td>42.86</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+this results in a multi column index
+
+
+```python
+_.columns
+```
+
+
+
+
+    MultiIndex([('note', 'max'),
+                ('note', 'min')],
+               )
+
+
+
+Grouping by students, we may have more insight.
+
+
+```python
+df_notes.groupby('eleve').agg(list)
+# applied on all columns (where the function can be used on) for each subset
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>note</th>
+      <th>groupe</th>
+      <th>quizz</th>
+    </tr>
+    <tr>
+      <th>eleve</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Eleve0</th>
+      <td>[71.43, 80.0, 100.0]</td>
+      <td>[Unknown, ibo2, ibo2]</td>
+      <td>[td1, td2, td3]</td>
+    </tr>
+    <tr>
+      <th>Eleve1</th>
+      <td>[100.0, 100.0, 100.0]</td>
+      <td>[Unknown, ibo2, ibo2]</td>
+      <td>[td1, td2, td3]</td>
+    </tr>
+    <tr>
+      <th>Eleve10</th>
+      <td>[100.0, 100.0, 85.71, 71.43]</td>
+      <td>[ibo7, ibo7, ibo7, ibo7]</td>
+      <td>[td3, td2, td4, td1]</td>
+    </tr>
+    <tr>
+      <th>Eleve100</th>
+      <td>[100.0, 100.0, 100.0, 85.71]</td>
+      <td>[ibo7, ibo7, ibo7, ibo7]</td>
+      <td>[td3, td2, td4, td1]</td>
+    </tr>
+    <tr>
+      <th>Eleve101</th>
+      <td>[100.0, 100.0, 85.71, 100.0]</td>
+      <td>[ibo7, ibo7, ibo7, ibo7]</td>
+      <td>[td3, td2, td4, td1]</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>Eleve95</th>
+      <td>[85.71, 100.0, 100.0]</td>
+      <td>[Unknown, ibo2, ibo2]</td>
+      <td>[td1, td2, td3]</td>
+    </tr>
+    <tr>
+      <th>Eleve96</th>
+      <td>[100.0, 100.0, 100.0, 42.86]</td>
+      <td>[ibo1, ibo1, ibo1, ibo1]</td>
+      <td>[td4, td3, td2, td1]</td>
+    </tr>
+    <tr>
+      <th>Eleve97</th>
+      <td>[28.57, 85.71, 83.33, 60.0]</td>
+      <td>[Unknown, ibo4, ibo4, ibo4]</td>
+      <td>[td1, td4, td3, td2]</td>
+    </tr>
+    <tr>
+      <th>Eleve98</th>
+      <td>[42.86, 85.71, 100.0, 100.0]</td>
+      <td>[Unknown, ibo4, ibo4, ibo4]</td>
+      <td>[td1, td4, td3, td2]</td>
+    </tr>
+    <tr>
+      <th>Eleve99</th>
+      <td>[71.43, 100.0, 100.0]</td>
+      <td>[Unknown, ibo2, ibo2]</td>
+      <td>[td1, td2, td3]</td>
+    </tr>
+  </tbody>
+</table>
+<p>208 rows × 3 columns</p>
+</div>
+
+
+
+Some students are known, but are not always written as such.
+
+### transform
+
+sometimes we want the ***"apply-combine"*** steps to avoid reducing the data size but compute for each data record something based on some intra-group/splits caracteristics 
+
+Here we would want for example to group by students and replace `Unknown` fields by the correct information from the other students record.
+
+
+```python
+df_notes
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>eleve</th>
+      <th>note</th>
+      <th>groupe</th>
+      <th>quizz</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Eleve0</td>
+      <td>71.43</td>
+      <td>ibo2</td>
+      <td>td1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Eleve1</td>
+      <td>100.00</td>
+      <td>ibo2</td>
+      <td>td1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Eleve4</td>
+      <td>71.43</td>
+      <td>ibo2</td>
+      <td>td1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Eleve6</td>
+      <td>42.86</td>
+      <td>ibo6</td>
+      <td>td1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Eleve8</td>
+      <td>57.14</td>
+      <td>ibo4</td>
+      <td>td1</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>741</th>
+      <td>Eleve174</td>
+      <td>100.00</td>
+      <td>ibo5</td>
+      <td>td3</td>
+    </tr>
+    <tr>
+      <th>742</th>
+      <td>Eleve166</td>
+      <td>66.67</td>
+      <td>ibo5</td>
+      <td>td3</td>
+    </tr>
+    <tr>
+      <th>743</th>
+      <td>Eleve176</td>
+      <td>83.33</td>
+      <td>ibo5</td>
+      <td>td3</td>
+    </tr>
+    <tr>
+      <th>744</th>
+      <td>Eleve186</td>
+      <td>100.00</td>
+      <td>ibo5</td>
+      <td>td3</td>
+    </tr>
+    <tr>
+      <th>745</th>
+      <td>Eleve196</td>
+      <td>66.67</td>
+      <td>ibo5</td>
+      <td>td3</td>
+    </tr>
+  </tbody>
+</table>
+<p>746 rows × 4 columns</p>
+</div>
+
+
+
+
+```python
+df_notes.replace({"Unknown":np.nan}, inplace=True)
+```
+
+
+```python
+df_notes["groupe"] = df_notes.groupby('eleve')['groupe'].transform(lambda x: x.bfill().ffill())
+```
+
+
+```python
+df_notes.groupby('eleve').agg(list)
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>note</th>
+      <th>groupe</th>
+      <th>quizz</th>
+    </tr>
+    <tr>
+      <th>eleve</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Eleve0</th>
+      <td>[71.43, 80.0, 100.0]</td>
+      <td>[ibo2, ibo2, ibo2]</td>
+      <td>[td1, td2, td3]</td>
+    </tr>
+    <tr>
+      <th>Eleve1</th>
+      <td>[100.0, 100.0, 100.0]</td>
+      <td>[ibo2, ibo2, ibo2]</td>
+      <td>[td1, td2, td3]</td>
+    </tr>
+    <tr>
+      <th>Eleve10</th>
+      <td>[100.0, 100.0, 85.71, 71.43]</td>
+      <td>[ibo7, ibo7, ibo7, ibo7]</td>
+      <td>[td3, td2, td4, td1]</td>
+    </tr>
+    <tr>
+      <th>Eleve100</th>
+      <td>[100.0, 100.0, 100.0, 85.71]</td>
+      <td>[ibo7, ibo7, ibo7, ibo7]</td>
+      <td>[td3, td2, td4, td1]</td>
+    </tr>
+    <tr>
+      <th>Eleve101</th>
+      <td>[100.0, 100.0, 85.71, 100.0]</td>
+      <td>[ibo7, ibo7, ibo7, ibo7]</td>
+      <td>[td3, td2, td4, td1]</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>Eleve95</th>
+      <td>[85.71, 100.0, 100.0]</td>
+      <td>[ibo2, ibo2, ibo2]</td>
+      <td>[td1, td2, td3]</td>
+    </tr>
+    <tr>
+      <th>Eleve96</th>
+      <td>[100.0, 100.0, 100.0, 42.86]</td>
+      <td>[ibo1, ibo1, ibo1, ibo1]</td>
+      <td>[td4, td3, td2, td1]</td>
+    </tr>
+    <tr>
+      <th>Eleve97</th>
+      <td>[28.57, 85.71, 83.33, 60.0]</td>
+      <td>[ibo4, ibo4, ibo4, ibo4]</td>
+      <td>[td1, td4, td3, td2]</td>
+    </tr>
+    <tr>
+      <th>Eleve98</th>
+      <td>[42.86, 85.71, 100.0, 100.0]</td>
+      <td>[ibo4, ibo4, ibo4, ibo4]</td>
+      <td>[td1, td4, td3, td2]</td>
+    </tr>
+    <tr>
+      <th>Eleve99</th>
+      <td>[71.43, 100.0, 100.0]</td>
+      <td>[ibo2, ibo2, ibo2]</td>
+      <td>[td1, td2, td3]</td>
+    </tr>
+  </tbody>
+</table>
+<p>208 rows × 3 columns</p>
+</div>
+
+
+
+Let's check if we still have some NAs?
+
+
+```python
+df_notes.groupby(['groupe', 'quizz'])["note"].mean().unstack()
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>quizz</th>
+      <th>td1</th>
+      <th>td2</th>
+      <th>td3</th>
+      <th>td4</th>
+    </tr>
+    <tr>
+      <th>groupe</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>ibo1</th>
+      <td>67.618000</td>
+      <td>94.666667</td>
+      <td>90.739630</td>
+      <td>96.666333</td>
+    </tr>
+    <tr>
+      <th>ibo2</th>
+      <td>76.846207</td>
+      <td>98.666667</td>
+      <td>95.678148</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>ibo3</th>
+      <td>40.002000</td>
+      <td>88.666667</td>
+      <td>88.887037</td>
+      <td>81.630357</td>
+    </tr>
+    <tr>
+      <th>ibo4</th>
+      <td>56.632500</td>
+      <td>87.407407</td>
+      <td>87.500000</td>
+      <td>89.009231</td>
+    </tr>
+    <tr>
+      <th>ibo5</th>
+      <td>53.967407</td>
+      <td>90.000000</td>
+      <td>90.475714</td>
+      <td>84.759667</td>
+    </tr>
+    <tr>
+      <th>ibo6</th>
+      <td>61.427667</td>
+      <td>90.344828</td>
+      <td>83.332857</td>
+      <td>76.529286</td>
+    </tr>
+    <tr>
+      <th>ibo7</th>
+      <td>74.875517</td>
+      <td>85.714286</td>
+      <td>94.642500</td>
+      <td>90.637931</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+Seems better ! 
+
+
+```python
+df_notes[(df_notes.groupe == 'ibo2') & (df_notes.quizz == 'td4')]
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>eleve</th>
+      <th>note</th>
+      <th>groupe</th>
+      <th>quizz</th>
+    </tr>
+  </thead>
+  <tbody>
+  </tbody>
+</table>
+</div>
+
+
+
+seems we don't have data for the exam number 4 fro this group (which had been cancelled due too large manifestations in Paris which lead to postpone the session too late.)
+
+
+```python
+df_notes = df_notes[~(df_notes.quizz=='td4')]
+```
+
+### Pivot Table
+
+
+```python
+df_notes.groupby(['groupe', 'quizz'])["note"].mean().unstack()
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>quizz</th>
+      <th>td1</th>
+      <th>td2</th>
+      <th>td3</th>
+    </tr>
+    <tr>
+      <th>groupe</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>ibo1</th>
+      <td>67.618000</td>
+      <td>94.666667</td>
+      <td>90.739630</td>
+    </tr>
+    <tr>
+      <th>ibo2</th>
+      <td>76.846207</td>
+      <td>98.666667</td>
+      <td>95.678148</td>
+    </tr>
+    <tr>
+      <th>ibo3</th>
+      <td>40.002000</td>
+      <td>88.666667</td>
+      <td>88.887037</td>
+    </tr>
+    <tr>
+      <th>ibo4</th>
+      <td>56.632500</td>
+      <td>87.407407</td>
+      <td>87.500000</td>
+    </tr>
+    <tr>
+      <th>ibo5</th>
+      <td>53.967407</td>
+      <td>90.000000</td>
+      <td>90.475714</td>
+    </tr>
+    <tr>
+      <th>ibo6</th>
+      <td>61.427667</td>
+      <td>90.344828</td>
+      <td>83.332857</td>
+    </tr>
+    <tr>
+      <th>ibo7</th>
+      <td>74.875517</td>
+      <td>85.714286</td>
+      <td>94.642500</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
+df_notes.pivot_table('note', index='groupe', columns='quizz', margins=True)
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>quizz</th>
+      <th>td1</th>
+      <th>td2</th>
+      <th>td3</th>
+      <th>All</th>
+    </tr>
+    <tr>
+      <th>groupe</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>ibo1</th>
+      <td>67.618000</td>
+      <td>94.666667</td>
+      <td>90.739630</td>
+      <td>84.120805</td>
+    </tr>
+    <tr>
+      <th>ibo2</th>
+      <td>76.846207</td>
+      <td>98.666667</td>
+      <td>95.678148</td>
+      <td>90.370349</td>
+    </tr>
+    <tr>
+      <th>ibo3</th>
+      <td>40.002000</td>
+      <td>88.666667</td>
+      <td>88.887037</td>
+      <td>84.838065</td>
+    </tr>
+    <tr>
+      <th>ibo4</th>
+      <td>56.632500</td>
+      <td>87.407407</td>
+      <td>87.500000</td>
+      <td>77.056747</td>
+    </tr>
+    <tr>
+      <th>ibo5</th>
+      <td>53.967407</td>
+      <td>90.000000</td>
+      <td>90.475714</td>
+      <td>78.711059</td>
+    </tr>
+    <tr>
+      <th>ibo6</th>
+      <td>61.427667</td>
+      <td>90.344828</td>
+      <td>83.332857</td>
+      <td>78.116667</td>
+    </tr>
+    <tr>
+      <th>ibo7</th>
+      <td>74.875517</td>
+      <td>85.714286</td>
+      <td>94.642500</td>
+      <td>84.957412</td>
+    </tr>
+    <tr>
+      <th>All</th>
+      <td>64.686180</td>
+      <td>90.882353</td>
+      <td>90.154715</td>
+      <td>82.528696</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
+results = df_notes.pivot_table(index='groupe', columns='quizz', 
+                     aggfunc={"note":['max', min]})
+results
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead tr th {
+        text-align: left;
+    }
+
+    .dataframe thead tr:last-of-type th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr>
+      <th></th>
+      <th colspan="6" halign="left">note</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th colspan="3" halign="left">max</th>
+      <th colspan="3" halign="left">min</th>
+    </tr>
+    <tr>
+      <th>quizz</th>
+      <th>td1</th>
+      <th>td2</th>
+      <th>td3</th>
+      <th>td1</th>
+      <th>td2</th>
+      <th>td3</th>
+    </tr>
+    <tr>
+      <th>groupe</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>ibo1</th>
+      <td>100.00</td>
+      <td>100.0</td>
+      <td>100.0</td>
+      <td>28.57</td>
+      <td>80.0</td>
+      <td>50.00</td>
+    </tr>
+    <tr>
+      <th>ibo2</th>
+      <td>100.00</td>
+      <td>100.0</td>
+      <td>100.0</td>
+      <td>42.86</td>
+      <td>80.0</td>
+      <td>83.33</td>
+    </tr>
+    <tr>
+      <th>ibo3</th>
+      <td>57.14</td>
+      <td>100.0</td>
+      <td>100.0</td>
+      <td>14.29</td>
+      <td>40.0</td>
+      <td>66.67</td>
+    </tr>
+    <tr>
+      <th>ibo4</th>
+      <td>100.00</td>
+      <td>100.0</td>
+      <td>100.0</td>
+      <td>0.00</td>
+      <td>40.0</td>
+      <td>66.67</td>
+    </tr>
+    <tr>
+      <th>ibo5</th>
+      <td>85.71</td>
+      <td>100.0</td>
+      <td>100.0</td>
+      <td>0.00</td>
+      <td>60.0</td>
+      <td>50.00</td>
+    </tr>
+    <tr>
+      <th>ibo6</th>
+      <td>100.00</td>
+      <td>100.0</td>
+      <td>100.0</td>
+      <td>28.57</td>
+      <td>40.0</td>
+      <td>50.00</td>
+    </tr>
+    <tr>
+      <th>ibo7</th>
+      <td>100.00</td>
+      <td>100.0</td>
+      <td>100.0</td>
+      <td>28.57</td>
+      <td>40.0</td>
+      <td>66.67</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+
+```python
+%matplotlib inline
+```
+
+
+```python
+import matplotlib.pyplot as plt
+```
+
+
+```python
+plt.rcParams['figure.figsize'] = (20, 10)
+```
+
+
+```python
+results['note'].plot(kind='bar')
+```
+
+
+
+
+    <matplotlib.axes._subplots.AxesSubplot at 0x11d11eba8>
+
+<img src="{{page.image_folder}}output_274_1.png" width="500px" style="display: inline-block;" class=".center">
