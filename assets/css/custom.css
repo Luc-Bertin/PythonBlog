@@ -1,3 +1,4 @@
+/* Images centering in posts */
 .center {
   display: block;
   margin-left: auto;
@@ -5,6 +6,7 @@
   width: 50%;
 }
 
+/* For YouTube videos embedding as iframes */
 .iframe-container {
   position: relative;
   overflow: hidden;
@@ -12,7 +14,6 @@
   /* 16:9 aspect ratio */
   padding-top: 56.25%;
 }
-
 .iframe-container iframe {
    position: absolute;
    top: 0;
@@ -22,4 +23,38 @@
    border: 0;
    width: 100%;
    height: 100%;
+}
+
+
+/* DataFrame displays from Jupyter Notebook */
+/* don't forget to add the class to each tables */
+.styledtable {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+.styledtable thead tr {
+    background-color: #009879;
+    color: #ffffff;
+    text-align: left;
+}
+.styledtable th,
+.styledtable td {
+    padding: 12px 15px;
+}
+.styledtable tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+.styledtable tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+.styledtable tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+}
+.styledtable tbody tr.active-row {
+    font-weight: bold;
+    color: #009879;
 }
