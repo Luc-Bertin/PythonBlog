@@ -725,7 +725,7 @@ df
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -806,7 +806,7 @@ df2
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -916,7 +916,7 @@ df2
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -968,7 +968,7 @@ pd.DataFrame([(1, 1, 3), (1, 2,4), (1,1,1)],
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -1029,7 +1029,7 @@ df.iloc[:3, :1] # implicit indexing
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -1079,7 +1079,7 @@ df.iloc[:3]
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -1131,7 +1131,7 @@ df.loc["Corentin":"Luc","charge_de_travail":"note"] # explicit indexing
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -1180,7 +1180,7 @@ df.loc[:"Corentin"]
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -1222,7 +1222,7 @@ df.loc[["Corentin", "Luc"], :] # mixing slicing and fancy indexing
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -1275,7 +1275,7 @@ df[["charge_de_travail"]] # indexing directly df defaults to columns
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -1341,7 +1341,7 @@ df[mask] # masking directly df is operated on rows
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -1383,7 +1383,7 @@ df[:3] # slicing directly df is operated on rows
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -1460,7 +1460,7 @@ df
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -1521,7 +1521,7 @@ df2
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -1589,7 +1589,7 @@ df2
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -1656,7 +1656,7 @@ df + df2
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -1728,7 +1728,7 @@ df.__add__(df2, fill_value=25) # used in the binary operation 25+8 = 33)
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -1823,7 +1823,7 @@ df.iloc[1]
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -1894,7 +1894,7 @@ df - df.iloc[1] #row-wise (1,4) copied other 3 times => (3,4)
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -1954,7 +1954,7 @@ df - df.iloc[1].sample(4) # again: kept the index alignements during computation
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -2016,7 +2016,7 @@ df.__sub__(df.iloc[1], axis=0) # caution, the indexes operations will be based o
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -2084,7 +2084,7 @@ df
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -2162,7 +2162,7 @@ df.__sub__(df.iloc[1], axis=0)
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -2256,7 +2256,7 @@ df2
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -2386,7 +2386,7 @@ df2.isnull()
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -2441,7 +2441,7 @@ df2.isnull()
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -2518,7 +2518,7 @@ df2.dropna(axis=1, thresh=3) # drop a column if below 3 non-NA value
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -2573,7 +2573,7 @@ df2.dropna(axis=1, thresh=3) # drop a column if below 3 non-NA value
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -2616,7 +2616,7 @@ df2.dropna(axis=1, thresh=3) # drop a column if below 3 non-NA value
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -2650,7 +2650,7 @@ df2.dropna(axis=1, thresh=3) # drop a column if below 3 non-NA value
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -2697,7 +2697,7 @@ df2.dropna(axis=1, thresh=3) # drop a column if below 3 non-NA value
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -2752,7 +2752,7 @@ df2.fillna(method="bfill", axis=1) # on column basis
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -2807,7 +2807,7 @@ df2.fillna(method="bfill", axis=1) # on column basis
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -2862,7 +2862,7 @@ df2.fillna(method="bfill", axis=1) # on column basis
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -2917,7 +2917,7 @@ df2.fillna(method="bfill", axis=1) # on column basis
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -3088,7 +3088,7 @@ health_data
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr>
       <th></th>
@@ -3185,7 +3185,7 @@ health_data.loc[:2013 , ("Bob")]
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -3250,7 +3250,7 @@ health_data.loc[idx[:, 1], idx[:, 'HR']]
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr>
       <th></th>
@@ -3347,7 +3347,7 @@ serie.unstack() #level -1 by default = most inner one
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -3420,7 +3420,7 @@ df3
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -3501,7 +3501,7 @@ df3.reset_index()
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -3598,7 +3598,7 @@ health_data.mean(axis=1, level='type')
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr>
       <th>subject</th>
@@ -3671,7 +3671,7 @@ health_data.mean(axis=1, level='type')
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr>
       <th>subject</th>
@@ -3740,7 +3740,7 @@ health_data.mean(axis=1, level='type')
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -3809,7 +3809,7 @@ df2
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -3864,7 +3864,7 @@ df2
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -3925,7 +3925,7 @@ pd.concat([df1, df2], axis=1) # concatenate columns (default)
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -4001,7 +4001,7 @@ pd.concat([df1, df2], axis=1) # concatenate columns (default)
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -4085,7 +4085,7 @@ pd.concat([df1, df2], axis=0, keys=["source1", "source2"])
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -4172,7 +4172,7 @@ df2
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -4236,7 +4236,7 @@ pd.concat([df1, df2], axis=0, join='inner')
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -4367,7 +4367,7 @@ df1.append(df2)
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -4464,7 +4464,7 @@ df_client
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -4521,7 +4521,7 @@ df_client
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -4592,7 +4592,7 @@ pd.merge(left=df_account, right=df_client,
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -4674,7 +4674,7 @@ df_merged
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -4761,7 +4761,7 @@ df_merged.drop('id_account', axis=1)
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -4882,7 +4882,7 @@ df_notes.tail(5)
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -4951,7 +4951,7 @@ df_notes.tail(5)
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -5047,7 +5047,7 @@ df_notes
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -5188,7 +5188,7 @@ df_notes[mask]
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -5402,7 +5402,7 @@ df_notes
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -5521,7 +5521,7 @@ df_notes.head(3)
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -5813,7 +5813,7 @@ _.unstack()
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr style="text-align: right;">
       <th>quizz</th>
@@ -5953,7 +5953,7 @@ df_notes[df_notes.groupe == "Unknown"]
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -6088,7 +6088,7 @@ df_notes.groupby('quizz').agg({'note': ['max', min]})
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr>
       <th></th>
@@ -6173,7 +6173,7 @@ df_notes.groupby('eleve').agg(list)
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -6292,7 +6292,7 @@ df_notes
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -6419,7 +6419,7 @@ df_notes.groupby('eleve').agg(list)
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -6532,7 +6532,7 @@ df_notes.groupby(['groupe', 'quizz'])["note"].mean().unstack()
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr style="text-align: right;">
       <th>quizz</th>
@@ -6629,7 +6629,7 @@ df_notes[(df_notes.groupe == 'ibo2') & (df_notes.quizz == 'td4')]
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -6677,7 +6677,7 @@ df_notes.groupby(['groupe', 'quizz'])["note"].mean().unstack()
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr style="text-align: right;">
       <th>quizz</th>
@@ -6763,7 +6763,7 @@ df_notes.pivot_table('note', index='groupe', columns='quizz', margins=True)
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr style="text-align: right;">
       <th>quizz</th>
@@ -6871,7 +6871,7 @@ results
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="dataframe table">
   <thead>
     <tr>
       <th></th>
