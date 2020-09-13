@@ -6,7 +6,7 @@
  */
 
  @import "pygments/default.css";
- @import "custom.css"
+ /*@import "custom.css"*/
 :root {
   --blue: #7832e2;
   --indigo: #502c6c;
@@ -8463,3 +8463,4 @@ html {
     align-self: baseline !important; }
   .align-self-xl-stretch {
     align-self: stretch !important; } }
+
