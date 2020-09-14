@@ -10,42 +10,14 @@ tags: [featured]
 
 ---
 
->`pandas.DataFrame` is a 2-dimensional labeled data structure with columns of potentially different types. You can think of it like a spreadsheet or SQL table. It got rows and columns' labels and can contain and handle missing data.
+>`pandas.DataFrame` is a 2-dimensional labeled data structure with columns of potentially different types. You can think of it like a spreadsheet or SQL table.
+It got rows and columns' labels and can greatly contain and handle missing data.
 
 Dealing with initially less structured, clean and complete data consists in most of the time spent by the data scientist.
 
 First, check the overview of the package [here](https://pandas.pydata.org/docs/getting_started/overview.html)
 
-
-```python
-import pandas as pd
-```
-
-
-```python
-pd.__version__
-```
-
-
-
-
-    '0.25.3'
-
-
-
-
-```python
-pd?
-```
-
-
-```python
-%%timeit
-3+2
-```
-
-    14.7 ns ± 0.386 ns per loop (mean ± std. dev. of 7 runs, 100000000 loops each)
-
+Pandas is built on top of Numpy.
 
 In the rest of this tutorial we will mainly work on the `DataFrame` class, although we first have to introduce 2 other core data structures provided by the package: the `Series` and the `Index`, as they are each constitutive of `DataFrame` and the former share very similar API with the DataFrame class.
 
@@ -2299,22 +2271,58 @@ df2
 
 
 ```python
+s = pd.Series(['The', 3, 'brown', 'fox'])
+```
+
+
+```python
+s*2
+```
+
+
+
+
+    0        TheThe
+    1             6
+    2    brownbrown
+    3        foxfox
+    dtype: object
+
+
+
+
+```python
+s.values
+```
+
+
+
+
+    array(['The', 3, 'brown', 'fox'], dtype=object)
+
+
+
+> [Link](https://stackoverflow.com/questions/29877508/what-does-dtype-object-mean-while-creating-a-numpy-array). Creating an array with dtype=object is different. The memory taken by the array now is filled with pointers to Python objects which are being stored elsewhere in memory (much like a Python list is really just a list of pointers to objects, not the objects themselves).
+
+
+```python
 print(df.dtypes)
 print(df2.dtypes) 
 # NaN is a floating-point value, 
 # hence the Series embedding it gets its dtype upcasted to float (if it were an int)
-# this pd.Series supports fast operations
+# this pd.Series supports fast operations contrarily to a Series of dtype=object
+# because Python needs to type check dynamically every time
 ```
 
-    a    int64
-    b    int64
-    0    int64
-    d    int64
+    a         int64
+    b         int64
+    0         int64
+    d         int64
+    notes    object
     dtype: object
-    0    float64
-    a      int64
-    b      int64
-    d    float64
+    Name          object
+    id_account    object
+    id_client     object
     dtype: object
 
 
@@ -4831,7 +4839,7 @@ df_merged.drop('id_account', axis=1)
 #)
 ```
 
-### Manipulating columns with strings
+## Apply 
 
 For the following sections, we are going to use real world data of students'grades from an exam I gave 😜 The data has been anonymised to fit GDPR regulation.
 
@@ -5002,6 +5010,354 @@ df_notes.tail(5)
 </div>
 
 
+
+### Let's define a function to be applied for each val in a colum
+
+
+```python
+def function(val):
+    """A fonction to be applied on each element of a pandas DataFrame column / Series """
+    # we need to return a value for each element computation
+    return val.upper()
+```
+
+
+```python
+df_notes.eleve.apply(function) # the function applies on each value in the column
+```
+
+
+
+
+    0        ELEVE0
+    1        ELEVE1
+    2        ELEVE4
+    3        ELEVE6
+    4        ELEVE8
+             ...   
+    741    ELEVE174
+    742    ELEVE166
+    743    ELEVE176
+    744    ELEVE186
+    745    ELEVE196
+    Name: eleve, Length: 746, dtype: object
+
+
+
+behind, apply is looping on each element of the column `eleve` and returning a value for each of them
+
+### We can also use apply on the dataframe 
+
+But wee need to provide an axis.<br>
+applied function won't be fed a single column element this time but a Series.<br>
+a Series whose index depends on the axis we choose !
+
+
+```python
+df_notes
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="styledtable">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>eleve</th>
+      <th>note</th>
+      <th>groupe</th>
+      <th>quizz</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>eleve0</td>
+      <td>71,43 %</td>
+      <td>Unknown</td>
+      <td>td1</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>eleve1</td>
+      <td>100 %</td>
+      <td>Unknown</td>
+      <td>td1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>eleve4</td>
+      <td>71,43 %</td>
+      <td>Unknown</td>
+      <td>td1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>eleve6</td>
+      <td>42,86 %</td>
+      <td>Unknown</td>
+      <td>td1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>eleve8</td>
+      <td>57,14 %</td>
+      <td>Unknown</td>
+      <td>td1</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>741</th>
+      <td>eleve174</td>
+      <td>100 %</td>
+      <td>ibo5</td>
+      <td>td3</td>
+    </tr>
+    <tr>
+      <th>742</th>
+      <td>eleve166</td>
+      <td>66,67 %</td>
+      <td>ibo5</td>
+      <td>td3</td>
+    </tr>
+    <tr>
+      <th>743</th>
+      <td>eleve176</td>
+      <td>83,33 %</td>
+      <td>ibo5</td>
+      <td>td3</td>
+    </tr>
+    <tr>
+      <th>744</th>
+      <td>eleve186</td>
+      <td>100 %</td>
+      <td>ibo5</td>
+      <td>td3</td>
+    </tr>
+    <tr>
+      <th>745</th>
+      <td>eleve196</td>
+      <td>66,67 %</td>
+      <td>ibo5</td>
+      <td>td3</td>
+    </tr>
+  </tbody>
+</table>
+<p>746 rows × 4 columns</p>
+</div>
+
+
+
+
+```python
+def function(row):
+    """A fonction to be applied on each row of the DataFrame
+    i.e. each row is indeed a pandas.Series object 
+    passed-in the applied function at each loop iteration.
+    We will need later on to use axis=1 for Series to be the rows"""
+    
+    # having a full row we can do many things to create
+    if int( row["eleve"][-1] ) % 2 == 0:
+        return "pair"
+    return "impair"
+```
+
+
+```python
+df_notes.apply(function, axis=1)
+```
+
+
+
+
+    0        pair
+    1      impair
+    2        pair
+    3        pair
+    4        pair
+            ...  
+    741      pair
+    742      pair
+    743      pair
+    744      pair
+    745      pair
+    Length: 746, dtype: object
+
+
+
+
+```python
+def function(row):
+    """Another function on rows but returning a pandas.Series each time
+    i.e. then the final result will be a stack of pandas.Series along an axis or the other
+    i.e. <=> a DataFrame"""
+    if int( row["eleve"][-1] ) % 2 == 0:
+        odd_or_even = "pair"
+    odd_or_even = "impair"
+    
+    cut_note = row["note"].split(',')[0] # what precedes the comma
+    return pd.Series([ odd_or_even, cut_note], index=['odd_or_even', 'cut_note'])
+```
+
+
+```python
+df_notes.apply(function, axis=1) # a pandas.Series for each row
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="styledtable">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>odd_or_even</th>
+      <th>cut_note</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>impair</td>
+      <td>71</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>impair</td>
+      <td>100 %</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>impair</td>
+      <td>71</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>impair</td>
+      <td>42</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>impair</td>
+      <td>57</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>741</th>
+      <td>impair</td>
+      <td>100 %</td>
+    </tr>
+    <tr>
+      <th>742</th>
+      <td>impair</td>
+      <td>66</td>
+    </tr>
+    <tr>
+      <th>743</th>
+      <td>impair</td>
+      <td>83</td>
+    </tr>
+    <tr>
+      <th>744</th>
+      <td>impair</td>
+      <td>100 %</td>
+    </tr>
+    <tr>
+      <th>745</th>
+      <td>impair</td>
+      <td>66</td>
+    </tr>
+  </tbody>
+</table>
+<p>746 rows × 2 columns</p>
+</div>
+
+
+
+To avoid having to define a loop we should use vectorized functions (we will talk about it later on).
+On integers (not the case here) use of vectorized functions can greatly improve computational speed. (C-loop)
+
+
+```python
+def function(col):
+    """Another function on cols this time"""
+    try:
+        return sum([int(x[:1]) for x in col])
+    except:
+        return "can't sum on this col"
+    #return pd.Series([ odd_or_even, cut_note], index=['odd_or_even', 'cut_note'])
+```
+
+
+```python
+df_notes.apply(function, axis=0) # a pandas.Series for each col
+```
+
+
+
+
+    eleve     can't sum on this col
+    note                       3053
+    groupe    can't sum on this col
+    quizz     can't sum on this col
+    dtype: object
+
+
+
+
+```python
+df_notes.note.str[:1].astype(float).sum()
+```
+
+
+
+
+    3053.0
+
+
+
+## Manipulating columns with strings
+
+## Manipulating columns with strings
 
 What is a vectorized function: it is a function that applies on the whole sequence rather than each element as input.
 
@@ -5497,6 +5853,116 @@ df_notes
 
 
 
+### Other interesting functions to mention
+
+To compute the counts of unique values use : pd.Series.value_counts()
+
+
+```python
+df_notes.groupe.value_counts(ascending=False)
+```
+
+
+
+
+    ibo1       117
+    ibo5       115
+    ibo7       114
+    Unknown     92
+    ibo6        85
+    ibo3        85
+    ibo4        81
+    ibo2        57
+    Name: groupe, dtype: int64
+
+
+
+To do a `binning` : i.e. group a number of more or less continuous values into a smaller number of "bins". Use pd.cut
+
+
+```python
+pd.cut(df_notes.note, bins=5) # 5 equal sized bins
+```
+
+
+
+
+    0       (60.0, 80.0]
+    1      (80.0, 100.0]
+    2       (60.0, 80.0]
+    3       (40.0, 60.0]
+    4       (40.0, 60.0]
+               ...      
+    741    (80.0, 100.0]
+    742     (60.0, 80.0]
+    743    (80.0, 100.0]
+    744    (80.0, 100.0]
+    745     (60.0, 80.0]
+    Name: note, Length: 746, dtype: category
+    Categories (5, interval[float64]): [(-0.1, 20.0] < (20.0, 40.0] < (40.0, 60.0] < (60.0, 80.0] < (80.0, 100.0]]
+
+
+
+
+```python
+pd.cut(df_notes.note, bins=[0, 50, 75, 100])
+```
+
+
+
+
+    0       (50, 75]
+    1      (75, 100]
+    2       (50, 75]
+    3        (0, 50]
+    4       (50, 75]
+             ...    
+    741    (75, 100]
+    742     (50, 75]
+    743    (75, 100]
+    744    (75, 100]
+    745     (50, 75]
+    Name: note, Length: 746, dtype: category
+    Categories (3, interval[int64]): [(0, 50] < (50, 75] < (75, 100]]
+
+
+
+
+```python
+try: 
+    pd.cut(df_notes.note, bins=[0, 50, 75, 100], labels=["Bad"])
+except Exception as e:
+    print(e)
+```
+
+    Bin labels must be one fewer than the number of bin edges
+
+
+
+```python
+df_notes['appreciation'] = pd.cut(df_notes.note, bins=[0, 25, 50, 75, 100], labels=["Very Bad", "Bad", "Ok", "Good"])
+df_notes.appreciation
+```
+
+
+
+
+    0        Ok
+    1      Good
+    2        Ok
+    3       Bad
+    4        Ok
+           ... 
+    741    Good
+    742      Ok
+    743    Good
+    744    Good
+    745      Ok
+    Name: note, Length: 746, dtype: category
+    Categories (4, object): [Very Bad < Bad < Ok < Good]
+
+
+
 ## GroupBy
 
 
@@ -5961,6 +6427,7 @@ df_notes[df_notes.groupe == "Unknown"]
       <th>note</th>
       <th>groupe</th>
       <th>quizz</th>
+      <th>appreciation</th>
     </tr>
   </thead>
   <tbody>
@@ -5970,6 +6437,7 @@ df_notes[df_notes.groupe == "Unknown"]
       <td>71.43</td>
       <td>Unknown</td>
       <td>td1</td>
+      <td>Ok</td>
     </tr>
     <tr>
       <th>1</th>
@@ -5977,6 +6445,7 @@ df_notes[df_notes.groupe == "Unknown"]
       <td>100.00</td>
       <td>Unknown</td>
       <td>td1</td>
+      <td>Good</td>
     </tr>
     <tr>
       <th>2</th>
@@ -5984,6 +6453,7 @@ df_notes[df_notes.groupe == "Unknown"]
       <td>71.43</td>
       <td>Unknown</td>
       <td>td1</td>
+      <td>Ok</td>
     </tr>
     <tr>
       <th>3</th>
@@ -5991,6 +6461,7 @@ df_notes[df_notes.groupe == "Unknown"]
       <td>42.86</td>
       <td>Unknown</td>
       <td>td1</td>
+      <td>Bad</td>
     </tr>
     <tr>
       <th>4</th>
@@ -5998,9 +6469,11 @@ df_notes[df_notes.groupe == "Unknown"]
       <td>57.14</td>
       <td>Unknown</td>
       <td>td1</td>
+      <td>Ok</td>
     </tr>
     <tr>
       <th>...</th>
+      <td>...</td>
       <td>...</td>
       <td>...</td>
       <td>...</td>
@@ -6012,6 +6485,7 @@ df_notes[df_notes.groupe == "Unknown"]
       <td>57.14</td>
       <td>Unknown</td>
       <td>td1</td>
+      <td>Ok</td>
     </tr>
     <tr>
       <th>88</th>
@@ -6019,6 +6493,7 @@ df_notes[df_notes.groupe == "Unknown"]
       <td>57.14</td>
       <td>Unknown</td>
       <td>td1</td>
+      <td>Ok</td>
     </tr>
     <tr>
       <th>89</th>
@@ -6026,6 +6501,7 @@ df_notes[df_notes.groupe == "Unknown"]
       <td>71.43</td>
       <td>Unknown</td>
       <td>td1</td>
+      <td>Ok</td>
     </tr>
     <tr>
       <th>90</th>
@@ -6033,6 +6509,7 @@ df_notes[df_notes.groupe == "Unknown"]
       <td>42.86</td>
       <td>Unknown</td>
       <td>td1</td>
+      <td>Bad</td>
     </tr>
     <tr>
       <th>91</th>
@@ -6040,10 +6517,11 @@ df_notes[df_notes.groupe == "Unknown"]
       <td>42.86</td>
       <td>Unknown</td>
       <td>td1</td>
+      <td>Bad</td>
     </tr>
   </tbody>
 </table>
-<p>92 rows × 4 columns</p>
+<p>92 rows × 5 columns</p>
 </div>
 
 
@@ -6426,9 +6904,11 @@ df_notes.groupby('eleve').agg(list)
       <th>note</th>
       <th>groupe</th>
       <th>quizz</th>
+      <th>appreciation</th>
     </tr>
     <tr>
       <th>eleve</th>
+      <th></th>
       <th></th>
       <th></th>
       <th></th>
@@ -6440,33 +6920,39 @@ df_notes.groupby('eleve').agg(list)
       <td>[71.43, 80.0, 100.0]</td>
       <td>[ibo2, ibo2, ibo2]</td>
       <td>[td1, td2, td3]</td>
+      <td>[Ok, Good, Good]</td>
     </tr>
     <tr>
       <th>Eleve1</th>
       <td>[100.0, 100.0, 100.0]</td>
       <td>[ibo2, ibo2, ibo2]</td>
       <td>[td1, td2, td3]</td>
+      <td>[Good, Good, Good]</td>
     </tr>
     <tr>
       <th>Eleve10</th>
       <td>[100.0, 100.0, 85.71, 71.43]</td>
       <td>[ibo7, ibo7, ibo7, ibo7]</td>
       <td>[td3, td2, td4, td1]</td>
+      <td>[Good, Good, Good, Ok]</td>
     </tr>
     <tr>
       <th>Eleve100</th>
       <td>[100.0, 100.0, 100.0, 85.71]</td>
       <td>[ibo7, ibo7, ibo7, ibo7]</td>
       <td>[td3, td2, td4, td1]</td>
+      <td>[Good, Good, Good, Good]</td>
     </tr>
     <tr>
       <th>Eleve101</th>
       <td>[100.0, 100.0, 85.71, 100.0]</td>
       <td>[ibo7, ibo7, ibo7, ibo7]</td>
       <td>[td3, td2, td4, td1]</td>
+      <td>[Good, Good, Good, Good]</td>
     </tr>
     <tr>
       <th>...</th>
+      <td>...</td>
       <td>...</td>
       <td>...</td>
       <td>...</td>
@@ -6476,34 +6962,39 @@ df_notes.groupby('eleve').agg(list)
       <td>[85.71, 100.0, 100.0]</td>
       <td>[ibo2, ibo2, ibo2]</td>
       <td>[td1, td2, td3]</td>
+      <td>[Good, Good, Good]</td>
     </tr>
     <tr>
       <th>Eleve96</th>
       <td>[100.0, 100.0, 100.0, 42.86]</td>
       <td>[ibo1, ibo1, ibo1, ibo1]</td>
       <td>[td4, td3, td2, td1]</td>
+      <td>[Good, Good, Good, Bad]</td>
     </tr>
     <tr>
       <th>Eleve97</th>
       <td>[28.57, 85.71, 83.33, 60.0]</td>
       <td>[ibo4, ibo4, ibo4, ibo4]</td>
       <td>[td1, td4, td3, td2]</td>
+      <td>[Bad, Good, Good, Ok]</td>
     </tr>
     <tr>
       <th>Eleve98</th>
       <td>[42.86, 85.71, 100.0, 100.0]</td>
       <td>[ibo4, ibo4, ibo4, ibo4]</td>
       <td>[td1, td4, td3, td2]</td>
+      <td>[Bad, Good, Good, Good]</td>
     </tr>
     <tr>
       <th>Eleve99</th>
       <td>[71.43, 100.0, 100.0]</td>
       <td>[ibo2, ibo2, ibo2]</td>
       <td>[td1, td2, td3]</td>
+      <td>[Ok, Good, Good]</td>
     </tr>
   </tbody>
 </table>
-<p>208 rows × 3 columns</p>
+<p>208 rows × 4 columns</p>
 </div>
 
 
@@ -6996,4 +7487,162 @@ results['note'].plot(kind='bar')
 
     <matplotlib.axes._subplots.AxesSubplot at 0x11d11eba8>
 
-<img src="{{page.image_folder}}output_274_1.png" width="500px" style="display: inline-block;" class=".center">
+
+
+
+<img src="{{page.image_folder}}output_303_1.png" width="800px" style="display: inline-block;" class=".center">
+
+
+
+```python
+df_notes.groupby('groupe').appreciation.value_counts(dropna=False).sort_values().plot(kind="bar")
+```
+
+
+
+
+    <matplotlib.axes._subplots.AxesSubplot at 0x11ddc1cc0>
+
+
+
+
+<img src="{{page.image_folder}}output_304_1.png" width="800px" style="display: inline-block;" class=".center">
+
+
+
+```python
+(df_notes.
+     .groupby(['quizz','groupe'])
+     ['appreciation']
+     .value_counts().sort_index()
+     .plot(kind="bar"))
+```
+
+
+
+
+    <matplotlib.axes._subplots.AxesSubplot at 0x11d1b4908>
+
+
+
+
+<img src="{{page.image_folder}}output_305_1.png" width="800px" style="display: inline-block;" class=".center">
+
+
+
+```python
+(df_notes
+     .groupby(['quizz','groupe'])
+     ['appreciation']
+     .value_counts()
+     .unstack().plot(kind='bar', stacked=True))
+```
+
+
+
+
+    <matplotlib.axes._subplots.AxesSubplot at 0x11ef2ff98>
+
+
+
+
+<img src="{{page.image_folder}}output_306_1.png" width="800px" style="display: inline-block;" class=".center">
+
+
+
+```python
+(df_notes
+     .pivot_table(index='quizz', 
+                  columns='groupe', 
+                  aggfunc={'appreciation':'value_counts'})
+     .plot(kind="bar"))
+```
+
+
+
+
+    <matplotlib.axes._subplots.AxesSubplot at 0x11ee1d7f0>
+
+
+
+
+<img src="{{page.image_folder}}output_307_1.png" width="800px" style="display: inline-block;" class=".center">
+
+
+
+```python
+df_notes.appreciation.value_counts(dropna=False).plot(kind="bar")
+```
+
+
+
+
+    <matplotlib.axes._subplots.AxesSubplot at 0x11d5a9128>
+
+
+
+
+<img src="{{page.image_folder}}output_308_1.png" width="800px" style="display: inline-block;" class=".center">
+
+
+
+```python
+df_notes[pd.isna(df_notes.appreciation)]
+```
+
+
+
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="styledtable">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>eleve</th>
+      <th>note</th>
+      <th>groupe</th>
+      <th>quizz</th>
+      <th>appreciation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>75</th>
+      <td>Eleve183</td>
+      <td>0.0</td>
+      <td>ibo4</td>
+      <td>td1</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>525</th>
+      <td>Eleve111</td>
+      <td>0.0</td>
+      <td>ibo5</td>
+      <td>td1</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+missing grades for students although in the table at practice session1, maybe due to possible not good scrapping ?
+
+### Final question should be...
+
+## What should we put in `fillna` for them 😉 ?
