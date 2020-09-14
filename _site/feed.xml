@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en_US"><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="en_US" /><updated>2020-09-14T15:21:10+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">PythonMood | Let’s code with Lulu</title><subtitle>Luc Bertin's blog of Python theoretical and hands-on tutorials. Here we cover Python from scratch and some use cases for Data Science related subjects</subtitle><entry><title type="html">Some Pandas exercices</title><link href="http://localhost:4000/pandas-exercices/" rel="alternate" type="text/html" title="Some Pandas exercices" /><published>2020-09-14T00:00:00+02:00</published><updated>2020-09-14T00:00:00+02:00</updated><id>http://localhost:4000/pandas-exercices</id><content type="html" xml:base="http://localhost:4000/pandas-exercices/">&lt;p&gt;Some exercices following tutorial &lt;em&gt;Discover Pandas&lt;/em&gt; to make you more comfortable with the concepts.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en_US"><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="en_US" /><updated>2020-09-14T15:24:25+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">PythonMood | Let’s code with Lulu</title><subtitle>Luc Bertin's blog of Python theoretical and hands-on tutorials. Here we cover Python from scratch and some use cases for Data Science related subjects</subtitle><entry><title type="html">Some Pandas exercices</title><link href="http://localhost:4000/pandas-exercices/" rel="alternate" type="text/html" title="Some Pandas exercices" /><published>2020-09-14T00:00:00+02:00</published><updated>2020-09-14T00:00:00+02:00</updated><id>http://localhost:4000/pandas-exercices</id><content type="html" xml:base="http://localhost:4000/pandas-exercices/">&lt;p&gt;Some exercices following tutorial &lt;em&gt;Discover Pandas&lt;/em&gt; to make you more comfortable with the concepts.&lt;/p&gt;
 
 &lt;h1 id=&quot;base-de-données-accidents-corporels-de-la-circulation&quot;&gt;Base de données accidents corporels de la circulation&lt;/h1&gt;
 
@@ -8,49 +8,49 @@
 
 &lt;p&gt;Voici les 3 url directes vers les CSV correspondants que nous allons exploiter.&lt;/p&gt;
 
-&lt;h2 id=&quot;ouvrir-les-csv-dont-lurl-est-donnée-ci-dessus&quot;&gt;Ouvrir les CSV dont l’url est donnée ci-dessus&lt;/h2&gt;
+&lt;h4 id=&quot;ouvrir-les-csv-dont-lurl-est-donnée-ci-dessus&quot;&gt;Ouvrir les CSV dont l’url est donnée ci-dessus&lt;/h4&gt;
 
-&lt;h2 id=&quot;montrer-les-10-premières-lignes-de-usagers_2017&quot;&gt;Montrer les 10 premières lignes de usagers_2017&lt;/h2&gt;
+&lt;h4 id=&quot;montrer-les-10-premières-lignes-de-usagers_2017&quot;&gt;Montrer les 10 premières lignes de usagers_2017&lt;/h4&gt;
 
-&lt;h2 id=&quot;les-10-dernières-de-caractertistiques_2017&quot;&gt;Les 10 dernières de caractertistiques_2017&lt;/h2&gt;
+&lt;h4 id=&quot;les-10-dernières-de-caractertistiques_2017&quot;&gt;Les 10 dernières de caractertistiques_2017&lt;/h4&gt;
 
-&lt;h2 id=&quot;combien-y-a-til-de-lignes-dans-catacteristiques_2017&quot;&gt;Combien y a t’il de lignes dans catacteristiques_2017&lt;/h2&gt;
+&lt;h4 id=&quot;combien-y-a-til-de-lignes-dans-catacteristiques_2017&quot;&gt;Combien y a t’il de lignes dans catacteristiques_2017&lt;/h4&gt;
 
-&lt;h2 id=&quot;combien-de-colonnes-dans-caracteristiques2017&quot;&gt;Combien de colonnes dans caracteristiques2017&lt;/h2&gt;
+&lt;h4 id=&quot;combien-de-colonnes-dans-caracteristiques2017&quot;&gt;Combien de colonnes dans caracteristiques2017&lt;/h4&gt;
 
-&lt;h2 id=&quot;quel-est-le-dtype-de-chaque-colonne-de-usagers2017-et-caracteristiques2017--&quot;&gt;Quel est le dtype de chaque colonne de usagers2017 et caracteristiques2017  ?&lt;/h2&gt;
+&lt;h4 id=&quot;quel-est-le-dtype-de-chaque-colonne-de-usagers2017-et-caracteristiques2017--&quot;&gt;Quel est le dtype de chaque colonne de usagers2017 et caracteristiques2017  ?&lt;/h4&gt;
 
-&lt;h2 id=&quot;regardez-sil-existe-des-duplicates-sur-num_acc-dans-usagers_2017-et-caracteristiques_2017&quot;&gt;Regardez s’il existe des duplicates sur Num_Acc dans usagers_2017 et caracteristiques_2017&lt;/h2&gt;
+&lt;h4 id=&quot;regardez-sil-existe-des-duplicates-sur-num_acc-dans-usagers_2017-et-caracteristiques_2017&quot;&gt;Regardez s’il existe des duplicates sur Num_Acc dans usagers_2017 et caracteristiques_2017&lt;/h4&gt;
 
-&lt;h2 id=&quot;en-déduire-le-type-de-relation-entre-catacteristiques2017-et-usagers2017--one-to-one-one-to-many-many-to-many&quot;&gt;En déduire le type de relation entre catacteristiques2017 et usagers2017 ( one-to-one, one-to-many, many-to-many)&lt;/h2&gt;
+&lt;h4 id=&quot;en-déduire-le-type-de-relation-entre-catacteristiques2017-et-usagers2017--one-to-one-one-to-many-many-to-many&quot;&gt;En déduire le type de relation entre catacteristiques2017 et usagers2017 ( one-to-one, one-to-many, many-to-many)&lt;/h4&gt;
 
-&lt;h2 id=&quot;remplacez-les-valeurs-1-et-2-par-homme-et-femme-pour-le-sexe-de-lusager&quot;&gt;remplacez les valeurs 1 et 2 par Homme et Femme pour le sexe de l’usager&lt;/h2&gt;
+&lt;h4 id=&quot;remplacez-les-valeurs-1-et-2-par-homme-et-femme-pour-le-sexe-de-lusager&quot;&gt;remplacez les valeurs 1 et 2 par Homme et Femme pour le sexe de l’usager&lt;/h4&gt;
 
-&lt;h2 id=&quot;trouver-les-usagers-féminins-ayant-eu-des-accidents&quot;&gt;Trouver les usagers féminins ayant eu des accidents&lt;/h2&gt;
+&lt;h4 id=&quot;trouver-les-usagers-féminins-ayant-eu-des-accidents&quot;&gt;Trouver les usagers féminins ayant eu des accidents&lt;/h4&gt;
 
-&lt;h2 id=&quot;remplacez-les-catégorieslabels-dans-grav-par-leur-description&quot;&gt;remplacez les catégories/labels dans grav par leur description&lt;/h2&gt;
-&lt;h2 id=&quot;idem-pour-catu-les-catégories-dusagers&quot;&gt;idem pour catu les catégories d’usagers&lt;/h2&gt;
+&lt;h4 id=&quot;remplacez-les-catégorieslabels-dans-grav-par-leur-description&quot;&gt;remplacez les catégories/labels dans grav par leur description&lt;/h4&gt;
+&lt;h4 id=&quot;idem-pour-catu-les-catégories-dusagers&quot;&gt;idem pour catu les catégories d’usagers&lt;/h4&gt;
 
-&lt;h2 id=&quot;comptez-le-nombre-de-chaque-cas-de-gravité-combien-de-décès-combien-de-indemne-etc&quot;&gt;Comptez le nombre de chaque cas de gravité (combien de décès, combien de Indemne, etc.)&lt;/h2&gt;
+&lt;h4 id=&quot;comptez-le-nombre-de-chaque-cas-de-gravité-combien-de-décès-combien-de-indemne-etc&quot;&gt;Comptez le nombre de chaque cas de gravité (combien de décès, combien de Indemne, etc.)&lt;/h4&gt;
 
-&lt;h2 id=&quot;lafficher&quot;&gt;L’afficher&lt;/h2&gt;
+&lt;h4 id=&quot;lafficher&quot;&gt;L’afficher&lt;/h4&gt;
 
-&lt;h2 id=&quot;afficher-de-même-le-nombre-daccidents-par-différentes-catégories-dusagers&quot;&gt;Afficher de même le nombre d’accidents par différentes catégories d’usagers&lt;/h2&gt;
+&lt;h4 id=&quot;afficher-de-même-le-nombre-daccidents-par-différentes-catégories-dusagers&quot;&gt;Afficher de même le nombre d’accidents par différentes catégories d’usagers&lt;/h4&gt;
 
-&lt;h2 id=&quot;trouver-les-usagers-féminins-qui-ont-eu-des-accidents-mineurs-blessés-légers-ou-indemne&quot;&gt;Trouver les usagers féminins qui ont eu des accidents mineurs (blessés légers ou Indemne)&lt;/h2&gt;
+&lt;h4 id=&quot;trouver-les-usagers-féminins-qui-ont-eu-des-accidents-mineurs-blessés-légers-ou-indemne&quot;&gt;Trouver les usagers féminins qui ont eu des accidents mineurs (blessés légers ou Indemne)&lt;/h4&gt;
 &lt;p&gt;enregistrez la variable mask intermédiaire pour rendre le code plus clean&lt;/p&gt;
 
-&lt;h2 id=&quot;donner-le-nombre-daccidents-par-sexe-et-différentes-gravités-catégories-dusagers&quot;&gt;Donner le nombre d’accidents par sexe et différentes gravités catégories d’usagers&lt;/h2&gt;
+&lt;h4 id=&quot;donner-le-nombre-daccidents-par-sexe-et-différentes-gravités-catégories-dusagers&quot;&gt;Donner le nombre d’accidents par sexe et différentes gravités catégories d’usagers&lt;/h4&gt;
 
-&lt;h3 id=&quot;en-utilisant-groupby&quot;&gt;En utilisant GroupBy&lt;/h3&gt;
+&lt;h5 id=&quot;en-utilisant-groupby&quot;&gt;En utilisant GroupBy&lt;/h5&gt;
 
-&lt;h3 id=&quot;en-utilisant-une-pivot-table&quot;&gt;En utilisant une Pivot Table&lt;/h3&gt;
+&lt;h5 id=&quot;en-utilisant-une-pivot-table&quot;&gt;En utilisant une Pivot Table&lt;/h5&gt;
 
-&lt;h2 id=&quot;lafficher-sous-forme-de-stacked-bar-chart&quot;&gt;L’afficher sous forme de stacked bar-chart&lt;/h2&gt;
+&lt;h4 id=&quot;lafficher-sous-forme-de-stacked-bar-chart&quot;&gt;L’afficher sous forme de stacked bar-chart&lt;/h4&gt;
 
-&lt;h2 id=&quot;pour-obtenir-les-données-de-localisation-des-accidents-faites-un-merge-entre-usagers2017-cataracteristic2017&quot;&gt;Pour obtenir les données de localisation des accidents, faites un merge entre usagers2017 cataracteristic2017&lt;/h2&gt;
+&lt;h4 id=&quot;pour-obtenir-les-données-de-localisation-des-accidents-faites-un-merge-entre-usagers2017-cataracteristic2017&quot;&gt;Pour obtenir les données de localisation des accidents, faites un merge entre usagers2017 cataracteristic2017&lt;/h4&gt;
 
-&lt;h2 id=&quot;y-a-til-autant-daccidents-dans-la-table-une-fois-mergée-que-dans-chacune-des-tables-qui-ont-été-mergées--montrez-que-quelque-soit-le-type-de-merge-on-retrouve-bien-les-mêmes-résultats&quot;&gt;Y a t’il autant d’accidents dans la table une fois mergée que dans chacune des tables qui ont été mergées ? Montrez que quelque soit le type de merge on retrouve bien les mêmes résultats&lt;/h2&gt;
+&lt;h4 id=&quot;y-a-til-autant-daccidents-dans-la-table-une-fois-mergée-que-dans-chacune-des-tables-qui-ont-été-mergées--montrez-que-quelque-soit-le-type-de-merge-on-retrouve-bien-les-mêmes-résultats&quot;&gt;Y a t’il autant d’accidents dans la table une fois mergée que dans chacune des tables qui ont été mergées ? Montrez que quelque soit le type de merge on retrouve bien les mêmes résultats&lt;/h4&gt;
 
 &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;DataFrame.equals(other)&lt;/code&gt;&lt;/p&gt;
 
@@ -58,32 +58,32 @@
   &lt;p&gt;This function allows two Series or DataFrames to be compared against each other to see if they have the same shape and elements&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;h2 id=&quot;comptez-les-valeurs-manquantes-dans-chaque-colonne&quot;&gt;comptez les valeurs manquantes dans chaque colonne&lt;/h2&gt;
+&lt;h4 id=&quot;comptez-les-valeurs-manquantes-dans-chaque-colonne&quot;&gt;comptez les valeurs manquantes dans chaque colonne&lt;/h4&gt;
 
-&lt;h2 id=&quot;filtrez-uniquement-le-résultat-sur-les-colonnes-ayant-0-valeurs-manquantes-et-triez-par-ordre-décroissant-des-valeurs&quot;&gt;filtrez uniquement le résultat sur les colonnes ayant &amp;gt;0 valeurs manquantes et triez par ordre décroissant des valeurs&lt;/h2&gt;
+&lt;h4 id=&quot;filtrez-uniquement-le-résultat-sur-les-colonnes-ayant-0-valeurs-manquantes-et-triez-par-ordre-décroissant-des-valeurs&quot;&gt;filtrez uniquement le résultat sur les colonnes ayant &amp;gt;0 valeurs manquantes et triez par ordre décroissant des valeurs&lt;/h4&gt;
 
-&lt;h2 id=&quot;comptez-la-proportion-des-valeurs-manquantes-en-pourcents-du-nombre-de-valeurs-totales-de-chaque-colonne&quot;&gt;comptez ‘la proportion’ des valeurs manquantes en pourcents du nombre de valeurs totales de chaque colonne&lt;/h2&gt;
+&lt;h4 id=&quot;comptez-la-proportion-des-valeurs-manquantes-en-pourcents-du-nombre-de-valeurs-totales-de-chaque-colonne&quot;&gt;comptez ‘la proportion’ des valeurs manquantes en pourcents du nombre de valeurs totales de chaque colonne&lt;/h4&gt;
 
-&lt;h2 id=&quot;sélectionnez-les-accidents-qui-ont-eu-lieu-dans-le-département-de-paris-75-et-les-montrez&quot;&gt;Sélectionnez les accidents qui ont eu lieu dans le département de Paris (75) et les montrez&lt;/h2&gt;
+&lt;h4 id=&quot;sélectionnez-les-accidents-qui-ont-eu-lieu-dans-le-département-de-paris-75-et-les-montrez&quot;&gt;Sélectionnez les accidents qui ont eu lieu dans le département de Paris (75) et les montrez&lt;/h4&gt;
 
-&lt;h2 id=&quot;toujours-sur-le-département-parisien-montrez-la-carte-des-accidents-par-gravité&quot;&gt;Toujours sur le département Parisien, montrez la carte des accidents par gravité&lt;/h2&gt;
+&lt;h4 id=&quot;toujours-sur-le-département-parisien-montrez-la-carte-des-accidents-par-gravité&quot;&gt;Toujours sur le département Parisien, montrez la carte des accidents par gravité&lt;/h4&gt;
 
-&lt;h2 id=&quot;faire-un-affichage-graphique-des-missing-values-dans-la-table-mergée&quot;&gt;Faire un affichage graphique des missing values dans la table mergée&lt;/h2&gt;
+&lt;h4 id=&quot;faire-un-affichage-graphique-des-missing-values-dans-la-table-mergée&quot;&gt;Faire un affichage graphique des missing values dans la table mergée&lt;/h4&gt;
 
-&lt;h1 id=&quot;jouer-avec-les-dates&quot;&gt;Jouer avec les dates&lt;/h1&gt;
+&lt;h2 id=&quot;jouer-avec-les-dates&quot;&gt;Jouer avec les dates&lt;/h2&gt;
 
-&lt;h2 id=&quot;renommez-les-colonnes&quot;&gt;Renommez les colonnes:&lt;/h2&gt;
+&lt;h4 id=&quot;renommez-les-colonnes&quot;&gt;Renommez les colonnes:&lt;/h4&gt;
 &lt;ul&gt;
   &lt;li&gt;‘jour’ en ‘day’&lt;/li&gt;
   &lt;li&gt;‘mois’ en ‘month’&lt;/li&gt;
   &lt;li&gt;‘an’ en ‘year’&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&quot;rajoutez-20-à-chaque-élément-de-année-pour-avoir-un-format-compréhensible-par-pdto_datetime-ex-2017&quot;&gt;rajoutez ‘20’ à chaque élément de année pour avoir un format compréhensible par pd.to_datetime (ex: 2017)&lt;/h2&gt;
+&lt;h4 id=&quot;rajoutez-20-à-chaque-élément-de-année-pour-avoir-un-format-compréhensible-par-pdto_datetime-ex-2017&quot;&gt;rajoutez ‘20’ à chaque élément de année pour avoir un format compréhensible par pd.to_datetime (ex: 2017)&lt;/h4&gt;
 
-&lt;h2 id=&quot;créez-une-colonne-date-qui-contient-les-données-au-format-datetime&quot;&gt;Créez une colonne date qui contient les données au format datetime&lt;/h2&gt;
+&lt;h4 id=&quot;créez-une-colonne-date-qui-contient-les-données-au-format-datetime&quot;&gt;Créez une colonne date qui contient les données au format datetime&lt;/h4&gt;
 
-&lt;h2 id=&quot;afficher-lévolution-du-nombre-de-morts-par-jours-pendant-lannée&quot;&gt;Afficher l’évolution du nombre de morts par jours pendant l’année&lt;/h2&gt;</content><author><name>luc</name></author><summary type="html">Some exercices following tutorial Discover Pandas to make you more comfortable with the concepts.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/images/post_some_pandas_exercices/index_img/cover.png" /><media:content medium="image" url="http://localhost:4000/assets/images/post_some_pandas_exercices/index_img/cover.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Some functional programming exercices</title><link href="http://localhost:4000/some-functional-programing-exercices/" rel="alternate" type="text/html" title="Some functional programming exercices" /><published>2020-09-14T00:00:00+02:00</published><updated>2020-09-14T00:00:00+02:00</updated><id>http://localhost:4000/some-functional-programing-exercices</id><content type="html" xml:base="http://localhost:4000/some-functional-programing-exercices/">&lt;p&gt;Some exercices following tutorial &lt;em&gt;Introduction to functional programming&lt;/em&gt; to make you more comfortable with the concepts.&lt;/p&gt;
+&lt;h4 id=&quot;afficher-lévolution-du-nombre-de-morts-par-jours-pendant-lannée&quot;&gt;Afficher l’évolution du nombre de morts par jours pendant l’année&lt;/h4&gt;</content><author><name>luc</name></author><summary type="html">Some exercices following tutorial Discover Pandas to make you more comfortable with the concepts.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/images/post_some_pandas_exercices/index_img/cover.png" /><media:content medium="image" url="http://localhost:4000/assets/images/post_some_pandas_exercices/index_img/cover.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Some functional programming exercices</title><link href="http://localhost:4000/some-functional-programing-exercices/" rel="alternate" type="text/html" title="Some functional programming exercices" /><published>2020-09-14T00:00:00+02:00</published><updated>2020-09-14T00:00:00+02:00</updated><id>http://localhost:4000/some-functional-programing-exercices</id><content type="html" xml:base="http://localhost:4000/some-functional-programing-exercices/">&lt;p&gt;Some exercices following tutorial &lt;em&gt;Introduction to functional programming&lt;/em&gt; to make you more comfortable with the concepts.&lt;/p&gt;
 
 &lt;h2 id=&quot;exo1-lets-create-a-data-science-pipeline-of-generators-&quot;&gt;Exo1: Let’s create a Data Science pipeline of generators 😉&lt;/h2&gt;
 

@@ -161,7 +161,7 @@ var documents = [{
     "id": 12,
     "url": "http://localhost:4000/pandas-exercices/",
     "title": "Some Pandas exercices",
-    "body": "2020/09/14 - Some exercices following tutorial Discover Pandas to make you more comfortable with the concepts. Base de données accidents corporels de la circulationdata. gouv est une plateforme de diffusion de données publiques de l’État français lancée en 2011.  data. gouv. fr est développé par Etalab, une mission placée sous l’autorité du Premier ministre. Pour cet exercice nous allons utiliser quelques données tabulaires (format CSV) sur les accidents corporels liés de la circulation. Voici les 3 url directes vers les CSV correspondants que nous allons exploiter. Ouvrir les CSV dont l’url est donnée ci-dessus: Montrer les 10 premières lignes de usagers_2017: Les 10 dernières de caractertistiques_2017: Combien y a t’il de lignes dans catacteristiques_2017: Combien de colonnes dans caracteristiques2017: Quel est le dtype de chaque colonne de usagers2017 et caracteristiques2017 ?: Regardez s’il existe des duplicates sur Num_Acc dans usagers_2017 et caracteristiques_2017: En déduire le type de relation entre catacteristiques2017 et usagers2017 ( one-to-one, one-to-many, many-to-many): remplacez les valeurs 1 et 2 par Homme et Femme pour le sexe de l’usager: Trouver les usagers féminins ayant eu des accidents: remplacez les catégories/labels dans grav par leur description: idem pour catu les catégories d’usagers: Comptez le nombre de chaque cas de gravité (combien de décès, combien de Indemne, etc. ): L’afficher: Afficher de même le nombre d’accidents par différentes catégories d’usagers: Trouver les usagers féminins qui ont eu des accidents mineurs (blessés légers ou Indemne): enregistrez la variable mask intermédiaire pour rendre le code plus clean Donner le nombre d’accidents par sexe et différentes gravités catégories d’usagers: En utilisant GroupBy: En utilisant une Pivot Table: L’afficher sous forme de stacked bar-chart: Pour obtenir les données de localisation des accidents, faites un merge entre usagers2017 cataracteristic2017: Y a t’il autant d’accidents dans la table une fois mergée que dans chacune des tables qui ont été mergées ? Montrez que quelque soit le type de merge on retrouve bien les mêmes résultats: DataFrame. equals(other)  This function allows two Series or DataFrames to be compared against each other to see if they have the same shape and elements comptez les valeurs manquantes dans chaque colonne: filtrez uniquement le résultat sur les colonnes ayant &gt;0 valeurs manquantes et triez par ordre décroissant des valeurs: comptez ‘la proportion’ des valeurs manquantes en pourcents du nombre de valeurs totales de chaque colonne: Sélectionnez les accidents qui ont eu lieu dans le département de Paris (75) et les montrez: Toujours sur le département Parisien, montrez la carte des accidents par gravité: Faire un affichage graphique des missing values dans la table mergée: Jouer avec les datesRenommez les colonnes::  ‘jour’ en ‘day’ ‘mois’ en ‘month’ ‘an’ en ‘year’rajoutez ‘20’ à chaque élément de année pour avoir un format compréhensible par pd. to_datetime (ex: 2017): Créez une colonne date qui contient les données au format datetime: Afficher l’évolution du nombre de morts par jours pendant l’année: "
+    "body": "2020/09/14 - Some exercices following tutorial Discover Pandas to make you more comfortable with the concepts. Base de données accidents corporels de la circulationdata. gouv est une plateforme de diffusion de données publiques de l’État français lancée en 2011.  data. gouv. fr est développé par Etalab, une mission placée sous l’autorité du Premier ministre. Pour cet exercice nous allons utiliser quelques données tabulaires (format CSV) sur les accidents corporels liés de la circulation. Voici les 3 url directes vers les CSV correspondants que nous allons exploiter. Ouvrir les CSV dont l’url est donnée ci-dessus: Montrer les 10 premières lignes de usagers_2017: Les 10 dernières de caractertistiques_2017: Combien y a t’il de lignes dans catacteristiques_2017: Combien de colonnes dans caracteristiques2017: Quel est le dtype de chaque colonne de usagers2017 et caracteristiques2017 ?: Regardez s’il existe des duplicates sur Num_Acc dans usagers_2017 et caracteristiques_2017: En déduire le type de relation entre catacteristiques2017 et usagers2017 ( one-to-one, one-to-many, many-to-many): remplacez les valeurs 1 et 2 par Homme et Femme pour le sexe de l’usager: Trouver les usagers féminins ayant eu des accidents: remplacez les catégories/labels dans grav par leur description: idem pour catu les catégories d’usagers: Comptez le nombre de chaque cas de gravité (combien de décès, combien de Indemne, etc. ): L’afficher: Afficher de même le nombre d’accidents par différentes catégories d’usagers: Trouver les usagers féminins qui ont eu des accidents mineurs (blessés légers ou Indemne): enregistrez la variable mask intermédiaire pour rendre le code plus clean Donner le nombre d’accidents par sexe et différentes gravités catégories d’usagers: En utilisant GroupByEn utilisant une Pivot TableL’afficher sous forme de stacked bar-chart: Pour obtenir les données de localisation des accidents, faites un merge entre usagers2017 cataracteristic2017: Y a t’il autant d’accidents dans la table une fois mergée que dans chacune des tables qui ont été mergées ? Montrez que quelque soit le type de merge on retrouve bien les mêmes résultats: DataFrame. equals(other)  This function allows two Series or DataFrames to be compared against each other to see if they have the same shape and elements comptez les valeurs manquantes dans chaque colonne: filtrez uniquement le résultat sur les colonnes ayant &gt;0 valeurs manquantes et triez par ordre décroissant des valeurs: comptez ‘la proportion’ des valeurs manquantes en pourcents du nombre de valeurs totales de chaque colonne: Sélectionnez les accidents qui ont eu lieu dans le département de Paris (75) et les montrez: Toujours sur le département Parisien, montrez la carte des accidents par gravité: Faire un affichage graphique des missing values dans la table mergée: Jouer avec les dates: Renommez les colonnes::  ‘jour’ en ‘day’ ‘mois’ en ‘month’ ‘an’ en ‘year’rajoutez ‘20’ à chaque élément de année pour avoir un format compréhensible par pd. to_datetime (ex: 2017): Créez une colonne date qui contient les données au format datetime: Afficher l’évolution du nombre de morts par jours pendant l’année: "
     }, {
     "id": 13,
     "url": "http://localhost:4000/discover-pandas/",
@@ -366,49 +366,49 @@ function lunr_search(term) {
 
 <p>Voici les 3 url directes vers les CSV correspondants que nous allons exploiter.</p>
 
-<h2 id="ouvrir-les-csv-dont-lurl-est-donnée-ci-dessus">Ouvrir les CSV dont l’url est donnée ci-dessus</h2>
+<h4 id="ouvrir-les-csv-dont-lurl-est-donnée-ci-dessus">Ouvrir les CSV dont l’url est donnée ci-dessus</h4>
 
-<h2 id="montrer-les-10-premières-lignes-de-usagers_2017">Montrer les 10 premières lignes de usagers_2017</h2>
+<h4 id="montrer-les-10-premières-lignes-de-usagers_2017">Montrer les 10 premières lignes de usagers_2017</h4>
 
-<h2 id="les-10-dernières-de-caractertistiques_2017">Les 10 dernières de caractertistiques_2017</h2>
+<h4 id="les-10-dernières-de-caractertistiques_2017">Les 10 dernières de caractertistiques_2017</h4>
 
-<h2 id="combien-y-a-til-de-lignes-dans-catacteristiques_2017">Combien y a t’il de lignes dans catacteristiques_2017</h2>
+<h4 id="combien-y-a-til-de-lignes-dans-catacteristiques_2017">Combien y a t’il de lignes dans catacteristiques_2017</h4>
 
-<h2 id="combien-de-colonnes-dans-caracteristiques2017">Combien de colonnes dans caracteristiques2017</h2>
+<h4 id="combien-de-colonnes-dans-caracteristiques2017">Combien de colonnes dans caracteristiques2017</h4>
 
-<h2 id="quel-est-le-dtype-de-chaque-colonne-de-usagers2017-et-caracteristiques2017--">Quel est le dtype de chaque colonne de usagers2017 et caracteristiques2017  ?</h2>
+<h4 id="quel-est-le-dtype-de-chaque-colonne-de-usagers2017-et-caracteristiques2017--">Quel est le dtype de chaque colonne de usagers2017 et caracteristiques2017  ?</h4>
 
-<h2 id="regardez-sil-existe-des-duplicates-sur-num_acc-dans-usagers_2017-et-caracteristiques_2017">Regardez s’il existe des duplicates sur Num_Acc dans usagers_2017 et caracteristiques_2017</h2>
+<h4 id="regardez-sil-existe-des-duplicates-sur-num_acc-dans-usagers_2017-et-caracteristiques_2017">Regardez s’il existe des duplicates sur Num_Acc dans usagers_2017 et caracteristiques_2017</h4>
 
-<h2 id="en-déduire-le-type-de-relation-entre-catacteristiques2017-et-usagers2017--one-to-one-one-to-many-many-to-many">En déduire le type de relation entre catacteristiques2017 et usagers2017 ( one-to-one, one-to-many, many-to-many)</h2>
+<h4 id="en-déduire-le-type-de-relation-entre-catacteristiques2017-et-usagers2017--one-to-one-one-to-many-many-to-many">En déduire le type de relation entre catacteristiques2017 et usagers2017 ( one-to-one, one-to-many, many-to-many)</h4>
 
-<h2 id="remplacez-les-valeurs-1-et-2-par-homme-et-femme-pour-le-sexe-de-lusager">remplacez les valeurs 1 et 2 par Homme et Femme pour le sexe de l’usager</h2>
+<h4 id="remplacez-les-valeurs-1-et-2-par-homme-et-femme-pour-le-sexe-de-lusager">remplacez les valeurs 1 et 2 par Homme et Femme pour le sexe de l’usager</h4>
 
-<h2 id="trouver-les-usagers-féminins-ayant-eu-des-accidents">Trouver les usagers féminins ayant eu des accidents</h2>
+<h4 id="trouver-les-usagers-féminins-ayant-eu-des-accidents">Trouver les usagers féminins ayant eu des accidents</h4>
 
-<h2 id="remplacez-les-catégorieslabels-dans-grav-par-leur-description">remplacez les catégories/labels dans grav par leur description</h2>
-<h2 id="idem-pour-catu-les-catégories-dusagers">idem pour catu les catégories d’usagers</h2>
+<h4 id="remplacez-les-catégorieslabels-dans-grav-par-leur-description">remplacez les catégories/labels dans grav par leur description</h4>
+<h4 id="idem-pour-catu-les-catégories-dusagers">idem pour catu les catégories d’usagers</h4>
 
-<h2 id="comptez-le-nombre-de-chaque-cas-de-gravité-combien-de-décès-combien-de-indemne-etc">Comptez le nombre de chaque cas de gravité (combien de décès, combien de Indemne, etc.)</h2>
+<h4 id="comptez-le-nombre-de-chaque-cas-de-gravité-combien-de-décès-combien-de-indemne-etc">Comptez le nombre de chaque cas de gravité (combien de décès, combien de Indemne, etc.)</h4>
 
-<h2 id="lafficher">L’afficher</h2>
+<h4 id="lafficher">L’afficher</h4>
 
-<h2 id="afficher-de-même-le-nombre-daccidents-par-différentes-catégories-dusagers">Afficher de même le nombre d’accidents par différentes catégories d’usagers</h2>
+<h4 id="afficher-de-même-le-nombre-daccidents-par-différentes-catégories-dusagers">Afficher de même le nombre d’accidents par différentes catégories d’usagers</h4>
 
-<h2 id="trouver-les-usagers-féminins-qui-ont-eu-des-accidents-mineurs-blessés-légers-ou-indemne">Trouver les usagers féminins qui ont eu des accidents mineurs (blessés légers ou Indemne)</h2>
+<h4 id="trouver-les-usagers-féminins-qui-ont-eu-des-accidents-mineurs-blessés-légers-ou-indemne">Trouver les usagers féminins qui ont eu des accidents mineurs (blessés légers ou Indemne)</h4>
 <p>enregistrez la variable mask intermédiaire pour rendre le code plus clean</p>
 
-<h2 id="donner-le-nombre-daccidents-par-sexe-et-différentes-gravités-catégories-dusagers">Donner le nombre d’accidents par sexe et différentes gravités catégories d’usagers</h2>
+<h4 id="donner-le-nombre-daccidents-par-sexe-et-différentes-gravités-catégories-dusagers">Donner le nombre d’accidents par sexe et différentes gravités catégories d’usagers</h4>
 
-<h3 id="en-utilisant-groupby">En utilisant GroupBy</h3>
+<h5 id="en-utilisant-groupby">En utilisant GroupBy</h5>
 
-<h3 id="en-utilisant-une-pivot-table">En utilisant une Pivot Table</h3>
+<h5 id="en-utilisant-une-pivot-table">En utilisant une Pivot Table</h5>
 
-<h2 id="lafficher-sous-forme-de-stacked-bar-chart">L’afficher sous forme de stacked bar-chart</h2>
+<h4 id="lafficher-sous-forme-de-stacked-bar-chart">L’afficher sous forme de stacked bar-chart</h4>
 
-<h2 id="pour-obtenir-les-données-de-localisation-des-accidents-faites-un-merge-entre-usagers2017-cataracteristic2017">Pour obtenir les données de localisation des accidents, faites un merge entre usagers2017 cataracteristic2017</h2>
+<h4 id="pour-obtenir-les-données-de-localisation-des-accidents-faites-un-merge-entre-usagers2017-cataracteristic2017">Pour obtenir les données de localisation des accidents, faites un merge entre usagers2017 cataracteristic2017</h4>
 
-<h2 id="y-a-til-autant-daccidents-dans-la-table-une-fois-mergée-que-dans-chacune-des-tables-qui-ont-été-mergées--montrez-que-quelque-soit-le-type-de-merge-on-retrouve-bien-les-mêmes-résultats">Y a t’il autant d’accidents dans la table une fois mergée que dans chacune des tables qui ont été mergées ? Montrez que quelque soit le type de merge on retrouve bien les mêmes résultats</h2>
+<h4 id="y-a-til-autant-daccidents-dans-la-table-une-fois-mergée-que-dans-chacune-des-tables-qui-ont-été-mergées--montrez-que-quelque-soit-le-type-de-merge-on-retrouve-bien-les-mêmes-résultats">Y a t’il autant d’accidents dans la table une fois mergée que dans chacune des tables qui ont été mergées ? Montrez que quelque soit le type de merge on retrouve bien les mêmes résultats</h4>
 
 <p><code class="language-plaintext highlighter-rouge">DataFrame.equals(other)</code></p>
 
@@ -416,32 +416,32 @@ function lunr_search(term) {
   <p>This function allows two Series or DataFrames to be compared against each other to see if they have the same shape and elements</p>
 </blockquote>
 
-<h2 id="comptez-les-valeurs-manquantes-dans-chaque-colonne">comptez les valeurs manquantes dans chaque colonne</h2>
+<h4 id="comptez-les-valeurs-manquantes-dans-chaque-colonne">comptez les valeurs manquantes dans chaque colonne</h4>
 
-<h2 id="filtrez-uniquement-le-résultat-sur-les-colonnes-ayant-0-valeurs-manquantes-et-triez-par-ordre-décroissant-des-valeurs">filtrez uniquement le résultat sur les colonnes ayant &gt;0 valeurs manquantes et triez par ordre décroissant des valeurs</h2>
+<h4 id="filtrez-uniquement-le-résultat-sur-les-colonnes-ayant-0-valeurs-manquantes-et-triez-par-ordre-décroissant-des-valeurs">filtrez uniquement le résultat sur les colonnes ayant &gt;0 valeurs manquantes et triez par ordre décroissant des valeurs</h4>
 
-<h2 id="comptez-la-proportion-des-valeurs-manquantes-en-pourcents-du-nombre-de-valeurs-totales-de-chaque-colonne">comptez ‘la proportion’ des valeurs manquantes en pourcents du nombre de valeurs totales de chaque colonne</h2>
+<h4 id="comptez-la-proportion-des-valeurs-manquantes-en-pourcents-du-nombre-de-valeurs-totales-de-chaque-colonne">comptez ‘la proportion’ des valeurs manquantes en pourcents du nombre de valeurs totales de chaque colonne</h4>
 
-<h2 id="sélectionnez-les-accidents-qui-ont-eu-lieu-dans-le-département-de-paris-75-et-les-montrez">Sélectionnez les accidents qui ont eu lieu dans le département de Paris (75) et les montrez</h2>
+<h4 id="sélectionnez-les-accidents-qui-ont-eu-lieu-dans-le-département-de-paris-75-et-les-montrez">Sélectionnez les accidents qui ont eu lieu dans le département de Paris (75) et les montrez</h4>
 
-<h2 id="toujours-sur-le-département-parisien-montrez-la-carte-des-accidents-par-gravité">Toujours sur le département Parisien, montrez la carte des accidents par gravité</h2>
+<h4 id="toujours-sur-le-département-parisien-montrez-la-carte-des-accidents-par-gravité">Toujours sur le département Parisien, montrez la carte des accidents par gravité</h4>
 
-<h2 id="faire-un-affichage-graphique-des-missing-values-dans-la-table-mergée">Faire un affichage graphique des missing values dans la table mergée</h2>
+<h4 id="faire-un-affichage-graphique-des-missing-values-dans-la-table-mergée">Faire un affichage graphique des missing values dans la table mergée</h4>
 
-<h1 id="jouer-avec-les-dates">Jouer avec les dates</h1>
+<h2 id="jouer-avec-les-dates">Jouer avec les dates</h2>
 
-<h2 id="renommez-les-colonnes">Renommez les colonnes:</h2>
+<h4 id="renommez-les-colonnes">Renommez les colonnes:</h4>
 <ul>
   <li>‘jour’ en ‘day’</li>
   <li>‘mois’ en ‘month’</li>
   <li>‘an’ en ‘year’</li>
 </ul>
 
-<h2 id="rajoutez-20-à-chaque-élément-de-année-pour-avoir-un-format-compréhensible-par-pdto_datetime-ex-2017">rajoutez ‘20’ à chaque élément de année pour avoir un format compréhensible par pd.to_datetime (ex: 2017)</h2>
+<h4 id="rajoutez-20-à-chaque-élément-de-année-pour-avoir-un-format-compréhensible-par-pdto_datetime-ex-2017">rajoutez ‘20’ à chaque élément de année pour avoir un format compréhensible par pd.to_datetime (ex: 2017)</h4>
 
-<h2 id="créez-une-colonne-date-qui-contient-les-données-au-format-datetime">Créez une colonne date qui contient les données au format datetime</h2>
+<h4 id="créez-une-colonne-date-qui-contient-les-données-au-format-datetime">Créez une colonne date qui contient les données au format datetime</h4>
 
-<h2 id="afficher-lévolution-du-nombre-de-morts-par-jours-pendant-lannée">Afficher l’évolution du nombre de morts par jours pendant l’année</h2>
+<h4 id="afficher-lévolution-du-nombre-de-morts-par-jours-pendant-lannée">Afficher l’évolution du nombre de morts par jours pendant l’année</h4>
                 
 			</article>
 			
