@@ -10,7 +10,23 @@ image_index: assets/images/post_some_exercices_in_python/index_img/cover.png
 
 Some exercices following tutorial *Beginning in Python* to make you more comfortable with some object-oriented concepts in Python ;) 
 
-## Ex. 1: Counting letter frequencies in a text.
+## Ex. 1: from a list of lists to a dictionnary
+
+Transform this:
+```python 
+liste = [[1, 2], [3,4], [5,6], [7,8]] 
+```
+
+into this:
+
+```python 
+OUTPUT: {1: 2, 3: 4, 5: 6, 7: 8}
+```
+
+using dict comprehension! 
+
+
+## Ex. 2: Counting letter frequencies in a text.
 
 - using a simple Python dictionary
 - using `defaultdict` (subclass of `dict`)
@@ -32,7 +48,7 @@ Quisque quis magna malesuada, ultricies leo eget, elementum est. Praesent enim p
 """
 ```
 
-## Ex. 2: Sort the  a sorted dictionary, sorted by values
+## Ex. 3: Sort the  a sorted dictionary, sorted by values
 
 Hint: use `Ordereddict`
 
@@ -40,7 +56,7 @@ Hint: use `Ordereddict`
 x = {1: 2, 3: 4, 4: 3, 2: 1, 0: 0}
 ```
 
-## Ex. 3: Let's create a decorator using class definition
+## Ex. 4: Let's create a decorator using class definition
 
 A decorator is a construct often written as a function, that takes a **function as parameter** and returns **another one which extends** the behavior of the passed-in function.
 It thus needs to return a new function who had been defined in its inner scope and wrapped the first one.
@@ -85,7 +101,7 @@ The results must be saved in a dictionary:
  * keys    = params used
  * values  = results obtained
 
-## Ex. 4: Create a custom list 😉
+## Ex. 5: Create a custom list 😉
 
 Create a class `List` whose behavior upon doing `liste1 + liste2`  (with `liste1` and `liste2` being `List` instances), is to add each of their elements element-wise i.e. `liste1[i] + liste2[i]` for each `i`.
 
