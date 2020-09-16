@@ -12,7 +12,7 @@ Some exercices following tutorial *Beginning in Python* to make you more comfort
 
 <u><strong>SendTo</strong>:</u> contact  at   lucbertin   dot   com <br>
 <u><strong>Subject</strong>:</u> PYTHON - EXERCICES1 - \<SCHOOL\> - \< FIRSTNAMES LASTNAMES \> <br>
-<u><strong>Content</strong>:</u> A Jupyter Notebook converted in HTML File <br>
+<u><strong>Content</strong>:</u> A Jupyter Notebook <strong>converted in HTML</strong> file <br>
 
 ## Ex. 1: from a list of lists to a dictionnary
 
