@@ -10,9 +10,9 @@ image_index: assets/images/post_some_exercices_in_python/index_img/cover.png
 
 Some exercices following tutorial *Beginning in Python* to make you more comfortable with some object-oriented concepts in Python ;) 
 
-**SendTo**: contact  at   lucbertin   dot   com <br>
-**Subject**: PYTHON - EXERCICES1 - \<SCHOOL\> - \< FIRSTNAMES AND LASTNAMES OF THE PEOPLE IN THE TEAM \> <br>
-**Content**: A Jupyter Notebook converted in HTML File <br>
+<u>**SendTo**:</u> contact  at   lucbertin   dot   com <br>
+<u>**Subject**:</u> PYTHON - EXERCICES1 - \<SCHOOL\> - \< FIRSTNAMES AND LASTNAMES OF THE PEOPLE IN THE TEAM \> <br>
+<u>**Content**:</u> A Jupyter Notebook converted in HTML File <br>
 
 ## Ex. 1: from a list of lists to a dictionnary
 
