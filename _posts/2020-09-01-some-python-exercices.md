@@ -11,7 +11,7 @@ image_index: assets/images/post_some_exercices_in_python/index_img/cover.png
 Some exercices following tutorial *Beginning in Python* to make you more comfortable with some object-oriented concepts in Python ;) 
 
 <u><strong>SendTo</strong>:</u> contact  at   lucbertin   dot   com <br>
-<u><strong>Subject</strong>:</u> PYTHON - EXERCICES1 - \<SCHOOL\> - \< FIRSTNAMES + LASTNAMES \> <br>
+<u><strong>Subject</strong>:</u> PYTHON - EXERCICES1 - \<SCHOOL\> - \< FIRSTNAMES LASTNAMES \> <br>
 <u><strong>Content</strong>:</u> A Jupyter Notebook converted in HTML File <br>
 
 ## Ex. 1: from a list of lists to a dictionnary
