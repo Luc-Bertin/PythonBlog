@@ -16,77 +16,92 @@ data.gouv est une plateforme de diffusion de données publiques de l'État fran�
 
 Pour cet exercice nous allons utiliser quelques données tabulaires (format CSV) sur les accidents [corporels liés de la circulation](https://www.data.gouv.fr/fr/datasets/base-de-donnees-accidents-corporels-de-la-circulation/).
 
-Voici les 3 url directes vers les CSV correspondants que nous allons exploiter.
+Voici les 3 url vers les CSV correspondants que nous allons exploiter.
 
-#### 1 .Ouvrir les CSV dont l'url est donnée ci-dessus
+```python
+url_usagers2017 = "https://static.data.gouv.fr/resources/base-de-donnees-accidents-corporels-de-la-circulation/20180927-111153/usagers-2017.csv"
+url_lieux2017 = "https://static.data.gouv.fr/resources/base-de-donnees-accidents-corporels-de-la-circulation/20180927-111131/lieux-2017.csv"
+url_caracteristiques2017 = "https://static.data.gouv.fr/resources/base-de-donnees-accidents-corporels-de-la-circulation/20180927-111012/caracteristiques-2017.csv"
+```
 
-#### 2 .Montrer les 10 premières lignes de usagers_2017
+#### 1. ••• Open the CSVs whose urls are given above, store the `DataFrames` in variables `usagers2017`, `lieux2017`, `caracteristiques2017`.
 
-#### 3 .Les 10 dernières de caractertistiques_2017
+#### 2. ••• Show the 10 first lines of `usagers2017`
 
-#### 4 .Combien y a t'il de lignes dans catacteristiques_2017
+#### 3. ••• Show the 10 last lines of `caracteristiques2017`
 
-#### 5 .Combien de colonnes dans caracteristiques2017
+#### 4. ••• How many lines does `caracteristiques2017` contain ?
 
-#### 6 .Quel est le dtype de chaque colonne de usagers2017 et caracteristiques2017  ? 
+#### 5. ••• How many column does `caracteristiques2017` contain ?
 
-#### 7 .Regardez s'il existe des duplicates sur Num_Acc dans usagers_2017 et caracteristiques_2017 
+#### 6. ••• Show the dtype of each column of `usagers2017`. Same for `caracteristiques2017`. 
 
-#### 8 .En déduire le type de relation entre catacteristiques2017 et usagers2017 ( one-to-one, one-to-many, many-to-many)
+#### 7. ••• Does `Num_Acc` in `usager2017` contain duplicated values ? What about `Num_Acc` in `caracteristiques2017` ? **Hint**: `duplicated()`...
 
-#### 9 .remplacez les valeurs 1 et 2 par Homme et Femme pour le sexe de l'usager
+#### 8. ••• Conclude on the type of relationship if we were to join `catacteristiques2017` and `usagers2017` on `Num_Acc` ( one-to-one? one-to-many? many-to-many?)
 
-#### 10. Trouver les usagers féminins ayant eu des accidents
+#### 9. ••• Replace all values "1" and "2" in column `sexe` by `Homme` and `Femme`
 
-#### 11. remplacez les catégories/labels dans grav par leur description
-#### 12. idem pour catu les catégories d'usagers
+#### 10. ••• Show women who had experienced accidents.
 
-#### 13. Comptez le nombre de chaque cas de gravité (combien de décès, combien de Indemne, etc.)
+#### 11. ••• Replace each integers in `grav` (gravité de l'accident) column by their corresponding mapping.
+			1 - Indemne
+			2 - Tué
+			3 - Blessé hospitalisé 
+			4 - Blessé léger
 
-#### 14. L'afficher
+#### 12. ••• Same for `catu` (catégorie d'usagers) column
+			1 - Conducteur
+			2 - Passager
+			3 - Piéton
+			4 - Piéton en roller ou en trottinette
+			99 - Autre véhicule
 
-#### 15. Afficher de même le nombre d'accidents par différentes catégories d'usagers
+#### 13. ••• Show the counts for each distinct values in `grav`.
 
-#### 16. Trouver les usagers féminins qui ont eu des accidents mineurs (blessés légers ou Indemne)
-enregistrez la variable mask intermédiaire pour rendre le code plus clean
+#### 14. ••• Plot it.
 
-#### 17. Donner le nombre d'accidents par sexe et différentes gravités catégories d'usagers
+#### 15. ••• Show the counts for each distinct values in `catu`.
 
-##### 18. En utilisant GroupBy
+#### 16. ••• Find women who had mild accidents ("Indemne" or "Blessé léger", but not more severe!).<br>
+Hint: you can use masking and save in an intermediate variable for clean code.
 
-##### 19. En utilisant une Pivot Table
+#### 17. ••• Show the number of accidents by `sexe` AND `grav`ity.
 
-#### 20. L'afficher sous forme de stacked bar-chart
+##### 18. ••• Using `GroupBy`
 
-#### 21. Pour obtenir les données de localisation des accidents, faites un merge entre usagers2017 cataracteristic2017
+##### 19. Using a `Pivot Table`
 
-#### 22. Y a t'il autant d'accidents dans la table une fois mergée que dans chacune des tables qui ont été mergées ? Montrez que quelque soit le type de merge on retrouve bien les mêmes résultats
+#### 20. ••• Display it in the form of a stacked bar-chart.
 
-`DataFrame.equals(other)`
+#### 21. ••• Do a merge between `usagers2017` and `caracteristiques2017` on `Num_Acc`.
 
+#### 22. Is there any new value in `Num_Acc` in the final merged table compared to either of table that has been used for merging ? (e.g. does `Num_acc` has a value that does not exist in `usagers2017` but does exist in `caracteristiques2017`, or the other way around)
+
+Hint: `DataFrame.equals(other)`
 > This function allows two Series or DataFrames to be compared against each other to see if they have the same shape and elements
 
-#### 23. comptez les valeurs manquantes dans chaque colonne
+#### 23. ••• Count missing values in each column of `caracteristiques2017`. Hint: `.isnull()`
 
-#### 24. filtrez uniquement le résultat sur les colonnes ayant >0 valeurs manquantes et triez par ordre décroissant des valeurs
+#### 24. Filter the results only by taking the columns having more than 0 missing values + sorted by decreasing number of them.
 
-#### 25. comptez 'la proportion' des valeurs manquantes en pourcents du nombre de valeurs totales de chaque colonne
+#### 25. Show the same number of missing values as a pourcentage of the total number of values (lines).
 
-#### 26. Sélectionnez les accidents qui ont eu lieu dans le département de Paris (75) et les montrez
+#### 26. ••• Select the accidents who took place in Paris county (département <=> "750" in the table)
 
-#### 27. Toujours sur le département Parisien, montrez la carte des accidents par gravité
+#### 27. ••• Plot the map/the maps of accidents by gravity in Paris county.
 
-#### 28. Faire un affichage graphique des missing values dans la table mergée
+#### 28. Plot a graph that "shows graphically" the importance of missing values in each column of the dataset. 
 
-## Jouer avec les dates
+## Let's play with the dates
 
-#### 29. Renommez les colonnes:
-* 'jour' en 'day'
-* 'mois' en 'month'
-* 'an' en 'year'
+#### 29. Rename the columns:
+* 'jour' as 'day'
+* 'mois' as 'month'
+* 'an'   as 'year'
 
-#### 30. rajoutez '20' à chaque élément de année pour avoir un format compréhensible par pd.to_datetime (ex: 2017)
+#### 30. Add '20' to each element in the lately renamed `year` column, (e.g.: 2017) so to be an understandable year format for `pd.to_datetime`.
 
-#### 31. Créez une colonne date qui contient les données au format datetime
+#### 31. Create a `date` column taking into account the year, month, and day from question29 and using `pd.to_datetime` in question30.
 
-#### 32. Afficher l'évolution du nombre de morts par jours pendant l'année
+#### 32. Plot the daily death trends during the entire year.
