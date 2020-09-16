@@ -10,6 +10,10 @@ image_index: assets/images/post_some_exercices_in_python/index_img/cover.png
 
 Some exercices following tutorial *Beginning in Python* to make you more comfortable with some object-oriented concepts in Python ;) 
 
+*SendTo*: contact  at   lucbertin   dot   com
+*Subject*: PYTHON - EXERCICES1 - \<SCHOOL\> - \< FIRSTNAMES AND LASTNAMES OF THE PEOPLE IN THE TEAM \>
+*Content*: A Jupyter Notebook converted in HTML File
+
 ## Ex. 1: from a list of lists to a dictionnary
 
 Transform this:
