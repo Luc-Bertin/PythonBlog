@@ -10,6 +10,13 @@ image_index: assets/images/post_some_pandas_exercices/index_img/cover.png
 
 Some exercices following tutorial *Discover Pandas* to make you more comfortable with the concepts.
 
+<u><strong>SendTo</strong>:</u> contact  \< at \>   lucbertin   \< dot \>  com <br>
+<u><strong>Subject</strong>:</u> PANDAS - EXERCICES1 - \<SCHOOL\> - \<FIRSTNAMES LASTNAMES\> <br>
+<u><strong>CC</strong>:</u> your teammates' email if any<br>
+<u><strong>Content</strong>:</u> A Jupyter Notebook <strong>converted in HTML</strong> file <br>
+
+
+
 # Base de données accidents corporels de la circulation
 
 data.gouv est une plateforme de diffusion de données publiques de l'État français lancée en 2011. <br> data.gouv.fr est développé par Etalab, une mission placée sous l'autorité du Premier ministre.<br>
