@@ -16,9 +16,10 @@ Here are some statistical notions and vocabulary to accompany your different dat
 
 * Unit of analysis (a case), on another hand, is [the level at which you pitch the conclusions](http://re-design.dimiter.eu/?p=253). For example, you may draw conclusions on group differences based on results you've collected on a student level.
 
-* Items we are observing may have different caracteristics we are looking at.
+* We may look at different caracteristics/dimensions for each given item we are observing. The name of each dimension that encapsulate the respective individual measurements is call a data attribute (e.g. weight of a patient, e.g. level of glucose). Similarly a **feature** embeds both the attribute and value of one unit of observation. A feature variable is hence synonym to data attribute.
 
-* A data attribute is the type of one dimensional collected data (e.g. weight of a patient, e.g2. level of glucose). A feature is mostly associated as synonym of attribute 
+
+*  . A feature is mostly associated as synonym of attribute 
 
 * Data points are the different measures carried out for a unit of observation. It is a collection of features, attributes or caracteristics. For example, one patient could have a data point defined as the collection {weight, height, level of glucose, BMI}. The point could be "plot" in such n-dimensional figure. Features here are each of the above dimensions. Features The variable that encapsulate all those measures
 
