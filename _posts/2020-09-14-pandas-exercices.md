@@ -16,7 +16,6 @@ Some exercices following tutorial *Discover Pandas* to make you more comfortable
 <u><strong>Content</strong>:</u> A Jupyter Notebook <strong>converted in HTML</strong> file <br>
 
 
-
 # Base de données accidents corporels de la circulation
 
 data.gouv est une plateforme de diffusion de données publiques de l'État français lancée en 2011. <br> data.gouv.fr est développé par Etalab, une mission placée sous l'autorité du Premier ministre.<br>
