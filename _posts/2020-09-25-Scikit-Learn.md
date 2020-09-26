@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Some statistical elements for your ML journey"
+title:  "Some statistical elements andfor your ML journey"
 author: luc
 categories: [ TDs, StatsEnVrac ]
 image_folder: /assets/images/stats_en_vrac/
@@ -9,6 +9,13 @@ image_index: assets/images/stats_en_vrac/index_img/cover.jpg
 tags: [featured]
 
 ---
+
+> Machine Learning is the field of study that gives computers the ability to learn without being explicitly programmed (if,if,if,else,if). —Arthur Samuel, 1959
+
+The promise with ML is to have a general framework to create data-related models which we expect to be more robust, personalized and easier to maintain into detecting patterns than hard-coding a set of rules. Detecting new patterns over time, or from different sources, only require you to update the model or retrain it over the corresponding set of data. ML models can in return be later inspected to infer about relationships between variables, and give humans a better understanding on the data itself.
+
+
+## On the Data Representation
 
 Here are some statistical notions and vocabulary to accompany your different data science and ML projects. 
 
@@ -27,7 +34,15 @@ Here are some statistical notions and vocabulary to accompany your different dat
 * Quantitative vs qualitative research:
 A quantitative research is an empirical method  that relies on collected numerical data to apply elements of the scientific method on: such as the drawing hypotheses, generation of mathematical models and the ultimate acquiring of knowledge. A qualitative research is rather used to explore trends or gather insights using non-numerical data (video, text, etc.) by conducting surveys or interviews for example.
 
-* Statistical computations and analyses assume that the [variables have specific levels of measurement](https://stats.idre.ucla.edu/other/mult-pkg/whatstat/what-is-the-difference-between-categorical-ordinal-and-numerical-variables/). A variable could be: quantitative (i.e. numerical data). Numerical variables can be subclassed in continuous or discrete variables.
+* Statistical computations and analyses assume that the [variables have specific levels of measurement](https://stats.idre.ucla.edu/other/mult-pkg/whatstat/what-is-the-difference-between-categorical-ordinal-and-numerical-variables/). 
 
-Categorical variables (or "nominal") on the other hand, are variable holding 2 or more categories but without any ordering between the categories (can you order someone with blue eyes from someone else with red ones ?).
+* Categorical variables (or "nominal") on the other hand, are variable holding 2 or more categories but without any ordering between the categories (can you order someone with blue eyes from someone else with red ones ?). Ordinal variables, on the other hand, have categories that can be ordered (e.g. Height could be Low, Medium or High), but the spacing between the values may not be the same across the levels of the variables ! Were it be, the variables would be numerical. Finally, variable could be quantitative (i.e. numerical). Numerical variables can be subclassed in continuous or discrete variables. Continuous variables is more of a conceptual construct: values discretion appears inevitably as instruments of measurement does not have infinite countable range values. The difference between numerical and ordinal variable is that the former necessarily implies an interval scale where the difference between two values is meaningful.
 
+* Algorithm vs model: an algorithm is the set of instructions and approach to build a model. The model is the final construct - computational tool obtained from running the algorithm on the data (training data more exactly). Model parameters change over the data the model has been trained on.
+> from [windows docs](https://docs.microsoft.com/en-us/windows/ai/windows-ml/what-is-a-machine-learning-model): You train a model over a set of data, providing it an algorithm that it can use to reason over and learn from those data. Once you have trained the model, you can use it to reason over data that it hasn't seen before, and make predictions about those data.
+
+*
+ training vs test set
+
+
+## On OLS
