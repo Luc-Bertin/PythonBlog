@@ -4,15 +4,17 @@ title:  "Some statistical elements for your ML journey"
 author: luc
 categories: [ TDs, StatsEnVrac ]
 image_folder: /assets/images/stats_en_vrac/
-image: assets/images/stats_en_vrac/index_img/cover.jpg
-image_index: assets/images/stats_en_vrac/index_img/cover.jpg
+image: assets/images/post_some_statistical_elements/index_img/cover.jpg
+image_index: assets/images/post_some_statistical_elements/index_img/cover.jpg
 tags: [featured]
 
 ---
 
 > Machine Learning is the field of study that gives computers the ability to learn without being explicitly programmed (if,if,if,else,if). —Arthur Samuel, 1959
 
-The promise with ML is to have a general framework to create data-related models which we expect to be more robust, personalized and easier to maintain into detecting patterns than hard-coding a set of rules. Detecting new patterns over time, or from different sources, only require you to update the model or retrain it over the corresponding set of data. ML models can in return be later inspected to infer about relationships between variables, and give humans a better understanding on the data itself.
+The promise with ML is to have a general framework to create data-related models which we expect to be more robust, personalized and easier to maintain into detecting patterns than hard-coding a set of rules. <br>
+Detecting new patterns over time, or from different sources, only require you to update the model or retrain it over the corresponding set of data.<br>
+ML models can later be inspected to infer about relationships between variables, and give humans a better understanding on the data itself. That is called data mining.
 
 
 ## On the Data Representation
