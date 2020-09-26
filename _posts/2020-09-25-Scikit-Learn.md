@@ -14,8 +14,18 @@ tags: [featured]
 
 The promise with ML is to have a general framework to create data-related models which we expect to be more robust, personalized and easier to maintain into detecting patterns than hard-coding a set of rules. <br>
 Detecting new patterns over time, or from different sources, only require you to update the model or retrain it over the corresponding set of data.<br>
-ML models can later be inspected to infer about relationships between variables, and give humans a better understanding on the data itself. That is called data mining.
+ML models can later be inspected to infer about relationships between variables, and give humans a better understanding on complex and massive data (this is also called data mining). But in my opinion there should be caution on such practice as to infer on the data generation process which is something that better falls in the scope of statistics. Statistics emphasizes inference, whereas machine learning emphasizes prediction. Satistics explicitly takes uncertainty into account and confront while ML is more empirical including allowance for high-order interactions that are not pre-specified.
 
+
+Neithertheless, ML emboddies representation-
+
+Representation involves the transformation of inputs from one space to another more useful space which can be more easily interpreted
+
+ involves the transformation of inputs from one space to another more useful space which can be more easily interpreted
+
+Statistics are different from Machine Learning although these are domain that tends to overlap. 
+it is mostly employed towards better understanding some particular data generating process
+https://www.peggykern.org/uploads/5/6/6/7/56678211/edu90790_decision_chart.pdf
 
 ## On the Data Representation
 
