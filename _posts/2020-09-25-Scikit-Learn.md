@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Some statistical elements andfor your ML journey"
+title:  "Some statistical elements for your ML journey"
 author: luc
 categories: [ TDs, StatsEnVrac ]
 image_folder: /assets/images/stats_en_vrac/
