@@ -7,6 +7,7 @@ image_folder: /assets/images/post_setting_up_a_simple_flask_app/
 image: assets/images/post_setting_up_a_simple_flask_app/flask2.png
 image_index: assets/images/post_setting_up_a_simple_flask_app/index_img/cover.png
 tags: [featured]
+toc: true
 
 ---
 

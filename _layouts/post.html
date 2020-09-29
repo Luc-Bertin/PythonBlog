@@ -63,10 +63,21 @@ layout: default
         
         
 		<div class="col-md-12 col-lg-8">
-            
+
+			<!-- Table of Contents -->
+		    {% if page.toc %}
+	        <div id="table-of-contents">
+	        	<div>
+	    			<h2>Table Of Contents</h2>
+	    		</div>
+	            {% toc %}
+	        </div>
+		    {% endif %}
+
+
             <!-- Article -->
-			<article class="article-post">                
-			{{ content }}                
+			<article class="article-post">
+			{{ content }}             
 			</article>
 			
 			<!-- Tags -->

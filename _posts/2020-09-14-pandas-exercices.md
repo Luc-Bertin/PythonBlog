@@ -6,6 +6,7 @@ categories: [ TDs, Exercices, Pandas, Python]
 image_folder: /assets/images/post_some_exercices_in_python/
 image: assets/images/post_some_pandas_exercices/index_img/cover.png
 image_index: assets/images/post_some_pandas_exercices/index_img/cover.png
+
 ---
 
 Some exercices following tutorial *Discover Pandas* to make you more comfortable with the concepts.

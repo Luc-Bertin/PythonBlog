@@ -7,11 +7,13 @@ image_folder: /assets/images/post_webscrapping/
 image: assets/images/post_webscrapping/index_img/cover.jpg
 image_index: assets/images/post_webscrapping/index_img/cover.jpg
 tags: [featured]
+toc: true
 
 ---
 
 
 Selenium is an open-source automated testing suite for web apps. It was at first used to automate tests for web applications as it can emulate user interactions with browsers, although its scope is wider as it can be used for other purposes: such as webscrapping for example.
+
 
 ## How does Selenium Webdriver work ?
 

@@ -6,6 +6,7 @@ categories: [ Lecture, Python, Numpy]
 image_folder: /assets/images/post_hands_on_numpy/
 image: assets/images/post_hands_on_numpy/cover.jpg
 image_index: assets/images/post_hands_on_numpy/index_img/cover.jpg
+toc: true
 
 ---
 

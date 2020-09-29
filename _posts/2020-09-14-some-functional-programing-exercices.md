@@ -6,6 +6,7 @@ categories: [ TDs, Exercices, Python]
 image_folder: /assets/images/post_some_exercices_in_python/
 image: assets/images/post_some_functional_programming_exercices/index_img/cover.jpg
 image_index: assets/images/post_some_functional_programming_exercices/index_img/cover.jpg
+
 ---
 
 Some exercices following tutorial *Introduction to functional programming* to make you more comfortable with the concepts.

@@ -1,89 +1,75 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en_US"><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="en_US" /><updated>2020-09-14T15:24:25+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">PythonMood | Let’s code with Lulu</title><subtitle>Luc Bertin's blog of Python theoretical and hands-on tutorials. Here we cover Python from scratch and some use cases for Data Science related subjects</subtitle><entry><title type="html">Some Pandas exercices</title><link href="http://localhost:4000/pandas-exercices/" rel="alternate" type="text/html" title="Some Pandas exercices" /><published>2020-09-14T00:00:00+02:00</published><updated>2020-09-14T00:00:00+02:00</updated><id>http://localhost:4000/pandas-exercices</id><content type="html" xml:base="http://localhost:4000/pandas-exercices/">&lt;p&gt;Some exercices following tutorial &lt;em&gt;Discover Pandas&lt;/em&gt; to make you more comfortable with the concepts.&lt;/p&gt;
-
-&lt;h1 id=&quot;base-de-données-accidents-corporels-de-la-circulation&quot;&gt;Base de données accidents corporels de la circulation&lt;/h1&gt;
-
-&lt;p&gt;data.gouv est une plateforme de diffusion de données publiques de l’État français lancée en 2011. &lt;br /&gt; data.gouv.fr est développé par Etalab, une mission placée sous l’autorité du Premier ministre.&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;Pour cet exercice nous allons utiliser quelques données tabulaires (format CSV) sur les accidents &lt;a href=&quot;https://www.data.gouv.fr/fr/datasets/base-de-donnees-accidents-corporels-de-la-circulation/&quot;&gt;corporels liés de la circulation&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;Voici les 3 url directes vers les CSV correspondants que nous allons exploiter.&lt;/p&gt;
-
-&lt;h4 id=&quot;ouvrir-les-csv-dont-lurl-est-donnée-ci-dessus&quot;&gt;Ouvrir les CSV dont l’url est donnée ci-dessus&lt;/h4&gt;
-
-&lt;h4 id=&quot;montrer-les-10-premières-lignes-de-usagers_2017&quot;&gt;Montrer les 10 premières lignes de usagers_2017&lt;/h4&gt;
-
-&lt;h4 id=&quot;les-10-dernières-de-caractertistiques_2017&quot;&gt;Les 10 dernières de caractertistiques_2017&lt;/h4&gt;
-
-&lt;h4 id=&quot;combien-y-a-til-de-lignes-dans-catacteristiques_2017&quot;&gt;Combien y a t’il de lignes dans catacteristiques_2017&lt;/h4&gt;
-
-&lt;h4 id=&quot;combien-de-colonnes-dans-caracteristiques2017&quot;&gt;Combien de colonnes dans caracteristiques2017&lt;/h4&gt;
-
-&lt;h4 id=&quot;quel-est-le-dtype-de-chaque-colonne-de-usagers2017-et-caracteristiques2017--&quot;&gt;Quel est le dtype de chaque colonne de usagers2017 et caracteristiques2017  ?&lt;/h4&gt;
-
-&lt;h4 id=&quot;regardez-sil-existe-des-duplicates-sur-num_acc-dans-usagers_2017-et-caracteristiques_2017&quot;&gt;Regardez s’il existe des duplicates sur Num_Acc dans usagers_2017 et caracteristiques_2017&lt;/h4&gt;
-
-&lt;h4 id=&quot;en-déduire-le-type-de-relation-entre-catacteristiques2017-et-usagers2017--one-to-one-one-to-many-many-to-many&quot;&gt;En déduire le type de relation entre catacteristiques2017 et usagers2017 ( one-to-one, one-to-many, many-to-many)&lt;/h4&gt;
-
-&lt;h4 id=&quot;remplacez-les-valeurs-1-et-2-par-homme-et-femme-pour-le-sexe-de-lusager&quot;&gt;remplacez les valeurs 1 et 2 par Homme et Femme pour le sexe de l’usager&lt;/h4&gt;
-
-&lt;h4 id=&quot;trouver-les-usagers-féminins-ayant-eu-des-accidents&quot;&gt;Trouver les usagers féminins ayant eu des accidents&lt;/h4&gt;
-
-&lt;h4 id=&quot;remplacez-les-catégorieslabels-dans-grav-par-leur-description&quot;&gt;remplacez les catégories/labels dans grav par leur description&lt;/h4&gt;
-&lt;h4 id=&quot;idem-pour-catu-les-catégories-dusagers&quot;&gt;idem pour catu les catégories d’usagers&lt;/h4&gt;
-
-&lt;h4 id=&quot;comptez-le-nombre-de-chaque-cas-de-gravité-combien-de-décès-combien-de-indemne-etc&quot;&gt;Comptez le nombre de chaque cas de gravité (combien de décès, combien de Indemne, etc.)&lt;/h4&gt;
-
-&lt;h4 id=&quot;lafficher&quot;&gt;L’afficher&lt;/h4&gt;
-
-&lt;h4 id=&quot;afficher-de-même-le-nombre-daccidents-par-différentes-catégories-dusagers&quot;&gt;Afficher de même le nombre d’accidents par différentes catégories d’usagers&lt;/h4&gt;
-
-&lt;h4 id=&quot;trouver-les-usagers-féminins-qui-ont-eu-des-accidents-mineurs-blessés-légers-ou-indemne&quot;&gt;Trouver les usagers féminins qui ont eu des accidents mineurs (blessés légers ou Indemne)&lt;/h4&gt;
-&lt;p&gt;enregistrez la variable mask intermédiaire pour rendre le code plus clean&lt;/p&gt;
-
-&lt;h4 id=&quot;donner-le-nombre-daccidents-par-sexe-et-différentes-gravités-catégories-dusagers&quot;&gt;Donner le nombre d’accidents par sexe et différentes gravités catégories d’usagers&lt;/h4&gt;
-
-&lt;h5 id=&quot;en-utilisant-groupby&quot;&gt;En utilisant GroupBy&lt;/h5&gt;
-
-&lt;h5 id=&quot;en-utilisant-une-pivot-table&quot;&gt;En utilisant une Pivot Table&lt;/h5&gt;
-
-&lt;h4 id=&quot;lafficher-sous-forme-de-stacked-bar-chart&quot;&gt;L’afficher sous forme de stacked bar-chart&lt;/h4&gt;
-
-&lt;h4 id=&quot;pour-obtenir-les-données-de-localisation-des-accidents-faites-un-merge-entre-usagers2017-cataracteristic2017&quot;&gt;Pour obtenir les données de localisation des accidents, faites un merge entre usagers2017 cataracteristic2017&lt;/h4&gt;
-
-&lt;h4 id=&quot;y-a-til-autant-daccidents-dans-la-table-une-fois-mergée-que-dans-chacune-des-tables-qui-ont-été-mergées--montrez-que-quelque-soit-le-type-de-merge-on-retrouve-bien-les-mêmes-résultats&quot;&gt;Y a t’il autant d’accidents dans la table une fois mergée que dans chacune des tables qui ont été mergées ? Montrez que quelque soit le type de merge on retrouve bien les mêmes résultats&lt;/h4&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;DataFrame.equals(other)&lt;/code&gt;&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;This function allows two Series or DataFrames to be compared against each other to see if they have the same shape and elements&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en_US"><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="en_US" /><updated>2020-09-29T15:59:58+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">PythonMood | Let’s code with Lulu</title><subtitle>Luc Bertin's blog of Python theoretical and hands-on tutorials. Here we cover Python from scratch and some use cases for Data Science related subjects</subtitle><entry><title type="html">Some statistical elements for your ML journey</title><link href="http://localhost:4000/Scikit-Learn/" rel="alternate" type="text/html" title="Some statistical elements for your ML journey" /><published>2020-09-25T00:00:00+02:00</published><updated>2020-09-25T00:00:00+02:00</updated><id>http://localhost:4000/Scikit-Learn</id><content type="html" xml:base="http://localhost:4000/Scikit-Learn/">&lt;blockquote&gt;
+  &lt;p&gt;Machine Learning is the field of study that gives computers the ability to learn without being explicitly programmed (if,if,if,else,if). —Arthur Samuel, 1959&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;h4 id=&quot;comptez-les-valeurs-manquantes-dans-chaque-colonne&quot;&gt;comptez les valeurs manquantes dans chaque colonne&lt;/h4&gt;
+&lt;p&gt;The promise with ML is to have a general framework to create data-related models which we expect to be &lt;strong&gt;more robust, personalized and easier to maintain&lt;/strong&gt; into detecting patterns than &lt;strong&gt;hard-coding a set of rules&lt;/strong&gt;.&lt;br /&gt;
+Detecting new patterns over time, or from different sources, only require you to update the model or retrain it over the corresponding set of data.&lt;br /&gt;&lt;/p&gt;
 
-&lt;h4 id=&quot;filtrez-uniquement-le-résultat-sur-les-colonnes-ayant-0-valeurs-manquantes-et-triez-par-ordre-décroissant-des-valeurs&quot;&gt;filtrez uniquement le résultat sur les colonnes ayant &amp;gt;0 valeurs manquantes et triez par ordre décroissant des valeurs&lt;/h4&gt;
+&lt;p&gt;ML models can also be inspected to infer about relationships between variables, and give humans a better understanding on complex and massive data, this is also called &lt;strong&gt;data mining&lt;/strong&gt;. &lt;br /&gt;
+But in my opinion there should be caution on such practice as to infer on the data generation process which is something that better falls in the scope of &lt;strong&gt;statistics&lt;/strong&gt;.&lt;/p&gt;
 
-&lt;h4 id=&quot;comptez-la-proportion-des-valeurs-manquantes-en-pourcents-du-nombre-de-valeurs-totales-de-chaque-colonne&quot;&gt;comptez ‘la proportion’ des valeurs manquantes en pourcents du nombre de valeurs totales de chaque colonne&lt;/h4&gt;
+&lt;p&gt;Statistics emphasizes inference, whereas Machine Learning emphasizes prediction. Actually the term &lt;em&gt;inference&lt;/em&gt; in ML refers more as the predictions made on unseen data from an already trained model while inference in statistics is the process to deduce properties of an underlying distribution of probability. 
+Satistics explicitly takes uncertainty into account onto the model and use multiple methods of inference such as hypothesis testing on the observed data which is believed to have originated from a larger population.&lt;/p&gt;
 
-&lt;h4 id=&quot;sélectionnez-les-accidents-qui-ont-eu-lieu-dans-le-département-de-paris-75-et-les-montrez&quot;&gt;Sélectionnez les accidents qui ont eu lieu dans le département de Paris (75) et les montrez&lt;/h4&gt;
+&lt;p&gt;and confront while ML is more empirical including allowance for high-order interactions that are not pre-specified.&lt;/p&gt;
 
-&lt;h4 id=&quot;toujours-sur-le-département-parisien-montrez-la-carte-des-accidents-par-gravité&quot;&gt;Toujours sur le département Parisien, montrez la carte des accidents par gravité&lt;/h4&gt;
+&lt;p&gt;A statistical hypothesis is a hypothesis that is testable on the basis of observed data modeled as the realised values taken by a collection of random variables.[1] A set of data (or several sets of data, taken together) are modelled as being realised values of a collection of random variables having a joint probability distribution in some set of possible joint distributions. The hypothesis being tested is exactly that set of possible probability distributions.&lt;/p&gt;
 
-&lt;h4 id=&quot;faire-un-affichage-graphique-des-missing-values-dans-la-table-mergée&quot;&gt;Faire un affichage graphique des missing values dans la table mergée&lt;/h4&gt;
+&lt;p&gt;Neithertheless, ML emboddies representation-&lt;/p&gt;
 
-&lt;h2 id=&quot;jouer-avec-les-dates&quot;&gt;Jouer avec les dates&lt;/h2&gt;
+&lt;p&gt;Representation involves the transformation of inputs from one space to another more useful space which can be more easily interpreted&lt;/p&gt;
 
-&lt;h4 id=&quot;renommez-les-colonnes&quot;&gt;Renommez les colonnes:&lt;/h4&gt;
+&lt;p&gt;involves the transformation of inputs from one space to another more useful space which can be more easily interpreted&lt;/p&gt;
+
+&lt;p&gt;Statistics are different from Machine Learning although these are domain that tends to overlap. 
+it is mostly employed towards better understanding some particular data generating process
+https://www.peggykern.org/uploads/5/6/6/7/56678211/edu90790_decision_chart.pdf&lt;/p&gt;
+
+&lt;h2 id=&quot;on-the-data-representation&quot;&gt;On the Data Representation&lt;/h2&gt;
+
+&lt;p&gt;Here are some statistical notions and vocabulary to accompany your different data science and ML projects.&lt;/p&gt;
+
 &lt;ul&gt;
-  &lt;li&gt;‘jour’ en ‘day’&lt;/li&gt;
-  &lt;li&gt;‘mois’ en ‘month’&lt;/li&gt;
-  &lt;li&gt;‘an’ en ‘year’&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Units of observation are the items that you actually observe, the level at which you collect the data.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Unit of analysis (a case), on another hand, is &lt;a href=&quot;http://re-design.dimiter.eu/?p=253&quot;&gt;the level at which you pitch the conclusions&lt;/a&gt;. For example, you may draw conclusions on group differences based on results you’ve collected on a student level.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;We may look at different caracteristics/dimensions for each given item we are observing. The name of each of the dimension that encapsulates the respective individual measurements is called a data attribute (e.g. weight of a patient, e.g. level of glucose). Similarly a &lt;strong&gt;feature&lt;/strong&gt; embeds both the data attribute and its corresponding value for a given unit of observation. Often though, features and attributes are interchangeably used terminology. Finally &lt;strong&gt;feature variable&lt;/strong&gt; is even more closely related to data attribute, a slight difference is that the variable is the operationalized representation of the latter. In other tutorials of this blog, we will use data attribute and feature variable interchangeably.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Data points are the different measures carried out for a unit of observation. It is a collection of features, attributes or caracteristics. For example, one patient could have a data point defined as the collection {weight, height, level of glucose, BMI}. The point could be “plot” in such n-dimensional figure. Features here are each of these dimensions.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Data for ML tasks are often stored in a 2 dimensional dataframe or similarly shaped array. The features variables / data attributes identify as the columns, of the dataset, while the rows match the units of observation.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Units of observation could be equally spaced time records for one individual/entity/study unit. Say for example Apple stock price variations over time: we would then talk about a &lt;strong&gt;time-series&lt;/strong&gt; study. When multiple individuals do have each different time point observations, we are talking about &lt;strong&gt;longitudinal&lt;/strong&gt; study. Lastly, cross-sectional studies are constituted of entities’ observations at one spefici point in time.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Quantitative vs qualitative research:
+A quantitative research is an empirical method  that relies on collected numerical data to apply elements of the scientific method on: such as the drawing hypotheses, generation of mathematical models and the ultimate acquiring of knowledge. A qualitative research is rather used to explore trends or gather insights using non-numerical data (video, text, etc.) by conducting surveys or interviews for example.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Statistical computations and analyses assume that the &lt;a href=&quot;https://stats.idre.ucla.edu/other/mult-pkg/whatstat/what-is-the-difference-between-categorical-ordinal-and-numerical-variables/&quot;&gt;variables have specific levels of measurement&lt;/a&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Categorical variables (or “nominal”) on the other hand, are variable holding 2 or more categories but without any ordering between the categories (can you order someone with blue eyes from someone else with red ones ?). Ordinal variables, on the other hand, have categories that can be ordered (e.g. Height could be Low, Medium or High), but the spacing between the values may not be the same across the levels of the variables ! Were it be, the variables would be numerical. Finally, variable could be quantitative (i.e. numerical). Numerical variables can be subclassed in continuous or discrete variables. Continuous variables is more of a conceptual construct: values discretion appears inevitably as instruments of measurement does not have infinite countable range values. The difference between numerical and ordinal variable is that the former necessarily implies an interval scale where the difference between two values is meaningful.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Algorithm vs model: an algorithm is the set of instructions and approach to build a model. The model is the final construct - computational tool obtained from running the algorithm on the data (training data more exactly). Model parameters change over the data the model has been trained on.&lt;/p&gt;
+    &lt;blockquote&gt;
+      &lt;p&gt;from &lt;a href=&quot;https://docs.microsoft.com/en-us/windows/ai/windows-ml/what-is-a-machine-learning-model&quot;&gt;windows docs&lt;/a&gt;: You train a model over a set of data, providing it an algorithm that it can use to reason over and learn from those data. Once you have trained the model, you can use it to reason over data that it hasn’t seen before, and make predictions about those data.&lt;/p&gt;
+    &lt;/blockquote&gt;
+  &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h4 id=&quot;rajoutez-20-à-chaque-élément-de-année-pour-avoir-un-format-compréhensible-par-pdto_datetime-ex-2017&quot;&gt;rajoutez ‘20’ à chaque élément de année pour avoir un format compréhensible par pd.to_datetime (ex: 2017)&lt;/h4&gt;
+&lt;p&gt;*
+ training vs test set&lt;/p&gt;
 
-&lt;h4 id=&quot;créez-une-colonne-date-qui-contient-les-données-au-format-datetime&quot;&gt;Créez une colonne date qui contient les données au format datetime&lt;/h4&gt;
-
-&lt;h4 id=&quot;afficher-lévolution-du-nombre-de-morts-par-jours-pendant-lannée&quot;&gt;Afficher l’évolution du nombre de morts par jours pendant l’année&lt;/h4&gt;</content><author><name>luc</name></author><summary type="html">Some exercices following tutorial Discover Pandas to make you more comfortable with the concepts.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/images/post_some_pandas_exercices/index_img/cover.png" /><media:content medium="image" url="http://localhost:4000/assets/images/post_some_pandas_exercices/index_img/cover.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Some functional programming exercices</title><link href="http://localhost:4000/some-functional-programing-exercices/" rel="alternate" type="text/html" title="Some functional programming exercices" /><published>2020-09-14T00:00:00+02:00</published><updated>2020-09-14T00:00:00+02:00</updated><id>http://localhost:4000/some-functional-programing-exercices</id><content type="html" xml:base="http://localhost:4000/some-functional-programing-exercices/">&lt;p&gt;Some exercices following tutorial &lt;em&gt;Introduction to functional programming&lt;/em&gt; to make you more comfortable with the concepts.&lt;/p&gt;
+&lt;h2 id=&quot;on-ols&quot;&gt;On OLS&lt;/h2&gt;</content><author><name>luc</name></author><category term="featured" /><summary type="html">Machine Learning is the field of study that gives computers the ability to learn without being explicitly programmed (if,if,if,else,if). —Arthur Samuel, 1959</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/images/post_some_statistical_elements/index_img/cover.jpg" /><media:content medium="image" url="http://localhost:4000/assets/images/post_some_statistical_elements/index_img/cover.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Some functional programming exercices</title><link href="http://localhost:4000/some-functional-programing-exercices/" rel="alternate" type="text/html" title="Some functional programming exercices" /><published>2020-09-14T00:00:00+02:00</published><updated>2020-09-14T00:00:00+02:00</updated><id>http://localhost:4000/some-functional-programing-exercices</id><content type="html" xml:base="http://localhost:4000/some-functional-programing-exercices/">&lt;p&gt;Some exercices following tutorial &lt;em&gt;Introduction to functional programming&lt;/em&gt; to make you more comfortable with the concepts.&lt;/p&gt;
 
 &lt;h2 id=&quot;exo1-lets-create-a-data-science-pipeline-of-generators-&quot;&gt;Exo1: Let’s create a Data Science pipeline of generators 😉&lt;/h2&gt;
 
@@ -150,7 +136,113 @@ A chunk of size 1 equals one line of the file.&lt;/p&gt;
   &lt;li&gt;
     &lt;p&gt;Create a generator function that stored &lt;strong&gt;cumulated&lt;/strong&gt; occurences of each letter over the passing chunks.&lt;/p&gt;
   &lt;/li&gt;
-&lt;/ul&gt;</content><author><name>luc</name></author><summary type="html">Some exercices following tutorial Introduction to functional programming to make you more comfortable with the concepts.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/images/post_some_functional_programming_exercices/index_img/cover.jpg" /><media:content medium="image" url="http://localhost:4000/assets/images/post_some_functional_programming_exercices/index_img/cover.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Discover Pandas</title><link href="http://localhost:4000/discover-pandas/" rel="alternate" type="text/html" title="Discover Pandas" /><published>2020-09-10T00:00:00+02:00</published><updated>2020-09-10T00:00:00+02:00</updated><id>http://localhost:4000/discover-pandas</id><content type="html" xml:base="http://localhost:4000/discover-pandas/">&lt;blockquote&gt;
+&lt;/ul&gt;</content><author><name>luc</name></author><summary type="html">Some exercices following tutorial Introduction to functional programming to make you more comfortable with the concepts.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/images/post_some_functional_programming_exercices/index_img/cover.jpg" /><media:content medium="image" url="http://localhost:4000/assets/images/post_some_functional_programming_exercices/index_img/cover.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Some Pandas exercices</title><link href="http://localhost:4000/pandas-exercices/" rel="alternate" type="text/html" title="Some Pandas exercices" /><published>2020-09-14T00:00:00+02:00</published><updated>2020-09-14T00:00:00+02:00</updated><id>http://localhost:4000/pandas-exercices</id><content type="html" xml:base="http://localhost:4000/pandas-exercices/">&lt;p&gt;Some exercices following tutorial &lt;em&gt;Discover Pandas&lt;/em&gt; to make you more comfortable with the concepts.&lt;/p&gt;
+
+&lt;p&gt;&lt;u&gt;&lt;strong&gt;SendTo&lt;/strong&gt;:&lt;/u&gt; contact  &amp;lt; at &amp;gt;   lucbertin   &amp;lt; dot &amp;gt;  com &lt;br /&gt;
+&lt;u&gt;&lt;strong&gt;Subject&lt;/strong&gt;:&lt;/u&gt; PANDAS - EXERCICES1 - &amp;lt;SCHOOL&amp;gt; - &amp;lt;FIRSTNAMES LASTNAMES&amp;gt; &lt;br /&gt;
+&lt;u&gt;&lt;strong&gt;CC&lt;/strong&gt;:&lt;/u&gt; your teammates’ email if any&lt;br /&gt;
+&lt;u&gt;&lt;strong&gt;Content&lt;/strong&gt;:&lt;/u&gt; A Jupyter Notebook &lt;strong&gt;converted in HTML&lt;/strong&gt; file &lt;br /&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;base-de-données-accidents-corporels-de-la-circulation&quot;&gt;Base de données accidents corporels de la circulation&lt;/h1&gt;
+
+&lt;p&gt;data.gouv est une plateforme de diffusion de données publiques de l’État français lancée en 2011. &lt;br /&gt; data.gouv.fr est développé par Etalab, une mission placée sous l’autorité du Premier ministre.&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;Pour cet exercice nous allons utiliser quelques données tabulaires (format CSV) sur les accidents &lt;a href=&quot;https://www.data.gouv.fr/fr/datasets/base-de-donnees-accidents-corporels-de-la-circulation/&quot;&gt;corporels liés de la circulation&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Voici les 3 url vers les CSV correspondants que nous allons exploiter.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;url_usagers2017&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;https://static.data.gouv.fr/resources/base-de-donnees-accidents-corporels-de-la-circulation/20180927-111153/usagers-2017.csv&quot;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;url_lieux2017&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;https://static.data.gouv.fr/resources/base-de-donnees-accidents-corporels-de-la-circulation/20180927-111131/lieux-2017.csv&quot;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;url_caracteristiques2017&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;https://static.data.gouv.fr/resources/base-de-donnees-accidents-corporels-de-la-circulation/20180927-111012/caracteristiques-2017.csv&quot;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;1--open-the-csvs-whose-urls-are-given-above-store-the-dataframes-in-variables-usagers2017-lieux2017-caracteristiques2017&quot;&gt;1. ••• Open the CSVs whose urls are given above, store the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;DataFrames&lt;/code&gt; in variables &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;usagers2017&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lieux2017&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;caracteristiques2017&lt;/code&gt;.&lt;/h4&gt;
+
+&lt;h4 id=&quot;2--show-the-10-first-lines-of-usagers2017&quot;&gt;2. ••• Show the 10 first lines of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;usagers2017&lt;/code&gt;&lt;/h4&gt;
+
+&lt;h4 id=&quot;3--show-the-10-last-lines-of-caracteristiques2017&quot;&gt;3. ••• Show the 10 last lines of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;caracteristiques2017&lt;/code&gt;&lt;/h4&gt;
+
+&lt;h4 id=&quot;4--how-many-lines-does-caracteristiques2017-contain-&quot;&gt;4. ••• How many lines does &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;caracteristiques2017&lt;/code&gt; contain ?&lt;/h4&gt;
+
+&lt;h4 id=&quot;5--how-many-column-does-caracteristiques2017-contain-&quot;&gt;5. ••• How many column does &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;caracteristiques2017&lt;/code&gt; contain ?&lt;/h4&gt;
+
+&lt;h4 id=&quot;6--show-the-dtype-of-each-column-of-usagers2017-same-for-caracteristiques2017&quot;&gt;6. ••• Show the dtype of each column of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;usagers2017&lt;/code&gt;. Same for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;caracteristiques2017&lt;/code&gt;.&lt;/h4&gt;
+
+&lt;h4 id=&quot;7--does-num_acc-in-usager2017-contain-duplicated-values--what-about-num_acc-in-caracteristiques2017--hint-duplicated&quot;&gt;7. ••• Does &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Num_Acc&lt;/code&gt; in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;usager2017&lt;/code&gt; contain duplicated values ? What about &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Num_Acc&lt;/code&gt; in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;caracteristiques2017&lt;/code&gt; ? &lt;strong&gt;Hint&lt;/strong&gt;: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;duplicated()&lt;/code&gt;…&lt;/h4&gt;
+
+&lt;h4 id=&quot;8--conclude-on-the-type-of-relationship-if-we-were-to-join-catacteristiques2017-and-usagers2017-on-num_acc--one-to-one-one-to-many-many-to-many&quot;&gt;8. ••• Conclude on the type of relationship if we were to join &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;catacteristiques2017&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;usagers2017&lt;/code&gt; on &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Num_Acc&lt;/code&gt; ( one-to-one? one-to-many? many-to-many?)&lt;/h4&gt;
+
+&lt;h4 id=&quot;9--replace-all-values-1-and-2-in-column-sexe-by-homme-and-femme&quot;&gt;9. ••• Replace all values “1” and “2” in column &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sexe&lt;/code&gt; by &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Homme&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Femme&lt;/code&gt;&lt;/h4&gt;
+
+&lt;h4 id=&quot;10--show-women-who-had-experienced-accidents&quot;&gt;10. ••• Show women who had experienced accidents.&lt;/h4&gt;
+
+&lt;h4 id=&quot;11--replace-each-integers-in-grav-gravité-de-laccident-column-by-their-corresponding-mapping&quot;&gt;11. ••• Replace each integers in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;grav&lt;/code&gt; (gravité de l’accident) column by their corresponding mapping.&lt;/h4&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;		1 - Indemne
+		2 - Tué
+		3 - Blessé hospitalisé 
+		4 - Blessé léger
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;12--same-for-catu-catégorie-dusagers-column&quot;&gt;12. ••• Same for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;catu&lt;/code&gt; (catégorie d’usagers) column&lt;/h4&gt;
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;		1 - Conducteur
+		2 - Passager
+		3 - Piéton
+		4 - Piéton en roller ou en trottinette
+		99 - Autre véhicule
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;13--show-the-counts-for-each-distinct-values-in-grav&quot;&gt;13. ••• Show the counts for each distinct values in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;grav&lt;/code&gt;.&lt;/h4&gt;
+
+&lt;h4 id=&quot;14--plot-it&quot;&gt;14. ••• Plot it.&lt;/h4&gt;
+
+&lt;h4 id=&quot;15--show-the-counts-for-each-distinct-values-in-catu&quot;&gt;15. ••• Show the counts for each distinct values in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;catu&lt;/code&gt;.&lt;/h4&gt;
+
+&lt;h4 id=&quot;16--find-women-who-had-mild-accidents-indemne-or-blessé-léger-but-not-more-severe&quot;&gt;16. ••• Find women who had mild accidents (“Indemne” or “Blessé léger”, but not more severe!).&lt;br /&gt;&lt;/h4&gt;
+&lt;p&gt;Hint: you can use masking and save in an intermediate variable for clean code.&lt;/p&gt;
+
+&lt;h4 id=&quot;17--show-the-number-of-accidents-by-sexe-and-gravity&quot;&gt;17. ••• Show the number of accidents by &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sexe&lt;/code&gt; AND &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;grav&lt;/code&gt;ity.&lt;/h4&gt;
+
+&lt;h5 id=&quot;18--using-groupby&quot;&gt;18. ••• Using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;GroupBy&lt;/code&gt;&lt;/h5&gt;
+
+&lt;h5 id=&quot;19-using-a-pivot-table&quot;&gt;19. Using a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Pivot Table&lt;/code&gt;&lt;/h5&gt;
+
+&lt;h4 id=&quot;20--display-it-in-the-form-of-a-stacked-bar-chart&quot;&gt;20. ••• Display it in the form of a stacked bar-chart.&lt;/h4&gt;
+
+&lt;h4 id=&quot;21--do-a-merge-between-usagers2017-and-caracteristiques2017-on-num_acc&quot;&gt;21. ••• Do a merge between &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;usagers2017&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;caracteristiques2017&lt;/code&gt; on &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Num_Acc&lt;/code&gt;.&lt;/h4&gt;
+
+&lt;h4 id=&quot;22-is-there-any-new-value-in-num_acc-in-the-final-merged-table-compared-to-either-of-table-that-has-been-used-for-merging--eg-does-num_acc-has-a-value-that-does-not-exist-in-usagers2017-but-does-exist-in-caracteristiques2017-or-the-other-way-around&quot;&gt;22. Is there any new value in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Num_Acc&lt;/code&gt; in the final merged table compared to either of table that has been used for merging ? (e.g. does &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Num_acc&lt;/code&gt; has a value that does not exist in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;usagers2017&lt;/code&gt; but does exist in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;caracteristiques2017&lt;/code&gt;, or the other way around)&lt;/h4&gt;
+
+&lt;p&gt;Hint: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;DataFrame.equals(other)&lt;/code&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;This function allows two Series or DataFrames to be compared against each other to see if they have the same shape and elements&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;23--count-missing-values-in-each-column-of-caracteristiques2017-hint-isnull&quot;&gt;23. ••• Count missing values in each column of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;caracteristiques2017&lt;/code&gt;. Hint: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.isnull()&lt;/code&gt;&lt;/h4&gt;
+
+&lt;h4 id=&quot;24-filter-the-results-only-by-taking-the-columns-having-more-than-0-missing-values--sorted-by-decreasing-number-of-them&quot;&gt;24. Filter the results only by taking the columns having more than 0 missing values + sorted by decreasing number of them.&lt;/h4&gt;
+
+&lt;h4 id=&quot;25-show-the-same-number-of-missing-values-as-a-pourcentage-of-the-total-number-of-values-lines&quot;&gt;25. Show the same number of missing values as a pourcentage of the total number of values (lines).&lt;/h4&gt;
+
+&lt;h4 id=&quot;26--select-the-accidents-who-took-place-in-paris-county-département--750-in-the-table&quot;&gt;26. ••• Select the accidents who took place in Paris county (département &amp;lt;=&amp;gt; “750” in the table)&lt;/h4&gt;
+
+&lt;h4 id=&quot;27--plot-the-mapthe-maps-of-accidents-by-gravity-in-paris-county&quot;&gt;27. ••• Plot the map/the maps of accidents by gravity in Paris county.&lt;/h4&gt;
+
+&lt;h4 id=&quot;28-plot-a-graph-that-shows-graphically-the-importance-of-missing-values-in-each-column-of-the-dataset&quot;&gt;28. Plot a graph that “shows graphically” the importance of missing values in each column of the dataset.&lt;/h4&gt;
+
+&lt;h2 id=&quot;lets-play-with-the-dates&quot;&gt;Let’s play with the dates&lt;/h2&gt;
+
+&lt;h4 id=&quot;29-rename-the-columns&quot;&gt;29. Rename the columns:&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;‘jour’ as ‘day’&lt;/li&gt;
+  &lt;li&gt;‘mois’ as ‘month’&lt;/li&gt;
+  &lt;li&gt;‘an’   as ‘year’&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;30-add-20-to-each-element-in-the-lately-renamed-year-column-eg-2017-so-to-be-an-understandable-year-format-for-pdto_datetime&quot;&gt;30. Add ‘20’ to each element in the lately renamed &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;year&lt;/code&gt; column, (e.g.: 2017) so to be an understandable year format for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pd.to_datetime&lt;/code&gt;.&lt;/h4&gt;
+
+&lt;h4 id=&quot;31-create-a-date-column-taking-into-account-the-year-month-and-day-from-question29-and-using-pdto_datetime-in-question30&quot;&gt;31. Create a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;date&lt;/code&gt; column taking into account the year, month, and day from question29 and using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pd.to_datetime&lt;/code&gt; in question30.&lt;/h4&gt;
+
+&lt;h4 id=&quot;32-plot-the-daily-death-trends-during-the-entire-year&quot;&gt;32. Plot the daily death trends during the entire year.&lt;/h4&gt;</content><author><name>luc</name></author><summary type="html">Some exercices following tutorial Discover Pandas to make you more comfortable with the concepts.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/images/post_some_pandas_exercices/index_img/cover.png" /><media:content medium="image" url="http://localhost:4000/assets/images/post_some_pandas_exercices/index_img/cover.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Discover Pandas</title><link href="http://localhost:4000/discover-pandas/" rel="alternate" type="text/html" title="Discover Pandas" /><published>2020-09-10T00:00:00+02:00</published><updated>2020-09-10T00:00:00+02:00</updated><id>http://localhost:4000/discover-pandas</id><content type="html" xml:base="http://localhost:4000/discover-pandas/">&lt;blockquote&gt;
   &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pandas.DataFrame&lt;/code&gt; is a 2-dimensional labeled data structure with columns of potentially different types. You can think of it like a spreadsheet or SQL table.
 It got rows and columns’ labels and can greatly contain and handle missing data.&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -158,6 +250,15 @@ It got rows and columns’ labels and can greatly contain and handle missing dat
 &lt;p&gt;Dealing with initially less structured, clean and complete data consists in most of the time spent by the data scientist.&lt;/p&gt;
 
 &lt;p&gt;First, check the overview of the package &lt;a href=&quot;https://pandas.pydata.org/docs/getting_started/overview.html&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
+
+&lt;div id=&quot;table-of-contents&quot;&gt;
+    &lt;div&gt;
+    &lt;h2&gt;Table Of Contents&lt;/h2&gt;
+  &lt;/div&gt;
+      &lt;ul class=&quot;section-nav&quot;&gt;
+&lt;li class=&quot;toc-entry toc-h2&quot;&gt;&lt;a href=&quot;#table-of-contents&quot;&gt;Table Of Contents&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+  &lt;/div&gt;
 
 &lt;p&gt;Pandas is built on top of Numpy.&lt;/p&gt;
 
@@ -7125,9 +7226,49 @@ Here is an example of such:&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/post_webscrapping/DOM.png&quot; width=&quot;600px&quot; style=&quot;display: inline-block;&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
 
-&lt;h5 id=&quot;another-interesting-link-on-the-difference-between-remotewebdriver-and-webdriver&quot;&gt;Another interesting link on the &lt;a href=&quot;https://stackoverflow.com/questions/57528987/what-is-the-difference-between-remotewebdriver-and-webdriver&quot;&gt;difference&lt;/a&gt; between &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;RemoteWebDriver&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Webdriver&lt;/code&gt;&lt;/h5&gt;</content><author><name>luc</name></author><category term="featured" /><summary type="html">Selenium is an open-source automated testing suite for web apps. It was at first used to automate tests for web applications as it can emulate user interactions with browsers, although its scope is wider as it can be used for other purposes: such as webscrapping for example.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/images/post_webscrapping/index_img/cover.jpg" /><media:content medium="image" url="http://localhost:4000/assets/images/post_webscrapping/index_img/cover.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Some Python exercices</title><link href="http://localhost:4000/some-python-exercices/" rel="alternate" type="text/html" title="Some Python exercices" /><published>2020-09-01T00:00:00+02:00</published><updated>2020-09-01T00:00:00+02:00</updated><id>http://localhost:4000/some-python-exercices</id><content type="html" xml:base="http://localhost:4000/some-python-exercices/">&lt;p&gt;Some exercices following tutorial &lt;em&gt;Beginning in Python&lt;/em&gt; to make you more comfortable with some object-oriented concepts in Python ;)&lt;/p&gt;
+&lt;h5 id=&quot;another-interesting-link-on-the-difference-between-remotewebdriver-and-webdriver&quot;&gt;Another interesting link on the &lt;a href=&quot;https://stackoverflow.com/questions/57528987/what-is-the-difference-between-remotewebdriver-and-webdriver&quot;&gt;difference&lt;/a&gt; between &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;RemoteWebDriver&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Webdriver&lt;/code&gt;&lt;/h5&gt;</content><author><name>luc</name></author><category term="featured" /><summary type="html">Selenium is an open-source automated testing suite for web apps. It was at first used to automate tests for web applications as it can emulate user interactions with browsers, although its scope is wider as it can be used for other purposes: such as webscrapping for example.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/images/post_webscrapping/index_img/cover.jpg" /><media:content medium="image" url="http://localhost:4000/assets/images/post_webscrapping/index_img/cover.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Hands-on Numpy !</title><link href="http://localhost:4000/hands-on-numpy/" rel="alternate" type="text/html" title="Hands-on Numpy !" /><published>2020-09-01T00:00:00+02:00</published><updated>2020-09-01T00:00:00+02:00</updated><id>http://localhost:4000/hands-on-numpy</id><content type="html" xml:base="http://localhost:4000/hands-on-numpy/">&lt;p&gt;It is often better to visualize data of apparent heterogeneity (sounds, images, text) as arrays of numbers, so to process these data or apply machine learning on them. A well-known package for creating and handling such arrays is Numpy (&lt;em&gt;Numerical Python&lt;/em&gt;).&lt;/p&gt;
 
-&lt;h2 id=&quot;ex-1-counting-letter-frequencies-in-a-text&quot;&gt;Ex. 1: Counting letter frequencies in a text.&lt;/h2&gt;
+&lt;h1 id=&quot;numpy&quot;&gt;Numpy&lt;/h1&gt;
+
+&lt;h2 id=&quot;the-python-overhead-numpy-is-dealing&quot;&gt;the Python overhead numpy is dealing&lt;/h2&gt;
+
+&lt;p&gt;As we outlined in &lt;strong&gt;Beginning in Python&lt;/strong&gt;, in Python, everything is anobject. Hence even the simple integer 3 is actually the value of an integer object with possible methods and attributes associated to it. Taking the reference implementation (CPython), it is actually a C structure under-the-hood, so are other Python primitives (list, tuple, set, dict, etc.). This brings an overhead&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;check overhead for an integer (bytes)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;labels C first link messages&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;outer product: https://fr.wikipedia.org/wiki/Produit_dyadique&lt;/p&gt;
+
+&lt;p&gt;contiguous C and Fortran arrays and why reshape sometimes do a copy of the data:
+https://stackoverflow.com/questions/26998223/what-is-the-difference-between-contiguous-and-non-contiguous-arrays&lt;/p&gt;
+
+&lt;p&gt;https://stackoverflow.com/questions/38127123/strange-typecasting-when-adding-int-to-uint8/39253434&lt;/p&gt;</content><author><name>luc</name></author><summary type="html">It is often better to visualize data of apparent heterogeneity (sounds, images, text) as arrays of numbers, so to process these data or apply machine learning on them. A well-known package for creating and handling such arrays is Numpy (Numerical Python).</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/images/post_hands_on_numpy/cover.jpg" /><media:content medium="image" url="http://localhost:4000/assets/images/post_hands_on_numpy/cover.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Some Python exercices</title><link href="http://localhost:4000/some-python-exercices/" rel="alternate" type="text/html" title="Some Python exercices" /><published>2020-09-01T00:00:00+02:00</published><updated>2020-09-01T00:00:00+02:00</updated><id>http://localhost:4000/some-python-exercices</id><content type="html" xml:base="http://localhost:4000/some-python-exercices/">&lt;p&gt;Some exercices following tutorial &lt;em&gt;Beginning in Python&lt;/em&gt; to make you more comfortable with some object-oriented concepts in Python ;)&lt;/p&gt;
+
+&lt;p&gt;&lt;u&gt;&lt;strong&gt;SendTo&lt;/strong&gt;:&lt;/u&gt; contact  &amp;lt; at &amp;gt;   lucbertin   &amp;lt; dot &amp;gt;  com &lt;br /&gt;
+&lt;u&gt;&lt;strong&gt;Subject&lt;/strong&gt;:&lt;/u&gt; PYTHON - EXERCICES1 - &amp;lt;SCHOOL&amp;gt; - &amp;lt;FIRSTNAMES LASTNAMES&amp;gt; &lt;br /&gt;
+&lt;u&gt;&lt;strong&gt;CC&lt;/strong&gt;:&lt;/u&gt; your teammates’ email if any&lt;br /&gt;
+&lt;u&gt;&lt;strong&gt;Content&lt;/strong&gt;:&lt;/u&gt; A Jupyter Notebook &lt;strong&gt;converted in HTML&lt;/strong&gt; file &lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;ex-1-from-a-list-of-lists-to-a-dictionnary&quot;&gt;Ex. 1: from a list of lists to a dictionnary&lt;/h2&gt;
+
+&lt;p&gt;Transform this:&lt;/p&gt;
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;liste&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt; 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;into this:&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;OUTPUT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;using dict comprehension!&lt;/p&gt;
+
+&lt;h2 id=&quot;ex-2-counting-letter-frequencies-in-a-text&quot;&gt;Ex. 2: Counting letter frequencies in a text.&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;using a simple Python dictionary&lt;/li&gt;
@@ -7149,14 +7290,14 @@ Quisque quis magna malesuada, ultricies leo eget, elementum est. Praesent enim p
 &quot;&quot;&quot;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h2 id=&quot;ex-2-sort-the--a-sorted-dictionary-sorted-by-values&quot;&gt;Ex. 2: Sort the  a sorted dictionary, sorted by values&lt;/h2&gt;
+&lt;h2 id=&quot;ex-3-sort-the--a-sorted-dictionary-sorted-by-values&quot;&gt;Ex. 3: Sort the  a sorted dictionary, sorted by values&lt;/h2&gt;
 
 &lt;p&gt;Hint: use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Ordereddict&lt;/code&gt;&lt;/p&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h2 id=&quot;ex-3-lets-create-a-decorator-using-class-definition&quot;&gt;Ex. 3: Let’s create a decorator using class definition&lt;/h2&gt;
+&lt;h2 id=&quot;ex-4-lets-create-a-decorator-using-class-definition&quot;&gt;Ex. 4: Let’s create a decorator using class definition&lt;/h2&gt;
 
 &lt;p&gt;A decorator is a construct often written as a function, that takes a &lt;strong&gt;function as parameter&lt;/strong&gt; and returns &lt;strong&gt;another one which extends&lt;/strong&gt; the behavior of the passed-in function.
 It thus needs to return a new function who had been defined in its inner scope and wrapped the first one.&lt;/p&gt;
@@ -7203,7 +7344,7 @@ It thus needs to return a new function who had been defined in its inner scope a
   &lt;li&gt;values  = results obtained&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&quot;ex-4-create-a-custom-list-&quot;&gt;Ex. 4: Create a custom list 😉&lt;/h2&gt;
+&lt;h2 id=&quot;ex-5-create-a-custom-list-&quot;&gt;Ex. 5: Create a custom list 😉&lt;/h2&gt;
 
 &lt;p&gt;Create a class &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;List&lt;/code&gt; whose behavior upon doing &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;liste1 + liste2&lt;/code&gt;  (with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;liste1&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;liste2&lt;/code&gt; being &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;List&lt;/code&gt; instances), is to add each of their elements element-wise i.e. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;liste1[i] + liste2[i]&lt;/code&gt; for each &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;i&lt;/code&gt;.&lt;/p&gt;
 
@@ -8061,7 +8202,7 @@ KeyError: 'webencodings'
 
 &lt;blockquote&gt;
   &lt;p&gt;multiple names (in multiple scopes) can be bound to the same object. This is known as aliasing. Passing an object as parameter to a function is cheap since just a pointer is passed by the implemententation. Hence using mutable objects might affect the code&lt;/p&gt;
-&lt;/blockquote&gt;</content><author><name>luc</name></author><category term="featured" /><summary type="html">A code block is a piece of Python code executed as a unit: A function body is executed as a unit A script file to be run from the terminal using Python shell: python ./script.py A module is a unit A class definition is a unit A single command run in a python interpreter is a unit</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/images/post_execution_model/namespaces.svg" /><media:content medium="image" url="http://localhost:4000/assets/images/post_execution_model/namespaces.svg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Beginning in Python</title><link href="http://localhost:4000/Beginning-in-Python/" rel="alternate" type="text/html" title="Beginning in Python" /><published>2020-08-22T00:00:00+02:00</published><updated>2020-08-22T00:00:00+02:00</updated><id>http://localhost:4000/Beginning-in-Python</id><content type="html" xml:base="http://localhost:4000/Beginning-in-Python/">&lt;p&gt;1st course will mainly focus on how to approach Python for the first time. For that we will use Jupyter module.&lt;/p&gt;
+&lt;/blockquote&gt;</content><author><name>luc</name></author><summary type="html">A code block is a piece of Python code executed as a unit: A function body is executed as a unit A script file to be run from the terminal using Python shell: python ./script.py A module is a unit A class definition is a unit A single command run in a python interpreter is a unit</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/images/post_execution_model/namespaces.svg" /><media:content medium="image" url="http://localhost:4000/assets/images/post_execution_model/namespaces.svg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Beginning in Python</title><link href="http://localhost:4000/Beginning-in-Python/" rel="alternate" type="text/html" title="Beginning in Python" /><published>2020-08-22T00:00:00+02:00</published><updated>2020-08-22T00:00:00+02:00</updated><id>http://localhost:4000/Beginning-in-Python</id><content type="html" xml:base="http://localhost:4000/Beginning-in-Python/">&lt;p&gt;1st course will mainly focus on how to approach Python for the first time. For that we will use Jupyter module.&lt;/p&gt;
 
 &lt;h2 id=&quot;in-python-everything-is-an-object&quot;&gt;“In Python, everything is an object”&lt;/h2&gt;
 
@@ -10390,146 +10531,4 @@ To https://github.com/Luc-Bertin/TDs_ESILV.git
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>luc</name></author><category term="featured" /><summary type="html">1st course will mainly focus on how to approach Python for the first time. For that we will use Jupyter module.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/images/post_approaching_python_programming/cover.png" /><media:content medium="image" url="http://localhost:4000/assets/images/post_approaching_python_programming/cover.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Install Python !</title><link href="http://localhost:4000/Install-Python/" rel="alternate" type="text/html" title="Install Python !" /><published>2020-08-14T00:00:00+02:00</published><updated>2020-08-14T00:00:00+02:00</updated><id>http://localhost:4000/Install-Python</id><content type="html" xml:base="http://localhost:4000/Install-Python/">&lt;p&gt;This tutorial helps newcomers to install Python properly and manage different Python versions, especially for Mac users having a system 2.7 Python installed already.&lt;/p&gt;
-
-&lt;h2 id=&quot;a-few-basics-first&quot;&gt;A few basics first&lt;/h2&gt;
-
-&lt;p&gt;The shell PATH is an environment variable that lists of directories browsed from left to right by the shell to look for a requested executable.
-e.g. on a MacOS system  &lt;strong&gt;python&lt;/strong&gt; can be found in /usr/bin. If PATH = /usr/bin:/usr/local/bin and python can be found in both directories, left one take precedence.&lt;/p&gt;
-
-&lt;p&gt;In Unix, &lt;strong&gt;/usr/local/bin&lt;/strong&gt; are user-installed executables, &lt;strong&gt;/bin&lt;/strong&gt; contains executables which are required by the system for emergency repairs and &lt;strong&gt;/usr/bin&lt;/strong&gt; are application binaries meant to be accessed by locally logged in users.
-PROTIP from &lt;a href=&quot;https://wilsonmar.github.io/pyenv/#what-is-the-magic-of-pyenv&quot;&gt;Wilson Mar&lt;/a&gt;: “The &lt;strong&gt;/usr/bin/&lt;/strong&gt; folder is owned by the operating system, so elevated sudo priviledges are required to modify files in it (such as “python”). So Homebrew and other installers install to /usr/local/ which does NOT require sudo to access”&lt;/p&gt;
-
-&lt;h2 id=&quot;mac-os&quot;&gt;Mac OS:&lt;/h2&gt;
-&lt;p&gt;Best &lt;a href=&quot;https://opensource.com/article/19/5/python-3-default-mac&quot;&gt;summarising&lt;/a&gt; article on the different approaches, prons and cons.&lt;/p&gt;
-
-&lt;p&gt;Mac OS X 10.8 comes with Python 2.7 pre-installed by Apple.
-On a &lt;a href=&quot;https://unix.stackexchange.com/questions/9711/what-is-the-proper-way-to-manage-multiple-python-versions&quot;&gt;unix stackexchange forum&lt;/a&gt;:
-“Changing the default Python (or Perl, etc) on an OS is really bad idea. This interpreter is actually part of the OS and there may well be other OS components that are written specifically to work with that version of the interpreter. For example on Redhat the yum tool that performs system software updates is a python application. You really don’t want to break this. Such applications may depend on specific, perhaps non standard, python modules being installed which the version you installed may not have. For example on Ubuntu I believe some of the built-in OS tools written in Python use an ORM called Storm that isn’t part of the Python standard library. Does your clean Python 2.7 install have the specific expected version of the Storm module installed? Does it have any version of Storm? No? Then you’ve just broken a chunk of your OS.”&lt;/p&gt;
-
-&lt;p&gt;Recently running on Mac OS Catalina, i’ve noticed a python3 executable located in usr/bin, i suspect this came along with the &lt;a href=&quot;https://apple.stackexchange.com/questions/376077/is-usr-bin-python3-provided-with-macos-catalina&quot;&gt;MacOS update&lt;/a&gt; and we shouldn’t touch that either.&lt;/p&gt;
-
-&lt;p&gt;4 solutions here for an installation of a personnal Python, best one is definitely last one ! 2nd one is not bad either for beginners.&lt;/p&gt;
-
-&lt;h4 id=&quot;1-from-the-python-docs&quot;&gt;1. From the Python docs:&lt;/h4&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;The Apple-provided build of Python is installed in /System/Library/Frameworks/Python.framework and /usr/bin/python, respectively. You should never modify or delete these, as they are Apple-controlled and are used by Apple- or third-party software. Remember that if you choose to install a newer Python version from python.org, you will have two different but functional Python installations on your computer, so it will be important that your paths and usages are consistent with what you want to do. 
-You can read the &lt;a href=&quot;https://docs.python-guide.org/starting/install3/osx/&quot;&gt;docs&lt;/a&gt; to have a simple installation yet functionnal. This is the simplest approach to get a Python3 interpreter.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h4 id=&quot;2-another-article-suggests-using-the-homebrew-approach&quot;&gt;2. Another &lt;a href=&quot;https://docs.python-guide.org/starting/install3/osx/&quot;&gt;article&lt;/a&gt; suggests using the Homebrew approach,&lt;/h4&gt;
-&lt;p&gt;Homebrew is a free downloadable package manager tool for MacOS (similar to apt-get for Ubuntu), and leaves it manage and update for us the python version using:
- &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;brew update &amp;amp;&amp;amp; brew upgrade python&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;which we would call later on using &lt;strong&gt;python3&lt;/strong&gt; command (or creating a &lt;strong&gt;shebang on top of the file to instruct the shell to use the python3 executable&lt;/strong&gt;).&lt;/p&gt;
-
-&lt;p&gt;Note that using shortcut like &lt;strong&gt;shell aliases&lt;/strong&gt; to prefer using “python” over “python3” imply 2 things:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;aliases takes precedence over PATH browsing, but in case not corresponding aliases are defined or no shell are being involved (don’t forget that aliases are a shell feature), PATH will be read.&lt;/li&gt;
-  &lt;li&gt;using aliases might cause problems in case of virtual environments (pip aliased to pip3 won’t look at virtual env pip one!)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;3-using-pyenv&quot;&gt;3. Using PyEnv&lt;/h4&gt;
-
-&lt;p&gt;Pyenv is a tool to &lt;strong&gt;isolate different versions of Python&lt;/strong&gt; i.e. isolated environements for Python.
-From the GitHub of the author : “It’s simple, unobtrusive, and follows the UNIX tradition of single-purpose tools that do one thing well”. Also, “pyenv does not depend on Python itself. pyenv was made from &lt;strong&gt;pure shell scripts&lt;/strong&gt;. There is no bootstrap problem of Python”. Seems as a good candidate to better manage multiple Python versions.&lt;/p&gt;
-
-&lt;p&gt;This is different from virtualenv : a tool which creates isolated virtual python environments for the per-project specific Python &lt;strong&gt;libraries&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p&gt;You can then define a Python version to run globally, or per-project basis !&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Step-by-Step process:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;Install pyenv using Homebrew&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;brew install pyenv&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Install a version of Python using pyenv&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pyenv install 3.8.5&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;To have pyenv effects available at each shell instantiation you need to modify the bashrc or zshrc file:&lt;/p&gt;
-
-&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt; &lt;span class=&quot;c&quot;&gt;## does pyenv exist as a command ? then init pyenv and virtualenv&lt;/span&gt;
- &lt;span class=&quot;k&quot;&gt;if &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;command&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-v&lt;/span&gt; pyenv 1&amp;gt;/dev/null 2&amp;gt;&amp;amp;1&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;then
-  &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;eval&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;pyenv init -&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
- &lt;span class=&quot;k&quot;&gt;fi&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;Use cases:&lt;/strong&gt;&lt;/p&gt;
-
-&lt;ol&gt;
-  &lt;li&gt;Wanna define this version of Python as a global version ? (and not care about system Python):
- Check which versions are available:
-    &lt;ul&gt;
-      &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pyenv install list&lt;/code&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pyenv global 3.8.5&lt;/code&gt;&lt;/li&gt;
-      &lt;li&gt;then run &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;python&lt;/code&gt; and check the output/&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Wanna define this version of Python as per-project basis ?
-    &lt;ul&gt;
-      &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cd project/&lt;/code&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pyenv local 3.8.5&lt;/code&gt;&lt;/li&gt;
-      &lt;li&gt;this writes a &lt;em&gt;.python-version&lt;/em&gt; file in working directory.&lt;/li&gt;
-      &lt;li&gt;Then run &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;python&lt;/code&gt; in and outside the directory and notice the difference ;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Remove any versions ?
-    &lt;ul&gt;
-      &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pyenv uninstall 3.8.5&lt;/code&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;See which versions you can have and switch in:
-    &lt;ul&gt;
-      &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pyenv versions&lt;/code&gt;&lt;/li&gt;
-      &lt;li&gt;to switch between one another: use global as in &lt;strong&gt;1.&lt;/strong&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;See where is the real executable path (not renaming based on intercepting the command, which is what shims do)
-    &lt;ul&gt;
-      &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pyenv which python&lt;/code&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;Better:
-    &lt;ul&gt;
-      &lt;li&gt;using virtualenv AND pyenv using pyenv-virtualenv plugin, create a new environment with a &lt;strong&gt;Python version&lt;/strong&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pyenv virtualenv 3.8.5 myenv&lt;/code&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;cd project_where_i_should_need_to_active_myenv/&lt;/code&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pyenv local myenv&lt;/code&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;h3 id=&quot;4-anaconda&quot;&gt;4. Anaconda&lt;/h3&gt;
-&lt;p&gt;You can simply install the installer from anaconda, you shouldn’t modify PATH:&lt;/p&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;Should I add Anaconda to the macOS or Linux PATH? We do not recommend adding Anaconda to the PATH manually. During installation, you will be asked “Do you wish the installer to initialize Anaconda3 by running conda init?” We recommend “yes”. If you enter “no”, then conda will not modify your shell scripts at all. In order to initialize after the installation process is done, first run source &lt;path to=&quot;&quot; conda=&quot;&quot;&gt;/bin/activate and then run conda init.&lt;/path&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;In zsh, a command not found error might occur on typing &lt;strong&gt;conda&lt;/strong&gt; command, to fix this, use steps cited &lt;a href=&quot;https://towardsdatascience.com/how-to-successfully-install-anaconda-on-a-mac-and-actually-get-it-to-work-53ce18025f97&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;windows&quot;&gt;Windows:&lt;/h2&gt;
-&lt;p&gt;From official Python docs:&lt;/p&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;Unlike most Unix systems and services, Windows does not include a system supported installation of Python. To make Python available, the CPython team has compiled Windows installers (MSI packages) with every release for many years.” The full installer contains all components and is the best option for developers using Python for any kind of project.&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;h4 id=&quot;1-pyenv-win&quot;&gt;1. Pyenv-win&lt;/h4&gt;
-&lt;p&gt;For windows user: https://github.com/pyenv-win/pyenv-win&lt;/p&gt;
-
-&lt;h4 id=&quot;2-anaconda&quot;&gt;2. Anaconda:&lt;/h4&gt;
-&lt;p&gt;Installation using the GUI installer
-From the anaconda docs:&lt;/p&gt;
-&lt;blockquote&gt;
-  &lt;p&gt;Should I add Anaconda to the Windows PATH?
-When installing Anaconda, we recommend that you do not add Anaconda to the Windows PATH because this can interfere with other software. Instead, open Anaconda with the Start Menu and select Anaconda Prompt, or use Anaconda Navigator (Start Menu - Anaconda Navigator).&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;Enjoy Python ! ;)&lt;/p&gt;</content><author><name>luc</name></author><category term="featured" /><summary type="html">This tutorial helps newcomers to install Python properly and manage different Python versions, especially for Mac users having a system 2.7 Python installed already.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/images/post_install_python/cover.jpg" /><media:content medium="image" url="http://localhost:4000/assets/images/post_install_python/cover.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Coding a perceptron with Numpy</title><link href="http://localhost:4000/Coding-A-Perceptron-with-Numpy-copy/" rel="alternate" type="text/html" title="Coding a perceptron with Numpy" /><published>2020-08-04T00:00:00+02:00</published><updated>2020-08-04T00:00:00+02:00</updated><id>http://localhost:4000/Coding-A-Perceptron-with-Numpy%20copy</id><content type="html" xml:base="http://localhost:4000/Coding-A-Perceptron-with-Numpy-copy/">&lt;p&gt;Voici un test pour un nouveau post&lt;/p&gt;
-
-&lt;h4 id=&quot;on-aime-&quot;&gt;On aime !&lt;/h4&gt;</content><author><name>luc</name></author><summary type="html">Voici un test pour un nouveau post</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/images/post_coding_a_perceptron/cover.png" /><media:content medium="image" url="http://localhost:4000/assets/images/post_coding_a_perceptron/cover.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>luc</name></author><category term="featured" /><summary type="html">1st course will mainly focus on how to approach Python for the first time. For that we will use Jupyter module.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/images/post_approaching_python_programming/cover.png" /><media:content medium="image" url="http://localhost:4000/assets/images/post_approaching_python_programming/cover.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
