@@ -18,6 +18,8 @@ Dealing with initially less structured, clean and complete data consists in most
 
 First, check the overview of the package [here](https://pandas.pydata.org/docs/getting_started/overview.html)
 
+{% include toc.html html=content %}
+
 Pandas is built on top of Numpy.
 
 In the rest of this tutorial we will mainly work on the `DataFrame` class, although we first have to introduce 2 other core data structures provided by the package: the `Series` and the `Index`, as they are each constitutive of `DataFrame` and the former share very similar API with the DataFrame class.

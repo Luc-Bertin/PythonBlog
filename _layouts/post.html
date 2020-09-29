@@ -69,8 +69,9 @@ layout: default
 	        <div id="table-of-contents">
 	        	<div>
 	    			<h2>Table Of Contents</h2>
+	    			<hr>
 	    		</div>
-	            {% toc %}
+	            {% include toc.html html=content %}
 	        </div>
 		    {% endif %}
 

@@ -10,6 +10,8 @@ toc: true
 
 ---
 
+{:toc}
+
 You've probably heard of list comprehension in Python before. It is a declarative-like, concise, and generally easier way to read than a simple for loop.
 
 Example: 
