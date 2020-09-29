@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Some statistical elements for your ML journey"
+title:  "Some definitions elements and stats for your ML journey"
 author: luc
 categories: [ TDs, StatsEnVrac ]
 image_folder: /assets/images/stats_en_vrac/
@@ -12,8 +12,9 @@ toc: true
 ---
 
 
-> Machine Learning is the field of study that gives computers the ability to learn without being explicitly programmed (if,if,if,else,if). —Arthur Samuel, 1959
+> Machine Learning is the field of study that gives computers the ability to learn without being explicitly programmed (if,if,if,else,if). — Arthur Samuel, 1959
 
+# Why Machine Learning (ML) ?
 
 The promise with ML is to have a general framework to create data-related models which we expect to be **more robust, personalized and easier to maintain** into detecting patterns than **hard-coding a set of rules**.<br>
 Detecting new patterns over time, or from different sources, only require you to update the model or retrain it over the corresponding set of data.<br>
@@ -21,16 +22,20 @@ Detecting new patterns over time, or from different sources, only require you to
 ML models can also be inspected to infer about relationships between variables, and give humans a better understanding on complex and massive data, this is also called **data mining**. <br>
 But in my opinion there should be caution on such practice as to infer on the data generation process which is something that better falls in the scope of **statistics**.
 
-Statistics emphasizes inference, whereas Machine Learning emphasizes prediction. Actually the term *inference* in ML refers more as the predictions made on unseen data from an already trained model while inference in statistics is the process to deduce properties of an underlying distribution of probability. 
-Satistics explicitly takes uncertainty into account onto the model and use multiple methods of inference such as hypothesis testing on the observed data which is believed to have originated from a larger population.
+# Machine Learning vs Statistics
 
+Statistics emphasizes inference, whereas Machine Learning emphasizes prediction.
 
-and confront while ML is more empirical including allowance for high-order interactions that are not pre-specified.
+Actually the term *inference* in ML refers more as the predictions made on **unseen data** from a **trained model** while inference in statistics is the **process to deduce properties of an underlying distribution of probability**.
+
+Satistics explicitly takes uncertainty into account by specifying [probabilistic model for the data](https://www.fharrell.com/post/stat-ml/). It incorporates probabilities for the data generating mechanism.
+a use multiple methods of inference such as hypothesis testing on the observed data which is believed to have originated from a larger population.
+ML is more empirical including allowance for high-order interactions that are not pre-specified.
 
 
 A statistical hypothesis is a hypothesis that is testable on the basis of observed data modeled as the realised values taken by a collection of random variables.[1] A set of data (or several sets of data, taken together) are modelled as being realised values of a collection of random variables having a joint probability distribution in some set of possible joint distributions. The hypothesis being tested is exactly that set of possible probability distributions.
 
-
+> A statistical model (SM) is a data model that incorporates probabilities for the data generating mechanism and has identified unknown parameters that are usually interpretable and of special interest
 
 Neithertheless, ML emboddies representation-
 
