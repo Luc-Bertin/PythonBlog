@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en_US"><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="en_US" /><updated>2020-09-29T16:23:31+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">PythonMood | Let’s code with Lulu</title><subtitle>Luc Bertin's blog of Python theoretical and hands-on tutorials. Here we cover Python from scratch and some use cases for Data Science related subjects</subtitle><entry><title type="html">Some statistical elements for your ML journey</title><link href="http://localhost:4000/Scikit-Learn/" rel="alternate" type="text/html" title="Some statistical elements for your ML journey" /><published>2020-09-25T00:00:00+02:00</published><updated>2020-09-25T00:00:00+02:00</updated><id>http://localhost:4000/Scikit-Learn</id><content type="html" xml:base="http://localhost:4000/Scikit-Learn/">&lt;blockquote&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en_US"><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="en_US" /><updated>2020-09-29T16:38:06+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">PythonMood | Let’s code with Lulu</title><subtitle>Luc Bertin's blog of Python theoretical and hands-on tutorials. Here we cover Python from scratch and some use cases for Data Science related subjects</subtitle><entry><title type="html">Some statistical elements for your ML journey</title><link href="http://localhost:4000/Scikit-Learn/" rel="alternate" type="text/html" title="Some statistical elements for your ML journey" /><published>2020-09-25T00:00:00+02:00</published><updated>2020-09-25T00:00:00+02:00</updated><id>http://localhost:4000/Scikit-Learn</id><content type="html" xml:base="http://localhost:4000/Scikit-Learn/">&lt;blockquote&gt;
   &lt;p&gt;Machine Learning is the field of study that gives computers the ability to learn without being explicitly programmed (if,if,if,else,if). —Arthur Samuel, 1959&lt;/p&gt;
 &lt;/blockquote&gt;
 
@@ -250,39 +250,6 @@ It got rows and columns’ labels and can greatly contain and handle missing dat
 &lt;p&gt;Dealing with initially less structured, clean and complete data consists in most of the time spent by the data scientist.&lt;/p&gt;
 
 &lt;p&gt;First, check the overview of the package &lt;a href=&quot;https://pandas.pydata.org/docs/getting_started/overview.html&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Webscrapping using Selenium
-    &lt;ul&gt;
-      &lt;li&gt;Table Of Contents&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#how-does-selenium-webdriver-work-&quot;&gt;How does Selenium Webdriver work ?&lt;/a&gt;&lt;/li&gt;
-      &lt;li&gt;&lt;a href=&quot;#making-use-of-selenium-webdriver-&quot;&gt;Making use of Selenium webdriver !&lt;/a&gt;
-        &lt;ul&gt;
-          &lt;li&gt;&lt;a href=&quot;#1-the-installation&quot;&gt;1. The Installation&lt;/a&gt;&lt;/li&gt;
-          &lt;li&gt;&lt;a href=&quot;#2-the-script&quot;&gt;2. The Script&lt;/a&gt;&lt;/li&gt;
-          &lt;li&gt;&lt;a href=&quot;#3-operations&quot;&gt;3. Operations&lt;/a&gt;
-            &lt;ul&gt;
-              &lt;li&gt;&lt;a href=&quot;#navigating&quot;&gt;Navigating&lt;/a&gt;&lt;/li&gt;
-              &lt;li&gt;&lt;a href=&quot;#xpath&quot;&gt;XPath&lt;/a&gt;&lt;/li&gt;
-              &lt;li&gt;&lt;a href=&quot;#waits&quot;&gt;Waits&lt;/a&gt;
-                &lt;ul&gt;
-                  &lt;li&gt;&lt;a href=&quot;#implicit-wait&quot;&gt;implicit wait:&lt;/a&gt;&lt;/li&gt;
-                  &lt;li&gt;&lt;a href=&quot;#explicit-wait&quot;&gt;explicit wait:&lt;/a&gt;&lt;/li&gt;
-                  &lt;li&gt;&lt;a href=&quot;#action-chains&quot;&gt;Action chains&lt;/a&gt;&lt;/li&gt;
-                  &lt;li&gt;&lt;a href=&quot;#injecting-js-code-in-the-browser&quot;&gt;injecting js code in the browser&lt;/a&gt;&lt;/li&gt;
-                  &lt;li&gt;&lt;a href=&quot;#dom-document-object-model&quot;&gt;DOM: Document Object Model&lt;/a&gt;&lt;/li&gt;
-                  &lt;li&gt;&lt;a href=&quot;#another-interesting-link-on-the-difference-between-remotewebdriver-and-webdriver&quot;&gt;Another interesting link on the &lt;a href=&quot;https://stackoverflow.com/questions/57528987/what-is-the-difference-between-remotewebdriver-and-webdriver&quot;&gt;difference&lt;/a&gt; between &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;RemoteWebDriver&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Webdriver&lt;/code&gt;&lt;/a&gt;&lt;/li&gt;
-                  &lt;li&gt;Join Newsletter&lt;/li&gt;
-                  &lt;li&gt;Written by Luc&lt;/li&gt;
-                &lt;/ul&gt;
-              &lt;/li&gt;
-            &lt;/ul&gt;
-          &lt;/li&gt;
-        &lt;/ul&gt;
-      &lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
 
 &lt;p&gt;Pandas is built on top of Numpy.&lt;/p&gt;
 
@@ -6872,6 +6839,23 @@ dtype: int64
 &lt;h3 id=&quot;final-question-should-be&quot;&gt;Final question should be…&lt;/h3&gt;
 
 &lt;h2 id=&quot;what-should-we-put-in-fillna-for-them--&quot;&gt;What should we put in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;fillna&lt;/code&gt; for them 😉 ?&lt;/h2&gt;</content><author><name>luc</name></author><category term="featured" /><summary type="html">pandas.DataFrame is a 2-dimensional labeled data structure with columns of potentially different types. You can think of it like a spreadsheet or SQL table. It got rows and columns’ labels and can greatly contain and handle missing data.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/images/post_discover_pandas/index_img/cover.jpg" /><media:content medium="image" url="http://localhost:4000/assets/images/post_discover_pandas/index_img/cover.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Webscrapping using Selenium</title><link href="http://localhost:4000/webscrapping/" rel="alternate" type="text/html" title="Webscrapping using Selenium" /><published>2020-09-07T00:00:00+02:00</published><updated>2020-09-07T00:00:00+02:00</updated><id>http://localhost:4000/webscrapping</id><content type="html" xml:base="http://localhost:4000/webscrapping/">&lt;p&gt;Selenium is an open-source automated testing suite for web apps. It was at first used to automate tests for web applications as it can emulate user interactions with browsers, although its scope is wider as it can be used for other purposes: such as webscrapping for example.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Hands-on Numpy !
+    &lt;ul&gt;
+      &lt;li&gt;Table Of Contents&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;#numpy&quot;&gt;Numpy&lt;/a&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;#the-python-overhead-numpy-is-dealing&quot;&gt;the Python overhead numpy is dealing&lt;/a&gt;
+         -  Join Newsletter
+         -  Written by Luc 
+         {:.}
+     {:.}&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;h2 id=&quot;how-does-selenium-webdriver-work-&quot;&gt;How does Selenium Webdriver work ?&lt;/h2&gt;
 

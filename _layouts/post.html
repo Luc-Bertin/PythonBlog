@@ -66,13 +66,14 @@ layout: default
 
 			<!-- Table of Contents -->
 		    {% if page.toc %}
-	        <div id="table-of-contents">
-	        	<div>
-	    			<h2>Table Of Contents</h2>
-	    			<hr>
-	    		</div>
-	            {% include toc.html html=content %}
-	        </div>
+		    <div>
+		        <div id="table-of-contents-header">
+		        	<h2 class="rotate">Table Of Contents</h2>
+		        	<div id="table-of-contents">
+		            	{% include toc.html html=content %}
+		            </div>
+		        </div>
+	    	</div>
 		    {% endif %}
 
 
