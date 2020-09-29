@@ -61,15 +61,16 @@ layout: default
 			</div>
 		</div>
         
-        
-		<div class="col-md-12 col-lg-8">
 
+		<div class="col-md-12 col-lg-8">
 			<!-- Table of Contents -->
 		    {% if page.toc %}
 		    <div>
 		        <div id="table-of-contents-header">
-		        	<h2 class="rotate">Table Of Contents</h2>
 		        	<div id="table-of-contents">
+		        		<h2>Table Of Contents</h2>
+		        		<h2 class="fixed-right"><a href="#table-of-contents-header">Table Of Contents</a></h2>
+		        		<hr>
 		            	{% include toc.html html=content %}
 		            </div>
 		        </div>
