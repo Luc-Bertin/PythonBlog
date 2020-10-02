@@ -5131,7 +5131,7 @@ df_notes.eleve.apply(function) # the function applies on each value in the colum
 
 behind, apply is looping on each element of the column `eleve` and returning a value for each of them
 
-### on a `DataFrame` object
+#### on a `DataFrame` object
 
 We can also use the `apply` method on a `DataFrame` object, but we need to provide an axis.<br>
 applied function won't be fed a single column element this time but a Series.<br>
@@ -6825,7 +6825,7 @@ df_notes.groupby('eleve').agg(list)
 
 Some students are known, but are not always written as such.
 
-### transform
+#### transform
 
 sometimes we want the ***"apply-combine"*** steps to avoid reducing the data size but compute for each data record something based on some intra-group/splits caracteristics 
 
@@ -7227,7 +7227,7 @@ seems we don't have data for the exam number 4 fro this group (which had been ca
 df_notes = df_notes[~(df_notes.quizz=='td4')]
 ```
 
-### Pivot Table
+#### Pivot Table
 
 
 ```python
@@ -7724,8 +7724,6 @@ df_notes[pd.isna(df_notes.appreciation)]
 
 
 
-missing grades for students although in the table at practice session1, maybe due to possible not good scrapping ?
-
-### Final question should be...
-
-## What should we put in `fillna` for them 😉 ?
+missing grades for students.
+Final question should be...<br>
+What should we put in `fillna` for them 😉 ?
