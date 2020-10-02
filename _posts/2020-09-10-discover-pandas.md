@@ -330,9 +330,9 @@ This also means a performance drop, **any operations on the data will be done at
 
 #### Masking
 
-A "masked Series" is a collection of indexes:boolean-values, which can be later used to filter-out elements from another Series, based on the falsy evaluated values for each index in the former.
+A Series mask is a Series as a collection of indexes:boolean-values, which can be later used to filter-out elements from another Series, based on the falsy evaluated values for each index in the former.
 
-Performing a comparison on a Series creates a masked one of same length, with indexes from the original array along with `true` or `false` results originating from the **element-wise** comparisons from your original comparison expression.
+Performing a comparison on a Series creates a mask of same shape, with indexes from the original array along with `true` or `false` results originating from the **element-wise** comparisons from your original comparison expression.
 
 
 ```python
@@ -392,7 +392,7 @@ type((test>2) & (test < 4) )
     pandas.core.series.Series
 
 
-We can later store this in a mask, it is particularly useful when a lot comparisons should be given a meaningful name (e.g. `mask` variable here could be `lower4greater2` for example).
+We can later keep it in as a 'mask' variable, it is particularly useful when a lot comparisons should be given a meaningful name (e.g. `mask` variable here could be `lower4greater2` for example).
 
 ```python
 # mask ( the last expression whose result is an pd.Serie stored in the variable mask)
@@ -649,7 +649,7 @@ serie2.index[:2]
     Int64Index([1, 2], dtype='int64')
 
 
-## have `set`s' operations
+### have `set`s' operations
 
 By this we mean it does have common bitwise operatoin
 
@@ -677,7 +677,7 @@ serie2.index ^ {1,5}
 
 
 
-### Are immutables
+### are immutables
 
 ```python
 serie2.index[0]=18
@@ -711,6 +711,8 @@ The "main thing" of this lecture that we are going to use intensively in the res
 * Flexible rows and columns' labels (`Index` objects for both).
 
 
+### Construction
+
 ```python
 serie1 = pd.Series({"Luc": 25, "Corentin":29, "René": 40})
 serie2 = pd.Series({"René": "100%", "Corentin": "25%", "Luc": "20%"})
@@ -727,8 +729,6 @@ df = pd.DataFrame({"note": serie1,
 ```python
 df
 ```
-
-
 
 
 <div>
@@ -855,63 +855,9 @@ df2
 </div>
 
 
-
-
-```python
-df.shape
-```
-
-
-
-
-    (3, 2)
-
-
-
-shape: tuple of the number of elements with respect to each dimension
-
-For a 1D array, the shape would be (n,) where n is the number of elements in your array.
-
-For a 2D array, the shape would be (n,m) where n is the number of rows and m is the number of columns in your array
-
-accessing a column/`Serie` by key : 
-
-
-```python
-df['note']
-```
-
-
-
-
-    Corentin    29
-    Luc         25
-    René        40
-    Name: note, dtype: int64
-
-
-
-
-Using the attribute notation is not advised for assignements as some methods or attributes of the same name already exist in the DataFrame class' own namespace
-
-
-```python
-df.note
-```
-
-
-
-
-    Corentin    29
-    Luc         25
-    René        40
-    Name: note, dtype: int64
-
-
-
-The `DataFrame` can be constructed using a list of dictionary
-each dict element is a row
-each key of each dict refers a column
+The `DataFrame` can be constructed using a list of dictionary.
+* each `dict` element is a row.
+* each key of each dict refers to a column.
 
 
 ```python
@@ -961,7 +907,6 @@ df2
   </tbody>
 </table>
 </div>
-
 
 
 
@@ -1022,7 +967,73 @@ pd.DataFrame([(1, 1, 3), (1, 2,4), (1,1,1)],
 
 
 
+
+You can also create a DataFrame by using pandas methods for reading supported file format, e.g. using `pd.read_csv` method.
+
+### Shape property
+
+```python
+df.shape
+```
+
+
+
+
+    (3, 2)
+
+
+
+shape: tuple of the number of elements with respect to each dimension
+
+* For a 1D array, the shape would be (n,) where n is the number of elements in your array.
+
+* For a 2D array, the shape would be (n,m) where n is the number of rows and m is the number of columns in your array
+
+accessing a column/`Serie` by key : 
+
+### Accessing columns
+
+As `DataFrame` is seen like a dictionary of `Series` / columns, you can access one of them using the corresponding <strike>key</strike> column'index ! 
+
+
+```python
+df['note']
+```
+
+
+
+
+    Corentin    29
+    Luc         25
+    René        40
+    Name: note, dtype: int64
+
+
+
+
+Using the attribute notation is **not advised** especially for assignements as some methods or attributes of the same name already exist in the DataFrame class' own namespace.
+
+
+```python
+df.note
+```
+
+
+
+
+    Corentin    29
+    Luc         25
+    René        40
+    Name: note, dtype: int64
+
+
+
+
+
+### Indexing or Slicing
+
 Indexing works the same way as for Series, but you have to account this time for the second dimension
+
 
 `df.loc_or_iloc[ dim1 = rows, dim2 = columns]`
 
@@ -1267,12 +1278,7 @@ df.loc[["Corentin", "Luc"], :] # mixing slicing and fancy indexing
 
 
 
-Something to mention here, by default, without using indexers like `loc` and `iloc`:
-- indexing directly `df`, performs the indexing on its columns **(ex:1)**
-- slicing by conditions, or using a slice notation (::), is performed on rows **(ex:2)**
-
-(1)
-
+Something to mention here: by default, without using accessors like `loc` and `iloc`, indexing or fancy indexing directly `df`, performs the indexing on its columns.
 
 ```python
 df[["charge_de_travail"]] # indexing directly df defaults to columns
@@ -1321,8 +1327,13 @@ df[["charge_de_travail"]] # indexing directly df defaults to columns
 
 
 
-(2) 
+### Masking
 
+You can also use masking here and draw comparisons on a `Dataframe` level (e.g. `df > 3`), or on `Series`/column level, e.g. `df["sexe"] == "Homme"`, `df["age"] > 18`. 
+
+A difference here using Series as a mask is that filtering a `DataFrame` using only `true` evaluated values from a Series (a 1D indexed-array then), keeps the **entire rows** as you may have multiple aligned `Series`/ columns for one given Index with a true value.
+
+Slicing using slice notation (::), or masking is performed on rows by default.
 
 ```python
 mask = df["charge_de_travail"]=="25%" 
@@ -1338,10 +1349,11 @@ mask
     Name: charge_de_travail, dtype: bool
 
 
-
+Note that the masked Series having the explictly defined indexes, you can still use `df.loc` upon filtering.
 
 ```python
 df[mask] # masking directly df is operated on rows
+# same as df.loc[mask]
 ```
 
 
