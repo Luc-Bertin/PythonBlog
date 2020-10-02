@@ -1329,9 +1329,10 @@ df[["charge_de_travail"]] # indexing directly df defaults to columns
 
 ### Masking
 
-You can also use masking here and draw comparisons on a `Dataframe` level (e.g. `df > 3`), or on `Series`/column level, e.g. `df["sexe"] == "Homme"`, `df["age"] > 18`. 
+You can also use masking here and draw comparisons on a `Dataframe` level (e.g. `df > 3`), or on `Series`/column level, e.g. `df["sexe"] == "Homme"`, `df["age"] > 18`.<br>
+In the first case, the resulting object will be a `DataFrame` filled with boolean values. In the second one, as before, a `Series` with boolean values.
 
-A difference here using Series as a mask is that filtering a `DataFrame` using only `true` evaluated values from a Series (a 1D indexed-array then), keeps the **entire rows** as you may have multiple aligned `Series`/ columns for one given Index with a true value.
+A difference here using Series as a mask is that filtering a `DataFrame` using only `true` evaluated values from a Series (a 1D indexed-array then), keeps the **entire rows** as you may have multiple aligned `Series`/ columns for one given Index (with a true value).
 
 Slicing using slice notation (::), or masking is performed on rows by default.
 
@@ -1349,7 +1350,7 @@ mask
     Name: charge_de_travail, dtype: bool
 
 
-Note that the masked Series having the explictly defined indexes, you can still use `df.loc` upon filtering.
+Note that the Series-like mask, having the explictly defined indexes from the original one, you can still use `df.loc` upon filtering.
 
 ```python
 df[mask] # masking directly df is operated on rows
@@ -1445,7 +1446,7 @@ df[:3] # slicing directly df is operated on rows
 
 
 
-## Operations on Pandas
+### Operations on Pandas
 
 Element-wise operations are made easy in `Pandas`.
 
