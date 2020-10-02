@@ -12,6 +12,8 @@ order: 3
 
 ---
 
+# Why Pandas ?
+
 To create a machine learning model, we need to apply the underlying algorithm on some training data (more on this in **Lecture 5**). For this to work, we need to have a specific data structure to pass as input. <br>
 Most traditional ML models require a 2D data-structure, just like a matrix. A `numpy.array` can be used for that purpose. Each row define an observation (more on this in **Lecture 5**), types of observations might depend on our designed problem. Each column display a caracteristic for each of these observations.<br>
 Now, imagine such 2D data structure, maybe you would want to first name your columns and rows, analogously to a spreadsheet or SQL table, then inspect your data, handle missing values, do some processing on it (e.g. retrieve number of streets out of the street name), combine with other related, 2D, data from different sources, quickly perform descriptive statistics, do some computations on columns, on rows, or even within groups of observations sharing some common arbitrary caracteristic, quickly display trends from your computations.<br>
@@ -20,7 +22,7 @@ Also, dealing with initially less structured, clean and complete data, consists 
 In either cases, `Pandas` package and its `DataFrame` object comes in handy.  
 
 
-# 3 important Pandas' data-structures
+# Three important Pandas' data-structures
 
 From the pandas docs, which give a nice overview of the [package](https://pandas.pydata.org/docs/getting_started/overview.html):
 >`pandas.DataFrame` is a 2-dimensional labeled data structure with columns of potentially different types. You can think of it like a spreadsheet. It got rows and columns' labels (`pandas.Index` objects). Each column is a `pandas.Series`.
@@ -30,6 +32,8 @@ Pandas is built on top of Numpy, hence sharing some optimizations from the latte
 In the rest of this tutorial we will mainly work on the `DataFrame` class, although we first need to introduce the 2 other core data structures mentioned sooner: the `Series` and the `Index`, as they are each constitutive of `DataFrame` and the former share also similarly named methods and behaviors with the `DataFrame` class.
 
 ## Series
+
+### Definition
 
 one-dimensional array of indexed data. 
 
@@ -82,8 +86,9 @@ serie_1.index
     Int64Index([93, 129, 219394], dtype='int64')
 
 
+### Series as a dictionnary-like object
 
-a **dictionnary-like**, object with possible <strike>keys</strike> index repetition.<br>
+A **dictionnary-like**, object with possible <strike>keys</strike> index repetition.<br>
 
 
 ```python
@@ -406,7 +411,14 @@ test[mask]
     dtype: int64
 
 
-* **Fancy indexing** is just a fancy word for selecting multiple indexes, provisioning a list of indexes.
+#### Indexing
+
+We can also select a value for a given index, as highlighted in the introductory section on `Series`. 
+Although we should take extra care when doing so: the previous notation, e.g. `serie['rené']`, makes use of the **names** of the indexes we **explicitly defined** earlier.
+
+#### Fancy indexing
+
+This is just a fancy word for selecting multiple indexes, provisioning a list of indexes.
 
 ```python
 # fancy indexing (<=> selecting multiple indexes using a list of indexes)
@@ -421,11 +433,19 @@ test[["ea", "fzf"]]
     dtype: int64
 
 
-* **Slicing** is another word for selecting a subset of an original array (or even list), based on an interval constructed using a start, stop and [step] elements.
+#### Slicing and the confusion of explicit vs implicit indexes
 
+This is another word for selecting a subset of an original array (or even list), based on an interval constructed using a start, stop and [step] elements.
+
+For Series, we can slice a Series by 2 ways:
+* using the names we **explicitly** defined (or defaulted as integer-based indexes creation) for the index at `Series` creation time, for start and stop values.
+* using **implicit** start and stop values for the index. By implicit we mean integers which define the order of appearance of the index itself, taking caution that the first element is of index 0 in Python.
+
+
+* Explicit index slicing:
 
 ```python
-# explicit index slicing (using the labels of the indexes)
+#  (using the labels of the indexes)
 test["aeif": "fzf"]
 ```
 
@@ -439,9 +459,9 @@ test["aeif": "fzf"]
 
 
 
+* Implicit index slicing (using integers i.e. order of appearance):
 
-```python
-# implicit index slicing (using integers)
+```python 
 test[0: 2]
 ```
 
@@ -458,9 +478,7 @@ test[0: 2]
 
 - using implicit index in slicing ***exclude*** the final index
 
-What about i defined **explicit integer indexes at first** and i want to slice ? 🙄
-
-## using loc
+What about i defined at creation time a Series with **integer index values** and i want to slice them ? 🙄
 
 
 ```python
@@ -477,11 +495,12 @@ serie2
     dtype: int64
 
 
+Here you see that for **indexing**, the explicit index is used, i.e. "element of index defined as **3**", but for slicing it is takes elements from the 2nd indexed element to the 3rd, excluded, indexed element, no matter what value of index the elements are.
 
 
 ```python
 serie2[3] # indexing: defaults to select explicit index /  with label 3
-serie2[2:3] # slicing: defaults to select implicit index
+serie2[2:3] # slicing: defaults to select implicit indexes
 ```
 
 
@@ -498,7 +517,14 @@ serie2[2:3] # slicing: defaults to select implicit index
     dtype: int64
 
 
+### Loc and Iloc accessors
 
+These accessors give a great alternative from default, albeit confusing, slicing behaviors with respect to the indexes'values.
+
+
+#### Using `loc` property:
+
+This forces indexing and slicing using the explicitly defined index values:
 
 ```python
 serie2.loc[1] # indexing: on explicit index
@@ -520,7 +546,9 @@ serie2.loc[2:3] # slicing: on explicit index
     dtype: int64
 
 
+#### Using `iloc` property:
 
+This forces indexing and slicing using *implicit* indexes i.e. order of appearance of the elements from `0` (1st element) to `n-1` (last one). This also means you will never use something else in `iloc` accessors than integers.
 
 ```python
 serie2.iloc[1] # indexing: on implicit index
@@ -591,32 +619,12 @@ serie2.iloc[[1,2]] # fancy indexing
 
 
 
-### Index object 
-
-* are immutable
+## Index object 
 
 
-```python
-serie2.index[0]=18
-```
+### can be sliced or indexed 
 
-
-    Traceback (most recent call last):
-
-
-      File "<ipython-input-1096-707f9cda8675>", line 1, in <module>
-        serie2.index[0]=18
-
-
-      File "/Users/lucbertin/.pyenv/versions/3.5.7/lib/python3.5/site-packages/pandas/core/indexes/base.py", line 4260, in __setitem__
-        raise TypeError("Index does not support mutable operations")
-
-
-    TypeError: Index does not support mutable operations
-
-
-
-* can be sliced or indexed (just like an array)
+...just like an array, because it is indeed an one-dimensional array.
 
 
 ```python
@@ -641,7 +649,9 @@ serie2.index[:2]
     Int64Index([1, 2], dtype='int64')
 
 
+## have `set`s' operations
 
+By this we mean it does have common bitwise operatoin
 
 ```python
 serie2.index & {1, 5}
@@ -666,15 +676,39 @@ serie2.index ^ {1,5}
 
 
 
-# DataFrame
 
-* sequence of "aligned" Series objects (sharing same indexes / like an Excel file )
+### Are immutables
 
-* each Series object is a column
+```python
+serie2.index[0]=18
+```
 
-* Hence `pd.DataFrame` can be seen as dictionnary of Series objects
 
-* Flexible rows and columns' labels (`Index` objects for both)
+    Traceback (most recent call last):
+
+
+      File "<ipython-input-1096-707f9cda8675>", line 1, in <module>
+        serie2.index[0]=18
+
+
+      File "/Users/lucbertin/.pyenv/versions/3.5.7/lib/python3.5/site-packages/pandas/core/indexes/base.py", line 4260, in __setitem__
+        raise TypeError("Index does not support mutable operations")
+
+
+    TypeError: Index does not support mutable operations
+
+
+## DataFrame
+
+The "main thing" of this lecture that we are going to use intensively in the rest of this lecture:
+
+* sequence of "aligned" Series objects (sharing the same indexes / like an Excel file).
+
+* each Series object is a column.
+
+* Hence `pd.DataFrame` can be seen as dictionnary of Series objects.
+
+* Flexible rows and columns' labels (`Index` objects for both).
 
 
 ```python
