@@ -517,12 +517,12 @@ serie2[2:3] # slicing: defaults to select implicit indexes
     dtype: int64
 
 
-### Loc and Iloc accessors
+#### Loc and Iloc accessors
 
 These accessors give a great alternative from default, albeit confusing, slicing behaviors with respect to the indexes'values.
 
 
-#### Using `loc` property:
+##### Using `loc` property:
 
 This forces indexing and slicing using the explicitly defined index values:
 
@@ -546,7 +546,7 @@ serie2.loc[2:3] # slicing: on explicit index
     dtype: int64
 
 
-#### Using `iloc` property:
+##### Using `iloc` property:
 
 This forces indexing and slicing using *implicit* indexes i.e. order of appearance of the elements from `0` (1st element) to `n-1` (last one). This also means you will never use something else in `iloc` accessors than integers.
 
@@ -616,6 +616,70 @@ serie2.iloc[[1,2]] # fancy indexing
     2     8
     3    51
     dtype: int64
+
+
+### dtypes
+
+A serie being an-indexed array, it then maintain a well-known implementation feature from `numpy`that infers about the overall representation of the data within the array: the `dtype`.
+
+Recall that infering the data representation which accomodates all elements in the array is what enables, in case, for example, of numerical data (integers, float), to not only stored the values as C integers (avoiding the overhead introduced by Python primitive types) but also to perform efficient operations on the C for-loop level, as it is not required to dynamically type-check every single elements of the array and find which function to dispatch accordingly.
+
+
+```python
+%timeit np.arange(1E6, dtype="int").sum()
+```
+
+    1.14 ms ± 142 µs per loop (mean ± std. dev. of 7 runs, 1000 loops each)
+
+
+```python
+%timeit np.arange(1E6, dtype="float").sum()
+```
+
+    1.25 ms ± 17.7 µs per loop (mean ± std. dev. of 7 runs, 1000 loops each)
+
+
+
+```python
+s = pd.Series(['The', 3, 'brown', 'fox'])
+```
+
+
+```python
+s*2
+```
+
+
+
+
+    0        TheThe
+    1             6
+    2    brownbrown
+    3        foxfox
+    dtype: object
+
+
+
+```python
+s.values
+```
+
+
+
+
+    array(['The', 3, 'brown', 'fox'], dtype=object)
+
+
+
+> [Link](https://stackoverflow.com/questions/29877508/what-does-dtype-object-mean-while-creating-a-numpy-array). Creating an array with dtype=object is different. The memory taken by the array now is filled with pointers to Python objects which are being stored elsewhere in memory (much like a Python list is really just a list of pointers to objects, not the objects themselves).
+
+
+```python
+%timeit np.arange(1E6, dtype="object").sum()
+```
+
+    77.8 ms ± 4.15 ms per loop (mean ± std. dev. of 7 runs, 10 loops each)
+
 
 
 
@@ -1446,18 +1510,22 @@ df[:3] # slicing directly df is operated on rows
 
 
 
-### Operations on Pandas
+### Operations between `DataFrame`s
 
-Element-wise operations are made easy in `Pandas`.
+What about multiplying all elements from a DataFrame by 2?<br>
+What about adding 2 DataFrame ? 
 
 
-* 3 - 2 <=> substract(3,2) <=> binary operation (2 inputs)
-* -2 <=> neg(2) <=> unary operation (one input)
-* sin(2) <=> unary operation (one input)
+We first need to distinct 2 types of operations into binary and unary operations:
+* 3 - 2 <=> substract(3,2) <=> **binary operation** (2 inputs)
+* -2 <=> neg(2) <=> **unary operation** (one input)
+* sin(2) <=> **unary operation** (one input)
+
 
 in `Pandas` : 
   - unary operations on `df`s elements preserve the indexes.
-  - binary operations on elements from 2 `df`s align the operations on the indexes.
+  - binary operations on elements from 2 `df`s **align** the operations on the indexes.
+  These behaviors come from numpy `ufuncs` (universal functions i.e. vectorized functions i.e. that take the whole vector as input, applying the function element-wise) which can be used for `DataFrame`ss too.
 
 
 ```python
@@ -1598,7 +1666,7 @@ df2
 </div>
 
 
-
+We will use for the later example of summation between 2 DataFrames, `reindex` just to rearranged indexes of `df2` (this does not change the association indexed-value !)
 
 ```python
 df2 = df2.reindex([1,0,2,3]) #just to show rearranged indexes (does not change the association with the indexed data)
@@ -1806,9 +1874,11 @@ df.__add__(df2, fill_value=25) # used in the binary operation 25+8 = 33)
 
 
 
-#### Operation between pandas series and a pandas dataframe
+### Operations between Series and Dataframe
 
-From the Numpy Docs
+Performing an operation between a Serie and a DataFrame implies performing an operation between data structures of different shapes, hence implying numpy **broadcasting**.
+
+From the Numpy docs:
 
 > Broadcasting is **how numpy treats arrays with different shapes during arithmetic operations**. 
 Subject to certain constraints, the smaller array is “broadcast” across the larger array so that they **have compatible shapes.**
@@ -1818,7 +1888,7 @@ The only requirement for broadcasting is a way aligning array dimensions such th
 * aligned dimensions are equal (so that operations are done on an element-by-element basis from 2 arrays of same shape)
 * one of the aligned dimensions is 1 (in other words, dimensions with size 1 are stretched or “copied” to match the dimension of the other array)
 
-Operations between `pandas.Series` and `pandas.DataFram` respect the numpy broadcasting rules:
+Operations between `pandas.Series` and `pandas.DataFram` then respect the numpy broadcasting rules:
 >  If the two arrays **differ in their number of dimensions**, the shape of the one with **fewer dimensions is padded with ones on its leading (left) side.'**  (2)
 
 
@@ -2254,6 +2324,11 @@ df.__sub__(df.iloc[1], axis=0)
 
 
 
+### Close API with `Series` and `numpy`
+
+The `DataFrame` object, constituted of `Series` object and being also an 'enhanced version' of a `numpy` array, no wonder why a major part of the API for one can be reused for the other.
+
+Here are just example of reused methods or properties (you've seen other ones in the course like loc and iloc for instance):
 
 ```python
 df[0].shape, df.shape
@@ -2327,45 +2402,6 @@ df2
 
 
 
-
-### dtypes
-
-
-```python
-s = pd.Series(['The', 3, 'brown', 'fox'])
-```
-
-
-```python
-s*2
-```
-
-
-
-
-    0        TheThe
-    1             6
-    2    brownbrown
-    3        foxfox
-    dtype: object
-
-
-
-
-```python
-s.values
-```
-
-
-
-
-    array(['The', 3, 'brown', 'fox'], dtype=object)
-
-
-
-> [Link](https://stackoverflow.com/questions/29877508/what-does-dtype-object-mean-while-creating-a-numpy-array). Creating an array with dtype=object is different. The memory taken by the array now is filled with pointers to Python objects which are being stored elsewhere in memory (much like a Python list is really just a list of pointers to objects, not the objects themselves).
-
-
 ```python
 print(df.dtypes)
 print(df2.dtypes) 
@@ -2386,29 +2422,6 @@ print(df2.dtypes)
     id_client     object
     dtype: object
 
-
-
-```python
-%timeit np.arange(1E6, dtype="int").sum()
-```
-
-    1.14 ms ± 142 µs per loop (mean ± std. dev. of 7 runs, 1000 loops each)
-
-
-
-```python
-%timeit np.arange(1E6, dtype="object").sum()
-```
-
-    77.8 ms ± 4.15 ms per loop (mean ± std. dev. of 7 runs, 10 loops each)
-
-
-
-```python
-%timeit np.arange(1E6, dtype="float").sum()
-```
-
-    1.25 ms ± 17.7 µs per loop (mean ± std. dev. of 7 runs, 1000 loops each)
 
 
 ### Managing missing values
