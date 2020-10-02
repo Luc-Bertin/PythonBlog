@@ -1389,6 +1389,11 @@ df[["charge_de_travail"]] # indexing directly df defaults to columns
 </table>
 </div>
 
+Finally, of course you can set a new value for an element on some (row_index, column_index) using either of those accessors:
+
+```python
+df.iloc[0,2] = np.nan
+``` 
 
 
 ### Masking
@@ -2426,6 +2431,9 @@ print(df2.dtypes)
 
 ### Managing missing values
 
+This is a real asset of pandas `Dataframe` in comparison to `numpy`(which would find other strategies for handling missing values during computations, using classes like "masked arrays").<br>
+Managing missing values, either by dropping or imputing them based on some type of criteria, is an crucial step you should always document during your data scientist experiments. It is always a hot spot in areas such as Statistics or Machine Learning.<br>
+A mishandling of NA values can definitely have an impact on your results or greatly lower your model performance trained on the data.
 
 ```python
 pd.Series([2, np.nan]).isnull()
@@ -3377,9 +3385,9 @@ health_data.loc[idx[:, 1], idx[:, 'HR']]
 
 
 
-### Unstacking and Stacking: a matter of dimnesionality
+### Unstacking and Stacking: a matter of dimensionality
 
-Creating a multiIndex rather than a simlpe Index is like **creating an extra-dimension in our dataset.**
+Creating a multiIndex rather than a simple Index is like **creating an extra-dimension in our dataset.**
 
 We can take for **each year**, a **2D sub-dataframe** composed of **Bob's HR visits**.
 
@@ -3866,7 +3874,9 @@ health_data.mean(axis=1, level='type')
 
 
 
-### pd.concat
+### Concatenating `DataFrame`s
+
+`pd.concat` is here for the rescue !
 
 
 ```python
@@ -4515,7 +4525,7 @@ df1.append(df2)
 
 
 
-### Merge
+### Merging `DataFrame`s
 
 
 ```python
@@ -4913,7 +4923,7 @@ df_merged.drop('id_account', axis=1)
 #)
 ```
 
-## Apply 
+### Apply 
 
 For the following sections, we are going to use real world data of students'grades from an exam I gave 😜 The data has been anonymised to fit GDPR regulation.
 
@@ -5084,8 +5094,9 @@ df_notes.tail(5)
 </div>
 
 
+#### On a Series object
 
-### Let's define a function to be applied for each val in a colum
+Let's define a function to be applied for each element of a column.
 
 
 ```python
@@ -5120,9 +5131,9 @@ df_notes.eleve.apply(function) # the function applies on each value in the colum
 
 behind, apply is looping on each element of the column `eleve` and returning a value for each of them
 
-### We can also use apply on the dataframe 
+### on a `DataFrame` object
 
-But wee need to provide an axis.<br>
+We can also use the `apply` method on a `DataFrame` object, but we need to provide an axis.<br>
 applied function won't be fed a single column element this time but a Series.<br>
 a Series whose index depends on the axis we choose !
 
@@ -5429,11 +5440,9 @@ df_notes.note.str[:1].astype(float).sum()
 
 
 
-## Manipulating columns with strings
+### Manipulating columns with strings
 
-## Manipulating columns with strings
-
-What is a vectorized function: it is a function that applies on the whole sequence rather than each element as input.
+Back to the definition of a vectorized function: it is a function that applies on the whole sequence rather than each element as input.
 
 This is the case for numpy functions like `np.mean`, `np.sum`, `np.std` which apply on a numerically valued input array as a whole, so the loop is moved from the Python-level to the [C one](https://stackoverflow.com/questions/58071631/is-numpy-vectorization-using-c-loops)
 
@@ -5929,7 +5938,7 @@ df_notes
 
 ### Other interesting functions to mention
 
-To compute the counts of unique values use : pd.Series.value_counts()
+To compute the counts of unique values use : `pd.Series.value_counts()`
 
 
 ```python
@@ -5951,7 +5960,7 @@ df_notes.groupe.value_counts(ascending=False)
 
 
 
-To do a `binning` : i.e. group a number of more or less continuous values into a smaller number of "bins". Use pd.cut
+To do a `binning` : i.e. group a number of more or less continuous values into a smaller number of "bins". Use `pd.cut
 
 
 ```python
@@ -6037,7 +6046,7 @@ df_notes.appreciation
 
 
 
-## GroupBy
+### GroupBy !
 
 
 ```python
