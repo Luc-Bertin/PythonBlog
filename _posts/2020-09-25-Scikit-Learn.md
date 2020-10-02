@@ -8,6 +8,7 @@ image: assets/images/post_some_statistical_elements/index_img/cover.jpg
 image_index: assets/images/post_some_statistical_elements/index_img/cover.jpg
 tags: [featured]
 toc: true
+order: 5
 
 ---
 
@@ -47,7 +48,7 @@ Statistics are different from Machine Learning although these are domain that te
 it is mostly employed towards better understanding some particular data generating process
 https://www.peggykern.org/uploads/5/6/6/7/56678211/edu90790_decision_chart.pdf
 
-## On the Data Representation
+# Data Representation
 
 Here are some statistical notions and vocabulary to accompany your different data science and ML projects. 
 

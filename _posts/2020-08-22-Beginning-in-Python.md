@@ -8,6 +8,7 @@ image: assets/images/post_approaching_python_programming/cover.png
 image_index: assets/images/post_approaching_python_programming/index_img/cover.png
 tags: [featured]
 toc: true
+order: 2
 
 ---
 

@@ -8,6 +8,7 @@ image: assets/images/post_discover_pandas/index_img/cover.jpg
 image_index: assets/images/post_discover_pandas/index_img/cover.jpg
 tags: [featured]
 toc: true
+order: 3
 
 ---
 
