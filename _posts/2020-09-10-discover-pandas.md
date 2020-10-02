@@ -12,21 +12,26 @@ order: 3
 
 ---
 
->`pandas.DataFrame` is a 2-dimensional labeled data structure with columns of potentially different types. You can think of it like a spreadsheet or SQL table.
-It got rows and columns' labels and can greatly contain and handle missing data.
+To create a machine learning model, we need to apply the underlying algorithm on some training data (more on this in **Lecture 5**). For this to work, we need to have a specific data structure to pass as input. <br>
+Most traditional ML models require a 2D data-structure, just like a matrix. A `numpy.array` can be used for that purpose. Each row define an observation (more on this in **Lecture 5**), types of observations might depend on our designed problem. Each column display a caracteristic for each of these observations.<br>
+Now, imagine such 2D data structure, maybe you would want to first name your columns and rows, analogously to a spreadsheet or SQL table, then inspect your data, handle missing values, do some processing on it (e.g. retrieve number of streets out of the street name), combine with other related, 2D, data from different sources, quickly perform descriptive statistics, do some computations on columns, on rows, or even within groups of observations sharing some common arbitrary caracteristic, quickly display trends from your computations.<br>
+Also, dealing with initially less structured, clean and complete data, consists in most of the time spent by the data scientist. Sometimes the data you're being given doesn't have such 2D representation and you would want to have some helpers functions to perform the conversion.
 
-Dealing with initially less structured, clean and complete data consists in most of the time spent by the data scientist.
+In either cases, `Pandas` package and its `DataFrame` object comes in handy.  
 
-First, check the overview of the package [here](https://pandas.pydata.org/docs/getting_started/overview.html)
 
-Pandas is built on top of Numpy.
+# 3 important Pandas' data-structures
 
-In the rest of this tutorial we will mainly work on the `DataFrame` class, although we first have to introduce 2 other core data structures provided by the package: the `Series` and the `Index`, as they are each constitutive of `DataFrame` and the former share very similar API with the DataFrame class.
+From the pandas docs, which give a nice overview of the [package](https://pandas.pydata.org/docs/getting_started/overview.html):
+>`pandas.DataFrame` is a 2-dimensional labeled data structure with columns of potentially different types. You can think of it like a spreadsheet. It got rows and columns' labels (`pandas.Index` objects). Each column is a `pandas.Series`.
+
+Pandas is built on top of Numpy, hence sharing some optimizations from the latter, as well as closely related API.
+
+In the rest of this tutorial we will mainly work on the `DataFrame` class, although we first need to introduce the 2 other core data structures mentioned sooner: the `Series` and the `Index`, as they are each constitutive of `DataFrame` and the former share also similarly named methods and behaviors with the `DataFrame` class.
 
 ## Series
 
 one-dimensional array of indexed data. 
-
 
 ```python
 pd.Series([3,2,1])
@@ -78,13 +83,14 @@ serie_1.index
 
 
 
-a dictionnary-like, object with possible keys repetition
+a **dictionnary-like**, object with possible <strike>keys</strike> index repetition.<br>
 
 
 ```python
 serie = pd.Series([3,2,1], index=["rené", "rené", "jean"])
 ```
 
+We display a series.
 
 ```python
 serie
@@ -99,7 +105,7 @@ serie
     dtype: int64
 
 
-
+We can show the values, a numpy typed array.
 
 ```python
 serie.values
@@ -111,7 +117,7 @@ serie.values
     array([3, 2, 1])
 
 
-
+and show the <strike>keys</strike> index !
 
 ```python
 serie.index
@@ -124,7 +130,10 @@ serie.index
 
 
 
-* Access by key
+Here the 4 basic `dict` operations work seamlessly the same for a `Series`.
+
+
+* Access by <strike>key</strike> index:
 
 
 ```python
@@ -140,20 +149,21 @@ serie['rené']
 
 
 
-* Set a new key pair
+* Set a new <strike>key</strike> index:value pair
 
 
 ```python
 serie['joseph'] = 5
 ```
 
-* Change a value for a key
+* Change a value for a given <strike>key</strike> index.
 
 
 ```python
 serie['rené'] = 4
 ```
 
+Notice the broadcoasting of the integer here in case of multiple same index for the given value.
 
 ```python
 serie
@@ -169,7 +179,7 @@ serie
     dtype: int64
 
 
-
+You can also pass a sequence of elements with a **matching** length with the index multiplicity number. 
 
 ```python
 serie['rené'] = [4,3]
@@ -191,7 +201,7 @@ serie
 
 
 
-* delete a key val pair
+* delete a <strike>key</strike> index:value pair
 
 
 ```python
@@ -211,7 +221,23 @@ serie
     dtype: int64
 
 
+You can also do lookups on indexes, using the same syntax as for `dict` keys.
 
+```python
+print('rené' in serie) #in the indexes, same syntax as for dict keys
+print("jean" in serie)
+```
+
+    False
+    True
+
+
+- When index is **unique**, pandas use a hashtable just like `dict`s : O(1). 
+- When index is **non-unique and sorted**, pandas use binary search O(logN)
+- When index is **non-unique and not-sorted**, pandas need to check all the keys just like a list look-up: O(N).
+
+
+You can also do some other things you would not be able using `dict` primitive, like slicing.
 
 ```python
 serie[0:4:2] # indexing: not possible in a simple dict 
@@ -224,28 +250,8 @@ serie[0:4:2] # indexing: not possible in a simple dict
     dtype: int64
 
 
-
-* lookup 
-
-
-```python
-print('rené' in serie)
-print("jean" in serie)
-```
-
-    False
-    True
-
-
-- When index is unique, pandas use a hashtable just like `dict`s : O(1). 
-- When index is non-unique and sorted, pandas use binary search O(logN)
-- When index is non-unique and not-sorted pandas need to check all the keys just like a list look-up: O(N).
-
-
-
-using a `dict` in the `pd.Series` constructor automatically assigns the index as the ordered keys in the `dict` (for Python 3.6 and later though, the index is in the same order as the insertion order).
-
-
+The similarity with `dict` is although so close you can use a `dict` in the `pd.Series` constructor. This automatically create the indexes from the keys in the `dict` and the values from the corresponding values in the `dict`.
+<u>Note</u>: the index:value order in the newly created `pd.Series` can be slightly different for different concomittent versions of Python and Pandas. Pandas >= 0.23 conserve the insertion order from the underlying `dict` argument, although you still Python versions above 3.6 to maintain `dict` keys'insertion order (use `OrderedDict` for versions before).
 
 ```python
 test = pd.Series(dict(zip(["ea","fzf","aeif"], [2,3,2])))
@@ -285,7 +291,6 @@ test2
 
 
 
-
 ```python
 test2 = pd.Series({"ea":2, "fzf":3, "aeif":"zf"}, index=["ea"])
 test2
@@ -313,15 +318,20 @@ test2
 
 
 
-**dtype=object** means that the best common type infered representation for the contents of the `pd.Series` is that they are Python objects.
+**dtype=object** means that the best common type infered representation for the contents of the `pd.Series` is "a Python object". (Everything is object in Python see **Lecture 2**!).<br>
+This also means a performance drop, **any operations on the data will be done at the Python level**. Python for-loops will be performed, checking the actual type of each 'object' for the operation one want to perform on the input vector (1)
 
-this also mean performance decreases, **any operations on the data will be done at the Python level** (1)
+### Selection in Series
 
-## selection in Series
+#### Masking
+
+A "masked Series" is a collection of indexes:boolean-values, which can be later used to filter-out elements from another Series, based on the falsy evaluated values for each index in the former.
+
+Performing a comparison on a Series creates a masked one of same length, with indexes from the original array along with `true` or `false` results originating from the **element-wise** comparisons from your original comparison expression.
 
 
 ```python
-(test>2) # return a boolean array we can later use to filter the values we want (returning True)
+(test>2)
 ```
 
 
@@ -348,7 +358,7 @@ this also mean performance decreases, **any operations on the data will be done 
     dtype: bool
 
 
-
+Since numpy arrays support **vectorized calculations** (more on that later) and does not contain arbitrary unlike typed elements as for lists, you can use the `&` bitwise operator, a element-wise version of the logical `and`. 
 
 ```python
 # not "and" but "&" : & operator is a bitwise "and"
@@ -365,6 +375,7 @@ this also mean performance decreases, **any operations on the data will be done 
 
 
 
+You can see the result is still a Series, but this time of boolean values (check the `dtype` !)
 
 ```python
 type((test>2) & (test < 4) )
@@ -376,7 +387,7 @@ type((test>2) & (test < 4) )
     pandas.core.series.Series
 
 
-
+We can later store this in a mask, it is particularly useful when a lot comparisons should be given a meaningful name (e.g. `mask` variable here could be `lower4greater2` for example).
 
 ```python
 # mask ( the last expression whose result is an pd.Serie stored in the variable mask)
@@ -395,7 +406,7 @@ test[mask]
     dtype: int64
 
 
-
+* **Fancy indexing** is just a fancy word for selecting multiple indexes, provisioning a list of indexes.
 
 ```python
 # fancy indexing (<=> selecting multiple indexes using a list of indexes)
@@ -410,6 +421,7 @@ test[["ea", "fzf"]]
     dtype: int64
 
 
+* **Slicing** is another word for selecting a subset of an original array (or even list), based on an interval constructed using a start, stop and [step] elements.
 
 
 ```python
