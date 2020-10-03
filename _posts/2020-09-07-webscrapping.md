@@ -16,7 +16,7 @@ order: 4
 Selenium is an open-source automated testing suite for web apps. It was at first used to automate tests for web applications as it can emulate user interactions with browsers, although its scope is wider as it can be used for other purposes: such as webscrapping for example.
 
 
-## How does Selenium Webdriver work ?
+# How does Selenium Webdriver work ?
 
 How to programmatically create user interactions with Selenium ? through its WebDriver component
 
@@ -57,10 +57,7 @@ Also Safari Dev docs [highlights this schema](https://developer.apple.com/docume
 Interesting article to read [too](https://stackoverflow.com/questions/42562963/why-we-dont-need-server-in-selenium-webdriver)
 
 
-
-## Making use of Selenium webdriver !
-
-### 1. The Installation
+# Installation
 Reading the installation process from the [unofficial but thorough community docs](https://selenium-python.readthedocs.io/installation.html)
 is a good starting point to set the tools we need.
 
@@ -75,12 +72,16 @@ As per the requirements of ChromeDriver:
 
 Later on I will use the term browser driver for the controlling code provided by browser-vendors, to not confuse with language driver, the bindings provided by Selenium project as a client library for communciating with the Webdriver (or one of its implementation).
 
-### 2. The Script
+# Initialisation
+
+I use the Chrome Webdriver hence the line below does set up a Webdriver server and ultimately launch a new browser session using the browser driver.<br>
+When we're done, we can later use `close()`method to close the automated browser initialized session.<br>
+We could also use the driver [context manager](http://sametmax.com/les-context-managers-et-le-mot-cle-with-en-python/) using a `with` statement.
+
 
 ```python
 from selenium import webdriver # 
-driver = webdriver.ChromeDriver() 
-# I use the Chrome Webdriver hence the line above does set up a Webdriver server and ultimately launch a new browser session using the browser driver.
+driver = webdriver.Chrome() 
 
 ##
 ## Your operations
@@ -90,9 +91,9 @@ driver.close() # to close the browser tab (window if there is only one tab.)
 ```
 
 
-### 3. Operations
+# Operations
 
-#### Navigating
+## Navigating
 
 1. Going to an url:
 
@@ -269,7 +270,7 @@ driver.close() # to close the browser tab (window if there is only one tab.)
     ```
 
 
-#### XPath
+## XPath
 
 Although it is part of the navigation, I think it should be dedicated an entire section.
 
@@ -286,15 +287,15 @@ And on the [current node vs everywhere](https://stackoverflow.com/questions/3560
 
 node-set passes to starts-with function as 1st argument (@\*). The starts-with function converts a node-set to a string by returning the string value of the first node in the node-set, i.e. only 1st attribute
 
-#### Waits
+## Waits
 
 A lot of browser are using AJAX (*asynchronous javascript and XML*), hence making calls from a client to the server asynchronously to modify components in a web page without needing to refresh the concerned page.
 Although this separates the presentation logic from the data exchange logic and greatly improve user experience, a "loaded" page doesn't mean other scripts won't display other elements later on.
 
-##### implicit wait:
+### implicit wait:
 For the whole lifetime of the WebDriver object, each time an object is not available on request, repeat till **n** seconds elapsed.
 
-##### explicit wait:
+### explicit wait:
 Makes the webdriver wait for a certain condition to execute further instructions.
 
 ```python
@@ -333,7 +334,7 @@ Directly from the [docs](https://selenium-python.readthedocs.io/waits.html) here
 
 Custom wait conditions are also interesting to [check](https://selenium-python.readthedocs.io/waits.html) as it uses some concepts (`__call__`) we have covered elsewhere in this blog.
 
-##### Action chains
+## Action chains
 
 One of the most useful WebDriver tool:
 
@@ -364,7 +365,8 @@ See example below (this is for educational purposes only !)
 	<iframe width="100%" height="100%" src="https://www.youtube.com/embed/jm_Lmq50oAs" frameborder="0" allowfullscreen></iframe>
 </div>
 
-##### injecting js code in the browser
+## injecting js code in the browser
+
 One use case could be to scroll in a news or social network feed.
 Here is an example of such:
 
@@ -372,9 +374,11 @@ Here is an example of such:
 	<iframe width="100%" height="100%" src="https://www.youtube.com/embed/bpa7dS3iO3U" frameborder="0" allowfullscreen></iframe>
 </div>
 
-##### DOM: Document Object Model 
+## additional infos
+
+DOM: Document Object Model 
 Wikipedia best describes it:
 
 <img src="{{page.image_folder}}DOM.png" width="600px" style="display: inline-block;" class="center">
 
-##### Another interesting link on the [difference](https://stackoverflow.com/questions/57528987/what-is-the-difference-between-remotewebdriver-and-webdriver) between `RemoteWebDriver` and `Webdriver`
+Another interesting link on the [difference](https://stackoverflow.com/questions/57528987/what-is-the-difference-between-remotewebdriver-and-webdriver) between `RemoteWebDriver` and `Webdriver`
