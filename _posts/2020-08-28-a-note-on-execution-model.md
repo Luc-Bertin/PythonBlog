@@ -10,6 +10,10 @@ toc: true
 
 ---
 
+{:toc}
+
+# What is a code block ?
+
 A **code block** is a piece of Python code executed as a unit:
 - A function body is executed as a unit
 - A script file to be run from the terminal using Python shell: ```python ./script.py```
@@ -30,7 +34,7 @@ Sometimes, scope is also defined as the set of variables/names available at a ce
 but it is better to take the definition of W3Schools:
 > A variable is only available from inside the region it is created. This is called scope.
 
-### scope
+# scope
 
 
 ```python
@@ -181,7 +185,7 @@ multiply_by_2()
     NameError: name 'c' is not defined
 
 
-### namespaces
+# Namespaces
 
 Python needs to keep track of all the 'visible' bindings within a block, or at a certain point of the program, this is also called **namespace** or **context**.
 ```
@@ -358,7 +362,7 @@ names are resolved dynamically at runtime by following the **LEGB rule**:
    - no? may be **G**lobal to the module ?
    - then look in **B**uilt-in namespace or raise an exception
 
-#### classes 
+## Classes 
 
 classes have their own namespace<br>
 > In a sense the set of attributes of an object also form a namespace
@@ -384,7 +388,7 @@ globals()['Test']
 
 
 
-### module import
+## module import
 
 
 ```python
@@ -438,6 +442,6 @@ globals()['ascii_lower']
 
 
 
-#### one word on mutability
+# One word on mutability
 
 > multiple names (in multiple scopes) can be bound to the same object. This is known as aliasing. Passing an object as parameter to a function is cheap since just a pointer is passed by the implemententation. Hence using mutable objects might affect the code 
