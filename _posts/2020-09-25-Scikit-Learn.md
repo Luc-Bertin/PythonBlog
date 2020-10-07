@@ -50,7 +50,30 @@ https://www.peggykern.org/uploads/5/6/6/7/56678211/edu90790_decision_chart.pdf
 
 ## Estimator vs estimate vs estimand
 
-In statistics, an estimator is a rule for calculating an estimate of a given quantity based on observed data: thus the rule (the estimator), the quantity of interest (the estimand) and its result (the estimate) are distinguished.[1]
+Directly from Wikipedia (this is self-exaplanatory):
+> In statistics, an estimator is a rule for calculating an estimate of a given quantity based on observed data: thus the rule (the estimator), the quantity of interest (the estimand) and its result (the estimate) are distinguished.
+
+
+## Probability space
+
+It is a mathematical construct to give a theoretical frame to random process / "experiment".
+
+Again using Wikipedia definition:
+It is constituted of 3 composants:
+$$($omega, F, P)$$ <br>
+* a sample space (all the possible outcomes of the experiment)
+* an event space (all the events, an event being a set of outcomes in the sample space)
+* a probability function: which assigns to each event in the event space a probability.
+E.g. tossing a coin once
+* sample space = {(head, head), (head, tail), (tail, tail)} (if we don't care about the order : unordered)<br>
+* event space includes event1 "E=having eads twice" or event2 "E=having head and tail once".
+* probability function: fair coin: 1/2 of 1 head and 1/2 of one tail.
+
+
+
+## Random Variable
+
+A random variable is a function defined on a probability space which assigns to a element in the sample space (an outcome of an experiment) a real value.
 
 # Data for ML
 
@@ -108,7 +131,7 @@ Model hyperparameters have values that should be fixed prior to running the algo
 These are "parameters" to ultimately fine-tune, often controlling overfitting tendency of the model. A regression model built using OLS method and not using any penalization does not have any hyperparameters. A regression model made from using Gradient Descent algorithm does indeed use an hyperparameter: the learning rate.
 
 
-## A performance measure: cost vs fitness function function
+## A performance measure
 
 How well does perform your model ?<br>
 How does it compare to another model ?<br>
@@ -119,7 +142,9 @@ A **fitness function** is a function that returns an integer value for how good 
 Similarly, the **loss** function measures how bad your model is on predicting one data point.
 It could be a quadractic loss function (squared difference between the real and predicted value):
 $$ L(Y, f(X)) + 5 $$
-(nice as it is differentiable), indicative loss function (0/1), absolute difference, or other.<br>
+(nice as it is differentiable), indicative loss function (0/1), absolute difference loss function, or other.<br>
+
+
 
 Actually, more generally, a loss function can show how close an estimate is from its corresponding estimand (quantity of interest we try to estimate). Here, the estimate is simply the model prediction $$ f^hat(X) $$ for a given single input vector $$ X $$.
 
