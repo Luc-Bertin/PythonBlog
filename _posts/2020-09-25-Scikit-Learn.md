@@ -46,7 +46,13 @@ Statistics are different from Machine Learning although these are domain that te
 it is mostly employed towards better understanding some particular data generating process
 https://www.peggykern.org/uploads/5/6/6/7/56678211/edu90790_decision_chart.pdf
 
-# The Data
+# Statistics reminders
+
+## Estimator vs estimate vs estimand
+
+In statistics, an estimator is a rule for calculating an estimate of a given quantity based on observed data: thus the rule (the estimator), the quantity of interest (the estimand) and its result (the estimate) are distinguished.[1]
+
+# Data for ML
 
 ## Units of observation
  
@@ -101,22 +107,32 @@ Model parameters change over the data the model has been trained on.
 Model hyperparameters have values that should be fixed prior to running the algorithm on the data to construct the model. The model structure can change depending on the values set for the hyperparameters. Hyperparams then eventually control the process of defining your model.
 These are "parameters" to ultimately fine-tune, often controlling overfitting tendency of the model. A regression model built using OLS method and not using any penalization does not have any hyperparameters. A regression model made from using Gradient Descent algorithm does indeed use an hyperparameter: the learning rate.
 
+
 ## A performance measure: cost vs fitness function function
 
 How well does perform your model ?<br>
 How does it compare to another model ?<br>
 To draw such comparisons you need to specify a performance measure.
 
-A **fitness function** is a function that returns an integer value for how good your model is. For traditional ML algorithms, we will use what we call a loss function. <br>
-A **loss**/**cost** function measures how bad your model is on predicting one data point. It could be a quadractic loss function (squared difference between the real and predicted value):
+A **fitness function** is a function that returns an integer value for how good your model is. For traditional ML algorithms, we will use what we call a loss function.
+
+Similarly, the **loss** function measures how bad your model is on predicting one data point.
+It could be a quadractic loss function (squared difference between the real and predicted value):
 $$ L(Y, f(X)) + 5 $$
 (nice as it is differentiable), indicative loss function (0/1), absolute difference, or other.<br>
-It maps some function of the difference between estimated and true values for an instance of data onto a real number intuitively representatioenting its "cost".
 
-The risk function is the **sum over all of the cost functions**. It then describes how bad your model is on the set of data.
+Actually, more generally, a loss function can show how close an estimate is from its corresponding estimand (quantity of interest we try to estimate). Here, the estimate is simply the model prediction $$ f^hat(X) $$ for a given single input vector $$ X $$.
+
+The risk function, in a frequentist statistical theory, is the **expected loss** i.e. the **averaging over all of the loss functions**. It then describes how bad your model is on the set of data. Hence the closer the predictions match the real expected / true value, the lower the prediction errors are, and then the lower the cost functions get, so is the risk function.
+We then seek to minimize the risk function.
+
+It is often nice to be able to differentiate, if possible, such risk function over the model parameters, so to see how changing one parameter or the other could possibly minimize the risk function.  
+
+Note: Sometimes **cost function** is used as synonym of **loss function**, sometimes as the **risk** one. Hence you should always read the underlying equation in a paper to ascertain of the definition one use.
 
 ## training vs test sets
-If we were to use a metric
+
+If we were to create a model trained on a set of data, and then compute a risk function of the model on this
 
 
 * Base scenario: i directly quote Elements of statistical Learning here:
