@@ -69,13 +69,11 @@ E.g. tossing a coin once
 * event space includes event1 "E=having eads twice" or event2 "E=having head and tail once".
 * probability function: fair coin: 1/2 of 1 head and 1/2 of one tail.
 
-
-
 ## Random Variable
 
 A random variable is a function defined on a probability space which assigns to a element in the sample space (an outcome of an experiment) a real value.
 
-# Data for ML
+# The Data
 
 ## Units of observation
  
@@ -85,41 +83,50 @@ These are items that you actually observe, the level at which you collect the da
 
 On another hand, this is [the level at which you pitch the conclusions](http://re-design.dimiter.eu/?p=253). For example, you may draw conclusions on group differences based on results you've collected on a student level.
 
-## Caracteristics, attributes and features
+## Caracteristics: attributes and features
 
-We may look at different caracteristics/dimensions for each given item we are observing. The name of each of the dimension that encapsulates the respective individual measurements is called a data attribute (e.g. weight of a patient, e.g. level of glucose). Similarly a **feature** embeds both the data attribute and its corresponding value for a given unit of observation. Often though, features and attributes are interchangeably used terminology. Finally **feature variable** is even more closely related to data attribute, a slight difference is that the variable is the operationalized representation of the latter. In other tutorials of this blog, we will use data attribute and feature variable interchangeably.
+We may look at different caracteristics/dimensions for each given item we are observing.<br>
+The name of each of the dimension that encapsulates the respective individual measurements is called a **data attribute** (e.g. weight of a patient, e.g. level of glucose).<br>
+Similarly a **feature** embeds both the data attribute **and** its corresponding value for a given unit of observation. Often though, features and attributes are interchangeably used terminology.<br>
+Finally **feature variable** is even more closely related to data attribute, a slight difference is that the variable is the "operationalized representation" of the latter.<br>
+In other tutorials of this blog, we will use data attribute and feature variable interchangeably.
 
 ## Data points
 
-Data points are the different measures carried out for a unit of observation. It is a collection of features, attributes or caracteristics. For example, one patient could have a data point defined as the collection {weight, height, level of glucose, BMI}. The point could be "plot" in such n-dimensional figure. Features here are each of these dimensions.
+**Data points** are the **different measures carried out for a unit of observation**. It is a **collection of features** / caracteristics.<br>
+For example, one patient could have a data point defined as the collection {weight, height, level of glucose, BMI}.<br>
+The point could be "plot" in such n-dimensional figure. Features here are each of these dimensions.
 
 ## Data structure
 
-Data for ML tasks are often stored in a 2 dimensional dataframe or similarly shaped array. The features variables / data attributes identify as the columns, of the dataset, while the rows match the units of observation.
+For most ML algorithsm, data collected are often stored in a 2-dimensional dataframe or similarly shaped array.<br>The features variables / data attributes correspond to the **columns** of the dataset, while the **rows** match the **units of observation**.
 
 ## Cross-sectionnal vs longitudinal vs time-series study
 
-Units of observation could be equally spaced time records for one individual/entity/study unit. Say for example Apple stock price variations over time: we would then talk about a **time-series** study. When multiple individuals do have each different time point observations, we are talking about **longitudinal** study. Lastly, cross-sectional studies are constituted of entities' observations at one spefici point in time.
+Units of observation could be **equally spaced time records** for one individual/entity/study unit. Say for example Apple stock price variations over time: we would then talk about a **time-series** study.<br>
+When **multiple individuals** do have each different time point observations, we are talking about **longitudinal** study.<br>
+Lastly, cross-sectional studies are constituted of **entities' observations at one speficic point in time** (e.g. Boston houses price dataset).<br>
 
 ## Quantitative vs qualitative research
 
-A quantitative research is an empirical method  that relies on collected numerical data to apply elements of the scientific method on: such as the drawing hypotheses, generation of mathematical models and the ultimate acquiring of knowledge. A qualitative research is rather used to explore trends or gather insights using non-numerical data (video, text, etc.) by conducting surveys or interviews for example. 
+A quantitative research is an **empirical method** that relies **on collected numerical data** to apply elements of the **scientific method** on: such as the **drawing hypotheses**, generation of **mathematical models** and the ultimate **acquiring of knowledge**.<br>
+A qualitative research is rather used to **explore trends** or **gather insights** using **non-numerical** data (video, text, etc.) by conducting surveys or **interviews** for example.
 
 ## Quantitative vs Categorical variables (or "nominal")
 
 Statistical computations and analyses assume that the [variables have specific levels of measurement](https://stats.idre.ucla.edu/other/mult-pkg/whatstat/what-is-the-difference-between-categorical-ordinal-and-numerical-variables/).
 
-Categorical variables are variable holding 2 or more categories but without any ordering between the categories (can you order someone with blue eyes from someone else with red ones ?). Ordinal variables, on the other hand, have categories that can be ordered (e.g. Height could be Low, Medium or High), but the spacing between the values may not be the same across the levels of the variables ! Were it be, the variables would be numerical / quantitative.
-
-Numerical variables can be subclassed in continuous or discrete variables. Continuous variables is more of a conceptual construct: values discretion appears inevitably as instruments of measurement does not have infinite countable range values. The difference between numerical and ordinal variable is that the former necessarily implies an interval scale where the difference between two values is meaningful.
+Categorical variables are **variable holding 2 or more categories** but **without any ordering between the categories** (can you order someone with blue eyes from someone else with red ones ?).<br>
+Ordinal variables, on the other hand, have categories that **can be ordered** (e.g. Height could be Low, Medium or High), but the **spacing between the values** may not be the same across the levels of the variables ! Were it be, the variables would be numerical / quantitative.<br>
+Numerical variables can be subclassed in **continuous or discrete variables**. Continuous variables is more of a conceptual construct: values discretion appears inevitably as instruments of measurement does not have infinite countable range values. The difference between numerical and ordinal variable is that the former **necessarily implies an interval scale** where the **difference between two values is meaningful**.
 
 ## Algorithm vs model
 
-An algorithm is the set of instructions i.e. the approach to build a model. 
+An algorithm is the **set of instructions** i.e. the approach **to build** a model. 
 
-The model is the final construct - computational tool obtained from running the algorithm on the data (training data more exactly).
+The model is the **final construct - computational tool obtained from running the algorithm on the data** (training data more exactly).
 
-Model parameters change over the data the model has been trained on.
+**Model parameters change over the data** the model has been trained on.
 
 > from [windows docs](https://docs.microsoft.com/en-us/windows/ai/windows-ml/what-is-a-machine-learning-model): You train a model over a set of data, providing it an algorithm that it can use to reason over and learn from those data. Once you have trained the model, you can use it to reason over data that it hasn't seen before, and make predictions about those data.
 
@@ -127,8 +134,9 @@ Model parameters change over the data the model has been trained on.
 
 Model parameters change over the data the model has been trained on.
 
-Model hyperparameters have values that should be fixed prior to running the algorithm on the data to construct the model. The model structure can change depending on the values set for the hyperparameters. Hyperparams then eventually control the process of defining your model.
-These are "parameters" to ultimately fine-tune, often controlling overfitting tendency of the model. A regression model built using OLS method and not using any penalization does not have any hyperparameters. A regression model made from using Gradient Descent algorithm does indeed use an hyperparameter: the learning rate.
+Model hyperparameters have values that should be **fixed prior to running the algorithm** on the data to construct the model. The model structure can change depending on the values set for the hyperparameters. Hyperparams then eventually control the process of defining your model.<br>
+These are "parameters" to ultimately fine-tune, often controlling overfitting tendency of the model.<br>
+A regression model built using OLS method and not using any penalization does not have any hyperparameters. A regression model made from using Gradient Descent algorithm does indeed use an hyperparameter: the learning rate.
 
 
 ## A performance measure
