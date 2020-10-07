@@ -35,7 +35,7 @@ What are the shared similarities among all of these built-in types ?
 
 <img src="{{page.image_folder}}post_image2.png" width="500px" style="display: inline-block;" class=".center">
 
-#### Why functional programming ? 
+# Why functional programming ? 
 
 Picking up the definition from the python docs: functional programming is the principle of breaking down a problem into a set of functions which take inputs and produce outputs. They have no internal states subject to altering the output produced for a given input, and act deterministically for some given conditions.
 We can therefore in a certain way oppose functional programming to object-oriented programming in which an instance of a class can see its internal state, represented by its attributes, be modified internally by the call of associated methods.
@@ -53,8 +53,9 @@ Here, of course, I show a fairly simplistic but totally viable diagram, for exam
 <!-- Functional programming in Python can also be seen similar to declarative programming in the sense that we [describe what we want to achieve](https://stackoverflow.com/questions/128057/what-are-the-benefits-of-functional-programming
 ) rather than a set of imperative instructions to achieve it.
  -->
-##### 1. the iterators
+# 1. the iterators
 
+## definition
 Again, based on the official python documentation: **an Iterator is an object representing a sequence of data**. The object returns data one item at a time, much **like a bookmark in a book announces the page of that book.**
 It is an object that enables to traverse a container, such as list or dict.
 
@@ -62,7 +63,7 @@ To know if we are dealing with an iterator we must look in the magic methods ass
 This method can also be called by the function: ```next(iterator)``` and simply allows you to return the next element of the sequence, as by moving the bookmark of the book.
 If the last element is reached and ```__next__()``` is called again, a StopIteration exception is raised.
 
-##### A list is a sequence of elements, is a list an iterator?
+## A list is a sequence of elements, is a list an iterator?
 
 We can call ```dir()```, a built-in function that returns a list of attributes and methods (magic or not) for a given object.
 
@@ -142,6 +143,8 @@ Wikipedia defines it well: you must see an iterator as an object that enables a 
 
 This iterator could use data stored in memory (from a list by iterating on it), or read a file or generate each value ["on-the-fly".](https://stackoverflow.com/questions/19151/build-a-basic-python-iterator)
 
+## Creating an iterator
+
 Here is a ***Counter*** class which defines an iterator, here the values ​​are generated on-the-fly rather than stored previously in a list. You are probably starting to understand now the crucial functionality that some iterators bring, if you do not need to store all the values ​​in memory, where in the case of infinite sequence, you can successively generate the values ​​and do calculations on these at the time of iteration / "lazy generation" which results in less memory usage.
 Some iterable are lazy too, it's the case of `map` objects.
 
@@ -173,7 +176,9 @@ for c in Counter(3, 9):
 ```
 Note: iterators implement ```__iter__``` method just as iterables, they just return themselves (return self), they can then be used in for-loops just the same way iterables did.
 
-*Use case*: opening a file using the built-in open() function generates a file object which turns out to be an iterator!
+## A nice use-case
+
+Opening a file using the built-in open() function generates a file object which turns out to be an iterator!
 Reading line by line using a for loop implicitly calls the readline method, so only certain lines can be re-requisitioned on demand, rather than reading the whole file in memory, particularly useful in the event of a large file!
 
 
@@ -188,7 +193,9 @@ Something interesting to mention, calling ```__iter__``` on a iterable such as a
 <img src="{{page.image_folder}}post_image15.png" width="500px" style="display: inline-block;" class=".center">
 
 
-## 2. the generators
+# 2. The generators
+
+## Generators vs Iterators
 
 Don't get me wrong, generators are not something different from an iterator, they are actually iterators. Conversely, iterators are not all generators.
 
@@ -200,7 +207,7 @@ and ```__iter__``` methods.
 
 I will then break this section in 2 parts: generators expression and generators 'functions', as they share similarities in their [implementation](https://stackoverflow.com/questions/1995418/python-generator-expression-vs-yield).
 
-### Generators expressions:
+## Generators expressions:
 
 Back to the first paragraphe of this chapter, we talked about list comprehension and generator expression.
 
@@ -223,7 +230,7 @@ I can then start doing fancy stuff such as piping generator expression:
 
 [Here](http://code.activestate.com/recipes/578000-indexable-generator/) is a code to make an generator indexable, seems beautiful. Have to test it .
 
-### Generators functions:
+## Generators functions:
 
 Have you ever seen the ```yield``` keyword in certain functions before ? That keyword tranforms the function definition into a special type of function — when compiled into Bytecode —, named generator functions, also abbrieved generators.
 Instead of destroying local variables defined in the scope of a normal function when this function returns a value or ends, you can here resume the function where it left-off, preserving those local variables.
@@ -241,6 +248,8 @@ The generator function, when called, returns a generator object, which is an ite
 <img src="{{page.image_folder}}post_image21.png" width="500px" style="display: inline-block;" class=".center">
 
 As you can also see, the above function is [easier](https://stackoverflow.com/questions/2776829/difference-between-pythons-generators-and-iterators) to write than Counter although achieving the same thing at last.
+
+## sending values to a generator function
 
 As highlighted by the Python docs, you can also send values to the generator by writing: ```val = (yield i)```. Actually, the value of the yield expression after resuming the function is None if ```__next__()``` has been used. Otherwise, if send() was used, then the result will be the value passed in to that method.
 
@@ -279,11 +288,11 @@ StopIteration
 hence, yield does not only preserve local variable but gives us an entrypoint to the generator function to send input.
 
 
-### 3. Functions
+# 3. Functions operating on iterators
 
 Now that you have a good grasp on how to design one-time objects that read through a sequence of elements, it is to browse some built-in Python functions that leverage use of iterators.
 
-#### any() and all()
+## any() and all()
 Clearly the first ones that come up to my mind: those functions are evaluating trueness of elements of a sequence. 
 * any return True if **any** element of a sequence is true (caution: 0 and None are falsy)
 * all return True is **all** element of a sequence evaluates to true.
@@ -301,7 +310,7 @@ compare the difference in execution time, why do the second one stop so quickly 
 
 By the way, you can delete the parentheses when the generator expression is used directly in a function that can expect to take iterators as parameter.
 
-#### map(function, sequence(s)) (imap in Python 2+)
+## map(function, sequence(s)) (imap in Python 2+)
 
 In Python 2 (deprecated as of 2020), imap is the lazy version of map.
 In Python 3+, map replaced imap. 
@@ -311,7 +320,7 @@ Thus as of Python3+, just use only map. **map** returns a map object an iterator
 
 Interesting sidenote i didn't know before reading the docs, you can use map with 2 or more iterators and encapsulate them in the lambda x1,x2,x3,… function.
 
-#### filter(function, sequence)
+## filter(function, sequence)
 
 Also returns an iterator, whose content has been filtered from another sequence.
 * 1st parameter: a function to evaluate trueness, if ```None``` : return only non-falsy elements from the sequence
@@ -325,7 +334,7 @@ Note that filter(function, iterable) is equivalent to the generator expression (
 Very fast isn't it? once again, the iterator returned is evaluated only on demand when calling ```__next__```
 
 
-#### itertools module
+## The itertools module
 
 The Python docs also mention the itertools module that add some other functions making use of (or returning) iterators, i will just then pick the one that i found quite important:
 
@@ -339,7 +348,7 @@ The Python docs also mention the itertools module that add some other functions 
 - itertools.takewhile(predicate, iter): returned an iterator sliced from the iterable till the first falsy value from the predicate is encountered.
 - itertools.dropwhile(predicate, iter): inverse of takewhile
 
-###### Combinations
+### Combinations
 For some use-cases (when creating unit-testing during an internship trying to cover all possible cases, some combinatoric functions where really useful):
 - itertools.combinations(iter, n): returns an iterator of all psosible combinations of n elements (order doesn't matter)
 - itertools.permutations(iterable, n): ordre matter (2 different order = 2 possible combinations)
@@ -347,7 +356,7 @@ For statistics, can be useful to simulate the sample of balls **with replacement
 - itertools.combinations_with_replacement(iterable, n)
 
 
-#### functools module
+### functools module
 - functools.partial(function, \*args, \*\*kwargs): create a partial object, (callable object, just like a function) which when called will behave like the function in parameter, with positional and keyword arguments passed in.
 VERY USEFUL:
 - functools.reduce(function, sequence, [initial_value]): cumulately perform an operation on each element: ```function(function(function(x1, x2), x3), x4))```
@@ -355,7 +364,7 @@ For example for a prod: ```((x1*x2)*x3)*x4```
 you can provide an initial value (optional) for starting conditions just before x1.
 
 
-#### What about multiprocessing ?
+# 4. What about multiprocessing ?
 
 With reduced memory usage [in certain cases](https://stackoverflow.com/questions/60802328/how-can-i-use-python-multiprocessing-with-generators), and a evaluation of each item on-demand, iterators/generators are somehow appealing to create pipelines in Data Science for example.
 

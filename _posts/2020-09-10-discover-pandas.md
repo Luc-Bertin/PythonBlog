@@ -7727,3 +7727,6 @@ df_notes[pd.isna(df_notes.appreciation)]
 missing grades for students.
 Final question should be...<br>
 What should we put in `fillna` for them 😉 ?
+
+
+Just an interesting link on representation of the [data](https://home.adelphi.edu/~siegfried/cs170/170l1.pdf)
