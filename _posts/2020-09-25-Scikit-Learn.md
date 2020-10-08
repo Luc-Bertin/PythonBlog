@@ -27,16 +27,18 @@ But in my opinion there should be caution on such practice as to infer on the da
 
 Statistics emphasizes inference, whereas Machine Learning emphasizes prediction.
 
-Actually the term *inference* in ML refers more as the predictions made on **unseen data** from a **trained model** while inference in statistics is the **process to deduce properties of an underlying distribution of probability**.
+Actually the term *inference* in ML refers more as the predictions made on **unseen data** from a **trained model** while inference in statistics is the **process to deduce properties of an underlying distribution of probability**, the observed data is believed to have originated from a larger population.
 
-Satistics explicitly takes uncertainty into account by specifying [probabilistic model for the data](https://www.fharrell.com/post/stat-ml/). It incorporates probabilities for the data generating mechanism.
-a use multiple methods of inference such as hypothesis testing on the observed data which is believed to have originated from a larger population.
+> A statistical model (SM) is a data model that incorporates probabilities for the data generating mechanism and has identified unknown parameters that are usually interpretable and of special interest.
+
+Satistics explicitly takes uncertainty into account by specifying a [probabilistic model for the data](https://www.fharrell.com/post/stat-ml/). 
+* It has a [mathematical formulation that shows the relationships between random variables and parameters](https://online.stat.psu.edu/stat504/node/16/).
+* Residuals are the portion of the data unexplained by the model.
+* Most of the variation in the data should be explained by the latter though i.e. $$data = model + residuals$$. 
+* It makes assumptions about the random variables.
+
 ML is more empirical including allowance for high-order interactions that are not pre-specified.
 
-
-A statistical hypothesis is a hypothesis that is testable on the basis of observed data modeled as the realised values taken by a collection of random variables.[1] A set of data (or several sets of data, taken together) are modelled as being realised values of a collection of random variables having a joint probability distribution in some set of possible joint distributions. The hypothesis being tested is exactly that set of possible probability distributions.
-
-> A statistical model (SM) is a data model that incorporates probabilities for the data generating mechanism and has identified unknown parameters that are usually interpretable and of special interest
 
 Neithertheless, ML emboddies representation-
 
@@ -60,7 +62,7 @@ It is a mathematical construct to give a theoretical frame to random process / "
 
 Again using Wikipedia definition:
 It is constituted of 3 composants:
-$$($omega, F, P)$$ <br>
+$$(\omega, F, P)$$ <br>
 * a sample space (all the possible outcomes of the experiment)
 * an event space (all the events, an event being a set of outcomes in the sample space)
 * a probability function: which assigns to each event in the event space a probability.
@@ -74,6 +76,21 @@ E.g. tossing a coin once
 A random variable is a function defined on a probability space which assigns to a element in the sample space (an outcome of an experiment) a real value.
 
 $$X=(x_1, x_2, \dots, x_M)$$ is one row of your dataset, then $$X$$ can be associated with the "realization" of $$M$$ random variables: $$X_1, X_2, \dots, X_M$$
+
+## Hypothesis
+
+> From Wikipedia: A statistical hypothesis is a hypothesis that is testable on the basis of observed data modeled as the realised values taken by a collection of random variables. A set of data (or several sets of data, taken together) are modelled as being realised values of a collection of random variables having a joint probability distribution in some set of possible joint distributions. The hypothesis being tested is exactly that set of possible probability distributions.
+
+## Prediction vs Estimation
+
+An estimator is itself a **random variable**, symbolised as a **function of the random variable $$X$$ corresponding to the observed data** $$\hat{\theta}(X)$$. It maps the sample space to a set of sample estimates. For example, the OLS estimate for a simple linear regression is $$(\hat{\alpha}, \hat{\beta})$$
+The estimate for a particular observed data value $$X = x$$ is written $$\hat{\theta}(x)$$.
+
+
+{\widehat {\theta }}(x), which is a fixed value
+A **predictor** uses the data to guess at **some random value** that is not part of the dataset [but the realization of a **random variable** $$Y$$](https://stats.stackexchange.com/questions/17773/what-is-the-difference-between-estimation-and-prediction)
+
+
 
 # The Data
 
