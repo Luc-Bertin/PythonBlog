@@ -149,7 +149,7 @@ A **fitness function** is a function that returns an integer value for how good 
 
 Similarly, the **loss** function measures how bad your model is on predicting one data point.
 It could be a quadractic loss function (squared difference between the real and predicted value):
-$$ L(Y, f(X)) =  y - \hat{f(X)} $$
+$$ L(Y, f(X)) =  (y - \hat{f}(X))^2 $$
 
 (nice as it is differentiable), indicative loss function (0/1), absolute difference loss function, or other.<br>
 
