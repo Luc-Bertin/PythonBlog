@@ -149,17 +149,16 @@ A **fitness function** is a function that returns an integer value for how good 
 
 Similarly, the **loss** function measures how bad your model is on predicting one data point.
 It could be a quadractic loss function (squared difference between the real and predicted value):
-$$ L(Y, f(X)) + 5 $$
+$$ L(Y, f(X)) =  y - \hat{f(X)} $$
+
 (nice as it is differentiable), indicative loss function (0/1), absolute difference loss function, or other.<br>
-
-
 
 Actually, more generally, a loss function can show how close an estimate is from its corresponding estimand (quantity of interest we try to estimate). Here, the estimate is simply the model prediction $$ f^hat(X) $$ for a given single input vector $$ X $$.
 
-The risk function, in a frequentist statistical theory, is the **expected loss** i.e. the **averaging over all of the loss functions**. It then describes how bad your model is on the set of data. Hence the closer the predictions match the real expected / true value, the lower the prediction errors are, and then the lower the cost functions get, so is the risk function.
-We then seek to minimize the risk function.
+The risk function, in a frequentist statistical theory, is the **expected loss** i.e. the **averaging over all of the loss functions**. It then describes how bad your model is on the **set** of data. Hence the **closer** the predictions **match** the real expected / true value, the **lower the prediction errors** are, and then the **lower the cost** functions gets, **so is the risk** function.
+We then seek to **minimize** the risk function.
 
-It is often nice to be able to differentiate, if possible, such risk function over the model parameters, so to see how changing one parameter or the other could possibly minimize the risk function.  
+It is often nice to differentiate, if possible, such risk function over the model parameters, so to see how changing one parameter or the other could possibly minimize the risk function.  
 
 Note: Sometimes **cost function** is used as synonym of **loss function**, sometimes as the **risk** one. Hence you should always read the underlying equation in a paper to ascertain of the definition one use.
 
