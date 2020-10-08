@@ -84,12 +84,12 @@ $$X=(x_1, x_2, \dots, x_M)$$ is one row of your dataset, then $$X$$ can be assoc
 ## Prediction vs Estimation
 
 An estimator is itself a **random variable**, symbolised as a **function of the random variable $$X$$ corresponding to the observed data** $$\hat{\theta}(X)$$. It maps the sample space to a set of sample estimates. For example, the OLS estimate for a simple linear regression is $$(\hat{\alpha}, \hat{\beta})$$
-The estimate for a particular observed data value $$X = x$$ is written $$\hat{\theta}(x)$$.
+The estimate for a particular observed data value $$X = x$$ is written $$\hat{\theta}(x)$$, which is a fixed value.
 
+A predictor concerns the independent observation of another random variable $$Z$$ whose distribution is related to the parameters. Z being a random variable it also brings an additional uncertainty as the outcome are random.
 
-{\widehat {\theta }}(x), which is a fixed value
-A **predictor** uses the data to guess at **some random value** that is not part of the dataset [but the realization of a **random variable** $$Y$$](https://stats.stackexchange.com/questions/17773/what-is-the-difference-between-estimation-and-prediction)
-
+That is not part of the dataset [but the realization of a **random variable that depends on the independent variables in the data** $$Y(x)$$](https://stats.stackexchange.com/questions/17773/what-is-the-difference-between-estimation-and-prediction).
+> The source of potential confusion is that the prediction usually builds on the estimated parameters and might even have the same formula as an estimator.
 
 
 # The Data
