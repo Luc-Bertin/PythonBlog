@@ -73,6 +73,8 @@ E.g. tossing a coin once
 
 A random variable is a function defined on a probability space which assigns to a element in the sample space (an outcome of an experiment) a real value.
 
+$$X=(x_1, x_2, \dots, x_M)$$ is one row of your dataset, then $$X$$ can be associated with the "realization" of $$M$$ random variables: $$X_1, X_2, \dots, X_M$$
+
 # The Data
 
 ## Units of observation
@@ -138,6 +140,18 @@ Model hyperparameters have values that should be **fixed prior to running the al
 These are "parameters" to ultimately fine-tune, often controlling overfitting tendency of the model.<br>
 A regression model built using OLS method and not using any penalization does not have any hyperparameters. A regression model made from using Gradient Descent algorithm does indeed use an hyperparameter: the learning rate.
 
+## Outcome variable
+
+What you're trying to predict, in a supervised machine learning problem.
+The $$ y $$ is the true/observed value from the data.
+* $$ y $$ could be a single numerical value (this leads to a regression problem) or a categorical one (this leads to a classification problem).
+* $$ y $$ could be one element (univariate problem, e.g. the salaries of employees in the company), or a vector $$ Y $$ of elements (multivariate statistics). Actually many of the common techniques in multivariate analysis (ordination and clustering, for instance) use unsupervised learning algorithms (e.g. PCA).
+
+The term dependent variable is also used to refer to the outcome variable, under the hypothesis often drawn in statistics that this variables does not depend on the value of other variables by a mathematical function.
+
+## Independent variables
+
+It is used to refer to the variables that should **not depend** on other variables in the scope of the experiment, and that are used as **predictor variables**, as it is assumed a **relationship** does exist between the outcome variable and those.
 
 ## A performance measure
 
@@ -153,7 +167,7 @@ $$ L(Y, f(X)) =  (y - \hat{f}(X))^2 $$
 
 (nice as it is differentiable), indicative loss function (0/1), absolute difference loss function, or other.<br>
 
-Actually, more generally, a loss function can show how close an estimate is from its corresponding estimand (quantity of interest we try to estimate). Here, the estimate is simply the model prediction $$ f^hat(X) $$ for a given single input vector $$ X $$.
+Actually, more generally, a loss function can show how close an estimate is from its corresponding estimand (quantity of interest we try to estimate). Here, the estimate is simply the model prediction $$ \hat{f}(X) $$ given an single input vector of features $$ X $$, which assign the prediction $$ \hat{y} $$.
 
 The risk function, in a frequentist statistical theory, is the **expected loss** i.e. the **averaging over all of the loss functions**. It then describes how bad your model is on the **set** of data. Hence the **closer** the predictions **match** the real expected / true value, the **lower the prediction errors** are, and then the **lower the cost** functions gets, **so is the risk** function.
 We then seek to **minimize** the risk function.
