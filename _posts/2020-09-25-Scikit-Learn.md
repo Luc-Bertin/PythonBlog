@@ -60,9 +60,7 @@ Directly from Wikipedia (this is self-exaplanatory):
 
 It is a mathematical construct to give a theoretical frame to random process / "experiment".
 
-Again using Wikipedia definition:
-It is constituted of 3 composants:
-$$(\omega, F, P)$$ <br>
+Again using Wikipedia definition; it is constituted of 3 composants: $$(\Omega, F, P)$$
 * a sample space (all the possible outcomes of the experiment)
 * an event space (all the events, an event being a set of outcomes in the sample space)
 * a probability function: which assigns to each event in the event space a probability.
@@ -83,13 +81,18 @@ $$X=(x_1, x_2, \dots, x_M)$$ is one row of your dataset, then $$X$$ can be assoc
 
 ## Prediction vs Estimation
 
-An estimator is itself a **random variable**, symbolised as a **function of the random variable $$X$$ corresponding to the observed data** $$\hat{\theta}(X)$$. It maps the sample space to a set of sample estimates. For example, the OLS estimate for a simple linear regression is $$(\hat{\alpha}, \hat{\beta})$$
-The estimate for a particular observed data value $$X = x$$ is written $$\hat{\theta}(x)$$, which is a fixed value.
+An estimator is a function (of a **random variable corresponding to the observed data** $$X$$), and is denoted $$\hat{\theta}$$<br>
+The composition  $$\hat{\theta}(X)$$ is an estimate produced by applying the estimator function on some realizations of $$X$$ (the observed data or a subset of it).<br>
+The estimator thus maps the realizations of $$X$$ to a (set of) sample estimates, depending on $$X$$, making the composition a random variable, with a fixed value for a given input.
 
-A predictor concerns the independent observation of another random variable $$Z$$ whose distribution is related to the parameters. Z being a random variable it also brings an additional uncertainty as the outcome are random.
+For example, the OLS estimate for a simple linear regression is $$(\hat{\alpha}, \hat{\beta})$$.<br>
 
-That is not part of the dataset [but the realization of a **random variable that depends on the independent variables in the data** $$Y(x)$$](https://stats.stackexchange.com/questions/17773/what-is-the-difference-between-estimation-and-prediction).
-> The source of potential confusion is that the prediction usually builds on the estimated parameters and might even have the same formula as an estimator.
+In OLS again, you can think of the formulas to define the $$\beta$$s and the $$intercept$$ as **estimators**, and the corresponding estimates produced from **applying the estimators** on a given [sample or set of data](https://stats.stackexchange.com/questions/7581/what-is-the-relation-between-estimator-and-estimate).
+
+A **predictor** concerns the **independent observation/value** of another **random variable $$Z$$** whose distribution is **related to the unknown parameters we try to estimate using estimators**.<br>
+$$Z$$ being a random variable it also brings an additional uncertainty as the outcomes from $$Z$$ are random, not only from the randomness of the data, but the randomness of $$Z$$ itself.<br>
+The predictor applied on a single vector of data-points, and $$Z$$ itself, are not part of the dataset. Here we talk about [realizations of a **random variable that depends on the independent variables in the data** $$Z$$=$$Y(x)$$](https://stats.stackexchange.com/questions/17773/what-is-the-difference-between-estimation-and-prediction).
+> in addition, there is uncertainty in just what value of $$Y(x)$$ will occur. This additional uncertainty - because $$Y(x)$$ is random - characterizes predictions. [...] The source of potential confusion is that the prediction usually builds on the estimated parameters and might even have the same formula as an estimator.
 
 
 # The Data
