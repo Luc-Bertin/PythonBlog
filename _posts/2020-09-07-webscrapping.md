@@ -15,6 +15,8 @@ order: 4
 
 Selenium is an open-source automated testing suite for web apps. It was at first used to automate tests for web applications as it can emulate user interactions with browsers, although its scope is wider as it can be used for other purposes: such as webscrapping for example.
 
+— Related practical session [Jupyter Notebook](https://github.com/Luc-Bertin/TDs_ESILV/blob/master/TD2_Instagram_scrapping_with_selenium.ipynb) —
+
 
 # How does Selenium Webdriver work ?
 

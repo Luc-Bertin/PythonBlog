@@ -89,11 +89,10 @@ For example, the OLS estimate for a simple linear regression is $$(\hat{\alpha},
 
 In OLS again, you can think of the formulas to define the $$\beta$$s and the $$intercept$$ as **estimators**, and the corresponding estimates produced from **applying the estimators** on a given [sample or set of data](https://stats.stackexchange.com/questions/7581/what-is-the-relation-between-estimator-and-estimate).
 
-A **predictor** concerns the **independent observation/value** of another **random variable $$Z$$** whose distribution is **related to the unknown parameters we try to estimate using estimators**.<br>
-$$Z$$ being a random variable it also brings an additional uncertainty as the outcomes from $$Z$$ are random, not only from the randomness of the data, but the randomness of $$Z$$ itself.<br>
+A **predictor** concerns the **independent observation/value** of another **random variable $$Z$$** whose distribution is **related to the unknown parameters we try to estimate using estimators**.<br> 
+Hence, $$Z$$ being a random variable, it also brings an additional uncertainty as the outcomes from $$Z$$ are random, not only from the randomness of the data, but the randomness of $$Z$$ itself.<br>
 The predictor applied on a single vector of data-points, and $$Z$$ itself, are not part of the dataset. Here we talk about [realizations of a **random variable that depends on the independent variables in the data** $$Z$$=$$Y(x)$$](https://stats.stackexchange.com/questions/17773/what-is-the-difference-between-estimation-and-prediction).
 > in addition, there is uncertainty in just what value of $$Y(x)$$ will occur. This additional uncertainty - because $$Y(x)$$ is random - characterizes predictions. [...] The source of potential confusion is that the prediction usually builds on the estimated parameters and might even have the same formula as an estimator.
-
 
 # The Data
 
