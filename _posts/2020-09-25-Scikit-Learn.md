@@ -205,8 +205,11 @@ In order to mitigate this, you split the main dataset in train and test datasets
 * The data processing decisions and training of the model will be performed on the training dataset.
 *  **An unbiased evaluation of the trained model** (trained on the training dataset) will be raised by applying the risk function on a test set i.e. predicted outcome values on **new, possibly unseen data** from the test set will be **compared to** the **observed outcome values** from this same **test set**. This enables us to check how well does the model actually perform on new data in a **supervised learning framework**.
 
+## A base scenario in a Supervised Learning problem
 
-* Base scenario: i directly quote Elements of statistical Learning here:
+This example should be fully understandable after reading the preceding questions.
 
-> In a typical scenario, we have an outcome measurement, usually quantitative (such as a stock price) or categorical (such as heart attack/no heart attack), that we wish to predict based on a set of features (such as diet and clinical measurements). We have a training set of data, in which we observe the outcome and feature measurements for a set of observations (such as people). Using this data we build a prediction model, or *learner*, which will enable us to predict the outcome for new unseen objects. A good learner is one that accurately predicts such an outcome.
+I directly quote this example framework from ***Elements of statistical Learning***:
+
+> In a typical scenario, we have an **outcome measurement**, usually **quantitative** (such as a **stock price**) or **categorical** (such as **yes** heart attack/**no** heart attack), that we **wish to predict** based on a **set of features** (such as diet and clinical **measurements**). We have a **training set of data**, in which **we observe the outcome and feature measurements** for a **set of observations** (such **as people**). Using **this** data we **build a prediction model**, or ***learner***, which will enable us to **predict the outcome for new unseen objects**. A good learner is **one that accurately predicts such an outcome**.
 
