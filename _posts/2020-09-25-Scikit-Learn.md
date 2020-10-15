@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Some definitions elements and stats for your ML journey"
+title:  "Supervised Machine Learning"
 author: luc
 categories: [ TDs, StatsEnVrac ]
 image_folder: /assets/images/stats_en_vrac/
@@ -15,7 +15,9 @@ order: 5
 
 > Machine Learning is the field of study that gives computers the ability to learn without being explicitly programmed (if,if,if,else,if). — Arthur Samuel, 1959
 
-# Why Machine Learning (ML) ?
+# Introduction
+
+## Why Machine Learning (ML) ?
 
 The promise with ML is to have a general framework to create data-related models which we expect to be **more robust, personalized and easier to maintain** into detecting patterns than **hard-coding a set of rules**.<br>
 Detecting new patterns over time, or from different sources, only require you to update the model or retrain it over the corresponding set of data.<br>
@@ -23,11 +25,12 @@ Detecting new patterns over time, or from different sources, only require you to
 ML models can also be inspected to infer about relationships between variables, and give humans a better understanding on complex and massive data, this is also called **data mining**. <br>
 But in my opinion there should be caution on such practice as to infer on the data generation process which is something that better falls in the scope of **statistics**.
 
-# Machine Learning vs Statistics
+## Machine Learning vs Statistics
 
 Statistics emphasizes inference, whereas Machine Learning emphasizes prediction.
 
-Actually the term *inference* in ML refers more as the predictions made on **unseen data** from a **trained model** while inference in statistics is the **process to deduce properties of an underlying distribution of probability**, the observed data is believed to have originated from a larger population.
+Actually the term *inference* in ML refers more as the predictions made on **unseen data** from a **trained model** while inference in statistics is the **process to deduce properties of an underlying distribution of probability**, the observed data is believed to have originated from a larger population. Hence statistics is employed towards better [understanding some particular data generating process](https://www.peggykern.org/uploads/5/6/6/7/56678211/edu90790_decision_chart.pdf)
+
 
 > A statistical model (SM) is a data model that incorporates probabilities for the data generating mechanism and has identified unknown parameters that are usually interpretable and of special interest.
 
@@ -39,16 +42,9 @@ Satistics explicitly takes uncertainty into account by specifying a [probabilist
 
 ML is more empirical including allowance for high-order interactions that are not pre-specified.
 
+Neithertheless, ML emboddies **representation** (the transformation of inputs from one space to another more useful space which can be more easily interpreted), and ML models can be also exploited or interpreted to extract meaningful information or patterns from the underlying observed data (this is also encapsulated by what is called as **Data Mining**).
 
-Neithertheless, ML emboddies representation-
-
-**Representation** involves the transformation of inputs from one space to another more useful space which can be more easily interpreted.
-
-Statistics are different from Machine Learning although these are domain that tends to overlap. 
-it is mostly employed towards better understanding some particular data generating process
-https://www.peggykern.org/uploads/5/6/6/7/56678211/edu90790_decision_chart.pdf
-
-# Statistics reminders
+# Some terminology
 
 ## Estimator vs estimate vs estimand
 
@@ -94,17 +90,17 @@ Hence, $$Z$$ being a random variable, it also brings an additional uncertainty a
 The predictor applied on a single vector of data-points, and $$Z$$ itself, are not part of the dataset. Here we talk about [realizations of a **random variable that depends on the independent variables in the data** $$Z$$=$$Y(x)$$](https://stats.stackexchange.com/questions/17773/what-is-the-difference-between-estimation-and-prediction).
 > in addition, there is uncertainty in just what value of $$Y(x)$$ will occur. This additional uncertainty - because $$Y(x)$$ is random - characterizes predictions. [...] The source of potential confusion is that the prediction usually builds on the estimated parameters and might even have the same formula as an estimator.
 
-# The Data
+## The Data
 
-## Units of observation
+### Units of observation
  
 These are items that you actually observe, the level at which you collect the data.
 
-## Unit of analysis (case)
+### Unit of analysis (case)
 
 On another hand, this is [the level at which you pitch the conclusions](http://re-design.dimiter.eu/?p=253). For example, you may draw conclusions on group differences based on results you've collected on a student level.
 
-## Caracteristics: attributes and features
+### Caracteristics: attributes and features
 
 We may look at different caracteristics/dimensions for each given item we are observing.<br>
 The name of each of the dimension that encapsulates the respective individual measurements is called a **data attribute** (e.g. weight of a patient, e.g. level of glucose).<br>
@@ -112,28 +108,28 @@ Similarly a **feature** embeds both the data attribute **and** its corresponding
 Finally **feature variable** is even more closely related to data attribute, a slight difference is that the variable is the "operationalized representation" of the latter.<br>
 In other tutorials of this blog, we will use data attribute and feature variable interchangeably.
 
-## Data points
+### Data points
 
 **Data points** are the **different measures carried out for a unit of observation**. It is a **collection of features** / caracteristics.<br>
 For example, one patient could have a data point defined as the collection {weight, height, level of glucose, BMI}.<br>
 The point could be "plot" in such n-dimensional figure. Features here are each of these dimensions.
 
-## Data structure
+### Data structure
 
 For most ML algorithsm, data collected are often stored in a 2-dimensional dataframe or similarly shaped array.<br>The features variables / data attributes correspond to the **columns** of the dataset, while the **rows** match the **units of observation**.
 
-## Cross-sectionnal vs longitudinal vs time-series study
+### Cross-sectionnal vs longitudinal vs time-series study
 
 Units of observation could be **equally spaced time records** for one individual/entity/study unit. Say for example Apple stock price variations over time: we would then talk about a **time-series** study.<br>
 When **multiple individuals** do have each different time point observations, we are talking about **longitudinal** study.<br>
 Lastly, cross-sectional studies are constituted of **entities' observations at one speficic point in time** (e.g. Boston houses price dataset).<br>
 
-## Quantitative vs qualitative research
+### Quantitative vs qualitative research
 
 A quantitative research is an **empirical method** that relies **on collected numerical data** to apply elements of the **scientific method** on: such as the **drawing hypotheses**, generation of **mathematical models** and the ultimate **acquiring of knowledge**.<br>
 A qualitative research is rather used to **explore trends** or **gather insights** using **non-numerical** data (video, text, etc.) by conducting surveys or **interviews** for example.
 
-## Quantitative vs Categorical variables (or "nominal")
+### Quantitative vs Categorical variables (or "nominal")
 
 Statistical computations and analyses assume that the [variables have specific levels of measurement](https://stats.idre.ucla.edu/other/mult-pkg/whatstat/what-is-the-difference-between-categorical-ordinal-and-numerical-variables/).
 
@@ -141,7 +137,9 @@ Categorical variables are **variable holding 2 or more categories** but **withou
 Ordinal variables, on the other hand, have categories that **can be ordered** (e.g. Height could be Low, Medium or High), but the **spacing between the values** may not be the same across the levels of the variables ! Were it be, the variables would be numerical / quantitative.<br>
 Numerical variables can be subclassed in **continuous or discrete variables**. Continuous variables is more of a conceptual construct: values discretion appears inevitably as instruments of measurement does not have infinite countable range values. The difference between numerical and ordinal variable is that the former **necessarily implies an interval scale** where the **difference between two values is meaningful**.
 
-## Algorithm vs model
+## The ML part
+
+### Algorithm vs model
 
 An algorithm is the **set of instructions** i.e. the approach **to build** a model. 
 
@@ -151,7 +149,7 @@ The model is the **final construct - computational tool obtained from running th
 
 > from [windows docs](https://docs.microsoft.com/en-us/windows/ai/windows-ml/what-is-a-machine-learning-model): You train a model over a set of data, providing it an algorithm that it can use to reason over and learn from those data. Once you have trained the model, you can use it to reason over data that it hasn't seen before, and make predictions about those data.
 
-## Model parameters vs hyperparameters
+### Model parameters vs hyperparameters
 
 Model parameters change over the data the model has been trained on.
 
@@ -159,7 +157,7 @@ Model hyperparameters have values that should be **fixed prior to running the al
 These are "parameters" to ultimately fine-tune, often controlling overfitting tendency of the model.<br>
 A regression model built using OLS method and not using any penalization does not have any hyperparameters. A regression model made from using Gradient Descent algorithm does indeed use an hyperparameter: the learning rate.
 
-## Outcome variable
+### Outcome variable
 
 What you're trying to predict, in a supervised machine learning problem.
 The $$ y $$ is the true/observed value from the data.
@@ -168,11 +166,11 @@ The $$ y $$ is the true/observed value from the data.
 
 The term dependent variable is also used to refer to the outcome variable, under the hypothesis often drawn in statistics that this variables does not depend on the value of other variables by a mathematical function.
 
-## Independent variables
+### Independent variables
 
 It is used to refer to the variables that should **not depend** on other variables in the scope of the experiment, and that are used as **predictor variables**, as it is assumed a **relationship** does exist between the outcome variable and those.
 
-## A performance measure
+### A performance measure
 
 How well does perform your model ?<br>
 How does it compare to another model ?<br>
@@ -195,7 +193,7 @@ It is often nice to differentiate, if possible, such risk function over the mode
 
 Note: Sometimes **cost function** is used as synonym of **loss function**, sometimes as the **risk** one. Hence you should always read the underlying equation in a paper to ascertain of the definition one use.
 
-## training vs test sets
+### training vs test sets
 
 If we were to **preprocess data and later train a model** — that could be hyperparametrized — on these data, and finally compute a risk function applied on the model predictions for these same data versus the observed values, we could then be **tempted to lower the value** returned by the risk function by **changing our model hyperparameters** or changing the way we **processed data** (this could include changing the data representation of some input features, handling of outliers, handling of missing data, feature selection and feature engineering).<br>
 
@@ -205,7 +203,19 @@ In order to mitigate this, you split the main dataset in train and test datasets
 * The data processing decisions and training of the model will be performed on the training dataset.
 *  **An unbiased evaluation of the trained model** (trained on the training dataset) will be raised by applying the risk function on a test set i.e. predicted outcome values on **new, possibly unseen data** from the test set will be **compared to** the **observed outcome values** from this same **test set**. This enables us to check how well does the model actually perform on new data in a **supervised learning framework**.
 
-## A base scenario in a Supervised Learning problem
+### Supervised vs Unsupervised Learning
+
+A supervised machine learning alorigthm makes used of the **presence of the outcome variable to guide the learning process** (Element of Statistical Analysis Book).
+
+An **unsupervised machine learning** algorithm finds patterns in the data with **no pre-existing **labels or outcome variable** used for guidance in the learning process.
+
+Taking one approach or the other depends on your use case (making prediction vs trying to get new insights of your data using ML).
+
+
+Although splitting data into training and testing sets is mainly granted for supervised problems, [unsupervised problems and algorithms can also benefit from this approach](https://stackoverflow.com/questions/31673388/is-train-test-split-in-unsupervised-learning-necessary-useful) 
+
+
+### A base scenario in a Supervised Learning problem
 
 This example should be fully understandable after reading the preceding questions.
 
@@ -213,3 +223,6 @@ I directly quote this example framework from ***Elements of statistical Learning
 
 > In a typical scenario, we have an **outcome measurement**, usually **quantitative** (such as a **stock price**) or **categorical** (such as **yes** heart attack/**no** heart attack), that we **wish to predict** based on a **set of features** (such as diet and clinical **measurements**). We have a **training set of data**, in which **we observe the outcome and feature measurements** for a **set of observations** (such **as people**). Using **this** data we **build a prediction model**, or ***learner***, which will enable us to **predict the outcome for new unseen objects**. A good learner is **one that accurately predicts such an outcome**.
 
+## Modelling
+
+### Linear-Regression
