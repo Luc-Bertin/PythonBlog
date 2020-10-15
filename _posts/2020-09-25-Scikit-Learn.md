@@ -197,11 +197,16 @@ Note: Sometimes **cost function** is used as synonym of **loss function**, somet
 
 ## training vs test sets
 
-If we were to create a model trained on a set of data, and then compute a risk function of the model on this
+If we were to **preprocess data and later train a model** — that could be hyperparametrized — on these data, and finally compute a risk function applied on the model predictions for these same data versus the observed values, we could then be **tempted to lower the value** returned by the risk function by **changing our model hyperparameters** or changing the way we **processed data** (this could include changing the data representation of some input features, handling of outliers, handling of missing data, feature selection and feature engineering).<br>
+
+That would be such a bad idea though: how can one ensure the model will perform any better on a another sample from the population, so to say: **generalize** well to other inputs and probably unseed data from the generation process ? 
+
+In order to mitigate this, you split the main dataset in train and test datasets.
+* The data processing decisions and training of the model will be performed on the training dataset.
+*  **An unbiased evaluation of the trained model** (trained on the training dataset) will be raised by applying the risk function on a test set i.e. predicted outcome values on **new, possibly unseen data** from the test set will be **compared to** the **observed outcome values** from this same **test set**. This enables us to check how well does the model actually perform on new data in a **supervised learning framework**.
 
 
 * Base scenario: i directly quote Elements of statistical Learning here:
+
 > In a typical scenario, we have an outcome measurement, usually quantitative (such as a stock price) or categorical (such as heart attack/no heart attack), that we wish to predict based on a set of features (such as diet and clinical measurements). We have a training set of data, in which we observe the outcome and feature measurements for a set of observations (such as people). Using this data we build a prediction model, or *learner*, which will enable us to predict the outcome for new unseen objects. A good learner is one that accurately predicts such an outcome.
 
-
-## On OLS
