@@ -32,7 +32,7 @@ OUTPUT: {1: 2, 3: 4, 5: 6, 7: 8}
 using dict comprehension! 
 
 
-## Ex. 2: Counting letter frequencies in a text.
+## Ex. 1: Counting letter frequencies in a text.
 
 - using a simple Python dictionary
 - using `defaultdict` (subclass of `dict`)
@@ -53,6 +53,68 @@ Duis a purus eu augue consectetur malesuada id nec ex. Pellentesque sed odio lao
 Quisque quis magna malesuada, ultricies leo eget, elementum est. Praesent enim purus, pretium a nisl quis, accumsan blandit sapien. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Mauris ultricies iaculis nunc, quis fringilla arcu bibendum ac. Integer eu sem eget dui tempor sagittis. Ut sit amet ipsum quis nisi porttitor pulvinar. Etiam suscipit, leo nec fringilla luctus, lacus est egestas augue, eget vestibulum augue diam non eros. Duis posuere ac magna eget ullamcorper.
 """
 ```
+
+## Ex. 2: decoding mARN using dict and list comprehensions !
+
+In a cell, ribosomes synthesises proteins by translating **triplets** of **nucleotides** from the mRNA into a chain of amino-acids.
+
+Here is a dictionary made from the inverse table of the DNA-codon-to-amino-acids conversions.
+
+```python
+amino_acids_from_triplets = {
+ "Ala":   ("GCT", "GCC", "GCA", "GCG"),
+ "Arg":    ("CGT", "CGC", "CGA", "CGG", "AGA", "AGG"),
+ "Asn":    ("AAT", "AAC"),
+ "Asp":    ("GAT", "GAC"),
+ "Cys":    ("TGT", "TGC"),
+ "Gln":    ("CAA", "CAG"),
+ "Glu":    ("GAA", "GAG"),
+ "Gly":    ("GGT", "GGC", "GGA", "GGG"),
+ "His":    ("CAT", "CAC"),
+ "START":  ("ATG"),
+ "Ile":    ("ATT", "ATC", "ATA"),
+ "Leu":    ("CTT", "CTC", "CTA", "CTG", "TTA", "TTG"),
+ "Lys":    ("AAA", "AAG"),
+ "Met":    ("ATG"),
+ "Phe":    ("TTT", "TTC"),
+ "Pro":    ("CCT", "CCC", "CCA", "CCG"),
+ "Ser":    ("TCT", "TCC", "TCA", "TCG", "AGT", "AGC"),
+ "Thr":    ("ACT", "ACC", "ACA", "ACG"),
+ "Trp":    ("TGG"),
+ "Tyr":    ("TAT", "TAC"),
+ "Val":    ("GTT", "GTC", "GTA", "GTG"),
+ "STOP":   ("TAA", "TGA", "TAG") 
+}
+```
+
+1. Using dict comprehension, convert this dictionary in another one having **keys as tuples of nucleotides** and resulting **amino-acids as values** (e.g. for "His" amino_acid, `{("CAT", "CAC"):"His"}`.<br>
+
+We will call this dictionary `all_triplets_to_amino_acids`
+
+2. Expand the tuples in dictionary `all_triplets_to_amino_acids` as simple keys for each element of the tuples. Hence you should have in the resulting dictionary multiple same amino acids values for some keys (e.g. "CAT": "His", "CAC": "His")
+
+We will call this dictionary `triplets_to_amino_acids`
+
+You can still use dict comprehension for that.
+
+3. This is an mARN extract that is about to get translated in protein synthesis:
+
+arn = 'GCCGAGTAACTAGCCAGCT
+ATGACACGATCCCGGCTAGGAAAGTG
+AACCCGCGGAAGTATATTGGTACCTC
+ACGGTAGGAGACGGCGGGATAATTCT
+TGTCGCTGTGTGTGCCATCGTACACG
+AGACGGGTCCACTGAGTAAAGCGAGT
+ATCACACAGACGAAGGTGACCTCCCC
+TTGTAGTCAGTAATCTTTCCTGAATC
+TAATTACTGTCATCGATTGCAAAACT
+TTGCAAAAAAACATTTGTAGACAACC
+GCTTACGTGGCGCTTCCTGCATTAAA
+CGATTCCGGTGCACGGAACAA'
+
+Split this arn in sequence of triplets to further get the amino-acids conversion (you can use list comprehension + `range`).
+
+4. Translate the sequence of triplets into the corresponding amino acid
 
 ## Ex. 3: Sort the  a sorted dictionary, sorted by values
 
