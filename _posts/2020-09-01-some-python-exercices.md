@@ -88,17 +88,13 @@ amino_acids_from_triplets = {
 ```
 
 1. Using dict comprehension, convert this dictionary in another one having **keys as tuples of nucleotides** and resulting **amino-acids as values** (e.g. for "His" amino_acid, `{("CAT", "CAC"):"His"}`.<br>
-
 We will call this dictionary `all_triplets_to_amino_acids`
 
-2. Expand the tuples in dictionary `all_triplets_to_amino_acids` as simple keys for each element of the tuples. Hence you should have in the resulting dictionary multiple same amino acids values for some keys (e.g. "CAT": "His", "CAC": "His")
-
-We will call this dictionary `triplets_to_amino_acids`
-
+2. Expand the tuples in dictionary `all_triplets_to_amino_acids` as simple keys for each element of the tuples. Hence you should have in the resulting dictionary multiple same amino acids values for some keys (e.g. "CAT": "His", "CAC": "His")<br>
+We will call this dictionary `triplets_to_amino_acids`<br>
 You can still use dict comprehension for that.
 
-3. This is an mARN extract that is about to get translated in protein synthesis:
-
+3. This is an mARN extract that is about to get translated in protein synthesis:<br>
 arn = 'GCCGAGTAACTAGCCAGCT
 ATGACACGATCCCGGCTAGGAAAGTG
 AACCCGCGGAAGTATATTGGTACCTC
@@ -110,8 +106,7 @@ TTGTAGTCAGTAATCTTTCCTGAATC
 TAATTACTGTCATCGATTGCAAAACT
 TTGCAAAAAAACATTTGTAGACAACC
 GCTTACGTGGCGCTTCCTGCATTAAA
-CGATTCCGGTGCACGGAACAA'
-
+CGATTCCGGTGCACGGAACAA'<br>
 Split this arn in sequence of triplets to further get the amino-acids conversion (you can use list comprehension + `range`).
 
 4. Translate the sequence of triplets into the corresponding amino acid
