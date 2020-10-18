@@ -8516,7 +8516,8 @@ html {
     background-color: #061F2F !important;
   }
   pre {
-    color: #fff;
+    /*color: #fff;*/
+    color: #d5d5d5;
     background-color: black !important;
   }
   .sticky_post {
@@ -8532,4 +8533,37 @@ html {
   /*footer {
     background-color: #061F2F !important;
   }*/
+  .alertbar {
+    background-color: #061F2F !important;
+  }
+  img.center {
+    background-color: white !important;
+  }
+  img {
+    background-color: white !important;
+  }
+
+  .styledtable tbody tr:nth-of-type(odd) {
+    background-color: #555555 !important;
+  }
+  .styledtable tbody tr:nth-of-type(even) {
+    background-color: #252525 !important;
+  }
+  .styledtable tbody tr:last-of-type {
+    border-bottom: 2px solid #white;
+  }
+  #table-of-contents h2.fixed-right {
+    background-color: black !important;
+    color: #fff !important;
+  }
+  .styledtable thead tr {
+    background-color: black !important;
+    color: #fff !important;
+    text-align: left !important;
+  }
+  .styledtable {
+    border: none !important;
+    border-width: 0px !important;
+  }
+
 }
