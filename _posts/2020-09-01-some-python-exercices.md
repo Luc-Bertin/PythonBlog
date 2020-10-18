@@ -29,10 +29,10 @@ into this:
 OUTPUT: {1: 2, 3: 4, 5: 6, 7: 8}
 ```
 
-using dict comprehension! 
+- using dict comprehension 
+- using dict constructor
 
-
-## Ex. 1: Counting letter frequencies in a text.
+## Ex. 2: Counting letter frequencies in a text.
 
 - using a simple Python dictionary
 - using `defaultdict` (subclass of `dict`)
@@ -54,7 +54,7 @@ Quisque quis magna malesuada, ultricies leo eget, elementum est. Praesent enim p
 """
 ```
 
-## Ex. 2: decoding mARN using dict and list comprehensions !
+## Ex. 3: decoding mARN using dict and list comprehensions !
 
 In a cell, ribosomes synthesises proteins by translating **triplets** of **nucleotides** from the mRNA into a chain of amino-acids.
 
@@ -111,7 +111,7 @@ Split this arn in sequence of triplets to further get the amino-acids conversion
 
 4. Translate the sequence of triplets into the corresponding amino acid
 
-## Ex. 3: Sort the  a sorted dictionary, sorted by values
+## Ex. 4: Sort the  a sorted dictionary, sorted by values
 
 Hint: use `Ordereddict`
 
@@ -119,7 +119,7 @@ Hint: use `Ordereddict`
 x = {1: 2, 3: 4, 4: 3, 2: 1, 0: 0}
 ```
 
-## Ex. 4: Let's create a decorator using class definition
+## Ex. 5: Let's create a decorator using class definition
 
 A decorator is a construct often written as a function, that takes a **function as parameter** and returns **another one which extends** the behavior of the passed-in function.
 It thus needs to return a new function who had been defined in its inner scope and wrapped the first one.
@@ -164,7 +164,7 @@ The results must be saved in a dictionary:
  * keys    = params used
  * values  = results obtained
 
-## Ex. 5: Create a custom list 😉
+## Ex. 6: Create a custom list 😉
 
 Create a class `List` whose behavior upon doing `liste1 + liste2`  (with `liste1` and `liste2` being `List` instances), is to add each of their elements element-wise i.e. `liste1[i] + liste2[i]` for each `i`.
 
