@@ -8552,7 +8552,7 @@ html {
   .styledtable tbody tr:last-of-type {
     border-bottom: 2px solid #fff !important;
   }
-  #table-of-contents h2.fixed-right {
+  #table-of-contents h2.fixed-right a{
     background-color: black !important;
     color: #fff !important;
   }
