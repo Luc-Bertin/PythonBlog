@@ -1,8 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en_US"><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="en_US" /><updated>2020-10-02T17:52:31+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">PythonMood | Let’s code with Lulu</title><subtitle>Luc Bertin's blog of Python theoretical and hands-on tutorials. Here we cover Python from scratch and some use cases for Data Science related subjects</subtitle><entry><title type="html">Some definitions elements and stats for your ML journey</title><link href="http://localhost:4000/Scikit-Learn/" rel="alternate" type="text/html" title="Some definitions elements and stats for your ML journey" /><published>2020-09-25T00:00:00+02:00</published><updated>2020-09-25T00:00:00+02:00</updated><id>http://localhost:4000/Scikit-Learn</id><content type="html" xml:base="http://localhost:4000/Scikit-Learn/">&lt;blockquote&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en_US"><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="en_US" /><updated>2020-10-18T17:31:50+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">PythonMood | Let’s code with Lulu</title><subtitle>Luc Bertin's blog of Python theoretical and hands-on tutorials. Here we cover Python from scratch and some use cases for Data Science related subjects</subtitle><entry><title type="html">Supervised Machine Learning</title><link href="http://localhost:4000/Scikit-Learn/" rel="alternate" type="text/html" title="Supervised Machine Learning" /><published>2020-09-25T00:00:00+02:00</published><updated>2020-09-25T00:00:00+02:00</updated><id>http://localhost:4000/Scikit-Learn</id><content type="html" xml:base="http://localhost:4000/Scikit-Learn/">&lt;blockquote&gt;
   &lt;p&gt;Machine Learning is the field of study that gives computers the ability to learn without being explicitly programmed (if,if,if,else,if). — Arthur Samuel, 1959&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;h1 id=&quot;why-machine-learning-ml-&quot;&gt;Why Machine Learning (ML) ?&lt;/h1&gt;
+&lt;h1 id=&quot;introduction&quot;&gt;Introduction&lt;/h1&gt;
+
+&lt;h2 id=&quot;why-machine-learning-ml-&quot;&gt;Why Machine Learning (ML) ?&lt;/h2&gt;
 
 &lt;p&gt;The promise with ML is to have a general framework to create data-related models which we expect to be &lt;strong&gt;more robust, personalized and easier to maintain&lt;/strong&gt; into detecting patterns than &lt;strong&gt;hard-coding a set of rules&lt;/strong&gt;.&lt;br /&gt;
 Detecting new patterns over time, or from different sources, only require you to update the model or retrain it over the corresponding set of data.&lt;br /&gt;&lt;/p&gt;
@@ -10,77 +12,223 @@ Detecting new patterns over time, or from different sources, only require you to
 &lt;p&gt;ML models can also be inspected to infer about relationships between variables, and give humans a better understanding on complex and massive data, this is also called &lt;strong&gt;data mining&lt;/strong&gt;. &lt;br /&gt;
 But in my opinion there should be caution on such practice as to infer on the data generation process which is something that better falls in the scope of &lt;strong&gt;statistics&lt;/strong&gt;.&lt;/p&gt;
 
-&lt;h1 id=&quot;machine-learning-vs-statistics&quot;&gt;Machine Learning vs Statistics&lt;/h1&gt;
+&lt;h2 id=&quot;machine-learning-vs-statistics&quot;&gt;Machine Learning vs Statistics&lt;/h2&gt;
 
 &lt;p&gt;Statistics emphasizes inference, whereas Machine Learning emphasizes prediction.&lt;/p&gt;
 
-&lt;p&gt;Actually the term &lt;em&gt;inference&lt;/em&gt; in ML refers more as the predictions made on &lt;strong&gt;unseen data&lt;/strong&gt; from a &lt;strong&gt;trained model&lt;/strong&gt; while inference in statistics is the &lt;strong&gt;process to deduce properties of an underlying distribution of probability&lt;/strong&gt;.&lt;/p&gt;
-
-&lt;p&gt;Satistics explicitly takes uncertainty into account by specifying &lt;a href=&quot;https://www.fharrell.com/post/stat-ml/&quot;&gt;probabilistic model for the data&lt;/a&gt;. It incorporates probabilities for the data generating mechanism.
-a use multiple methods of inference such as hypothesis testing on the observed data which is believed to have originated from a larger population.
-ML is more empirical including allowance for high-order interactions that are not pre-specified.&lt;/p&gt;
-
-&lt;p&gt;A statistical hypothesis is a hypothesis that is testable on the basis of observed data modeled as the realised values taken by a collection of random variables.[1] A set of data (or several sets of data, taken together) are modelled as being realised values of a collection of random variables having a joint probability distribution in some set of possible joint distributions. The hypothesis being tested is exactly that set of possible probability distributions.&lt;/p&gt;
+&lt;p&gt;Actually the term &lt;em&gt;inference&lt;/em&gt; in ML refers more as the predictions made on &lt;strong&gt;unseen data&lt;/strong&gt; from a &lt;strong&gt;trained model&lt;/strong&gt; while inference in statistics is the &lt;strong&gt;process to deduce properties of an underlying distribution of probability&lt;/strong&gt;, the observed data is believed to have originated from a larger population. Hence statistics is employed towards better &lt;a href=&quot;https://www.peggykern.org/uploads/5/6/6/7/56678211/edu90790_decision_chart.pdf&quot;&gt;understanding some particular data generating process&lt;/a&gt;&lt;/p&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;A statistical model (SM) is a data model that incorporates probabilities for the data generating mechanism and has identified unknown parameters that are usually interpretable and of special interest&lt;/p&gt;
+  &lt;p&gt;A statistical model (SM) is a data model that incorporates probabilities for the data generating mechanism and has identified unknown parameters that are usually interpretable and of special interest.&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;Neithertheless, ML emboddies representation-&lt;/p&gt;
-
-&lt;p&gt;Representation involves the transformation of inputs from one space to another more useful space which can be more easily interpreted&lt;/p&gt;
-
-&lt;p&gt;involves the transformation of inputs from one space to another more useful space which can be more easily interpreted&lt;/p&gt;
-
-&lt;p&gt;Statistics are different from Machine Learning although these are domain that tends to overlap. 
-it is mostly employed towards better understanding some particular data generating process
-https://www.peggykern.org/uploads/5/6/6/7/56678211/edu90790_decision_chart.pdf&lt;/p&gt;
-
-&lt;h1 id=&quot;data-representation&quot;&gt;Data Representation&lt;/h1&gt;
-
-&lt;p&gt;Here are some statistical notions and vocabulary to accompany your different data science and ML projects.&lt;/p&gt;
-
+&lt;p&gt;Satistics explicitly takes uncertainty into account by specifying a &lt;a href=&quot;https://www.fharrell.com/post/stat-ml/&quot;&gt;probabilistic model for the data&lt;/a&gt;.&lt;/p&gt;
 &lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;Units of observation are the items that you actually observe, the level at which you collect the data.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Unit of analysis (a case), on another hand, is &lt;a href=&quot;http://re-design.dimiter.eu/?p=253&quot;&gt;the level at which you pitch the conclusions&lt;/a&gt;. For example, you may draw conclusions on group differences based on results you’ve collected on a student level.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;We may look at different caracteristics/dimensions for each given item we are observing. The name of each of the dimension that encapsulates the respective individual measurements is called a data attribute (e.g. weight of a patient, e.g. level of glucose). Similarly a &lt;strong&gt;feature&lt;/strong&gt; embeds both the data attribute and its corresponding value for a given unit of observation. Often though, features and attributes are interchangeably used terminology. Finally &lt;strong&gt;feature variable&lt;/strong&gt; is even more closely related to data attribute, a slight difference is that the variable is the operationalized representation of the latter. In other tutorials of this blog, we will use data attribute and feature variable interchangeably.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Data points are the different measures carried out for a unit of observation. It is a collection of features, attributes or caracteristics. For example, one patient could have a data point defined as the collection {weight, height, level of glucose, BMI}. The point could be “plot” in such n-dimensional figure. Features here are each of these dimensions.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Data for ML tasks are often stored in a 2 dimensional dataframe or similarly shaped array. The features variables / data attributes identify as the columns, of the dataset, while the rows match the units of observation.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Units of observation could be equally spaced time records for one individual/entity/study unit. Say for example Apple stock price variations over time: we would then talk about a &lt;strong&gt;time-series&lt;/strong&gt; study. When multiple individuals do have each different time point observations, we are talking about &lt;strong&gt;longitudinal&lt;/strong&gt; study. Lastly, cross-sectional studies are constituted of entities’ observations at one spefici point in time.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Quantitative vs qualitative research:
-A quantitative research is an empirical method  that relies on collected numerical data to apply elements of the scientific method on: such as the drawing hypotheses, generation of mathematical models and the ultimate acquiring of knowledge. A qualitative research is rather used to explore trends or gather insights using non-numerical data (video, text, etc.) by conducting surveys or interviews for example.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Statistical computations and analyses assume that the &lt;a href=&quot;https://stats.idre.ucla.edu/other/mult-pkg/whatstat/what-is-the-difference-between-categorical-ordinal-and-numerical-variables/&quot;&gt;variables have specific levels of measurement&lt;/a&gt;.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Categorical variables (or “nominal”) on the other hand, are variable holding 2 or more categories but without any ordering between the categories (can you order someone with blue eyes from someone else with red ones ?). Ordinal variables, on the other hand, have categories that can be ordered (e.g. Height could be Low, Medium or High), but the spacing between the values may not be the same across the levels of the variables ! Were it be, the variables would be numerical. Finally, variable could be quantitative (i.e. numerical). Numerical variables can be subclassed in continuous or discrete variables. Continuous variables is more of a conceptual construct: values discretion appears inevitably as instruments of measurement does not have infinite countable range values. The difference between numerical and ordinal variable is that the former necessarily implies an interval scale where the difference between two values is meaningful.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Algorithm vs model: an algorithm is the set of instructions and approach to build a model. The model is the final construct - computational tool obtained from running the algorithm on the data (training data more exactly). Model parameters change over the data the model has been trained on.&lt;/p&gt;
-    &lt;blockquote&gt;
-      &lt;p&gt;from &lt;a href=&quot;https://docs.microsoft.com/en-us/windows/ai/windows-ml/what-is-a-machine-learning-model&quot;&gt;windows docs&lt;/a&gt;: You train a model over a set of data, providing it an algorithm that it can use to reason over and learn from those data. Once you have trained the model, you can use it to reason over data that it hasn’t seen before, and make predictions about those data.&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
+  &lt;li&gt;It has a &lt;a href=&quot;https://online.stat.psu.edu/stat504/node/16/&quot;&gt;mathematical formulation that shows the relationships between random variables and parameters&lt;/a&gt;.&lt;/li&gt;
+  &lt;li&gt;Residuals are the portion of the data unexplained by the model.&lt;/li&gt;
+  &lt;li&gt;Most of the variation in the data should be explained by the latter though i.e. \(data = model + residuals\).&lt;/li&gt;
+  &lt;li&gt;It makes assumptions about the random variables.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;*
- training vs test set&lt;/p&gt;
+&lt;p&gt;ML is more empirical including allowance for high-order interactions that are not pre-specified.&lt;/p&gt;
 
-&lt;h2 id=&quot;on-ols&quot;&gt;On OLS&lt;/h2&gt;</content><author><name>luc</name></author><category term="featured" /><summary type="html">Machine Learning is the field of study that gives computers the ability to learn without being explicitly programmed (if,if,if,else,if). — Arthur Samuel, 1959</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/images/post_some_statistical_elements/index_img/cover.jpg" /><media:content medium="image" url="http://localhost:4000/assets/images/post_some_statistical_elements/index_img/cover.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Some functional programming exercices</title><link href="http://localhost:4000/some-functional-programing-exercices/" rel="alternate" type="text/html" title="Some functional programming exercices" /><published>2020-09-14T00:00:00+02:00</published><updated>2020-09-14T00:00:00+02:00</updated><id>http://localhost:4000/some-functional-programing-exercices</id><content type="html" xml:base="http://localhost:4000/some-functional-programing-exercices/">&lt;p&gt;Some exercices following tutorial &lt;em&gt;Introduction to functional programming&lt;/em&gt; to make you more comfortable with the concepts.&lt;/p&gt;
+&lt;p&gt;Neithertheless, ML emboddies &lt;strong&gt;representation&lt;/strong&gt; (the transformation of inputs from one space to another more useful space which can be more easily interpreted), and ML models can be also exploited or interpreted to extract meaningful information or patterns from the underlying observed data (this is also encapsulated by what is called as &lt;strong&gt;Data Mining&lt;/strong&gt;).&lt;/p&gt;
+
+&lt;h1 id=&quot;some-terminology&quot;&gt;Some terminology&lt;/h1&gt;
+
+&lt;h2 id=&quot;estimator-vs-estimate-vs-estimand&quot;&gt;Estimator vs estimate vs estimand&lt;/h2&gt;
+
+&lt;p&gt;Directly from Wikipedia (this is self-exaplanatory):&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;In statistics, an estimator is a rule for calculating an estimate of a given quantity based on observed data: thus the rule (the estimator), the quantity of interest (the estimand) and its result (the estimate) are distinguished.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;probability-space&quot;&gt;Probability space&lt;/h2&gt;
+
+&lt;p&gt;It is a mathematical construct to give a theoretical frame to random process / “experiment”.&lt;/p&gt;
+
+&lt;p&gt;Again using Wikipedia definition; it is constituted of 3 composants: \((\Omega, F, P)\)&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;a sample space (all the possible outcomes of the experiment)&lt;/li&gt;
+  &lt;li&gt;an event space (all the events, an event being a set of outcomes in the sample space)&lt;/li&gt;
+  &lt;li&gt;a probability function: which assigns to each event in the event space a probability.
+E.g. tossing a coin once&lt;/li&gt;
+  &lt;li&gt;sample space = {(head, head), (head, tail), (tail, tail)} (if we don’t care about the order : unordered)&lt;br /&gt;&lt;/li&gt;
+  &lt;li&gt;event space includes event1 “E=having eads twice” or event2 “E=having head and tail once”.&lt;/li&gt;
+  &lt;li&gt;probability function: fair coin: 1/2 of 1 head and 1/2 of one tail.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;random-variable&quot;&gt;Random Variable&lt;/h2&gt;
+
+&lt;p&gt;A random variable is a function defined on a probability space which assigns to a element in the sample space (an outcome of an experiment) a real value.&lt;/p&gt;
+
+&lt;p&gt;\(X=(x_1, x_2, \dots, x_M)\) is one row of your dataset, then \(X\) can be associated with the “realization” of \(M\) random variables: \(X_1, X_2, \dots, X_M\)&lt;/p&gt;
+
+&lt;h2 id=&quot;hypothesis&quot;&gt;Hypothesis&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;From Wikipedia: A statistical hypothesis is a hypothesis that is testable on the basis of observed data modeled as the realised values taken by a collection of random variables. A set of data (or several sets of data, taken together) are modelled as being realised values of a collection of random variables having a joint probability distribution in some set of possible joint distributions. The hypothesis being tested is exactly that set of possible probability distributions.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;prediction-vs-estimation&quot;&gt;Prediction vs Estimation&lt;/h2&gt;
+
+&lt;p&gt;An estimator is a function (of a &lt;strong&gt;random variable corresponding to the observed data&lt;/strong&gt; \(X\)), and is denoted \(\hat{\theta}\)&lt;br /&gt;
+The composition  \(\hat{\theta}(X)\) is an estimate produced by applying the estimator function on some realizations of \(X\) (the observed data or a subset of it).&lt;br /&gt;
+The estimator thus maps the realizations of \(X\) to a (set of) sample estimates, depending on \(X\), making the composition a random variable, with a fixed value for a given input.&lt;/p&gt;
+
+&lt;p&gt;For example, the OLS estimate for a simple linear regression is \((\hat{\alpha}, \hat{\beta})\).&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;In OLS again, you can think of the formulas to define the \(\beta\)s and the \(intercept\) as &lt;strong&gt;estimators&lt;/strong&gt;, and the corresponding estimates produced from &lt;strong&gt;applying the estimators&lt;/strong&gt; on a given &lt;a href=&quot;https://stats.stackexchange.com/questions/7581/what-is-the-relation-between-estimator-and-estimate&quot;&gt;sample or set of data&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;A &lt;strong&gt;predictor&lt;/strong&gt; concerns the &lt;strong&gt;independent observation/value&lt;/strong&gt; of another &lt;strong&gt;random variable \(Z\)&lt;/strong&gt; whose distribution is &lt;strong&gt;related to the unknown parameters we try to estimate using estimators&lt;/strong&gt;.&lt;br /&gt; 
+Hence, \(Z\) being a random variable, it also brings an additional uncertainty as the outcomes from \(Z\) are random, not only from the randomness of the data, but the randomness of \(Z\) itself.&lt;br /&gt;
+The predictor applied on a single vector of data-points, and \(Z\) itself, are not part of the dataset. Here we talk about &lt;a href=&quot;https://stats.stackexchange.com/questions/17773/what-is-the-difference-between-estimation-and-prediction&quot;&gt;realizations of a &lt;strong&gt;random variable that depends on the independent variables in the data&lt;/strong&gt; \(Z\)=\(Y(x)\)&lt;/a&gt;.&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;in addition, there is uncertainty in just what value of \(Y(x)\) will occur. This additional uncertainty - because \(Y(x)\) is random - characterizes predictions. […] The source of potential confusion is that the prediction usually builds on the estimated parameters and might even have the same formula as an estimator.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;the-data&quot;&gt;The Data&lt;/h2&gt;
+
+&lt;h3 id=&quot;units-of-observation&quot;&gt;Units of observation&lt;/h3&gt;
+
+&lt;p&gt;These are items that you actually observe, the level at which you collect the data.&lt;/p&gt;
+
+&lt;h3 id=&quot;unit-of-analysis-case&quot;&gt;Unit of analysis (case)&lt;/h3&gt;
+
+&lt;p&gt;On another hand, this is &lt;a href=&quot;http://re-design.dimiter.eu/?p=253&quot;&gt;the level at which you pitch the conclusions&lt;/a&gt;. For example, you may draw conclusions on group differences based on results you’ve collected on a student level.&lt;/p&gt;
+
+&lt;h3 id=&quot;caracteristics-attributes-and-features&quot;&gt;Caracteristics: attributes and features&lt;/h3&gt;
+
+&lt;p&gt;We may look at different caracteristics/dimensions for each given item we are observing.&lt;br /&gt;
+The name of each of the dimension that encapsulates the respective individual measurements is called a &lt;strong&gt;data attribute&lt;/strong&gt; (e.g. weight of a patient, e.g. level of glucose).&lt;br /&gt;
+Similarly a &lt;strong&gt;feature&lt;/strong&gt; embeds both the data attribute &lt;strong&gt;and&lt;/strong&gt; its corresponding value for a given unit of observation. Often though, features and attributes are interchangeably used terminology.&lt;br /&gt;
+Finally &lt;strong&gt;feature variable&lt;/strong&gt; is even more closely related to data attribute, a slight difference is that the variable is the “operationalized representation” of the latter.&lt;br /&gt;
+In other tutorials of this blog, we will use data attribute and feature variable interchangeably.&lt;/p&gt;
+
+&lt;h3 id=&quot;data-points&quot;&gt;Data points&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;Data points&lt;/strong&gt; are the &lt;strong&gt;different measures carried out for a unit of observation&lt;/strong&gt;. It is a &lt;strong&gt;collection of features&lt;/strong&gt; / caracteristics.&lt;br /&gt;
+For example, one patient could have a data point defined as the collection {weight, height, level of glucose, BMI}.&lt;br /&gt;
+The point could be “plot” in such n-dimensional figure. Features here are each of these dimensions.&lt;/p&gt;
+
+&lt;h3 id=&quot;data-structure&quot;&gt;Data structure&lt;/h3&gt;
+
+&lt;p&gt;For most ML algorithsm, data collected are often stored in a 2-dimensional dataframe or similarly shaped array.&lt;br /&gt;The features variables / data attributes correspond to the &lt;strong&gt;columns&lt;/strong&gt; of the dataset, while the &lt;strong&gt;rows&lt;/strong&gt; match the &lt;strong&gt;units of observation&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;cross-sectionnal-vs-longitudinal-vs-time-series-study&quot;&gt;Cross-sectionnal vs longitudinal vs time-series study&lt;/h3&gt;
+
+&lt;p&gt;Units of observation could be &lt;strong&gt;equally spaced time records&lt;/strong&gt; for one individual/entity/study unit. Say for example Apple stock price variations over time: we would then talk about a &lt;strong&gt;time-series&lt;/strong&gt; study.&lt;br /&gt;
+When &lt;strong&gt;multiple individuals&lt;/strong&gt; do have each different time point observations, we are talking about &lt;strong&gt;longitudinal&lt;/strong&gt; study.&lt;br /&gt;
+Lastly, cross-sectional studies are constituted of &lt;strong&gt;entities’ observations at one speficic point in time&lt;/strong&gt; (e.g. Boston houses price dataset).&lt;br /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;quantitative-vs-qualitative-research&quot;&gt;Quantitative vs qualitative research&lt;/h3&gt;
+
+&lt;p&gt;A quantitative research is an &lt;strong&gt;empirical method&lt;/strong&gt; that relies &lt;strong&gt;on collected numerical data&lt;/strong&gt; to apply elements of the &lt;strong&gt;scientific method&lt;/strong&gt; on: such as the &lt;strong&gt;drawing hypotheses&lt;/strong&gt;, generation of &lt;strong&gt;mathematical models&lt;/strong&gt; and the ultimate &lt;strong&gt;acquiring of knowledge&lt;/strong&gt;.&lt;br /&gt;
+A qualitative research is rather used to &lt;strong&gt;explore trends&lt;/strong&gt; or &lt;strong&gt;gather insights&lt;/strong&gt; using &lt;strong&gt;non-numerical&lt;/strong&gt; data (video, text, etc.) by conducting surveys or &lt;strong&gt;interviews&lt;/strong&gt; for example.&lt;/p&gt;
+
+&lt;h3 id=&quot;quantitative-vs-categorical-variables-or-nominal&quot;&gt;Quantitative vs Categorical variables (or “nominal”)&lt;/h3&gt;
+
+&lt;p&gt;Statistical computations and analyses assume that the &lt;a href=&quot;https://stats.idre.ucla.edu/other/mult-pkg/whatstat/what-is-the-difference-between-categorical-ordinal-and-numerical-variables/&quot;&gt;variables have specific levels of measurement&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Categorical variables are &lt;strong&gt;variable holding 2 or more categories&lt;/strong&gt; but &lt;strong&gt;without any ordering between the categories&lt;/strong&gt; (can you order someone with blue eyes from someone else with red ones ?).&lt;br /&gt;
+Ordinal variables, on the other hand, have categories that &lt;strong&gt;can be ordered&lt;/strong&gt; (e.g. Height could be Low, Medium or High), but the &lt;strong&gt;spacing between the values&lt;/strong&gt; may not be the same across the levels of the variables ! Were it be, the variables would be numerical / quantitative.&lt;br /&gt;
+Numerical variables can be subclassed in &lt;strong&gt;continuous or discrete variables&lt;/strong&gt;. Continuous variables is more of a conceptual construct: values discretion appears inevitably as instruments of measurement does not have infinite countable range values. The difference between numerical and ordinal variable is that the former &lt;strong&gt;necessarily implies an interval scale&lt;/strong&gt; where the &lt;strong&gt;difference between two values is meaningful&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;the-ml-part&quot;&gt;The ML part&lt;/h2&gt;
+
+&lt;h3 id=&quot;algorithm-vs-model&quot;&gt;Algorithm vs model&lt;/h3&gt;
+
+&lt;p&gt;An algorithm is the &lt;strong&gt;set of instructions&lt;/strong&gt; i.e. the approach &lt;strong&gt;to build&lt;/strong&gt; a model.&lt;/p&gt;
+
+&lt;p&gt;The model is the &lt;strong&gt;final construct - computational tool obtained from running the algorithm on the data&lt;/strong&gt; (training data more exactly).&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Model parameters change over the data&lt;/strong&gt; the model has been trained on.&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;from &lt;a href=&quot;https://docs.microsoft.com/en-us/windows/ai/windows-ml/what-is-a-machine-learning-model&quot;&gt;windows docs&lt;/a&gt;: You train a model over a set of data, providing it an algorithm that it can use to reason over and learn from those data. Once you have trained the model, you can use it to reason over data that it hasn’t seen before, and make predictions about those data.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h3 id=&quot;model-parameters-vs-hyperparameters&quot;&gt;Model parameters vs hyperparameters&lt;/h3&gt;
+
+&lt;p&gt;Model parameters change over the data the model has been trained on.&lt;/p&gt;
+
+&lt;p&gt;Model hyperparameters have values that should be &lt;strong&gt;fixed prior to running the algorithm&lt;/strong&gt; on the data to construct the model. The model structure can change depending on the values set for the hyperparameters. Hyperparams then eventually control the process of defining your model.&lt;br /&gt;
+These are “parameters” to ultimately fine-tune, often controlling overfitting tendency of the model.&lt;br /&gt;
+A regression model built using OLS method and not using any penalization does not have any hyperparameters. A regression model made from using Gradient Descent algorithm does indeed use an hyperparameter: the learning rate.&lt;/p&gt;
+
+&lt;h3 id=&quot;outcome-variable&quot;&gt;Outcome variable&lt;/h3&gt;
+
+&lt;p&gt;What you’re trying to predict, in a supervised machine learning problem.
+The \(y\) is the true/observed value from the data.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;\(y\) could be a single numerical value (this leads to a regression problem) or a categorical one (this leads to a classification problem).&lt;/li&gt;
+  &lt;li&gt;\(y\) could be one element (univariate problem, e.g. the salaries of employees in the company), or a vector \(Y\) of elements (multivariate statistics). Actually many of the common techniques in multivariate analysis (ordination and clustering, for instance) use unsupervised learning algorithms (e.g. PCA).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;The term dependent variable is also used to refer to the outcome variable, under the hypothesis often drawn in statistics that this variables does not depend on the value of other variables by a mathematical function.&lt;/p&gt;
+
+&lt;h3 id=&quot;independent-variables&quot;&gt;Independent variables&lt;/h3&gt;
+
+&lt;p&gt;It is used to refer to the variables that should &lt;strong&gt;not depend&lt;/strong&gt; on other variables in the scope of the experiment, and that are used as &lt;strong&gt;predictor variables&lt;/strong&gt;, as it is assumed a &lt;strong&gt;relationship&lt;/strong&gt; does exist between the outcome variable and those.&lt;/p&gt;
+
+&lt;h3 id=&quot;a-performance-measure&quot;&gt;A performance measure&lt;/h3&gt;
+
+&lt;p&gt;How well does perform your model ?&lt;br /&gt;
+How does it compare to another model ?&lt;br /&gt;
+To draw such comparisons you need to specify a performance measure.&lt;/p&gt;
+
+&lt;p&gt;A &lt;strong&gt;fitness function&lt;/strong&gt; is a function that returns an integer value for how good your model is. For traditional ML algorithms, we will use what we call a loss function.&lt;/p&gt;
+
+&lt;p&gt;Similarly, the &lt;strong&gt;loss&lt;/strong&gt; function measures how bad your model is on predicting one data point.
+It could be a quadractic loss function (squared difference between the real and predicted value):
+\(L(Y, f(X)) =  (y - \hat{f}(X))^2\)&lt;/p&gt;
+
+&lt;p&gt;(nice as it is differentiable), indicative loss function (0/1), absolute difference loss function, or other.&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;Actually, more generally, a loss function can show how close an estimate is from its corresponding estimand (quantity of interest we try to estimate). Here, the estimate is simply the model prediction \(\hat{f}(X)\) given an single input vector of features \(X\), which assign the prediction \(\hat{y}\).&lt;/p&gt;
+
+&lt;p&gt;The risk function, in a frequentist statistical theory, is the &lt;strong&gt;expected loss&lt;/strong&gt; i.e. the &lt;strong&gt;averaging over all of the loss functions&lt;/strong&gt;. It then describes how bad your model is on the &lt;strong&gt;set&lt;/strong&gt; of data. Hence the &lt;strong&gt;closer&lt;/strong&gt; the predictions &lt;strong&gt;match&lt;/strong&gt; the real expected / true value, the &lt;strong&gt;lower the prediction errors&lt;/strong&gt; are, and then the &lt;strong&gt;lower the cost&lt;/strong&gt; functions gets, &lt;strong&gt;so is the risk&lt;/strong&gt; function.
+We then seek to &lt;strong&gt;minimize&lt;/strong&gt; the risk function.&lt;/p&gt;
+
+&lt;p&gt;It is often nice to differentiate, if possible, such risk function over the model parameters, so to see how changing one parameter or the other could possibly minimize the risk function.&lt;/p&gt;
+
+&lt;p&gt;Note: Sometimes &lt;strong&gt;cost function&lt;/strong&gt; is used as synonym of &lt;strong&gt;loss function&lt;/strong&gt;, sometimes as the &lt;strong&gt;risk&lt;/strong&gt; one. Hence you should always read the underlying equation in a paper to ascertain of the definition one use.&lt;/p&gt;
+
+&lt;h3 id=&quot;training-vs-test-sets&quot;&gt;training vs test sets&lt;/h3&gt;
+
+&lt;p&gt;If we were to &lt;strong&gt;preprocess data and later train a model&lt;/strong&gt; — that could be hyperparametrized — on these data, and finally compute a risk function applied on the model predictions for these same data versus the observed values, we could then be &lt;strong&gt;tempted to lower the value&lt;/strong&gt; returned by the risk function by &lt;strong&gt;changing our model hyperparameters&lt;/strong&gt; or changing the way we &lt;strong&gt;processed data&lt;/strong&gt; (this could include changing the data representation of some input features, handling of outliers, handling of missing data, feature selection and feature engineering).&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;That would be such a bad idea though: how can one ensure the model will perform any better on a another sample from the population, so to say: &lt;strong&gt;generalize&lt;/strong&gt; well to other inputs and probably unseed data from the generation process ?&lt;/p&gt;
+
+&lt;p&gt;In order to mitigate this, you split the main dataset in train and test datasets.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;The data processing decisions and training of the model will be performed on the training dataset.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;An unbiased evaluation of the trained model&lt;/strong&gt; (trained on the training dataset) will be raised by applying the risk function on a test set i.e. predicted outcome values on &lt;strong&gt;new, possibly unseen data&lt;/strong&gt; from the test set will be &lt;strong&gt;compared to&lt;/strong&gt; the &lt;strong&gt;observed outcome values&lt;/strong&gt; from this same &lt;strong&gt;test set&lt;/strong&gt;. This enables us to check how well does the model actually perform on new data in a &lt;strong&gt;supervised learning framework&lt;/strong&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;supervised-vs-unsupervised-learning&quot;&gt;Supervised vs Unsupervised Learning&lt;/h3&gt;
+
+&lt;p&gt;A supervised machine learning alorigthm makes used of the &lt;strong&gt;presence of the outcome variable to guide the learning process&lt;/strong&gt; (Element of Statistical Analysis Book).&lt;/p&gt;
+
+&lt;p&gt;An &lt;strong&gt;unsupervised machine learning&lt;/strong&gt; algorithm finds patterns in the data with &lt;strong&gt;no pre-existing **labels or outcome variable&lt;/strong&gt; used for guidance in the learning process.&lt;/p&gt;
+
+&lt;p&gt;Taking one approach or the other depends on your use case (making prediction vs trying to get new insights of your data using ML).&lt;/p&gt;
+
+&lt;p&gt;Although splitting data into training and testing sets is mainly granted for supervised problems, &lt;a href=&quot;https://stackoverflow.com/questions/31673388/is-train-test-split-in-unsupervised-learning-necessary-useful&quot;&gt;unsupervised problems and algorithms can also benefit from this approach&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;a-base-scenario-in-a-supervised-learning-problem&quot;&gt;A base scenario in a Supervised Learning problem&lt;/h3&gt;
+
+&lt;p&gt;This example should be fully understandable after reading the preceding questions.&lt;/p&gt;
+
+&lt;p&gt;I directly quote this example framework from &lt;strong&gt;&lt;em&gt;Elements of statistical Learning&lt;/em&gt;&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;In a typical scenario, we have an &lt;strong&gt;outcome measurement&lt;/strong&gt;, usually &lt;strong&gt;quantitative&lt;/strong&gt; (such as a &lt;strong&gt;stock price&lt;/strong&gt;) or &lt;strong&gt;categorical&lt;/strong&gt; (such as &lt;strong&gt;yes&lt;/strong&gt; heart attack/&lt;strong&gt;no&lt;/strong&gt; heart attack), that we &lt;strong&gt;wish to predict&lt;/strong&gt; based on a &lt;strong&gt;set of features&lt;/strong&gt; (such as diet and clinical &lt;strong&gt;measurements&lt;/strong&gt;). We have a &lt;strong&gt;training set of data&lt;/strong&gt;, in which &lt;strong&gt;we observe the outcome and feature measurements&lt;/strong&gt; for a &lt;strong&gt;set of observations&lt;/strong&gt; (such &lt;strong&gt;as people&lt;/strong&gt;). Using &lt;strong&gt;this&lt;/strong&gt; data we &lt;strong&gt;build a prediction model&lt;/strong&gt;, or &lt;strong&gt;&lt;em&gt;learner&lt;/em&gt;&lt;/strong&gt;, which will enable us to &lt;strong&gt;predict the outcome for new unseen objects&lt;/strong&gt;. A good learner is &lt;strong&gt;one that accurately predicts such an outcome&lt;/strong&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;modelling&quot;&gt;Modelling&lt;/h2&gt;
+
+&lt;h3 id=&quot;linear-regression&quot;&gt;Linear-Regression&lt;/h3&gt;</content><author><name>luc</name></author><category term="featured" /><summary type="html">Machine Learning is the field of study that gives computers the ability to learn without being explicitly programmed (if,if,if,else,if). — Arthur Samuel, 1959</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/images/post_some_statistical_elements/index_img/cover.jpg" /><media:content medium="image" url="http://localhost:4000/assets/images/post_some_statistical_elements/index_img/cover.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Some functional programming exercices</title><link href="http://localhost:4000/some-functional-programing-exercices/" rel="alternate" type="text/html" title="Some functional programming exercices" /><published>2020-09-14T00:00:00+02:00</published><updated>2020-09-14T00:00:00+02:00</updated><id>http://localhost:4000/some-functional-programing-exercices</id><content type="html" xml:base="http://localhost:4000/some-functional-programing-exercices/">&lt;p&gt;Some exercices following tutorial &lt;em&gt;Introduction to functional programming&lt;/em&gt; to make you more comfortable with the concepts.&lt;/p&gt;
 
 &lt;h2 id=&quot;exo1-lets-create-a-data-science-pipeline-of-generators-&quot;&gt;Exo1: Let’s create a Data Science pipeline of generators 😉&lt;/h2&gt;
 
@@ -253,20 +401,29 @@ A chunk of size 1 equals one line of the file.&lt;/p&gt;
 
 &lt;h4 id=&quot;31-create-a-date-column-taking-into-account-the-year-month-and-day-from-question29-and-using-pdto_datetime-in-question30&quot;&gt;31. Create a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;date&lt;/code&gt; column taking into account the year, month, and day from question29 and using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pd.to_datetime&lt;/code&gt; in question30.&lt;/h4&gt;
 
-&lt;h4 id=&quot;32-plot-the-daily-death-trends-during-the-entire-year&quot;&gt;32. Plot the daily death trends during the entire year.&lt;/h4&gt;</content><author><name>luc</name></author><summary type="html">Some exercices following tutorial Discover Pandas to make you more comfortable with the concepts.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/images/post_some_pandas_exercices/index_img/cover.png" /><media:content medium="image" url="http://localhost:4000/assets/images/post_some_pandas_exercices/index_img/cover.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Discover Pandas</title><link href="http://localhost:4000/discover-pandas/" rel="alternate" type="text/html" title="Discover Pandas" /><published>2020-09-10T00:00:00+02:00</published><updated>2020-09-10T00:00:00+02:00</updated><id>http://localhost:4000/discover-pandas</id><content type="html" xml:base="http://localhost:4000/discover-pandas/">&lt;blockquote&gt;
-  &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pandas.DataFrame&lt;/code&gt; is a 2-dimensional labeled data structure with columns of potentially different types. You can think of it like a spreadsheet or SQL table.
-It got rows and columns’ labels and can greatly contain and handle missing data.&lt;/p&gt;
+&lt;h4 id=&quot;32-plot-the-daily-death-trends-during-the-entire-year&quot;&gt;32. Plot the daily death trends during the entire year.&lt;/h4&gt;</content><author><name>luc</name></author><summary type="html">Some exercices following tutorial Discover Pandas to make you more comfortable with the concepts.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/images/post_some_pandas_exercices/index_img/cover.png" /><media:content medium="image" url="http://localhost:4000/assets/images/post_some_pandas_exercices/index_img/cover.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Discover Pandas</title><link href="http://localhost:4000/discover-pandas/" rel="alternate" type="text/html" title="Discover Pandas" /><published>2020-09-10T00:00:00+02:00</published><updated>2020-09-10T00:00:00+02:00</updated><id>http://localhost:4000/discover-pandas</id><content type="html" xml:base="http://localhost:4000/discover-pandas/">&lt;h1 id=&quot;why-pandas-&quot;&gt;Why Pandas ?&lt;/h1&gt;
+
+&lt;p&gt;To create a machine learning model, we need to apply the underlying algorithm on some training data (more on this in &lt;strong&gt;Lecture 5&lt;/strong&gt;). For this to work, we need to have a specific data structure to pass as input. &lt;br /&gt;
+Most traditional ML models require a 2D data-structure, just like a matrix. A &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;numpy.array&lt;/code&gt; can be used for that purpose. Each row define an observation (more on this in &lt;strong&gt;Lecture 5&lt;/strong&gt;), types of observations might depend on our designed problem. Each column display a caracteristic for each of these observations.&lt;br /&gt;
+Now, imagine such 2D data structure, maybe you would want to first name your columns and rows, analogously to a spreadsheet or SQL table, then inspect your data, handle missing values, do some processing on it (e.g. retrieve number of streets out of the street name), combine with other related, 2D, data from different sources, quickly perform descriptive statistics, do some computations on columns, on rows, or even within groups of observations sharing some common arbitrary caracteristic, quickly display trends from your computations.&lt;br /&gt;
+Also, dealing with initially less structured, clean and complete data, consists in most of the time spent by the data scientist. Sometimes the data you’re being given doesn’t have such 2D representation and you would want to have some helpers functions to perform the conversion.&lt;/p&gt;
+
+&lt;p&gt;In either cases, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Pandas&lt;/code&gt; package and its &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;DataFrame&lt;/code&gt; object comes in handy.&lt;/p&gt;
+
+&lt;h1 id=&quot;three-important-pandas-data-structures&quot;&gt;Three important Pandas’ data-structures&lt;/h1&gt;
+
+&lt;p&gt;From the pandas docs, which give a nice overview of the &lt;a href=&quot;https://pandas.pydata.org/docs/getting_started/overview.html&quot;&gt;package&lt;/a&gt;:&lt;/p&gt;
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pandas.DataFrame&lt;/code&gt; is a 2-dimensional labeled data structure with columns of potentially different types. You can think of it like a spreadsheet. It got rows and columns’ labels (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pandas.Index&lt;/code&gt; objects). Each column is a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pandas.Series&lt;/code&gt;.&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;p&gt;Dealing with initially less structured, clean and complete data consists in most of the time spent by the data scientist.&lt;/p&gt;
+&lt;p&gt;Pandas is built on top of Numpy, hence sharing some optimizations from the latter, as well as closely related API.&lt;/p&gt;
 
-&lt;p&gt;First, check the overview of the package &lt;a href=&quot;https://pandas.pydata.org/docs/getting_started/overview.html&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;Pandas is built on top of Numpy.&lt;/p&gt;
-
-&lt;p&gt;In the rest of this tutorial we will mainly work on the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;DataFrame&lt;/code&gt; class, although we first have to introduce 2 other core data structures provided by the package: the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Series&lt;/code&gt; and the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Index&lt;/code&gt;, as they are each constitutive of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;DataFrame&lt;/code&gt; and the former share very similar API with the DataFrame class.&lt;/p&gt;
+&lt;p&gt;In the rest of this tutorial we will mainly work on the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;DataFrame&lt;/code&gt; class, although we first need to introduce the 2 other core data structures mentioned sooner: the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Series&lt;/code&gt; and the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Index&lt;/code&gt;, as they are each constitutive of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;DataFrame&lt;/code&gt; and the former share also similarly named methods and behaviors with the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;DataFrame&lt;/code&gt; class.&lt;/p&gt;
 
 &lt;h2 id=&quot;series&quot;&gt;Series&lt;/h2&gt;
+
+&lt;h3 id=&quot;definition&quot;&gt;Definition&lt;/h3&gt;
 
 &lt;p&gt;one-dimensional array of indexed data.&lt;/p&gt;
 
@@ -301,10 +458,14 @@ dtype: int64
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Int64Index([93, 129, 219394], dtype='int64')
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;a dictionnary-like, object with possible keys repetition&lt;/p&gt;
+&lt;h3 id=&quot;series-as-a-dictionnary-like-object&quot;&gt;Series as a dictionnary-like object&lt;/h3&gt;
+
+&lt;p&gt;A &lt;strong&gt;dictionnary-like&lt;/strong&gt;, object with possible &lt;strike&gt;keys&lt;/strike&gt; index repetition.&lt;br /&gt;&lt;/p&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;serie&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Series&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;rené&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;rené&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;jean&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;We display a series.&lt;/p&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;serie&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -315,11 +476,15 @@ jean    1
 dtype: int64
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
+&lt;p&gt;We can show the values, a numpy typed array.&lt;/p&gt;
+
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;serie&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;values&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;array([3, 2, 1])
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;and show the &lt;strike&gt;keys&lt;/strike&gt; index !&lt;/p&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;serie&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -327,8 +492,10 @@ dtype: int64
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Index(['rené', 'rené', 'jean'], dtype='object')
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
+&lt;p&gt;Here the 4 basic &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dict&lt;/code&gt; operations work seamlessly the same for a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Series&lt;/code&gt;.&lt;/p&gt;
+
 &lt;ul&gt;
-  &lt;li&gt;Access by key&lt;/li&gt;
+  &lt;li&gt;Access by &lt;strike&gt;key&lt;/strike&gt; index:&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;serie&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'rené'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
@@ -340,18 +507,20 @@ dtype: int64
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;Set a new key pair&lt;/li&gt;
+  &lt;li&gt;Set a new &lt;strike&gt;key&lt;/strike&gt; index:value pair&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;serie&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'joseph'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;Change a value for a key&lt;/li&gt;
+  &lt;li&gt;Change a value for a given &lt;strike&gt;key&lt;/strike&gt; index.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;serie&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'rené'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Notice the broadcoasting of the integer here in case of multiple same index for the given value.&lt;/p&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;serie&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -362,6 +531,8 @@ jean      1
 joseph    5
 dtype: int64
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;You can also pass a sequence of elements with a &lt;strong&gt;matching&lt;/strong&gt; length with the index multiplicity number.&lt;/p&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;serie&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'rené'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -377,7 +548,7 @@ dtype: int64
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;delete a key val pair&lt;/li&gt;
+  &lt;li&gt;delete a &lt;strike&gt;key&lt;/strike&gt; index:value pair&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;del&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;serie&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;rené&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
@@ -391,19 +562,10 @@ joseph    5
 dtype: int64
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;serie&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# indexing: not possible in a simple dict 
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;You can also do lookups on indexes, using the same syntax as for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dict&lt;/code&gt; keys.&lt;/p&gt;
 
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;jean    1
-dtype: int64
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;lookup&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'rené'&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;serie&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;jean&quot;&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;serie&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'rené'&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;serie&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;#in the indexes, same syntax as for dict keys
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;jean&quot;&lt;/span&gt; &lt;span class=&quot;ow&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;serie&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;False
@@ -411,12 +573,22 @@ True
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;When index is unique, pandas use a hashtable just like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dict&lt;/code&gt;s : O(1).&lt;/li&gt;
-  &lt;li&gt;When index is non-unique and sorted, pandas use binary search O(logN)&lt;/li&gt;
-  &lt;li&gt;When index is non-unique and not-sorted pandas need to check all the keys just like a list look-up: O(N).&lt;/li&gt;
+  &lt;li&gt;When index is &lt;strong&gt;unique&lt;/strong&gt;, pandas use a hashtable just like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dict&lt;/code&gt;s : O(1).&lt;/li&gt;
+  &lt;li&gt;When index is &lt;strong&gt;non-unique and sorted&lt;/strong&gt;, pandas use binary search O(logN)&lt;/li&gt;
+  &lt;li&gt;When index is &lt;strong&gt;non-unique and not-sorted&lt;/strong&gt;, pandas need to check all the keys just like a list look-up: O(N).&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;using a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dict&lt;/code&gt; in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pd.Series&lt;/code&gt; constructor automatically assigns the index as the ordered keys in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dict&lt;/code&gt; (for Python 3.6 and later though, the index is in the same order as the insertion order).&lt;/p&gt;
+&lt;p&gt;You can also do some other things you would not be able using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dict&lt;/code&gt; primitive, like slicing.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;serie&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# indexing: not possible in a simple dict 
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;jean    1
+dtype: int64
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The similarity with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dict&lt;/code&gt; is although so close you can use a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dict&lt;/code&gt; in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pd.Series&lt;/code&gt; constructor. This automatically create the indexes from the keys in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dict&lt;/code&gt; and the values from the corresponding values in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dict&lt;/code&gt;.
+&lt;u&gt;Note&lt;/u&gt;: the index:value order in the newly created &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pd.Series&lt;/code&gt; can be slightly different for different concomittent versions of Python and Pandas. Pandas &amp;gt;= 0.23 conserve the insertion order from the underlying &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dict&lt;/code&gt; argument, although you still Python versions above 3.6 to maintain &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dict&lt;/code&gt; keys’insertion order (use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;OrderedDict&lt;/code&gt; for versions before).&lt;/p&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;test&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Series&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;dict&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;zip&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;ea&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;fzf&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;aeif&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])))&lt;/span&gt;
 &lt;span class=&quot;c1&quot;&gt;# with zip or using a dict
@@ -457,14 +629,19 @@ dtype: object
 dtype: float64
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;strong&gt;dtype=object&lt;/strong&gt; means that the best common type infered representation for the contents of the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pd.Series&lt;/code&gt; is that they are Python objects.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;dtype=object&lt;/strong&gt; means that the best common type infered representation for the contents of the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pd.Series&lt;/code&gt; is “a Python object”. (Everything is object in Python see &lt;strong&gt;Lecture 2&lt;/strong&gt;!).&lt;br /&gt;
+This also means a performance drop, &lt;strong&gt;any operations on the data will be done at the Python level&lt;/strong&gt;. Python for-loops will be performed, checking the actual type of each ‘object’ for the operation one want to perform on the input vector (1)&lt;/p&gt;
 
-&lt;p&gt;this also mean performance decreases, &lt;strong&gt;any operations on the data will be done at the Python level&lt;/strong&gt; (1)&lt;/p&gt;
+&lt;h3 id=&quot;selection-in-series&quot;&gt;Selection in Series&lt;/h3&gt;
 
-&lt;h2 id=&quot;selection-in-series&quot;&gt;selection in Series&lt;/h2&gt;
+&lt;h4 id=&quot;masking&quot;&gt;Masking&lt;/h4&gt;
 
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# return a boolean array we can later use to filter the values we want (returning True)
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;A Series mask is a Series as a collection of indexes:boolean-values, which can be later used to filter-out elements from another Series, based on the falsy evaluated values for each index in the former.&lt;/p&gt;
+
+&lt;p&gt;Performing a comparison on a Series creates a mask of same shape, with indexes from the original array along with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;true&lt;/code&gt; or &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;false&lt;/code&gt; results originating from the &lt;strong&gt;element-wise&lt;/strong&gt; comparisons from your original comparison expression.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;aeif    False
 ea      False
@@ -481,6 +658,8 @@ fzf     True
 dtype: bool
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
+&lt;p&gt;Since numpy arrays support &lt;strong&gt;vectorized calculations&lt;/strong&gt; (more on that later) and does not contain arbitrary unlike typed elements as for lists, you can use the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&amp;amp;&lt;/code&gt; bitwise operator, a element-wise version of the logical &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;and&lt;/code&gt;.&lt;/p&gt;
+
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# not &quot;and&quot; but &quot;&amp;amp;&quot; : &amp;amp; operator is a bitwise &quot;and&quot;
 &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;test&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -491,11 +670,15 @@ fzf      True
 dtype: bool
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
+&lt;p&gt;You can see the result is still a Series, but this time of boolean values (check the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dtype&lt;/code&gt; !)&lt;/p&gt;
+
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;test&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;pandas.core.series.Series
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;We can later keep it in as a ‘mask’ variable, it is particularly useful when a lot comparisons should be given a meaningful name (e.g. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mask&lt;/code&gt; variable here could be &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lower4greater2&lt;/code&gt; for example).&lt;/p&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# mask ( the last expression whose result is an pd.Serie stored in the variable mask)
 &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mask&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;test&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
@@ -508,6 +691,15 @@ dtype: bool
 dtype: int64
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
+&lt;h4 id=&quot;indexing&quot;&gt;Indexing&lt;/h4&gt;
+
+&lt;p&gt;We can also select a value for a given index, as highlighted in the introductory section on &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Series&lt;/code&gt;. 
+Although we should take extra care when doing so: the previous notation, e.g. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;serie['rené']&lt;/code&gt;, makes use of the &lt;strong&gt;names&lt;/strong&gt; of the indexes we &lt;strong&gt;explicitly defined&lt;/strong&gt; earlier.&lt;/p&gt;
+
+&lt;h4 id=&quot;fancy-indexing&quot;&gt;Fancy indexing&lt;/h4&gt;
+
+&lt;p&gt;This is just a fancy word for selecting multiple indexes, provisioning a list of indexes.&lt;/p&gt;
+
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# fancy indexing (&amp;lt;=&amp;gt; selecting multiple indexes using a list of indexes)
 &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;ea&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;fzf&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -517,7 +709,20 @@ fzf    3
 dtype: int64
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# explicit index slicing (using the labels of the indexes)
+&lt;h4 id=&quot;slicing-and-the-confusion-of-explicit-vs-implicit-indexes&quot;&gt;Slicing and the confusion of explicit vs implicit indexes&lt;/h4&gt;
+
+&lt;p&gt;This is another word for selecting a subset of an original array (or even list), based on an interval constructed using a start, stop and [step] elements.&lt;/p&gt;
+
+&lt;p&gt;For Series, we can slice a Series by 2 ways:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;using the names we &lt;strong&gt;explicitly&lt;/strong&gt; defined (or defaulted as integer-based indexes creation) for the index at &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Series&lt;/code&gt; creation time, for start and stop values.&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;using &lt;strong&gt;implicit&lt;/strong&gt; start and stop values for the index. By implicit we mean integers which define the order of appearance of the index itself, taking caution that the first element is of index 0 in Python.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Explicit index slicing:&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;#  (using the labels of the indexes)
 &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;aeif&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;fzf&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
@@ -527,8 +732,11 @@ fzf     3
 dtype: int64
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# implicit index slicing (using integers)
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;ul&gt;
+  &lt;li&gt;Implicit index slicing (using integers i.e. order of appearance):&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;test&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;aeif    2
@@ -545,9 +753,7 @@ dtype: int64
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;What about i defined &lt;strong&gt;explicit integer indexes at first&lt;/strong&gt; and i want to slice ? 🙄&lt;/p&gt;
-
-&lt;h2 id=&quot;using-loc&quot;&gt;using loc&lt;/h2&gt;
+&lt;p&gt;What about i defined at creation time a Series with &lt;strong&gt;integer index values&lt;/strong&gt; and i want to slice them ? 🙄&lt;/p&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;serie2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Series&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;51&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;serie2&lt;/span&gt;
@@ -559,8 +765,10 @@ dtype: int64
 dtype: int64
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
+&lt;p&gt;Here you see that for &lt;strong&gt;indexing&lt;/strong&gt;, the explicit index is used, i.e. “element of index defined as &lt;strong&gt;3&lt;/strong&gt;”, but for slicing it is takes elements from the 2nd indexed element to the 3rd, excluded, indexed element, no matter what value of index the elements are.&lt;/p&gt;
+
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;serie2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# indexing: defaults to select explicit index /  with label 3
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;serie2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# slicing: defaults to select implicit index
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;serie2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# slicing: defaults to select implicit indexes
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;51
@@ -573,6 +781,14 @@ dtype: int64
 3    51
 dtype: int64
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h4 id=&quot;loc-and-iloc-accessors&quot;&gt;Loc and Iloc accessors&lt;/h4&gt;
+
+&lt;p&gt;These accessors give a great alternative from default, albeit confusing, slicing behaviors with respect to the indexes’values.&lt;/p&gt;
+
+&lt;h5 id=&quot;using-loc-property&quot;&gt;Using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;loc&lt;/code&gt; property:&lt;/h5&gt;
+
+&lt;p&gt;This forces indexing and slicing using the explicitly defined index values:&lt;/p&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;serie2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;loc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# indexing: on explicit index
 &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;serie2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;loc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# slicing: on explicit index
@@ -589,6 +805,10 @@ dtype: int64
 3    51
 dtype: int64
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h5 id=&quot;using-iloc-property&quot;&gt;Using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;iloc&lt;/code&gt; property:&lt;/h5&gt;
+
+&lt;p&gt;This forces indexing and slicing using &lt;em&gt;implicit&lt;/em&gt; indexes i.e. order of appearance of the elements from &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;0&lt;/code&gt; (1st element) to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;n-1&lt;/code&gt; (last one). This also means you will never use something else in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;iloc&lt;/code&gt; accessors than integers.&lt;/p&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;serie2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;iloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# indexing: on implicit index
 &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;serie2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;iloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# slicing: on implicit index
@@ -642,11 +862,88 @@ dtype: int64
 dtype: int64
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h3 id=&quot;index-object&quot;&gt;Index object&lt;/h3&gt;
+&lt;h3 id=&quot;dtypes&quot;&gt;dtypes&lt;/h3&gt;
 
-&lt;ul&gt;
-  &lt;li&gt;are immutable&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;A serie being an-indexed array, it then maintain a well-known implementation feature from &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;numpy&lt;/code&gt;that infers about the overall representation of the data within the array: the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dtype&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Recall that infering the data representation which accomodates all elements in the array is what enables, in case, for example, of numerical data (integers, float), to not only stored the values as C integers (avoiding the overhead introduced by Python primitive types) but also to perform efficient operations on the C for-loop level, as it is not required to dynamically type-check every single elements of the array and find which function to dispatch accordingly.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;timeit&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;arange&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;1E6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dtype&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;int&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1.14 ms ± 142 µs per loop (mean ± std. dev. of 7 runs, 1000 loops each)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;timeit&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;arange&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;1E6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dtype&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;float&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1.25 ms ± 17.7 µs per loop (mean ± std. dev. of 7 runs, 1000 loops each)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Series&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'The'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'brown'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'fox'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;0        TheThe
+1             6
+2    brownbrown
+3        foxfox
+dtype: object
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;values&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;array(['The', 3, 'brown', 'fox'], dtype=object)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;&lt;a href=&quot;https://stackoverflow.com/questions/29877508/what-does-dtype-object-mean-while-creating-a-numpy-array&quot;&gt;Link&lt;/a&gt;. Creating an array with dtype=object is different. The memory taken by the array now is filled with pointers to Python objects which are being stored elsewhere in memory (much like a Python list is really just a list of pointers to objects, not the objects themselves).&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;timeit&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;arange&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;1E6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dtype&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;object&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;77.8 ms ± 4.15 ms per loop (mean ± std. dev. of 7 runs, 10 loops each)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h2 id=&quot;index-object&quot;&gt;Index object&lt;/h2&gt;
+
+&lt;h3 id=&quot;can-be-sliced-or-indexed&quot;&gt;can be sliced or indexed&lt;/h3&gt;
+
+&lt;p&gt;…just like an array, because it is indeed an one-dimensional array.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;serie2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;serie2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Int64Index([1, 2], dtype='int64')
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;have-sets-operations&quot;&gt;have &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;set&lt;/code&gt;s’ operations&lt;/h3&gt;
+
+&lt;p&gt;By this we mean it does have common bitwise operatoin&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;serie2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Int64Index([1], dtype='int64')
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;serie2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Int64Index([2, 3, 5], dtype='int64')
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;are-immutables&quot;&gt;are immutables&lt;/h3&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;serie2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;18&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -665,50 +962,26 @@ dtype: int64
 TypeError: Index does not support mutable operations
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;ul&gt;
-  &lt;li&gt;can be sliced or indexed (just like an array)&lt;/li&gt;
-&lt;/ul&gt;
+&lt;h2 id=&quot;dataframe&quot;&gt;DataFrame&lt;/h2&gt;
 
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;serie2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;serie2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Int64Index([1, 2], dtype='int64')
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;serie2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Int64Index([1], dtype='int64')
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;serie2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;index&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Int64Index([2, 3, 5], dtype='int64')
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h1 id=&quot;dataframe&quot;&gt;DataFrame&lt;/h1&gt;
+&lt;p&gt;The “main thing” of this lecture that we are going to use intensively in the rest of this lecture:&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;
-    &lt;p&gt;sequence of “aligned” Series objects (sharing same indexes / like an Excel file )&lt;/p&gt;
+    &lt;p&gt;sequence of “aligned” Series objects (sharing the same indexes / like an Excel file).&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;each Series object is a column&lt;/p&gt;
+    &lt;p&gt;each Series object is a column.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;Hence &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pd.DataFrame&lt;/code&gt; can be seen as dictionnary of Series objects&lt;/p&gt;
+    &lt;p&gt;Hence &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pd.DataFrame&lt;/code&gt; can be seen as dictionnary of Series objects.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;Flexible rows and columns’ labels (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Index&lt;/code&gt; objects for both)&lt;/p&gt;
+    &lt;p&gt;Flexible rows and columns’ labels (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Index&lt;/code&gt; objects for both).&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;h3 id=&quot;construction&quot;&gt;Construction&lt;/h3&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;serie1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Series&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Luc&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;25&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Corentin&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;29&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;René&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;40&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;serie2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Series&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;René&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;100%&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Corentin&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;25%&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Luc&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;20%&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
@@ -834,43 +1107,11 @@ Index(['charge_de_travail', 'note'], dtype='object')
 &lt;/table&gt;
 &lt;/div&gt;
 
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;shape&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;(3, 2)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;shape: tuple of the number of elements with respect to each dimension&lt;/p&gt;
-
-&lt;p&gt;For a 1D array, the shape would be (n,) where n is the number of elements in your array.&lt;/p&gt;
-
-&lt;p&gt;For a 2D array, the shape would be (n,m) where n is the number of rows and m is the number of columns in your array&lt;/p&gt;
-
-&lt;p&gt;accessing a column/&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Serie&lt;/code&gt; by key :&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'note'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Corentin    29
-Luc         25
-René        40
-Name: note, dtype: int64
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Using the attribute notation is not advised for assignements as some methods or attributes of the same name already exist in the DataFrame class’ own namespace&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;note&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Corentin    29
-Luc         25
-René        40
-Name: note, dtype: int64
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;DataFrame&lt;/code&gt; can be constructed using a list of dictionary
-each dict element is a row
-each key of each dict refers a column&lt;/p&gt;
+&lt;p&gt;The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;DataFrame&lt;/code&gt; can be constructed using a list of dictionary.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;each &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dict&lt;/code&gt; element is a row.&lt;/li&gt;
+  &lt;li&gt;each key of each dict refers to a column.&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;df2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DataFrame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([{&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'a'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'b'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'b'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'c'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}])&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;df2&lt;/span&gt;
@@ -966,6 +1207,55 @@ each key of each dict refers a column&lt;/p&gt;
   &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;/div&gt;
+
+&lt;p&gt;You can also create a DataFrame by using pandas methods for reading supported file format, e.g. using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pd.read_csv&lt;/code&gt; method.&lt;/p&gt;
+
+&lt;h3 id=&quot;shape-property&quot;&gt;Shape property&lt;/h3&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;shape&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;(3, 2)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;shape: tuple of the number of elements with respect to each dimension&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;For a 1D array, the shape would be (n,) where n is the number of elements in your array.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;For a 2D array, the shape would be (n,m) where n is the number of rows and m is the number of columns in your array&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;accessing a column/&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Serie&lt;/code&gt; by key :&lt;/p&gt;
+
+&lt;h3 id=&quot;accessing-columns&quot;&gt;Accessing columns&lt;/h3&gt;
+
+&lt;p&gt;As &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;DataFrame&lt;/code&gt; is seen like a dictionary of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Series&lt;/code&gt; / columns, you can access one of them using the corresponding &lt;strike&gt;key&lt;/strike&gt; column’index !&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'note'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Corentin    29
+Luc         25
+René        40
+Name: note, dtype: int64
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Using the attribute notation is &lt;strong&gt;not advised&lt;/strong&gt; especially for assignements as some methods or attributes of the same name already exist in the DataFrame class’ own namespace.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;note&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Corentin    29
+Luc         25
+René        40
+Name: note, dtype: int64
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;indexing-or-slicing&quot;&gt;Indexing or Slicing&lt;/h3&gt;
 
 &lt;p&gt;Indexing works the same way as for Series, but you have to account this time for the second dimension&lt;/p&gt;
 
@@ -1176,13 +1466,7 @@ each key of each dict refers a column&lt;/p&gt;
 &lt;/table&gt;
 &lt;/div&gt;
 
-&lt;p&gt;Something to mention here, by default, without using indexers like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;loc&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;iloc&lt;/code&gt;:&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;indexing directly &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;df&lt;/code&gt;, performs the indexing on its columns &lt;strong&gt;(ex:1)&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;slicing by conditions, or using a slice notation (::), is performed on rows &lt;strong&gt;(ex:2)&lt;/strong&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;(1)&lt;/p&gt;
+&lt;p&gt;Something to mention here: by default, without using accessors like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;loc&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;iloc&lt;/code&gt;, indexing or fancy indexing directly &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;df&lt;/code&gt;, performs the indexing on its columns.&lt;/p&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;charge_de_travail&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# indexing directly df defaults to columns
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -1225,7 +1509,19 @@ each key of each dict refers a column&lt;/p&gt;
 &lt;/table&gt;
 &lt;/div&gt;
 
-&lt;p&gt;(2)&lt;/p&gt;
+&lt;p&gt;Finally, of course you can set a new value for an element on some (row_index, column_index) using either of those accessors:&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;iloc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nan&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;masking-1&quot;&gt;Masking&lt;/h3&gt;
+
+&lt;p&gt;You can also use masking here and draw comparisons on a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Dataframe&lt;/code&gt; level (e.g. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;df &amp;gt; 3&lt;/code&gt;), or on &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Series&lt;/code&gt;/column level, e.g. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;df[&quot;sexe&quot;] == &quot;Homme&quot;&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;df[&quot;age&quot;] &amp;gt; 18&lt;/code&gt;.&lt;br /&gt;
+In the first case, the resulting object will be a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;DataFrame&lt;/code&gt; filled with boolean values. In the second one, as before, a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Series&lt;/code&gt; with boolean values.&lt;/p&gt;
+
+&lt;p&gt;A difference here using Series as a mask is that filtering a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;DataFrame&lt;/code&gt; using only &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;true&lt;/code&gt; evaluated values from a Series (a 1D indexed-array then), keeps the &lt;strong&gt;entire rows&lt;/strong&gt; as you may have multiple aligned &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Series&lt;/code&gt;/ columns for one given Index (with a true value).&lt;/p&gt;
+
+&lt;p&gt;Slicing using slice notation (::), or masking is performed on rows by default.&lt;/p&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;mask&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;charge_de_travail&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;25%&quot;&lt;/span&gt; 
 &lt;span class=&quot;n&quot;&gt;mask&lt;/span&gt;
@@ -1237,7 +1533,10 @@ René        False
 Name: charge_de_travail, dtype: bool
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
+&lt;p&gt;Note that the Series-like mask, having the explictly defined indexes from the original one, you can still use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;df.loc&lt;/code&gt; upon filtering.&lt;/p&gt;
+
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mask&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# masking directly df is operated on rows
+# same as df.loc[mask]
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;div&gt;
@@ -1317,20 +1616,23 @@ Name: charge_de_travail, dtype: bool
 &lt;/table&gt;
 &lt;/div&gt;
 
-&lt;h2 id=&quot;operations-on-pandas&quot;&gt;Operations on Pandas&lt;/h2&gt;
+&lt;h3 id=&quot;operations-between-dataframes&quot;&gt;Operations between &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;DataFrame&lt;/code&gt;s&lt;/h3&gt;
 
-&lt;p&gt;Element-wise operations are made easy in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Pandas&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;What about multiplying all elements from a DataFrame by 2?&lt;br /&gt;
+What about adding 2 DataFrame ?&lt;/p&gt;
 
+&lt;p&gt;We first need to distinct 2 types of operations into binary and unary operations:&lt;/p&gt;
 &lt;ul&gt;
-  &lt;li&gt;3 - 2 &amp;lt;=&amp;gt; substract(3,2) &amp;lt;=&amp;gt; binary operation (2 inputs)&lt;/li&gt;
-  &lt;li&gt;-2 &amp;lt;=&amp;gt; neg(2) &amp;lt;=&amp;gt; unary operation (one input)&lt;/li&gt;
-  &lt;li&gt;sin(2) &amp;lt;=&amp;gt; unary operation (one input)&lt;/li&gt;
+  &lt;li&gt;3 - 2 &amp;lt;=&amp;gt; substract(3,2) &amp;lt;=&amp;gt; &lt;strong&gt;binary operation&lt;/strong&gt; (2 inputs)&lt;/li&gt;
+  &lt;li&gt;-2 &amp;lt;=&amp;gt; neg(2) &amp;lt;=&amp;gt; &lt;strong&gt;unary operation&lt;/strong&gt; (one input)&lt;/li&gt;
+  &lt;li&gt;sin(2) &amp;lt;=&amp;gt; &lt;strong&gt;unary operation&lt;/strong&gt; (one input)&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Pandas&lt;/code&gt; :&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;unary operations on &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;df&lt;/code&gt;s elements preserve the indexes.&lt;/li&gt;
-  &lt;li&gt;binary operations on elements from 2 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;df&lt;/code&gt;s align the operations on the indexes.&lt;/li&gt;
+  &lt;li&gt;binary operations on elements from 2 &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;df&lt;/code&gt;s &lt;strong&gt;align&lt;/strong&gt; the operations on the indexes.
+  These behaviors come from numpy &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ufuncs&lt;/code&gt; (universal functions i.e. vectorized functions i.e. that take the whole vector as input, applying the function element-wise) which can be used for &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;DataFrame&lt;/code&gt;ss too.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;numpy&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt; 
@@ -1454,6 +1756,8 @@ Name: charge_de_travail, dtype: bool
   &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;/div&gt;
+
+&lt;p&gt;We will use for the later example of summation between 2 DataFrames, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;reindex&lt;/code&gt; just to rearranged indexes of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;df2&lt;/code&gt; (this does not change the association indexed-value !)&lt;/p&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;df2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;df2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;reindex&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;#just to show rearranged indexes (does not change the association with the indexed data)
 &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df2&lt;/span&gt;
@@ -1641,9 +1945,11 @@ Name: charge_de_travail, dtype: bool
 &lt;/table&gt;
 &lt;/div&gt;
 
-&lt;h4 id=&quot;operation-between-pandas-series-and-a-pandas-dataframe&quot;&gt;Operation between pandas series and a pandas dataframe&lt;/h4&gt;
+&lt;h3 id=&quot;operations-between-series-and-dataframe&quot;&gt;Operations between Series and Dataframe&lt;/h3&gt;
 
-&lt;p&gt;From the Numpy Docs&lt;/p&gt;
+&lt;p&gt;Performing an operation between a Serie and a DataFrame implies performing an operation between data structures of different shapes, hence implying numpy &lt;strong&gt;broadcasting&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;From the Numpy docs:&lt;/p&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;Broadcasting is &lt;strong&gt;how numpy treats arrays with different shapes during arithmetic operations&lt;/strong&gt;. 
@@ -1657,7 +1963,7 @@ Broadcasting provides a means of vectorizing array operations so that looping oc
   &lt;li&gt;one of the aligned dimensions is 1 (in other words, dimensions with size 1 are stretched or “copied” to match the dimension of the other array)&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;Operations between &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pandas.Series&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pandas.DataFram&lt;/code&gt; respect the numpy broadcasting rules:&lt;/p&gt;
+&lt;p&gt;Operations between &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pandas.Series&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pandas.DataFram&lt;/code&gt; then respect the numpy broadcasting rules:&lt;/p&gt;
 &lt;blockquote&gt;
   &lt;p&gt;If the two arrays &lt;strong&gt;differ in their number of dimensions&lt;/strong&gt;, the shape of the one with &lt;strong&gt;fewer dimensions is padded with ones on its leading (left) side.’&lt;/strong&gt;  (2)&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -2037,6 +2343,12 @@ Name: 1, dtype: int64
 &lt;/table&gt;
 &lt;/div&gt;
 
+&lt;h3 id=&quot;close-api-with-series-and-numpy&quot;&gt;Close API with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Series&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;numpy&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;The &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;DataFrame&lt;/code&gt; object, constituted of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Series&lt;/code&gt; object and being also an ‘enhanced version’ of a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;numpy&lt;/code&gt; array, no wonder why a major part of the API for one can be reused for the other.&lt;/p&gt;
+
+&lt;p&gt;Here are just example of reused methods or properties (you’ve seen other ones in the course like loc and iloc for instance):&lt;/p&gt;
+
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;shape&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;shape&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
@@ -2097,31 +2409,6 @@ Name: 1, dtype: int64
 &lt;/table&gt;
 &lt;/div&gt;
 
-&lt;h3 id=&quot;dtypes&quot;&gt;dtypes&lt;/h3&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Series&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'The'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'brown'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'fox'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;0        TheThe
-1             6
-2    brownbrown
-3        foxfox
-dtype: object
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;s&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;values&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;array(['The', 3, 'brown', 'fox'], dtype=object)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;a href=&quot;https://stackoverflow.com/questions/29877508/what-does-dtype-object-mean-while-creating-a-numpy-array&quot;&gt;Link&lt;/a&gt;. Creating an array with dtype=object is different. The memory taken by the array now is filled with pointers to Python objects which are being stored elsewhere in memory (much like a Python list is really just a list of pointers to objects, not the objects themselves).&lt;/p&gt;
-&lt;/blockquote&gt;
-
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dtypes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dtypes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; 
 &lt;span class=&quot;c1&quot;&gt;# NaN is a floating-point value, 
@@ -2142,25 +2429,11 @@ id_client     object
 dtype: object
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;timeit&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;arange&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;1E6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dtype&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;int&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1.14 ms ± 142 µs per loop (mean ± std. dev. of 7 runs, 1000 loops each)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;timeit&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;arange&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;1E6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dtype&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;object&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;77.8 ms ± 4.15 ms per loop (mean ± std. dev. of 7 runs, 10 loops each)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;timeit&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;arange&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;1E6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dtype&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;float&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;).&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1.25 ms ± 17.7 µs per loop (mean ± std. dev. of 7 runs, 1000 loops each)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
 &lt;h3 id=&quot;managing-missing-values&quot;&gt;Managing missing values&lt;/h3&gt;
+
+&lt;p&gt;This is a real asset of pandas &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Dataframe&lt;/code&gt; in comparison to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;numpy&lt;/code&gt;(which would find other strategies for handling missing values during computations, using classes like “masked arrays”).&lt;br /&gt;
+Managing missing values, either by dropping or imputing them based on some type of criteria, is an crucial step you should always document during your data scientist experiments. It is always a hot spot in areas such as Statistics or Machine Learning.&lt;br /&gt;
+A mishandling of NA values can definitely have an impact on your results or greatly lower your model performance trained on the data.&lt;/p&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Series&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;np&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nan&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]).&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;isnull&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -2983,9 +3256,9 @@ dtype: float64
 &lt;/table&gt;
 &lt;/div&gt;
 
-&lt;h3 id=&quot;unstacking-and-stacking-a-matter-of-dimnesionality&quot;&gt;Unstacking and Stacking: a matter of dimnesionality&lt;/h3&gt;
+&lt;h3 id=&quot;unstacking-and-stacking-a-matter-of-dimensionality&quot;&gt;Unstacking and Stacking: a matter of dimensionality&lt;/h3&gt;
 
-&lt;p&gt;Creating a multiIndex rather than a simlpe Index is like &lt;strong&gt;creating an extra-dimension in our dataset.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Creating a multiIndex rather than a simple Index is like &lt;strong&gt;creating an extra-dimension in our dataset.&lt;/strong&gt;&lt;/p&gt;
 
 &lt;p&gt;We can take for &lt;strong&gt;each year&lt;/strong&gt;, a &lt;strong&gt;2D sub-dataframe&lt;/strong&gt; composed of &lt;strong&gt;Bob’s HR visits&lt;/strong&gt;.&lt;/p&gt;
 
@@ -3426,7 +3699,9 @@ dtype: int64
 &lt;/table&gt;
 &lt;/div&gt;
 
-&lt;h3 id=&quot;pdconcat&quot;&gt;pd.concat&lt;/h3&gt;
+&lt;h3 id=&quot;concatenating-dataframes&quot;&gt;Concatenating &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;DataFrame&lt;/code&gt;s&lt;/h3&gt;
+
+&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pd.concat&lt;/code&gt; is here for the rescue !&lt;/p&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;df1&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;df2&lt;/span&gt;
@@ -4017,7 +4292,7 @@ To retain the current behavior and silence the warning, pass 'sort=True'.
 &lt;/table&gt;
 &lt;/div&gt;
 
-&lt;h3 id=&quot;merge&quot;&gt;Merge&lt;/h3&gt;
+&lt;h3 id=&quot;merging-dataframes&quot;&gt;Merging &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;DataFrame&lt;/code&gt;s&lt;/h3&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;df_account&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;DataFrame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'accountNumber'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;AC1&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;AC2&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;AC3&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;AC4&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
                    &lt;span class=&quot;s&quot;&gt;'Amount'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;109300&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2984&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1999&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt;
@@ -4380,7 +4655,7 @@ To retain the current behavior and silence the warning, pass 'sort=True'.
 #)
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h2 id=&quot;apply&quot;&gt;Apply&lt;/h2&gt;
+&lt;h3 id=&quot;apply&quot;&gt;Apply&lt;/h3&gt;
 
 &lt;p&gt;For the following sections, we are going to use real world data of students’grades from an exam I gave 😜 The data has been anonymised to fit GDPR regulation.&lt;/p&gt;
 
@@ -4536,7 +4811,9 @@ To retain the current behavior and silence the warning, pass 'sort=True'.
 &lt;/table&gt;
 &lt;/div&gt;
 
-&lt;h3 id=&quot;lets-define-a-function-to-be-applied-for-each-val-in-a-colum&quot;&gt;Let’s define a function to be applied for each val in a colum&lt;/h3&gt;
+&lt;h4 id=&quot;on-a-series-object&quot;&gt;On a Series object&lt;/h4&gt;
+
+&lt;p&gt;Let’s define a function to be applied for each element of a column.&lt;/p&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
     &lt;span class=&quot;s&quot;&gt;&quot;&quot;&quot;A fonction to be applied on each element of a pandas DataFrame column / Series &quot;&quot;&quot;&lt;/span&gt;
@@ -4563,9 +4840,9 @@ Name: eleve, Length: 746, dtype: object
 
 &lt;p&gt;behind, apply is looping on each element of the column &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;eleve&lt;/code&gt; and returning a value for each of them&lt;/p&gt;
 
-&lt;h3 id=&quot;we-can-also-use-apply-on-the-dataframe&quot;&gt;We can also use apply on the dataframe&lt;/h3&gt;
+&lt;h4 id=&quot;on-a-dataframe-object&quot;&gt;on a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;DataFrame&lt;/code&gt; object&lt;/h4&gt;
 
-&lt;p&gt;But wee need to provide an axis.&lt;br /&gt;
+&lt;p&gt;We can also use the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;apply&lt;/code&gt; method on a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;DataFrame&lt;/code&gt; object, but we need to provide an axis.&lt;br /&gt;
 applied function won’t be fed a single column element this time but a Series.&lt;br /&gt;
 a Series whose index depends on the axis we choose !&lt;/p&gt;
 
@@ -4834,11 +5111,9 @@ dtype: object
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;3053.0
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h2 id=&quot;manipulating-columns-with-strings&quot;&gt;Manipulating columns with strings&lt;/h2&gt;
+&lt;h3 id=&quot;manipulating-columns-with-strings&quot;&gt;Manipulating columns with strings&lt;/h3&gt;
 
-&lt;h2 id=&quot;manipulating-columns-with-strings-1&quot;&gt;Manipulating columns with strings&lt;/h2&gt;
-
-&lt;p&gt;What is a vectorized function: it is a function that applies on the whole sequence rather than each element as input.&lt;/p&gt;
+&lt;p&gt;Back to the definition of a vectorized function: it is a function that applies on the whole sequence rather than each element as input.&lt;/p&gt;
 
 &lt;p&gt;This is the case for numpy functions like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;np.mean&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;np.sum&lt;/code&gt;, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;np.std&lt;/code&gt; which apply on a numerically valued input array as a whole, so the loop is moved from the Python-level to the &lt;a href=&quot;https://stackoverflow.com/questions/58071631/is-numpy-vectorization-using-c-loops&quot;&gt;C one&lt;/a&gt;&lt;/p&gt;
 
@@ -5290,7 +5565,7 @@ Name: note, Length: 746, dtype: float64
 
 &lt;h3 id=&quot;other-interesting-functions-to-mention&quot;&gt;Other interesting functions to mention&lt;/h3&gt;
 
-&lt;p&gt;To compute the counts of unique values use : pd.Series.value_counts()&lt;/p&gt;
+&lt;p&gt;To compute the counts of unique values use : &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;pd.Series.value_counts()&lt;/code&gt;&lt;/p&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;df_notes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;groupe&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value_counts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ascending&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -5306,7 +5581,7 @@ ibo2        57
 Name: groupe, dtype: int64
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;To do a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;binning&lt;/code&gt; : i.e. group a number of more or less continuous values into a smaller number of “bins”. Use pd.cut&lt;/p&gt;
+&lt;p&gt;To do a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;binning&lt;/code&gt; : i.e. group a number of more or less continuous values into a smaller number of “bins”. Use `pd.cut&lt;/p&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cut&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df_notes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;note&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bins&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# 5 equal sized bins
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -5372,7 +5647,7 @@ Name: note, Length: 746, dtype: category
 Categories (4, object): [Very Bad &amp;lt; Bad &amp;lt; Ok &amp;lt; Good]
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h2 id=&quot;groupby&quot;&gt;GroupBy&lt;/h2&gt;
+&lt;h3 id=&quot;groupby-&quot;&gt;GroupBy !&lt;/h3&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;df_notes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -6062,7 +6337,7 @@ dtype: int64
 
 &lt;p&gt;Some students are known, but are not always written as such.&lt;/p&gt;
 
-&lt;h3 id=&quot;transform&quot;&gt;transform&lt;/h3&gt;
+&lt;h4 id=&quot;transform&quot;&gt;transform&lt;/h4&gt;
 
 &lt;p&gt;sometimes we want the &lt;strong&gt;&lt;em&gt;“apply-combine”&lt;/em&gt;&lt;/strong&gt; steps to avoid reducing the data size but compute for each data record something based on some intra-group/splits caracteristics&lt;/p&gt;
 
@@ -6430,7 +6705,7 @@ dtype: int64
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;df_notes&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;df_notes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;df_notes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;quizz&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;==&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'td4'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)]&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h3 id=&quot;pivot-table&quot;&gt;Pivot Table&lt;/h3&gt;
+&lt;h4 id=&quot;pivot-table&quot;&gt;Pivot Table&lt;/h4&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;df_notes&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;groupby&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'groupe'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'quizz'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;note&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;mean&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;unstack&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -6845,13 +7120,15 @@ dtype: int64
 &lt;/table&gt;
 &lt;/div&gt;
 
-&lt;p&gt;missing grades for students although in the table at practice session1, maybe due to possible not good scrapping ?&lt;/p&gt;
+&lt;p&gt;missing grades for students.
+Final question should be…&lt;br /&gt;
+What should we put in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;fillna&lt;/code&gt; for them 😉 ?&lt;/p&gt;
 
-&lt;h3 id=&quot;final-question-should-be&quot;&gt;Final question should be…&lt;/h3&gt;
+&lt;p&gt;Just an interesting link on representation of the &lt;a href=&quot;https://home.adelphi.edu/~siegfried/cs170/170l1.pdf&quot;&gt;data&lt;/a&gt;&lt;/p&gt;</content><author><name>luc</name></author><category term="featured" /><summary type="html">Why Pandas ?</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/images/post_discover_pandas/index_img/cover.jpg" /><media:content medium="image" url="http://localhost:4000/assets/images/post_discover_pandas/index_img/cover.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Webscrapping using Selenium</title><link href="http://localhost:4000/webscrapping/" rel="alternate" type="text/html" title="Webscrapping using Selenium" /><published>2020-09-07T00:00:00+02:00</published><updated>2020-09-07T00:00:00+02:00</updated><id>http://localhost:4000/webscrapping</id><content type="html" xml:base="http://localhost:4000/webscrapping/">&lt;p&gt;Selenium is an open-source automated testing suite for web apps. It was at first used to automate tests for web applications as it can emulate user interactions with browsers, although its scope is wider as it can be used for other purposes: such as webscrapping for example.&lt;/p&gt;
 
-&lt;h2 id=&quot;what-should-we-put-in-fillna-for-them--&quot;&gt;What should we put in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;fillna&lt;/code&gt; for them 😉 ?&lt;/h2&gt;</content><author><name>luc</name></author><category term="featured" /><summary type="html">pandas.DataFrame is a 2-dimensional labeled data structure with columns of potentially different types. You can think of it like a spreadsheet or SQL table. It got rows and columns’ labels and can greatly contain and handle missing data.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/images/post_discover_pandas/index_img/cover.jpg" /><media:content medium="image" url="http://localhost:4000/assets/images/post_discover_pandas/index_img/cover.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Webscrapping using Selenium</title><link href="http://localhost:4000/webscrapping/" rel="alternate" type="text/html" title="Webscrapping using Selenium" /><published>2020-09-07T00:00:00+02:00</published><updated>2020-09-07T00:00:00+02:00</updated><id>http://localhost:4000/webscrapping</id><content type="html" xml:base="http://localhost:4000/webscrapping/">&lt;p&gt;Selenium is an open-source automated testing suite for web apps. It was at first used to automate tests for web applications as it can emulate user interactions with browsers, although its scope is wider as it can be used for other purposes: such as webscrapping for example.&lt;/p&gt;
+&lt;p&gt;— Related practical session &lt;a href=&quot;https://github.com/Luc-Bertin/TDs_ESILV/blob/master/TD2_Instagram_scrapping_with_selenium.ipynb&quot;&gt;Jupyter Notebook&lt;/a&gt; —&lt;/p&gt;
 
-&lt;h2 id=&quot;how-does-selenium-webdriver-work-&quot;&gt;How does Selenium Webdriver work ?&lt;/h2&gt;
+&lt;h1 id=&quot;how-does-selenium-webdriver-work-&quot;&gt;How does Selenium Webdriver work ?&lt;/h1&gt;
 
 &lt;p&gt;How to programmatically create user interactions with Selenium ? through its WebDriver component&lt;/p&gt;
 
@@ -6899,9 +7176,7 @@ Also Safari Dev docs &lt;a href=&quot;https://developer.apple.com/documentation/
 
 &lt;p&gt;Interesting article to read &lt;a href=&quot;https://stackoverflow.com/questions/42562963/why-we-dont-need-server-in-selenium-webdriver&quot;&gt;too&lt;/a&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;making-use-of-selenium-webdriver-&quot;&gt;Making use of Selenium webdriver !&lt;/h2&gt;
-
-&lt;h3 id=&quot;1-the-installation&quot;&gt;1. The Installation&lt;/h3&gt;
+&lt;h1 id=&quot;installation&quot;&gt;Installation&lt;/h1&gt;
 &lt;p&gt;Reading the installation process from the &lt;a href=&quot;https://selenium-python.readthedocs.io/installation.html&quot;&gt;unofficial but thorough community docs&lt;/a&gt;
 is a good starting point to set the tools we need.&lt;/p&gt;
 
@@ -6920,12 +7195,15 @@ is a good starting point to set the tools we need.&lt;/p&gt;
 
 &lt;p&gt;Later on I will use the term browser driver for the controlling code provided by browser-vendors, to not confuse with language driver, the bindings provided by Selenium project as a client library for communciating with the Webdriver (or one of its implementation).&lt;/p&gt;
 
-&lt;h3 id=&quot;2-the-script&quot;&gt;2. The Script&lt;/h3&gt;
+&lt;h1 id=&quot;initialisation&quot;&gt;Initialisation&lt;/h1&gt;
+
+&lt;p&gt;I use the Chrome Webdriver hence the line below does set up a Webdriver server and ultimately launch a new browser session using the browser driver.&lt;br /&gt;
+When we’re done, we can later use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;close()&lt;/code&gt;method to close the automated browser initialized session.&lt;br /&gt;
+We could also use the driver &lt;a href=&quot;http://sametmax.com/les-context-managers-et-le-mot-cle-with-en-python/&quot;&gt;context manager&lt;/a&gt; using a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;with&lt;/code&gt; statement.&lt;/p&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;selenium&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;webdriver&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# 
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;driver&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;webdriver&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ChromeDriver&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; 
-&lt;span class=&quot;c1&quot;&gt;# I use the Chrome Webdriver hence the line above does set up a Webdriver server and ultimately launch a new browser session using the browser driver.
-&lt;/span&gt;
+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;driver&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;webdriver&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Chrome&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; 
+
 &lt;span class=&quot;c1&quot;&gt;##
 ## Your operations
 ##
@@ -6933,9 +7211,9 @@ is a good starting point to set the tools we need.&lt;/p&gt;
 &lt;span class=&quot;n&quot;&gt;driver&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;close&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# to close the browser tab (window if there is only one tab.)
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h3 id=&quot;3-operations&quot;&gt;3. Operations&lt;/h3&gt;
+&lt;h1 id=&quot;operations&quot;&gt;Operations&lt;/h1&gt;
 
-&lt;h4 id=&quot;navigating&quot;&gt;Navigating&lt;/h4&gt;
+&lt;h2 id=&quot;navigating&quot;&gt;Navigating&lt;/h2&gt;
 
 &lt;ol&gt;
   &lt;li&gt;
@@ -7118,7 +7396,7 @@ is a good starting point to set the tools we need.&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h4 id=&quot;xpath&quot;&gt;XPath&lt;/h4&gt;
+&lt;h2 id=&quot;xpath&quot;&gt;XPath&lt;/h2&gt;
 
 &lt;p&gt;Although it is part of the navigation, I think it should be dedicated an entire section.&lt;/p&gt;
 
@@ -7135,15 +7413,15 @@ is a good starting point to set the tools we need.&lt;/p&gt;
 
 &lt;p&gt;node-set passes to starts-with function as 1st argument (@*). The starts-with function converts a node-set to a string by returning the string value of the first node in the node-set, i.e. only 1st attribute&lt;/p&gt;
 
-&lt;h4 id=&quot;waits&quot;&gt;Waits&lt;/h4&gt;
+&lt;h2 id=&quot;waits&quot;&gt;Waits&lt;/h2&gt;
 
 &lt;p&gt;A lot of browser are using AJAX (&lt;em&gt;asynchronous javascript and XML&lt;/em&gt;), hence making calls from a client to the server asynchronously to modify components in a web page without needing to refresh the concerned page.
 Although this separates the presentation logic from the data exchange logic and greatly improve user experience, a “loaded” page doesn’t mean other scripts won’t display other elements later on.&lt;/p&gt;
 
-&lt;h5 id=&quot;implicit-wait&quot;&gt;implicit wait:&lt;/h5&gt;
+&lt;h3 id=&quot;implicit-wait&quot;&gt;implicit wait:&lt;/h3&gt;
 &lt;p&gt;For the whole lifetime of the WebDriver object, each time an object is not available on request, repeat till &lt;strong&gt;n&lt;/strong&gt; seconds elapsed.&lt;/p&gt;
 
-&lt;h5 id=&quot;explicit-wait&quot;&gt;explicit wait:&lt;/h5&gt;
+&lt;h3 id=&quot;explicit-wait&quot;&gt;explicit wait:&lt;/h3&gt;
 &lt;p&gt;Makes the webdriver wait for a certain condition to execute further instructions.&lt;/p&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;selenium.webdriver.support.ui&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;WebDriverWait&lt;/span&gt;
@@ -7183,7 +7461,7 @@ Although this separates the presentation logic from the data exchange logic and 
 
 &lt;p&gt;Custom wait conditions are also interesting to &lt;a href=&quot;https://selenium-python.readthedocs.io/waits.html&quot;&gt;check&lt;/a&gt; as it uses some concepts (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;__call__&lt;/code&gt;) we have covered elsewhere in this blog.&lt;/p&gt;
 
-&lt;h5 id=&quot;action-chains&quot;&gt;Action chains&lt;/h5&gt;
+&lt;h2 id=&quot;action-chains&quot;&gt;Action chains&lt;/h2&gt;
 
 &lt;p&gt;One of the most useful WebDriver tool:&lt;/p&gt;
 
@@ -7215,7 +7493,8 @@ Although this separates the presentation logic from the data exchange logic and 
 	&lt;iframe width=&quot;100%&quot; height=&quot;100%&quot; src=&quot;https://www.youtube.com/embed/jm_Lmq50oAs&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
 &lt;/div&gt;
 
-&lt;h5 id=&quot;injecting-js-code-in-the-browser&quot;&gt;injecting js code in the browser&lt;/h5&gt;
+&lt;h2 id=&quot;injecting-js-code-in-the-browser&quot;&gt;injecting js code in the browser&lt;/h2&gt;
+
 &lt;p&gt;One use case could be to scroll in a news or social network feed.
 Here is an example of such:&lt;/p&gt;
 
@@ -7223,12 +7502,14 @@ Here is an example of such:&lt;/p&gt;
 	&lt;iframe width=&quot;100%&quot; height=&quot;100%&quot; src=&quot;https://www.youtube.com/embed/bpa7dS3iO3U&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot;&gt;&lt;/iframe&gt;
 &lt;/div&gt;
 
-&lt;h5 id=&quot;dom-document-object-model&quot;&gt;DOM: Document Object Model&lt;/h5&gt;
-&lt;p&gt;Wikipedia best describes it:&lt;/p&gt;
+&lt;h2 id=&quot;additional-infos&quot;&gt;additional infos&lt;/h2&gt;
+
+&lt;p&gt;DOM: Document Object Model 
+Wikipedia best describes it:&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;/assets/images/post_webscrapping/DOM.png&quot; width=&quot;600px&quot; style=&quot;display: inline-block;&quot; class=&quot;center&quot; /&gt;&lt;/p&gt;
 
-&lt;h5 id=&quot;another-interesting-link-on-the-difference-between-remotewebdriver-and-webdriver&quot;&gt;Another interesting link on the &lt;a href=&quot;https://stackoverflow.com/questions/57528987/what-is-the-difference-between-remotewebdriver-and-webdriver&quot;&gt;difference&lt;/a&gt; between &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;RemoteWebDriver&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Webdriver&lt;/code&gt;&lt;/h5&gt;</content><author><name>luc</name></author><category term="featured" /><summary type="html">Selenium is an open-source automated testing suite for web apps. It was at first used to automate tests for web applications as it can emulate user interactions with browsers, although its scope is wider as it can be used for other purposes: such as webscrapping for example.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/images/post_webscrapping/index_img/cover.jpg" /><media:content medium="image" url="http://localhost:4000/assets/images/post_webscrapping/index_img/cover.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Hands-on Numpy !</title><link href="http://localhost:4000/hands-on-numpy/" rel="alternate" type="text/html" title="Hands-on Numpy !" /><published>2020-09-01T00:00:00+02:00</published><updated>2020-09-01T00:00:00+02:00</updated><id>http://localhost:4000/hands-on-numpy</id><content type="html" xml:base="http://localhost:4000/hands-on-numpy/">&lt;p&gt;It is often better to visualize data of apparent heterogeneity (sounds, images, text) as arrays of numbers, so to process these data or apply machine learning on them. A well-known package for creating and handling such arrays is Numpy (&lt;em&gt;Numerical Python&lt;/em&gt;).&lt;/p&gt;
+&lt;p&gt;Another interesting link on the &lt;a href=&quot;https://stackoverflow.com/questions/57528987/what-is-the-difference-between-remotewebdriver-and-webdriver&quot;&gt;difference&lt;/a&gt; between &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;RemoteWebDriver&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Webdriver&lt;/code&gt;&lt;/p&gt;</content><author><name>luc</name></author><category term="featured" /><summary type="html">Selenium is an open-source automated testing suite for web apps. It was at first used to automate tests for web applications as it can emulate user interactions with browsers, although its scope is wider as it can be used for other purposes: such as webscrapping for example.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/images/post_webscrapping/index_img/cover.jpg" /><media:content medium="image" url="http://localhost:4000/assets/images/post_webscrapping/index_img/cover.jpg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Hands-on Numpy !</title><link href="http://localhost:4000/hands-on-numpy/" rel="alternate" type="text/html" title="Hands-on Numpy !" /><published>2020-09-01T00:00:00+02:00</published><updated>2020-09-01T00:00:00+02:00</updated><id>http://localhost:4000/hands-on-numpy</id><content type="html" xml:base="http://localhost:4000/hands-on-numpy/">&lt;p&gt;It is often better to visualize data of apparent heterogeneity (sounds, images, text) as arrays of numbers, so to process these data or apply machine learning on them. A well-known package for creating and handling such arrays is Numpy (&lt;em&gt;Numerical Python&lt;/em&gt;).&lt;/p&gt;
 
 &lt;h1 id=&quot;numpy&quot;&gt;Numpy&lt;/h1&gt;
 
@@ -7268,7 +7549,10 @@ https://stackoverflow.com/questions/26998223/what-is-the-difference-between-cont
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;OUTPUT&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;using dict comprehension!&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;using dict comprehension&lt;/li&gt;
+  &lt;li&gt;using dict constructor&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;h2 id=&quot;ex-2-counting-letter-frequencies-in-a-text&quot;&gt;Ex. 2: Counting letter frequencies in a text.&lt;/h2&gt;
 
@@ -7292,14 +7576,77 @@ Quisque quis magna malesuada, ultricies leo eget, elementum est. Praesent enim p
 &quot;&quot;&quot;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h2 id=&quot;ex-3-sort-the--a-sorted-dictionary-sorted-by-values&quot;&gt;Ex. 3: Sort the  a sorted dictionary, sorted by values&lt;/h2&gt;
+&lt;h2 id=&quot;ex-3-decoding-marn-using-dict-and-list-comprehensions-&quot;&gt;Ex. 3: decoding mARN using dict and list comprehensions !&lt;/h2&gt;
+
+&lt;p&gt;In a cell, ribosomes synthesises proteins by translating &lt;strong&gt;triplets&lt;/strong&gt; of &lt;strong&gt;nucleotides&lt;/strong&gt; from the mRNA into a chain of amino-acids.&lt;/p&gt;
+
+&lt;p&gt;Here is a dictionary made from the inverse table of the DNA-codon-to-amino-acids conversions.&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;amino_acids_from_triplets&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+ &lt;span class=&quot;s&quot;&gt;&quot;Ala&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;   &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;GCT&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;GCC&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;GCA&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;GCG&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+ &lt;span class=&quot;s&quot;&gt;&quot;Arg&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;CGT&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;CGC&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;CGA&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;CGG&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;AGA&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;AGG&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+ &lt;span class=&quot;s&quot;&gt;&quot;Asn&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;AAT&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;AAC&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+ &lt;span class=&quot;s&quot;&gt;&quot;Asp&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;GAT&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;GAC&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+ &lt;span class=&quot;s&quot;&gt;&quot;Cys&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;TGT&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;TGC&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+ &lt;span class=&quot;s&quot;&gt;&quot;Gln&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;CAA&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;CAG&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+ &lt;span class=&quot;s&quot;&gt;&quot;Glu&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;GAA&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;GAG&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+ &lt;span class=&quot;s&quot;&gt;&quot;Gly&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;GGT&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;GGC&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;GGA&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;GGG&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+ &lt;span class=&quot;s&quot;&gt;&quot;His&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;CAT&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;CAC&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+ &lt;span class=&quot;s&quot;&gt;&quot;START&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;  &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;ATG&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+ &lt;span class=&quot;s&quot;&gt;&quot;Ile&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;ATT&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ATC&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ATA&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+ &lt;span class=&quot;s&quot;&gt;&quot;Leu&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;CTT&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;CTC&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;CTA&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;CTG&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;TTA&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;TTG&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+ &lt;span class=&quot;s&quot;&gt;&quot;Lys&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;AAA&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;AAG&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+ &lt;span class=&quot;s&quot;&gt;&quot;Met&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;ATG&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+ &lt;span class=&quot;s&quot;&gt;&quot;Phe&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;TTT&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;TTC&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+ &lt;span class=&quot;s&quot;&gt;&quot;Pro&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;CCT&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;CCC&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;CCA&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;CCG&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+ &lt;span class=&quot;s&quot;&gt;&quot;Ser&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;TCT&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;TCC&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;TCA&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;TCG&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;AGT&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;AGC&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+ &lt;span class=&quot;s&quot;&gt;&quot;Thr&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;ACT&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ACC&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ACA&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;ACG&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+ &lt;span class=&quot;s&quot;&gt;&quot;Trp&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;TGG&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+ &lt;span class=&quot;s&quot;&gt;&quot;Tyr&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;TAT&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;TAC&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+ &lt;span class=&quot;s&quot;&gt;&quot;Val&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;    &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;GTT&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;GTC&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;GTA&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;GTG&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+ &lt;span class=&quot;s&quot;&gt;&quot;STOP&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;   &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;TAA&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;TGA&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;TAG&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; 
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Using dict comprehension, convert this dictionary in another one having &lt;strong&gt;keys as tuples of nucleotides&lt;/strong&gt; and resulting &lt;strong&gt;amino-acids as values&lt;/strong&gt; (e.g. for “His” amino_acid, &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;{(&quot;CAT&quot;, &quot;CAC&quot;):&quot;His&quot;}&lt;/code&gt;.&lt;br /&gt;
+We will call this dictionary &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;all_triplets_to_amino_acids&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Expand the tuples in dictionary &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;all_triplets_to_amino_acids&lt;/code&gt; as simple keys for each element of the tuples. Hence you should have in the resulting dictionary multiple same amino acids values for some keys (e.g. “CAT”: “His”, “CAC”: “His”)&lt;br /&gt;
+We will call this dictionary &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;triplets_to_amino_acids&lt;/code&gt;&lt;br /&gt;
+You can still use dict comprehension for that.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;This is an mARN extract that is about to get translated in protein synthesis:&lt;br /&gt;
+arn = ‘GCCGAGTAACTAGCCAGCT
+ATGACACGATCCCGGCTAGGAAAGTG
+AACCCGCGGAAGTATATTGGTACCTC
+ACGGTAGGAGACGGCGGGATAATTCT
+TGTCGCTGTGTGTGCCATCGTACACG
+AGACGGGTCCACTGAGTAAAGCGAGT
+ATCACACAGACGAAGGTGACCTCCCC
+TTGTAGTCAGTAATCTTTCCTGAATC
+TAATTACTGTCATCGATTGCAAAACT
+TTGCAAAAAAACATTTGTAGACAACC
+GCTTACGTGGCGCTTCCTGCATTAAA
+CGATTCCGGTGCACGGAACAA’&lt;br /&gt;
+Split this arn in sequence of triplets to further get the amino-acids conversion (you can use list comprehension + &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;range&lt;/code&gt;).&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Translate the sequence of triplets into the corresponding amino acid&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;ex-4-sort-the--a-sorted-dictionary-sorted-by-values&quot;&gt;Ex. 4: Sort the  a sorted dictionary, sorted by values&lt;/h2&gt;
 
 &lt;p&gt;Hint: use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Ordereddict&lt;/code&gt;&lt;/p&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;x&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h2 id=&quot;ex-4-lets-create-a-decorator-using-class-definition&quot;&gt;Ex. 4: Let’s create a decorator using class definition&lt;/h2&gt;
+&lt;h2 id=&quot;ex-5-lets-create-a-decorator-using-class-definition&quot;&gt;Ex. 5: Let’s create a decorator using class definition&lt;/h2&gt;
 
 &lt;p&gt;A decorator is a construct often written as a function, that takes a &lt;strong&gt;function as parameter&lt;/strong&gt; and returns &lt;strong&gt;another one which extends&lt;/strong&gt; the behavior of the passed-in function.
 It thus needs to return a new function who had been defined in its inner scope and wrapped the first one.&lt;/p&gt;
@@ -7346,7 +7693,7 @@ It thus needs to return a new function who had been defined in its inner scope a
   &lt;li&gt;values  = results obtained&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&quot;ex-5-create-a-custom-list-&quot;&gt;Ex. 5: Create a custom list 😉&lt;/h2&gt;
+&lt;h2 id=&quot;ex-6-create-a-custom-list-&quot;&gt;Ex. 6: Create a custom list 😉&lt;/h2&gt;
 
 &lt;p&gt;Create a class &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;List&lt;/code&gt; whose behavior upon doing &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;liste1 + liste2&lt;/code&gt;  (with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;liste1&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;liste2&lt;/code&gt; being &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;List&lt;/code&gt; instances), is to add each of their elements element-wise i.e. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;liste1[i] + liste2[i]&lt;/code&gt; for each &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;i&lt;/code&gt;.&lt;/p&gt;
 
@@ -7840,7 +8187,9 @@ To apply it (and in that case actually create the 2 tables along with their data
   &lt;li&gt;create a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;.gitignore&lt;/code&gt; file (to exclude including unecessary &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;myenv&lt;/code&gt; virtual environment)&lt;/li&gt;
   &lt;li&gt;create a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;requirements.txt&lt;/code&gt; file where all files will be&lt;/li&gt;
   &lt;li&gt;create a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;READMe.md&lt;/code&gt; markdown file for the users who will go to this GitHub repository&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>luc</name></author><category term="featured" /><summary type="html">Flask is a micro web framework written in Python, first released in 2010. It is lightweight (hence the “micro”), has more stars on GitHub that is “concurrent” Django — first released in 2005 — and is based on the philosophy that the main fundations and services are built into Flask and ready-to-use, while additional features can be seamlessly added to your app by installing extensions and initializing them to your app.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/images/post_setting_up_a_simple_flask_app/flask2.png" /><media:content medium="image" url="http://localhost:4000/assets/images/post_setting_up_a_simple_flask_app/flask2.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">A note on execution model</title><link href="http://localhost:4000/a-note-on-execution-model/" rel="alternate" type="text/html" title="A note on execution model" /><published>2020-08-28T00:00:00+02:00</published><updated>2020-08-28T00:00:00+02:00</updated><id>http://localhost:4000/a-note-on-execution-model</id><content type="html" xml:base="http://localhost:4000/a-note-on-execution-model/">&lt;p&gt;A &lt;strong&gt;code block&lt;/strong&gt; is a piece of Python code executed as a unit:&lt;/p&gt;
+&lt;/ul&gt;</content><author><name>luc</name></author><category term="featured" /><summary type="html">Flask is a micro web framework written in Python, first released in 2010. It is lightweight (hence the “micro”), has more stars on GitHub that is “concurrent” Django — first released in 2005 — and is based on the philosophy that the main fundations and services are built into Flask and ready-to-use, while additional features can be seamlessly added to your app by installing extensions and initializing them to your app.</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/images/post_setting_up_a_simple_flask_app/flask2.png" /><media:content medium="image" url="http://localhost:4000/assets/images/post_setting_up_a_simple_flask_app/flask2.png" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">A note on execution model</title><link href="http://localhost:4000/a-note-on-execution-model/" rel="alternate" type="text/html" title="A note on execution model" /><published>2020-08-28T00:00:00+02:00</published><updated>2020-08-28T00:00:00+02:00</updated><id>http://localhost:4000/a-note-on-execution-model</id><content type="html" xml:base="http://localhost:4000/a-note-on-execution-model/">&lt;h1 id=&quot;what-is-a-code-block-&quot;&gt;What is a code block ?&lt;/h1&gt;
+
+&lt;p&gt;A &lt;strong&gt;code block&lt;/strong&gt; is a piece of Python code executed as a unit:&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;A function body is executed as a unit&lt;/li&gt;
   &lt;li&gt;A script file to be run from the terminal using Python shell: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;python ./script.py&lt;/code&gt;&lt;/li&gt;
@@ -7864,7 +8213,7 @@ You can then adress the object by using its associated name.&lt;/p&gt;
   &lt;p&gt;A variable is only available from inside the region it is created. This is called scope.&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;h3 id=&quot;scope&quot;&gt;scope&lt;/h3&gt;
+&lt;h1 id=&quot;scope&quot;&gt;scope&lt;/h1&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;# variable defined in a block
 &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;
@@ -7998,7 +8347,7 @@ NameError                                 Traceback (most recent call last)
 NameError: name 'c' is not defined
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h3 id=&quot;namespaces&quot;&gt;namespaces&lt;/h3&gt;
+&lt;h1 id=&quot;namespaces&quot;&gt;Namespaces&lt;/h1&gt;
 
 &lt;p&gt;Python needs to keep track of all the ‘visible’ bindings within a block, or at a certain point of the program, this is also called &lt;strong&gt;namespace&lt;/strong&gt; or &lt;strong&gt;context&lt;/strong&gt;.&lt;/p&gt;
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;{
@@ -8146,7 +8495,7 @@ outer function locals:{'function2': &amp;lt;function function.&amp;lt;locals&amp
   &lt;li&gt;then look in &lt;strong&gt;B&lt;/strong&gt;uilt-in namespace or raise an exception&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h4 id=&quot;classes&quot;&gt;classes&lt;/h4&gt;
+&lt;h2 id=&quot;classes&quot;&gt;Classes&lt;/h2&gt;
 
 &lt;p&gt;classes have their own namespace&lt;br /&gt;&lt;/p&gt;
 &lt;blockquote&gt;
@@ -8165,7 +8514,7 @@ outer function locals:{'function2': &amp;lt;function function.&amp;lt;locals&amp
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;__main__.Test
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h3 id=&quot;module-import&quot;&gt;module import&lt;/h3&gt;
+&lt;h2 id=&quot;module-import&quot;&gt;module import&lt;/h2&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;webencodings&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -8200,11 +8549,11 @@ KeyError: 'webencodings'
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;function webencodings.ascii_lower(string)&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h4 id=&quot;one-word-on-mutability&quot;&gt;one word on mutability&lt;/h4&gt;
+&lt;h1 id=&quot;one-word-on-mutability&quot;&gt;One word on mutability&lt;/h1&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;multiple names (in multiple scopes) can be bound to the same object. This is known as aliasing. Passing an object as parameter to a function is cheap since just a pointer is passed by the implemententation. Hence using mutable objects might affect the code&lt;/p&gt;
-&lt;/blockquote&gt;</content><author><name>luc</name></author><summary type="html">A code block is a piece of Python code executed as a unit: A function body is executed as a unit A script file to be run from the terminal using Python shell: python ./script.py A module is a unit A class definition is a unit A single command run in a python interpreter is a unit</summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/images/post_execution_model/namespaces.svg" /><media:content medium="image" url="http://localhost:4000/assets/images/post_execution_model/namespaces.svg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Beginning in Python</title><link href="http://localhost:4000/Beginning-in-Python/" rel="alternate" type="text/html" title="Beginning in Python" /><published>2020-08-22T00:00:00+02:00</published><updated>2020-08-22T00:00:00+02:00</updated><id>http://localhost:4000/Beginning-in-Python</id><content type="html" xml:base="http://localhost:4000/Beginning-in-Python/">&lt;p&gt;1st course will mainly focus on how to approach Python for the first time. For that we will use Jupyter module.&lt;/p&gt;
+&lt;/blockquote&gt;</content><author><name>luc</name></author><summary type="html"></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/images/post_execution_model/namespaces.svg" /><media:content medium="image" url="http://localhost:4000/assets/images/post_execution_model/namespaces.svg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Beginning in Python</title><link href="http://localhost:4000/Beginning-in-Python/" rel="alternate" type="text/html" title="Beginning in Python" /><published>2020-08-22T00:00:00+02:00</published><updated>2020-08-22T00:00:00+02:00</updated><id>http://localhost:4000/Beginning-in-Python</id><content type="html" xml:base="http://localhost:4000/Beginning-in-Python/">&lt;p&gt;1st course will mainly focus on how to approach Python for the first time. For that we will use Jupyter module.&lt;/p&gt;
 
 &lt;h2 id=&quot;in-python-everything-is-an-object&quot;&gt;“In Python, everything is an object”&lt;/h2&gt;
 

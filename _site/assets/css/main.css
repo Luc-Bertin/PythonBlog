@@ -51,6 +51,8 @@
 *::after {
   box-sizing: border-box; }
 
+
+
 html {
   font-family: sans-serif;
   line-height: 1.15;
@@ -8464,3 +8466,70 @@ html {
   .align-self-xl-stretch {
     align-self: stretch !important; } }
 
+
+@media (prefers-color-scheme: dark) {
+  body {
+    color: #fff !important;
+    background-color: #061F2F !important;
+  }
+
+  .bg-white {
+    /*@extend .bg-dark !important;*/
+    /*background-color: #25262e !important;*/
+    background-color: black !important;
+   /* color: #061F2F !important;
+    background-color: #061F2F !important;*/
+  }
+  .navbar-toggler-icon {
+
+  }
+  .navbar-light,
+  .navbar-brand,
+  .nav-link {
+    color: #fff !important;
+  }
+
+  legend {
+    color: #fff !important;
+  }
+  caption {
+    color: #fff !important;
+  }
+  p {
+    color: #fff !important;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: #fff !important;
+  }
+  .text-dark {
+    color: #fff !important;
+  }
+  .card-body {
+    background-color: #061F2F !important;
+  }
+  #table-of-contents {
+    background-color: #061F2F !important;
+  }
+  pre {
+    color: #fff;
+    background-color: black !important;
+  }
+  .sticky_post {
+    background-color: #394867 !important;
+  }
+  .jumbotron:not(.sticky_post) {
+    background-color: #061F2F !important;
+  }
+  #mailchimp_newsletter_box {
+    border: none !important;
+    background-color: #394867 !important;
+  }
+  /*footer {
+    background-color: #061F2F !important;
+  }*/
+}
