@@ -8550,7 +8550,7 @@ html {
     background-color: #252525 !important;
   }
   .styledtable tbody tr:last-of-type {
-    border-bottom: 2px solid #white;
+    border-bottom: 2px solid #fff;
   }
   #table-of-contents h2.fixed-right {
     background-color: black !important;
