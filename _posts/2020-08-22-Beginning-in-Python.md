@@ -436,6 +436,8 @@ uneliste
 
 
 
+### Using some list methods as example
+
 i can access to some methods or attributes of list
 
 
@@ -1182,7 +1184,7 @@ A list is then a **mutable**.
 * <u>**Common immutable objects:**</u> int, float, bool, string, tuple, frozenset, range
 
 
-### Sets
+## Sets
 
 
 ```python
@@ -1325,7 +1327,7 @@ encore_un < un_set
 
 
 
-### Dictionaries
+## Dictionaries
 
 A dictionary is a collection of key:value pairs
 
@@ -1338,7 +1340,7 @@ Operations associated to dictionaries:
     - modify val for a given key
     - look for val from key in dict
 
-#### one word on hashes
+## An implementation of an hash-table
 
 
 ```python
@@ -1508,7 +1510,9 @@ dico_des_contacts = {
 }
 ```
 
-##### * look for val from key in dict
+## Dict / Associative array base operations
+ 
+ * look for val from key in dict (i.e. the lookup of a value associated with a particular key)
 
 
 ```python
@@ -1533,8 +1537,7 @@ mondico[3]
     'moi à nouveau'
 
 
-
-#### * modify val for a given key
+* modify val for a given key (i.e. the modification of an existing pair)
 
 
 ```python
@@ -1553,7 +1556,7 @@ mondico
 
 
 
-#### * add a new key:val pair
+* add a new key:val pair (i.e. the addition of a pair to the collection)
 
 
 ```python
@@ -1585,7 +1588,7 @@ except:
     ça n'a pas marché
 
 
-#### * delete a key:val pair
+* delete a key:val pair (i.e. the removal of a pair from the collection)
 
 
 ```python
@@ -1604,7 +1607,7 @@ mondico
 
 
 
-#### * the question of “hashability“
+## * the question of “hashability“ of keys
 
 
 ```python
@@ -1853,7 +1856,9 @@ my_dict
 
 
 
-#### Orderdict
+### An example of subclass of dict: Orderdict
+
+Sometimes it is interesting to play with higher-level data structures, that is, data structures leaning on lower-level ones to add either set of functionalities or behaviors.
 
 > dict subclass that remembers the order entries were added
 
@@ -1888,7 +1893,7 @@ hash("a")
 
 
 
-### chaines de caracteres
+## Strings
 
 
 ```python
@@ -1955,7 +1960,7 @@ voiciunstring.replace('l', 'a')
 
 
 
-slicer une chaine de caracteres
+We can slice a string
 
 
 ```python
@@ -2019,7 +2024,7 @@ voiciunstring.count("l")
 
 
 
-### boolean
+## Booleans
 
 
 ```python
@@ -2172,8 +2177,9 @@ my_dict
 
 
 
-## Loops
+# Loops
 
+## while (condition-based loop) and for
 
 ```python
 a=3
@@ -2304,7 +2310,7 @@ for tuple_ in dico_des_contacts.items():
     ('Julien', '0820202020')
 
 
-#### a nice feature: Iterable unpacking (here on a tuple) 
+## a nice feature: Iterable unpacking (here on a tuple) 
 
 
 ```python
@@ -2335,7 +2341,7 @@ b
 
 
 
-###### PEP 3132: extended Iterable unpacking
+## PEP 3132: extended Iterable unpacking
 
 
 ```python
@@ -2419,17 +2425,20 @@ for key, value in dico_des_contacts.items():
     0820202020
 
 
-### Functions
+# Functions
 
-Defining a function
+## Function definition and function call(s)
 
+- Defining a function: function may or may not have parameters, can return a value but are not forced too. 
+
+Here is an example of a function that has a parameter, and return a value.
 
 ```python
 def mafonction(a):
     return a**2
 ```
 
-calling a function
+- calling a function: you call call it once, twice, or more, passing-in an argument for the corresponding function parameter. 
 
 
 ```python
@@ -2443,7 +2452,9 @@ mafonction(9)
 
 
 
-for short and simple functions, one call use lambda notation
+<u>Terminology alert here:</u> A parameter is a variable in the function definition. Just like in Maths. An argument is the passed-in value at function call for that parameter.
+
+- for short and simple functions, one call use **lambda** notation/functions
 
 
 ```python
@@ -2462,7 +2473,7 @@ mafonction(11)
 
 
 
-Put defaults params in functions
+- Put default arguments for any parameter in the functions
 
 
 ```python
@@ -2498,7 +2509,7 @@ def mafonction3(a,b,c=2, d):
 
 
 
-#### Recall unpacking ?
+## Recall unpacking ?
 
 Say we have this function:
 
@@ -2615,7 +2626,7 @@ acomplicatedcalculus(**dictargs1, **dictargs2)
 
 <u>**Note2:**</u> \*\* unpackings must additionally follow \* unpackings
 
-### function definitions : tuple packing
+## Tuple packing for function definitions 
 
 You can also think the other way around and think about functions as containing an undefined number of arguments, example:
 
