@@ -109,7 +109,7 @@ GCTTACGTGGCGCTTCCTGCATTAAA
 CGATTCCGGTGCACGGAACAA'<br>
 Split this arn in sequence of triplets to further get the amino-acids conversion (you can use list comprehension + `range`).
 
-4. Translate the sequence of triplets into the corresponding amino acid
+4. Translate the sequence of triplets into a corresponding **string** of **amino acid** separated by a separator "-" (Hint: use a list comprehension for the looping part, then convert the resulting list into a string with "-" separators)/
 
 ## Ex. 4: functions
 
