@@ -2747,9 +2747,7 @@ name("a", "7", "test", key1="2")
 
 
 
-Below should be another practice session
-
-### list comprehension
+# List comprehension
 
 
 ```python
@@ -2864,7 +2862,7 @@ cartesian product
 
 
 
-### dict comprehension
+# Dict comprehension
 
 
 ```python
@@ -2939,7 +2937,7 @@ mondico2
 
 
 
-### exercice: take phone number only for name starting with 'R'
+## exercice: take phone number only for name starting with 'R'
 
 
 ```python
@@ -3002,7 +3000,7 @@ dico_des_contacts['remi'] = "067234099"
 
 
 
-#### Decorators
+# Decorators
 
 <u>**A decorator:**</u>
  * takes a function as argument (remembered? function is a object, all objects are first-class objects by design)
@@ -3096,7 +3094,7 @@ def unefonction():
     pass
 ```
 
-##### passing arguments to the decorated function 
+## passing arguments to the decorated function 
 
 
 ```python
@@ -3138,7 +3136,7 @@ unefonction("Luc")
 
 wrapper replaces func, then if func was often being passed an argument, wrapper must handle it
 
-##### passing arguments to the decorator
+## passing arguments to the decorator
 
 "higher higher"-order function 😜
 
@@ -3183,10 +3181,7 @@ unefonction("Luc")
     'Luc'
 
 
-
-### End (Rest of the practice session will be on another page)
-
-### Classes
+# Classes
 
 
 ```python
@@ -3440,9 +3435,6 @@ print(unLivre)
     Categorie de livre : Drame
 
 
-### retour vis à vis des listes....
-
-
 ```python
 liste_ = [uneOeuvre, sculpture, unLivre, 5, "test"]
 ```
@@ -3488,7 +3480,7 @@ for element in liste_:
     test
 
 
-## Sync to GitHub
+# Sync to GitHub
 
 
 ```python
