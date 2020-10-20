@@ -115,25 +115,28 @@ Split this arn in sequence of triplets to further get the amino-acids conversion
 
 ## Ex. 4: functions
 
-### Fonction definition and calls
+<!-- ### Fonction definition and calls
+ -->
 1. Create/define a simple function that prints 'hello'. The function should not return anything neither take any inputs.  
 Call that function.
 2. Create/define a simple function that takes **one parameter** 'name' and returns 'hello \<name\>'.  
 Call that function.
-3. Create/define a simple function that does the same as 2., but provides default value if the name argument is not passed-in the function call by the user.  
+3. Create/define a simple function that does the same as **2**, but provides default value if the name argument is not passed-in the function call by the user.  
 Call that function.
-
-### A slightly bigger function of multiple arguments
-4. Create/define a simple function that takes 2 params: **age** and **name**. It first "upperizes" the name, and convert age as a string so to have the returned form as 'Hello \<name\>, you have \<age\> years old'.
-5. Call the function in **4** passing **positional** arguments in the right order, call a the function a second time passing **keywords** arguments (in both orders).
-
-### Applying a function on each input of a sequence
+<!-- ### A slightly bigger function of multiple arguments
+ -->
+4. Create/define a simple function that takes 2 params: **age** and **name**.  
+It first "upperizes" the name, and convert age as a string so to have the returned form as 'Hello \<name\>, you are \<age\> years old'.  
+5. Call the function in **4** passing **positional** arguments in the right order.  
+Call a the function a second time passing **keywords** arguments in either orders.  
+Prove the order of keywords arguments does not matter here.
+<!-- ### Applying a function on each input of a sequence
+ -->
 6. Call the function in **4** each time on each input (name and age) provided below, using **for loop** and **tuple unpacking** from the **dict** below:
 ```python 
 inputs = {'Luc': 25, 'Corentin': 18, 'Thomas': 29, 'Julie': 22, 'Juliette': 21}
 ```
-
-### Unpacking a sequence of arguments in a function
+<!-- ### Unpacking a sequence of arguments in a function-->
 7. Using this input list of arguments below:
 ```python
 list_of_arguments = ['Luc', 25]
@@ -151,12 +154,12 @@ Does the position matter ? **Prove it.**
 ```python 
 inputs = {'Luc': 25, 'Corentin': 18, 'Thomas': 29, 'Julie': 22, 'Juliette': 21}
 ```
-to print a hello message using **for loop** from the **dict** below, **but this time with the tuple unpacking that happens within the function call !**
+to print a hello message using **for loop** from the **dict** below, **but this time with the unpacking that happens within the function call !**
 
 
 ### A function with undefined number of arguments
 
-10. Create/define a more flexible function named 'multiply' that returns a value made from multiplying any number of **positional arguments** passed in that function.  
+10. Create/define a more flexible function named `multiply` that returns a value made from multiplying any number of **positional arguments** passed in that function.  
 Call multiply(8,2,3)  
 Call multiply(19,2,10)  
 Call multiply(1)  
@@ -170,7 +173,8 @@ To prove validity of the function.
 What happens if i do ? Explain it.
 Call multiply(8,2,3, True)  
 
-12. Create/define the same function `multiply2`, but this time that takes any number of **keywords arguments** (just like `inverse`, but would not be reduced to that). Add some behavior in the function definition for arbitrarily named keywords arguments (just as we did with `inverse`), and use them in different calls.
+12. Create/define the same function `multiply2`, but this time that takes **any number of keywords arguments** (just like `inverse`, but would not be reduced to that).  
+Add some behavior in the function definition for arbitrarily named keywords arguments (just as we did with `inverse`), and use them in different calls.
 
 
 ## Ex. 4: Sort the  a sorted dictionary, sorted by values
