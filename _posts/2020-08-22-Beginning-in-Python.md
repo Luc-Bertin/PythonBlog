@@ -455,10 +455,9 @@ uneliste
 
 
 
-après le '.' appui sur Tab pour les options
+In Jupyter Notebook, after the '.' you can press `Tab` for showing some autocomplete suggestions.
 
-second appui sur Tab ou shift+tab pour plus d'infos
-
+After writing the entire attribute name, a press on `Shift` + `Tab` display information about this attribute, what it is, what it does.
 
 ```python
 uneliste.reverse()
@@ -510,9 +509,9 @@ uneliste
 
 
 
-#### Parcourir une liste
+### List manipulations
 
-#### index
+#### Indexing
 
 
 ```python
@@ -953,7 +952,7 @@ list(range(1,8+1))
 
 More on this on functionnal programming chapter
 
-### les tuples
+## Tuples
 
 
 ```python
@@ -1035,10 +1034,12 @@ except Exception as e:
 
 tuple object does not support item assignement and is a member of the immutables family.
 
-Changing a tuple after creation is not possible, only recreating a new tuple is
+Changing a tuple after creation is not possible, only recreating a new tuple is.
+
+So why using tuple if is a kind of "castrated" list ?
 
 
-## les mutables / immutables
+### one word on mutability / immutability
 
 
 ```python
@@ -1171,17 +1172,17 @@ id(liste)
 
 
 
-Inplace modification, didn't change the address location of the list.
+**Inplace modifications** for a list didn't change the address location for that list..
 
-A list is then a **mutable**
-
+A list is then a **mutable**.
 - mutable objects can be changed after their creation, 
 - immutable objects can't.
 
 * <u>**Common mutable Objects:**</u> list, set, dict, user-defined class
 * <u>**Common immutable objects:**</u> int, float, bool, string, tuple, frozenset, range
 
-### les sets
+
+### Sets
 
 
 ```python
@@ -1324,7 +1325,7 @@ encore_un < un_set
 
 
 
-### dictionaries
+### Dictionaries
 
 A dictionary is a collection of key:value pairs
 
@@ -1401,7 +1402,7 @@ Two objects that compare equal ( ```==``` ) must also have the same hash value
 
 > <u>Python docs:</u> Numeric values that compare equal have the same hash value (even if they are of different types, as is the case for 1 and 1.0).
 
-##### hashes for dict look-ups
+### hashes for dict look-ups
 
 Hash values are mostly used in dictionnary lookups to quicky compare dictionary keys. 
 
