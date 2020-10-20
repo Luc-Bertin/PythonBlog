@@ -38,9 +38,7 @@ OUTPUT: {1: 2, 3: 4, 5: 6, 7: 8}
 - using a simple Python dictionary
 - using `defaultdict` (subclass of `dict`)
 - using `Counter` (subclass of `dict`)
-
 `defaultdict` and `Counter` can be found in `collections` (i.e. `from collections import defaultdict, Counter`)
-
 2. Count word frequencies (store them in a Python dictionary).
 
 ```python
