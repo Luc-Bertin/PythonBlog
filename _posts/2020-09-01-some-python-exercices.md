@@ -34,12 +34,14 @@ OUTPUT: {1: 2, 3: 4, 5: 6, 7: 8}
 
 ## Ex. 2: Counting letter frequencies in a text.
 
+1. You should count letter frequencies using these strategies: 
 - using a simple Python dictionary
 - using `defaultdict` (subclass of `dict`)
 - using `Counter` (subclass of `dict`)
 
 `defaultdict` and `Counter` can be found in `collections` (i.e. `from collections import defaultdict, Counter`)
 
+2. Count word frequencies (store them in a Python dictionary).
 
 ```python
 text = """Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sagittis neque turpis, in gravida erat tincidunt a. Maecenas lobortis rutrum arcu, in posuere dolor fermentum sed. Duis imperdiet laoreet nibh, a pretium lectus condimentum eget. Maecenas eu elit vitae nibh euismod lacinia et a tortor. Donec at egestas leo, eget molestie quam. Sed elementum scelerisque sapien, quis suscipit ex malesuada vel. Aenean non mollis erat, in tincidunt massa.
@@ -110,6 +112,66 @@ CGATTCCGGTGCACGGAACAA'<br>
 Split this arn in sequence of triplets to further get the amino-acids conversion (you can use list comprehension + `range`).
 
 4. Translate the sequence of triplets into the corresponding amino acid
+
+## Ex. 4: functions
+
+### Fonction definition and calls
+1. Create/define a simple function that prints 'hello'. The function should not return anything neither take any inputs.  
+Call that function.
+2. Create/define a simple function that takes **one parameter** 'name' and returns 'hello \<name\>'.  
+Call that function.
+3. Create/define a simple function that does the same as 2., but provides default value if the name argument is not passed-in the function call by the user.  
+Call that function.
+
+### A slightly bigger function of multiple arguments
+4. Create/define a simple function that takes 2 params: **age** and **name**. It first "upperizes" the name, and convert age as a string so to have the returned form as 'Hello \<name\>, you have \<age\> years old'.
+5. Call the function in **4** passing **positional** arguments in the right order, call a the function a second time passing **keywords** arguments (in both orders).
+
+### Applying a function on each input of a sequence
+6. Call the function in **4** each time on each input (name and age) provided below, using **for loop** and **tuple unpacking** from the **dict** below:
+```python 
+inputs = {'Luc': 25, 'Corentin': 18, 'Thomas': 29, 'Julie': 22, 'Juliette': 21}
+```
+
+### Unpacking a sequence of arguments in a function
+7. Using this input list of arguments below:
+```python
+list_of_arguments = ['Luc', 25]
+```
+Call the function defined in **4** passing-in the `list_of_arguments` to be "parsed"/unpacked into **positional arguments** in the function.
+
+8. Using this dict of arguments below:
+```python
+dict_of_arguments = {'age':25, 'name': 'Luc'}
+```
+Call the function defined in **4** passing-in the `dict_of_arguments` to be "parsed"/unpacked into **keyword arguments** in the function.  
+Does the position matter ? **Prove it.**
+
+9. Recall what we did in **6**? Reuse the same variable `inputs` below:
+```python 
+inputs = {'Luc': 25, 'Corentin': 18, 'Thomas': 29, 'Julie': 22, 'Juliette': 21}
+```
+to print a hello message using **for loop** from the **dict** below, **but this time with the tuple unpacking that happens within the function call !**
+
+
+### A function with undefined number of arguments
+
+10. Create/define a more flexible function named 'multiply' that returns a value made from multiplying any number of **positional arguments** passed in that function.  
+Call multiply(8,2,3)  
+Call multiply(19,2,10)  
+Call multiply(1)  
+To prove validity of the function.
+
+11. Create/define the function `multiply2`that do the same as `multiply`take an additional **boolean keyword argument** `inverse` defaulting to `False`, but when set as `True` on function call, will inverse the final result to be returned.  
+Call multiply(8,2,3, inverse=True)  
+Call multiply(19,2,10, inverse=True)  
+Call multiply(1, inverse=True)  
+To prove validity of the function.
+What happens if i do ? Explain it.
+Call multiply(8,2,3, True)  
+
+12. Create/define the same function `multiply2`, but this time that takes any number of **keywords arguments** (just like `inverse`, but would not be reduced to that). Add some behavior in the function definition for arbitrarily named keywords arguments (just as we did with `inverse`), and use them in different calls.
+
 
 ## Ex. 4: Sort the  a sorted dictionary, sorted by values
 
