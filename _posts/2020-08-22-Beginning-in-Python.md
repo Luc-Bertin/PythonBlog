@@ -15,16 +15,16 @@ order: 2
 1st course will mainly focus on how to approach Python for the first time. For that we will use Jupyter module.
 
 
-## "In Python, everything is an object"
+# "In Python, everything is an object"
 
 This is a very well-known sentence but I think it is the best, along with some examples, to start getting a good grasp of the language.
 In Python, everything is an object, according to the creator of Python, Guido van Rossum:
 > One of my goals for Python was to make it so that **all objects were "first class."** By this, I meant that I wanted **all objects that could be named in the language** (e.g., integers, strings, functions, classes, modules, methods, etc.) to have equal status. That is, they can be **assigned to variables, placed in lists, stored in dictionaries, passed as arguments, and so forth"s**
 
 
-### Let's dive-in a bit, and then experiment from there
+## A dynamically-typed language
 
-In Python EVERYTHING IS AN OBJECT ! 
+Let's dive-in a bit, and then experiment from there.
 
 
 ```python
@@ -50,7 +50,7 @@ in Python, ``` a = 2 ``` first creates an object of value 2 at a certain memory 
 
 ```a``` will be simply redirecting to another object of different data type.
 
-The type is then not associated to ```a``` but to the run-time values, Python is then **dynamically-typed**
+The type is then not associated to ```a``` but to the run-time values, Python is then **dynamically-typed**.
 
 
 Hence i can write:
@@ -67,9 +67,29 @@ then
 a = "Bonjour"
 ```
 
+the type is checked only at runtime, hence making Python 
+**dynamically-typed**. (If the line is not read, the types are not checked).
+
+
+```python
+if False:
+    2+"25" # should raise an error, but as the condition is not entered, no types are checked here
+```
+
+same happens during function definition and not execution
+
+## An id, a type, a value
+
+In Python, everything is an object, each object has 3 core elements:
+- an **id**
+- a **type**
+- a **value**
+
+**Every object has an identity, a type and a value**
+
 ```ìd()``` is a built-in function that can show us the memory location of the object (at least for CPython implementation), and is certified to be unique to an object, and still during the lifetime of this object
 
-Hence, in Python, every object has an identity
+Hence, in Python, everything is an object, hence every object has an identity.
 
 
 ```python
@@ -96,7 +116,7 @@ sys.getrefcount(a)
 
 
 
-Note that if an object (example: the object "Bonjour" is not linked anymore by any names (```a``` etc), then it can be garbage-collected. 
+Note that if an object (example: the object "Bonjour" is not linked anymore by any names (```a``` etc), then it can be **garbage-collected**. 
 
 A counter ```sys.getrefcount(X)``` is used to keep track of all the references to a given object "X".
 
@@ -125,71 +145,14 @@ a = 2
 a = "Yo"
 ```
 
-the type is checked only at runtime, hence making Python 
-**dynamically-typed**. (If the line is not read, the types are not checked).
+All objects have a **value**, a is linked here by the last binding statement. It is now **refering to the object**, this object has a certain `id` different from the previous one, and has a value `"Yo"`.
+
+"Yo" embeds a certain **datatype**, also called a **type**.<br>
+Any Python object **has a type**.<br>
+The **type** of the object of value "Yo" is a **string**.
 
 
-```python
-if False:
-    2+"25" # should raise an error, but as the condition is not entered, no types are checked here
-```
-
-same happens during function definition and not execution
-
-### Wait, you said  200000 or "bonjour" are each other object's value ?
-
-Let's talk about ```dir()``` first,
-it is a built-in function (we don't need to import a python package to call this function)
-With an argument (here a), it returns a list of valid attributes for that object.
-
-
-```python
-print( dir(a) )
-```
-
-    ['__abs__', '__add__', '__and__', '__bool__', '__ceil__', '__class__', '__delattr__', '__dir__', '__divmod__', '__doc__', '__eq__', '__float__', '__floor__', '__floordiv__', '__format__', '__ge__', '__getattribute__', '__getnewargs__', '__gt__', '__hash__', '__index__', '__init__', '__init_subclass__', '__int__', '__invert__', '__le__', '__lshift__', '__lt__', '__mod__', '__mul__', '__ne__', '__neg__', '__new__', '__or__', '__pos__', '__pow__', '__radd__', '__rand__', '__rdivmod__', '__reduce__', '__reduce_ex__', '__repr__', '__rfloordiv__', '__rlshift__', '__rmod__', '__rmul__', '__ror__', '__round__', '__rpow__', '__rrshift__', '__rshift__', '__rsub__', '__rtruediv__', '__rxor__', '__setattr__', '__sizeof__', '__str__', '__sub__', '__subclasshook__', '__truediv__', '__trunc__', '__xor__', 'as_integer_ratio', 'bit_length', 'conjugate', 'denominator', 'from_bytes', 'imag', 'numerator', 'real', 'to_bytes']
-
-
-- ```a``` refers to an object, and this object, designed by ```a```, has been passed as argument to the ```dir``` function
-- Also, it seems dir() returns a certain number of 'things' for this parameter. The object that ```a``` refers to, (we will later call object "a" for convenience), has then a number of "attributes" related to it.
-    * functions: which in OOP are also known as methods, 
-    * or variables also known as attributes
-
-We get close to the initial meaning Rossum has defined by everything is object, and all objects are first-class objects (see later in the course).
-
-it evens seems ```a``` contains a ```__dir__()``` method we can access doing: ```a.__dir__()```
-
-
-
-We used ```sorted()``` built-in function to sort alphabetically the content of the list outputed by ```a.__dir__()```
-
-
-```python
-print(sorted(a.__dir__()))
-```
-
-    ['__abs__', '__add__', '__and__', '__bool__', '__ceil__', '__class__', '__delattr__', '__dir__', '__divmod__', '__doc__', '__eq__', '__float__', '__floor__', '__floordiv__', '__format__', '__ge__', '__getattribute__', '__getnewargs__', '__gt__', '__hash__', '__index__', '__init__', '__init_subclass__', '__int__', '__invert__', '__le__', '__lshift__', '__lt__', '__mod__', '__mul__', '__ne__', '__neg__', '__new__', '__or__', '__pos__', '__pow__', '__radd__', '__rand__', '__rdivmod__', '__reduce__', '__reduce_ex__', '__repr__', '__rfloordiv__', '__rlshift__', '__rmod__', '__rmul__', '__ror__', '__round__', '__rpow__', '__rrshift__', '__rshift__', '__rsub__', '__rtruediv__', '__rxor__', '__setattr__', '__sizeof__', '__str__', '__sub__', '__subclasshook__', '__truediv__', '__trunc__', '__xor__', 'as_integer_ratio', 'bit_length', 'conjugate', 'denominator', 'from_bytes', 'imag', 'numerator', 'real', 'to_bytes']
-
-
-**dir(a)** actually call internally **a.\_\_dir\_\_()** associated to the object a
-
-
-```python
-print(dir(2))
-```
-
-    ['__abs__', '__add__', '__and__', '__bool__', '__ceil__', '__class__', '__delattr__', '__dir__', '__divmod__', '__doc__', '__eq__', '__float__', '__floor__', '__floordiv__', '__format__', '__ge__', '__getattribute__', '__getnewargs__', '__gt__', '__hash__', '__index__', '__init__', '__init_subclass__', '__int__', '__invert__', '__le__', '__lshift__', '__lt__', '__mod__', '__mul__', '__ne__', '__neg__', '__new__', '__or__', '__pos__', '__pow__', '__radd__', '__rand__', '__rdivmod__', '__reduce__', '__reduce_ex__', '__repr__', '__rfloordiv__', '__rlshift__', '__rmod__', '__rmul__', '__ror__', '__round__', '__rpow__', '__rrshift__', '__rshift__', '__rsub__', '__rtruediv__', '__rxor__', '__setattr__', '__sizeof__', '__str__', '__sub__', '__subclasshook__', '__truediv__', '__trunc__', '__xor__', 'as_integer_ratio', 'bit_length', 'conjugate', 'denominator', 'from_bytes', 'imag', 'numerator', 'real', 'to_bytes']
-
-
-Not the same attributes and methods here...
-
-If 2 and "Bonjour" are both objects, what does make them different appart from their value and id ?
-
-> **Every object has an identity, a type and a value**
-
-The type !
-
-Let's check the type of both of these objects
+Let's check the type of both of these 2 objects:
 
 
 ```python
@@ -216,16 +179,77 @@ type("bonjour")
 
 "Bonjour" is the value of an object of type string.
 
-If you see "class" in the print statement, you can also say the *class or type* of the object of value 2 is *integer*, as type and class in Python3 as beed [unified concepts](https://stackoverflow.com/questions/35958961/class-vs-type-in-python), see also [here](https://stackoverflow.com/questions/54867/what-is-the-difference-between-old-style-and-new-style-classes-in-python)
+If you see "*class*" in the print statement, you can interchangeably say that the *class* or *type* of the object of value 2 is *integer*, as type and class in Python3 has been [unified concepts](https://stackoverflow.com/questions/35958961/class-vs-type-in-python), see also [here](https://stackoverflow.com/questions/54867/what-is-the-difference-between-old-style-and-new-style-classes-in-python)
 
-or **object of value 2** is an **instance** of class integer, integer class **being also an object as everything is an object** (go to see the role of metaclasses)
-
-Are the methods from ```dir(a)``` familiar ? Those methods are relative to a string object
-
-Let's try ```lower()```
+You can also say that the **object of value 2** is an **instance** of the **integer class**. By the way, the integer class itself is an object **as everything is object in Python** (check out the role of metaclasses if interested !).
 
 
-We can access it by using the **"dot"** notation after the object refered by ``` a ```, so to access the method corresponding to ```a```
+## Onwards Object-Oriented Programming: attributes of an object
+
+Objects in Python have an id, a type and a value.<br>
+Objects **may** also have attributes related to them.<br>
+Let's talk about ```dir()``` first, it is a built-in function (we don't need to import a python package to call this function).<br>
+With an argument (here a), it returns a list of valid attributes for that object.
+
+
+```python
+print( dir(a) )
+```
+
+    ['__abs__', '__add__', '__and__', '__bool__', '__ceil__', '__class__', '__delattr__', '__dir__', '__divmod__', '__doc__', '__eq__', '__float__', '__floor__', '__floordiv__', '__format__', '__ge__', '__getattribute__', '__getnewargs__', '__gt__', '__hash__', '__index__', '__init__', '__init_subclass__', '__int__', '__invert__', '__le__', '__lshift__', '__lt__', '__mod__', '__mul__', '__ne__', '__neg__', '__new__', '__or__', '__pos__', '__pow__', '__radd__', '__rand__', '__rdivmod__', '__reduce__', '__reduce_ex__', '__repr__', '__rfloordiv__', '__rlshift__', '__rmod__', '__rmul__', '__ror__', '__round__', '__rpow__', '__rrshift__', '__rshift__', '__rsub__', '__rtruediv__', '__rxor__', '__setattr__', '__sizeof__', '__str__', '__sub__', '__subclasshook__', '__truediv__', '__trunc__', '__xor__', 'as_integer_ratio', 'bit_length', 'conjugate', 'denominator', 'from_bytes', 'imag', 'numerator', 'real', 'to_bytes']
+
+
+- ```a``` refers to an object, and this object, designed by ```a```, has been passed as argument to the ```dir``` function
+- Also, it seems `dir()` returns a certain number of 'things' for this parameter. The object that ```a``` refers to, (we will later call object "a" for convenience), has then a number of "attributes" related to it.
+    * **functions**: which in OOP (object-oriented programming) are also known as **(attributes) methods**, 
+    * or **variables** also known as **(attributes) variables**
+
+We get closer to the definition of an object in OOP !
+
+Let's check some methods here. It evens seems ```a``` contains a ```__dir__()``` method we can access doing: ```a.__dir__()```
+
+
+
+We used ```sorted()``` built-in function to sort alphabetically the content of the list outputed by ```a.__dir__()```
+
+
+```python
+print(sorted(a.__dir__()))
+```
+
+    ['__abs__', '__add__', '__and__', '__bool__', '__ceil__', '__class__', '__delattr__', '__dir__', '__divmod__', '__doc__', '__eq__', '__float__', '__floor__', '__floordiv__', '__format__', '__ge__', '__getattribute__', '__getnewargs__', '__gt__', '__hash__', '__index__', '__init__', '__init_subclass__', '__int__', '__invert__', '__le__', '__lshift__', '__lt__', '__mod__', '__mul__', '__ne__', '__neg__', '__new__', '__or__', '__pos__', '__pow__', '__radd__', '__rand__', '__rdivmod__', '__reduce__', '__reduce_ex__', '__repr__', '__rfloordiv__', '__rlshift__', '__rmod__', '__rmul__', '__ror__', '__round__', '__rpow__', '__rrshift__', '__rshift__', '__rsub__', '__rtruediv__', '__rxor__', '__setattr__', '__sizeof__', '__str__', '__sub__', '__subclasshook__', '__truediv__', '__trunc__', '__xor__', 'as_integer_ratio', 'bit_length', 'conjugate', 'denominator', 'from_bytes', 'imag', 'numerator', 'real', 'to_bytes']
+
+The outputs are the same !<br>
+**dir(a)** actually call internally **a.\_\_dir\_\_()** associated to the object a ! 
+
+We get closer to the initial meaning Rossum has defined by all objects are **first-class** objects (see related link).
+
+Let's resume our investigations...
+
+```python
+print(dir(2))
+```
+
+    ['__abs__', '__add__', '__and__', '__bool__', '__ceil__', '__class__', '__delattr__', '__dir__', '__divmod__', '__doc__', '__eq__', '__float__', '__floor__', '__floordiv__', '__format__', '__ge__', '__getattribute__', '__getnewargs__', '__gt__', '__hash__', '__index__', '__init__', '__init_subclass__', '__int__', '__invert__', '__le__', '__lshift__', '__lt__', '__mod__', '__mul__', '__ne__', '__neg__', '__new__', '__or__', '__pos__', '__pow__', '__radd__', '__rand__', '__rdivmod__', '__reduce__', '__reduce_ex__', '__repr__', '__rfloordiv__', '__rlshift__', '__rmod__', '__rmul__', '__ror__', '__round__', '__rpow__', '__rrshift__', '__rshift__', '__rsub__', '__rtruediv__', '__rxor__', '__setattr__', '__sizeof__', '__str__', '__sub__', '__subclasshook__', '__truediv__', '__trunc__', '__xor__', 'as_integer_ratio', 'bit_length', 'conjugate', 'denominator', 'from_bytes', 'imag', 'numerator', 'real', 'to_bytes']
+
+
+Not the same attributes and methods here...
+
+Although 2 and "Bonjour" are both objects, with different ids and values, they seem to also **have different methods associated to them**, depending on their data**type**.
+
+
+Let's try the method ```lower()``` in the methods found by doing 
+
+```python
+a = "Bonjour"
+dir(a)
+
+```
+
+This method is relative to all strings object.
+
+
+We can access it by using the **"dot"** notation after the object refered by ``` a ```, so to access the method that **applies on** the object refered by ```a```.
 
 
 
@@ -308,11 +332,11 @@ unbound_method_(a)
 
 
 
-Note that str is called a built-in type, in CPython implementation, str is a C struct. Just like int, list, dict, tuple, set, and [others](https://docs.python.org/3/library/stdtypes.html) 
+Note that str is called a **built-in type**, in ***CPython*** implementation, **str is a C struct**. Just **like int, list, dict, tuple, set, and [others](https://docs.python.org/3/library/stdtypes.html)**
 
-### Let's experiment on other common built-in types.
+# Common built-in types.
 
-## 2.1 Lists
+## Lists
 
 
 ```python
