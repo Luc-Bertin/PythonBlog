@@ -8539,7 +8539,7 @@ html {
   img.center {
     background-color: white !important;
   }
-  img:not(.rounded) {
+  img {
     background-color: white !important;
   }
 
