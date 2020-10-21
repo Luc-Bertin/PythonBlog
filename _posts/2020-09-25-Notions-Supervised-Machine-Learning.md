@@ -184,7 +184,7 @@ $$ L(Y, f(X)) =  (y - \hat{f}(X))^2 $$
 
 (nice as it is differentiable), indicative loss function (0/1), absolute difference loss function, or other.<br>
 
-Actually, more generally, a loss function can show how close an estimate is from its corresponding estimand (quantity of interest we try to estimate). Here, the estimate is simply the model prediction $$ \hat{f}(X) $$ given an single input vector of features $$ X $$, which assign the prediction $$ \hat{y} $$.
+Actually, more generally, a loss function can show how close an estimate is from its corresponding estimand (quantity of interest we try to estimate). Then, it could be how close an estimate $\hat{\beta}$ of the parameter $\beta$ is close to $\beta$ itself. Or it could be how close a model prediction $ \hat{f}(X) $ is close to the true observation y (e.g. MSE for an predictor, MSE for an estimator) given an single input vector (of features $$ X $$), which assign the prediction $$ \hat{y} $$.
 
 The risk function, in a frequentist statistical theory, is the **expected loss** i.e. the **averaging over all of the loss functions**. It then describes how bad your model is on the **set** of data. Hence the **closer** the predictions **match** the real expected / true value, the **lower the prediction errors** are, and then the **lower the cost** functions gets, **so is the risk** function.
 We then seek to **minimize** the risk function.
