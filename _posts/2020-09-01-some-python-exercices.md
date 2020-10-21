@@ -174,7 +174,7 @@ Call multiply(8,2,3, True)
 Add some behavior in the function definition for arbitrarily named keywords arguments (just as we did with `inverse`), and use them in different calls.
 
 
-## Ex. 4: Sort the  a sorted dictionary, sorted by values
+## Ex. 4: Sort a dictionary... by values !
 
 Hint: use `Ordereddict`
 
