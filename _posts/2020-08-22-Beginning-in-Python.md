@@ -1340,7 +1340,7 @@ Operations associated to dictionaries:
     - modify val for a given key
     - look for val from key in dict
 
-## An implementation of an hash-table
+### An implementation of an hash-table
 
 
 ```python
@@ -1404,7 +1404,7 @@ Two objects that compare equal ( ```==``` ) must also have the same hash value
 
 > <u>Python docs:</u> Numeric values that compare equal have the same hash value (even if they are of different types, as is the case for 1 and 1.0).
 
-### hashes for dict look-ups
+#### hashes for dict look-ups
 
 Hash values are mostly used in dictionnary lookups to quicky compare dictionary keys. 
 
@@ -1414,7 +1414,7 @@ Should you try to find if a value is in the list, a tuple, or a character in a s
 
 For dictionaries and sets though, data structures using hash-table, the search time is 0(1)
 
-### sometimes collisions occur
+#### sometimes collisions occur
 
 
 ```python
@@ -1510,9 +1510,9 @@ dico_des_contacts = {
 }
 ```
 
-## Dict / Associative array base operations
+### An associative array base operations
  
- * look for val from key in dict (i.e. the lookup of a value associated with a particular key)
+#### look for val from key in dict (i.e. the lookup of a value associated with a particular key)
 
 
 ```python
@@ -1537,7 +1537,7 @@ mondico[3]
     'moi à nouveau'
 
 
-* modify val for a given key (i.e. the modification of an existing pair)
+#### modify val for a given key (i.e. the modification of an existing pair)
 
 
 ```python
@@ -1556,7 +1556,7 @@ mondico
 
 
 
-* add a new key:val pair (i.e. the addition of a pair to the collection)
+#### add a new key:val pair (i.e. the addition of a pair to the collection)
 
 
 ```python
@@ -1588,7 +1588,7 @@ except:
     ça n'a pas marché
 
 
-* delete a key:val pair (i.e. the removal of a pair from the collection)
+#### delete a key:val pair (i.e. the removal of a pair from the collection)
 
 
 ```python
@@ -1607,7 +1607,7 @@ mondico
 
 
 
-## * the question of “hashability“ of keys
+### Returning to the question *hashability* of keys
 
 
 ```python
