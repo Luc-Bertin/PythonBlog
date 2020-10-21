@@ -1510,10 +1510,11 @@ dico_des_contacts = {
 }
 ```
 
-### An associative array base operations
+### An associative array with defined base operations
  
-#### look for val from key in dict (i.e. the lookup of a value associated with a particular key)
+#### the lookup of a value associated with a particular key
 
+look for val from key in dict 
 
 ```python
 dico_des_contacts["Marie"]
@@ -1537,8 +1538,9 @@ mondico[3]
     'moi à nouveau'
 
 
-#### modify val for a given key (i.e. the modification of an existing pair)
+#### the modification of an existing pair)
 
+modify val for a given key
 
 ```python
 mondico[3] = "finalement non"
@@ -1556,8 +1558,9 @@ mondico
 
 
 
-#### add a new key:val pair (i.e. the addition of a pair to the collection)
+#### the addition of a pair to the collection
 
+add a new key:val pair
 
 ```python
 mondico["Jean-Yves"] = "987654"
@@ -1588,8 +1591,9 @@ except:
     ça n'a pas marché
 
 
-#### delete a key:val pair (i.e. the removal of a pair from the collection)
+#### the removal of a pair from the collection
 
+delete a key:val pair
 
 ```python
 del mondico["Jean-Yves"]
