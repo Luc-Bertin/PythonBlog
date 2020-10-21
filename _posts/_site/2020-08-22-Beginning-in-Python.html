@@ -1,0 +1,2377 @@
+<p>1st course will mainly focus on how to approach Python for the first time. For that we will use Jupyter module.</p>
+
+<h1 id="in-python-everything-is-an-object">“In Python, everything is an object”</h1>
+
+<p>This is a very well-known sentence but I think it is the best, along with some examples, to start getting a good grasp of the language.
+In Python, everything is an object, according to the creator of Python, Guido van Rossum:</p>
+<blockquote>
+  <p>One of my goals for Python was to make it so that <strong>all objects were “first class.”</strong> By this, I meant that I wanted <strong>all objects that could be named in the language</strong> (e.g., integers, strings, functions, classes, modules, methods, etc.) to have equal status. That is, they can be <strong>assigned to variables, placed in lists, stored in dictionaries, passed as arguments, and so forth”s</strong></p>
+</blockquote>
+
+<h2 id="a-dynamically-typed-language">A dynamically-typed language</h2>
+
+<p>Let’s dive-in a bit, and then experiment from there.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span> <span class="o">=</span> <span class="mi">2</span>
+</code></pre></div></div>
+
+<p>Here <strong>a</strong> is a name, <strong>refering</strong> to an integer of value 2, which is also (spoil alert) an object.</p>
+
+<p>Note that we didn’t have to declare a memory space holding this data type like in C syntax:</p>
+
+<pre><code class="language-C">int a; /* creating a memory space allowing only holding data of 
+integer type.*/
+
+a = 3 /* storing the value 3; not a string, not a list, but an integer as asked.*/
+</code></pre>
+
+<p>C is said statically typed: type of <code class="language-plaintext highlighter-rouge">a</code> is already known and constrained at compile time</p>
+
+<p>in Python, <code class="language-plaintext highlighter-rouge">a = 2</code> first creates an object of value 2 at a certain memory space, and then links the name <code class="language-plaintext highlighter-rouge">a</code> to that object location during assignment. a is then <strong>bound</strong> to that object by pointing to its memory location.</p>
+
+<p><code class="language-plaintext highlighter-rouge">a</code> variable can then change of type during its lifetime, as its simply a pointer !</p>
+
+<p><code class="language-plaintext highlighter-rouge">a</code> will be simply redirecting to another object of different data type.</p>
+
+<p>The type is then not associated to <code class="language-plaintext highlighter-rouge">a</code> but to the run-time values, Python is then <strong>dynamically-typed</strong>.</p>
+
+<p>Hence i can write:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span> <span class="o">=</span> <span class="mi">30</span>
+</code></pre></div></div>
+
+<p>then</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span> <span class="o">=</span> <span class="s">"Bonjour"</span>
+</code></pre></div></div>
+
+<p>the type is checked only at runtime, hence making Python 
+<strong>dynamically-typed</strong>. (If the line is not read, the types are not checked).</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="bp">False</span><span class="p">:</span>
+    <span class="mi">2</span><span class="o">+</span><span class="s">"25"</span> <span class="c1"># should raise an error, but as the condition is not entered, no types are checked here
+</span></code></pre></div></div>
+
+<p>same happens during function definition and not execution</p>
+
+<h2 id="an-id-a-type-a-value">An id, a type, a value</h2>
+
+<p>In Python, everything is an object, each object has 3 core elements:</p>
+<ul>
+  <li>an <strong>id</strong></li>
+  <li>a <strong>type</strong></li>
+  <li>a <strong>value</strong></li>
+</ul>
+
+<p><strong>Every object has an identity, a type and a value</strong></p>
+
+<p><code class="language-plaintext highlighter-rouge">ìd()</code> is a built-in function that can show us the memory location of the object (at least for CPython implementation), and is certified to be unique to an object, and still during the lifetime of this object</p>
+
+<p>Hence, in Python, everything is an object, hence every object has an identity.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">id</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>4754628528
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">sys</span>
+<span class="n">sys</span><span class="p">.</span><span class="n">getrefcount</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2
+</code></pre></div></div>
+
+<p>Note that if an object (example: the object “Bonjour” is not linked anymore by any names (<code class="language-plaintext highlighter-rouge">a</code> etc), then it can be <strong>garbage-collected</strong>.</p>
+
+<p>A counter <code class="language-plaintext highlighter-rouge">sys.getrefcount(X)</code> is used to keep track of all the references to a given object “X”.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">b</span> <span class="o">=</span> <span class="n">a</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">id</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>4754628528
+</code></pre></div></div>
+
+<p>pointing to the same location…</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">a</span> <span class="o">=</span> <span class="s">"Yo"</span>
+</code></pre></div></div>
+
+<p>All objects have a <strong>value</strong>, a is linked here by the last binding statement. It is now <strong>refering to the object</strong>, this object has a certain <code class="language-plaintext highlighter-rouge">id</code> different from the previous one, and has a value <code class="language-plaintext highlighter-rouge">"Yo"</code>.</p>
+
+<p>“Yo” embeds a certain <strong>datatype</strong>, also called a <strong>type</strong>.<br />
+Any Python object <strong>has a type</strong>.<br />
+The <strong>type</strong> of the object of value “Yo” is a <strong>string</strong>.</p>
+
+<p>Let’s check the type of both of these 2 objects:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="mi">2</span><span class="p">));</span> <span class="k">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="s">"Bonjour"</span><span class="p">))</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;class 'int'&gt;
+&lt;class 'str'&gt;
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">type</span><span class="p">(</span><span class="s">"bonjour"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>str
+</code></pre></div></div>
+
+<p>2 is value of an object of type integer.</p>
+
+<p>“Bonjour” is the value of an object of type string.</p>
+
+<p>If you see “<em>class</em>” in the print statement, you can interchangeably say that the <em>class</em> or <em>type</em> of the object of value 2 is <em>integer</em>, as type and class in Python3 has been <a href="https://stackoverflow.com/questions/35958961/class-vs-type-in-python">unified concepts</a>, see also <a href="https://stackoverflow.com/questions/54867/what-is-the-difference-between-old-style-and-new-style-classes-in-python">here</a></p>
+
+<p>You can also say that the <strong>object of value 2</strong> is an <strong>instance</strong> of the <strong>integer class</strong>. By the way, the integer class itself is an object <strong>as everything is object in Python</strong> (check out the role of metaclasses if interested !).</p>
+
+<h2 id="onwards-object-oriented-programming-attributes-of-an-object">Onwards Object-Oriented Programming: attributes of an object</h2>
+
+<p>Objects in Python have an id, a type and a value.<br />
+Objects <strong>may</strong> also have attributes related to them.<br />
+Let’s talk about <code class="language-plaintext highlighter-rouge">dir()</code> first, it is a built-in function (we don’t need to import a python package to call this function).<br />
+With an argument (here a), it returns a list of valid attributes for that object.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span> <span class="nb">dir</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>['__abs__', '__add__', '__and__', '__bool__', '__ceil__', '__class__', '__delattr__', '__dir__', '__divmod__', '__doc__', '__eq__', '__float__', '__floor__', '__floordiv__', '__format__', '__ge__', '__getattribute__', '__getnewargs__', '__gt__', '__hash__', '__index__', '__init__', '__init_subclass__', '__int__', '__invert__', '__le__', '__lshift__', '__lt__', '__mod__', '__mul__', '__ne__', '__neg__', '__new__', '__or__', '__pos__', '__pow__', '__radd__', '__rand__', '__rdivmod__', '__reduce__', '__reduce_ex__', '__repr__', '__rfloordiv__', '__rlshift__', '__rmod__', '__rmul__', '__ror__', '__round__', '__rpow__', '__rrshift__', '__rshift__', '__rsub__', '__rtruediv__', '__rxor__', '__setattr__', '__sizeof__', '__str__', '__sub__', '__subclasshook__', '__truediv__', '__trunc__', '__xor__', 'as_integer_ratio', 'bit_length', 'conjugate', 'denominator', 'from_bytes', 'imag', 'numerator', 'real', 'to_bytes']
+</code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">a</code> refers to an object, and this object, designed by <code class="language-plaintext highlighter-rouge">a</code>, has been passed as argument to the <code class="language-plaintext highlighter-rouge">dir</code> function</li>
+  <li>Also, it seems <code class="language-plaintext highlighter-rouge">dir()</code> returns a certain number of ‘things’ for this parameter. The object that <code class="language-plaintext highlighter-rouge">a</code> refers to, (we will later call object “a” for convenience), has then a number of “attributes” related to it.
+    <ul>
+      <li><strong>functions</strong>: which in OOP (object-oriented programming) are also known as <strong>(attributes) methods</strong>,</li>
+      <li>or <strong>variables</strong> also known as <strong>(attributes) variables</strong></li>
+    </ul>
+  </li>
+</ul>
+
+<p>We get closer to the definition of an object in OOP !</p>
+
+<p>Let’s check some methods here. It evens seems <code class="language-plaintext highlighter-rouge">a</code> contains a <code class="language-plaintext highlighter-rouge">__dir__()</code> method we can access doing: <code class="language-plaintext highlighter-rouge">a.__dir__()</code></p>
+
+<p>We used <code class="language-plaintext highlighter-rouge">sorted()</code> built-in function to sort alphabetically the content of the list outputed by <code class="language-plaintext highlighter-rouge">a.__dir__()</code></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">a</span><span class="p">.</span><span class="n">__dir__</span><span class="p">()))</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>['__abs__', '__add__', '__and__', '__bool__', '__ceil__', '__class__', '__delattr__', '__dir__', '__divmod__', '__doc__', '__eq__', '__float__', '__floor__', '__floordiv__', '__format__', '__ge__', '__getattribute__', '__getnewargs__', '__gt__', '__hash__', '__index__', '__init__', '__init_subclass__', '__int__', '__invert__', '__le__', '__lshift__', '__lt__', '__mod__', '__mul__', '__ne__', '__neg__', '__new__', '__or__', '__pos__', '__pow__', '__radd__', '__rand__', '__rdivmod__', '__reduce__', '__reduce_ex__', '__repr__', '__rfloordiv__', '__rlshift__', '__rmod__', '__rmul__', '__ror__', '__round__', '__rpow__', '__rrshift__', '__rshift__', '__rsub__', '__rtruediv__', '__rxor__', '__setattr__', '__sizeof__', '__str__', '__sub__', '__subclasshook__', '__truediv__', '__trunc__', '__xor__', 'as_integer_ratio', 'bit_length', 'conjugate', 'denominator', 'from_bytes', 'imag', 'numerator', 'real', 'to_bytes']
+</code></pre></div></div>
+
+<p>The outputs are the same !<br />
+<strong>dir(a)</strong> actually call internally <strong>a.__dir__()</strong> associated to the object a !</p>
+
+<p>We get closer to the initial meaning Rossum has defined by all objects are <strong>first-class</strong> objects (see related link).</p>
+
+<p>Let’s resume our investigations…</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="nb">dir</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>['__abs__', '__add__', '__and__', '__bool__', '__ceil__', '__class__', '__delattr__', '__dir__', '__divmod__', '__doc__', '__eq__', '__float__', '__floor__', '__floordiv__', '__format__', '__ge__', '__getattribute__', '__getnewargs__', '__gt__', '__hash__', '__index__', '__init__', '__init_subclass__', '__int__', '__invert__', '__le__', '__lshift__', '__lt__', '__mod__', '__mul__', '__ne__', '__neg__', '__new__', '__or__', '__pos__', '__pow__', '__radd__', '__rand__', '__rdivmod__', '__reduce__', '__reduce_ex__', '__repr__', '__rfloordiv__', '__rlshift__', '__rmod__', '__rmul__', '__ror__', '__round__', '__rpow__', '__rrshift__', '__rshift__', '__rsub__', '__rtruediv__', '__rxor__', '__setattr__', '__sizeof__', '__str__', '__sub__', '__subclasshook__', '__truediv__', '__trunc__', '__xor__', 'as_integer_ratio', 'bit_length', 'conjugate', 'denominator', 'from_bytes', 'imag', 'numerator', 'real', 'to_bytes']
+</code></pre></div></div>
+
+<p>Not the same attributes and methods here…</p>
+
+<p>Although 2 and “Bonjour” are both objects, with different ids and values, they seem to also <strong>have different methods associated to them</strong>, depending on their data<strong>type</strong>.</p>
+
+<p>Let’s try the method <code class="language-plaintext highlighter-rouge">lower()</code> in the methods found by doing</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span> <span class="o">=</span> <span class="s">"Bonjour"</span>
+<span class="nb">dir</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+
+</code></pre></div></div>
+
+<p>This method is relative to all strings object.</p>
+
+<p>We can access it by using the <strong>“dot”</strong> notation after the object refered by <code class="language-plaintext highlighter-rouge">a</code>, so to access the method that <strong>applies on</strong> the object refered by <code class="language-plaintext highlighter-rouge">a</code>.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span><span class="p">.</span><span class="n">lower</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;function str.lower()&gt;
+</code></pre></div></div>
+
+<p>we can see it is a function, so we need to use the parenthesis.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span><span class="p">.</span><span class="n">lower</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>'yo'
+</code></pre></div></div>
+
+<p>it is a special kind of function though, because it is applied on its corresponding object refered by <code class="language-plaintext highlighter-rouge">a</code>, which is an instance of <code class="language-plaintext highlighter-rouge">str</code>. This function is also called a method. And this method is already bound to instance <code class="language-plaintext highlighter-rouge">a</code></p>
+
+<p>Back to the first link article i’ve pinned where Rossum describes he wanted all objects to be “first classes”, he highlighted a very interesting conception issue raised with respect to bound and unbound methods; although deprecated in Python3, you should have a look at it anyway.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">method_</span> <span class="o">=</span> <span class="n">a</span><span class="p">.</span><span class="n">lower</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">method_</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>'yo'
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">type</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>str
+</code></pre></div></div>
+
+<p>We could also do:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">unbound_method_</span> <span class="o">=</span> <span class="nb">str</span><span class="p">.</span><span class="n">lower</span> 
+<span class="c1"># &lt;the_class&gt;.&lt;the_method_defined_in_class_body&gt;
+</span></code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">unbound_method_</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>'yo'
+</code></pre></div></div>
+
+<p>Note that str is called a <strong>built-in type</strong>, in <strong><em>CPython</em></strong> implementation, <strong>str is a C struct</strong>. Just <strong>like int, list, dict, tuple, set, and <a href="https://docs.python.org/3/library/stdtypes.html">others</a></strong></p>
+
+<h1 id="common-built-in-types">Common built-in types.</h1>
+
+<h2 id="lists">Lists</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">uneliste</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">print</span><span class="p">(</span><span class="n">uneliste</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[]
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">dir</span><span class="p">(</span><span class="n">uneliste</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>['__add__',
+ '__class__',
+ '__contains__',
+ '__delattr__',
+ '__delitem__',
+ '__dir__',
+ '__doc__',
+ '__eq__',
+ '__format__',
+ '__ge__',
+ '__getattribute__',
+ '__getitem__',
+ '__gt__',
+ '__hash__',
+ '__iadd__',
+ '__imul__',
+ '__init__',
+ '__init_subclass__',
+ '__iter__',
+ '__le__',
+ '__len__',
+ '__lt__',
+ '__mul__',
+ '__ne__',
+ '__new__',
+ '__reduce__',
+ '__reduce_ex__',
+ '__repr__',
+ '__reversed__',
+ '__rmul__',
+ '__setattr__',
+ '__setitem__',
+ '__sizeof__',
+ '__str__',
+ '__subclasshook__',
+ 'append',
+ 'clear',
+ 'copy',
+ 'count',
+ 'extend',
+ 'index',
+ 'insert',
+ 'pop',
+ 'remove',
+ 'reverse',
+ 'sort']
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">uneliste</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">uneliste</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[]
+</code></pre></div></div>
+
+<p>arbitrary types of Python objects can be items in a list</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">uneliste</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="s">"a"</span><span class="p">]</span>
+<span class="n">uneliste</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[2, 3, 4, 'a']
+</code></pre></div></div>
+
+<h3 id="using-some-list-methods-as-example">Using some list methods as example</h3>
+
+<p>i can access to some methods or attributes of list</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">uneliste</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="c1">## append the list with object integer 3
+</span></code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">uneliste</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[2, 3, 4, 'a', 3]
+</code></pre></div></div>
+
+<p>In Jupyter Notebook, after the ‘.’ you can press <code class="language-plaintext highlighter-rouge">Tab</code> for showing some autocomplete suggestions.</p>
+
+<p>After writing the entire attribute name, a press on <code class="language-plaintext highlighter-rouge">Shift</code> + <code class="language-plaintext highlighter-rouge">Tab</code> display information about this attribute, what it is, what it does.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">uneliste</span><span class="p">.</span><span class="n">reverse</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">uneliste</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[3, 'a', 4, 3, 2]
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">uneliste</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">uneliste</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[3, 2, 4, 5]
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">uneliste</span><span class="p">.</span><span class="n">sort</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">uneliste</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[2, 3, 4, 5]
+</code></pre></div></div>
+
+<h3 id="list-manipulations">List manipulations</h3>
+
+<h4 id="indexing">Indexing</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">item_number</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">uneliste</span><span class="p">[</span><span class="n">item_number</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>4
+</code></pre></div></div>
+
+<p>Warning: Python is 0-indexed.</p>
+
+<p>You can also start from the end</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">uneliste</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>3
+</code></pre></div></div>
+
+<p>You can find the number of elements in the list using len</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">len</span><span class="p">(</span><span class="n">uneliste</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>6
+</code></pre></div></div>
+
+<p>len is actually calling uneliste.__len__()</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">uneliste</span><span class="p">.</span><span class="n">__len__</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>5
+</code></pre></div></div>
+
+<p>Anything familiar with what said before ?</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">str</span><span class="p">().</span><span class="n">lower</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;function str.lower()&gt;
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">type</span><span class="p">(</span><span class="n">uneliste</span><span class="p">.</span><span class="n">__len__</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>method-wrapper
+</code></pre></div></div>
+
+<blockquote>
+  <p>from Martijn Pieters, in a Stackoverflow thread
+<a href="https://stackoverflow.com/questions/35998998/what-is-wrapped-by-a-python-method-wrapper">method-wrapper description</a>: The method-wrapper object is wrapping a C function. It binds together an instance (here a function instance, defined in a C struct) and a C function, so that when you call it, the right instance information is passed to the C function</p>
+</blockquote>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">uneliste</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>3
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">uneliste</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>---------------------------------------------------------------------------
+
+IndexError                                Traceback (most recent call last)
+
+&lt;ipython-input-300-b5e08874184b&gt; in &lt;module&gt;
+----&gt; 1 uneliste[10]
+
+
+IndexError: list index out of range
+</code></pre></div></div>
+
+<p>By the way, the <code class="language-plaintext highlighter-rouge">uneliste[index]</code> calls the lower-level <code class="language-plaintext highlighter-rouge">__getitem__()</code> method.</p>
+
+<p>We can check it there:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">"__getitem__"</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>True
+</code></pre></div></div>
+
+<p>Hence i can do:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">uneliste</span><span class="p">.</span><span class="n">__getitem__</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>47
+</code></pre></div></div>
+
+<p>or even (as we did for <code class="language-plaintext highlighter-rouge">str.lower</code>
+)</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">list</span><span class="p">.</span><span class="n">__getitem__</span><span class="p">(</span><span class="n">uneliste</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>47
+</code></pre></div></div>
+
+<p>Beautiful, isn’t it ?</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">##### assigning a value:
+</span><span class="n">uneliste</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">25</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">uneliste</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[2, 3, 25, 'a', 3]
+</code></pre></div></div>
+
+<p>The same way, <code class="language-plaintext highlighter-rouge">uneliste[index] = value</code> calls internally <strong>setitem</strong>() method:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="s">"__setitem__"</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>True
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">uneliste</span><span class="p">.</span><span class="n">__setitem__</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;method-wrapper '__setitem__' of list object at 0x11bbff640&gt;
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">uneliste</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[25, 2, 47, 13, 17, 11, 9, 8]
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">uneliste</span><span class="p">.</span><span class="n">__setitem__</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">uneliste</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[2, 2, 47, 13, 17, 11, 9, 8]
+</code></pre></div></div>
+
+<p>Changing an item object by another one in the list did not recreate a list object, this can be shown looking at the memory address of the list instance object, denoted by id, before and after the change of one of its element.</p>
+
+<p>This is called a mutable object, we will talk about that later on what does it imply.</p>
+
+<h4 id="slicing">slicing</h4>
+
+<p>Using slicing we can have access to a specified range of elements in the sequence</p>
+
+<p>[start:stop[:step]]</p>
+
+<p>Warning: stop is exclusive !</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">uneliste</span><span class="o">=</span><span class="p">[</span><span class="mi">25</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">47</span><span class="p">,</span><span class="mi">13</span><span class="p">,</span><span class="mi">17</span><span class="p">,</span><span class="mi">11</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">8</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">uneliste</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="c1"># stopped at index 2 (3 excluded)
+</span></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[25, 2, 47]
+</code></pre></div></div>
+
+<p>Then notice than using indexing</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">uneliste</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">uneliste</span><span class="p">)]</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>---------------------------------------------------------------------------
+
+IndexError                                Traceback (most recent call last)
+
+&lt;ipython-input-437-c39fd7ff38ae&gt; in &lt;module&gt;
+----&gt; 1 uneliste[len(uneliste)]
+
+
+IndexError: list index out of range
+</code></pre></div></div>
+
+<p>But using slicing:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">uneliste</span><span class="p">[:</span><span class="nb">len</span><span class="p">(</span><span class="n">uneliste</span><span class="p">)]</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[25, 2, 47, 13, 17, 11, 9, 8]
+</code></pre></div></div>
+
+<p>More complicated example:</p>
+
+<p>Start from 6th element (using 5 because 0-indexed) and finish at 2 by step -1, element of index 2 is excluded</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">uneliste</span><span class="p">[</span><span class="mi">5</span><span class="p">:</span><span class="mi">2</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[11, 17, 13]
+</code></pre></div></div>
+
+<p>This:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">uneliste</span><span class="p">[::]</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[25, 2, 47, 13, 17, 11, 9, 8]
+</code></pre></div></div>
+
+<p>can be written also</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">uneliste</span><span class="p">[:]</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[25, 2, 47, 13, 17, 11, 9, 8]
+</code></pre></div></div>
+
+<p>but does have a slight difference from</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">uneliste</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[25, 2, 47, 13, 17, 11, 9, 8]
+</code></pre></div></div>
+
+<p>it makes a <strong>copy</strong> of the list, <strong>returning an other object</strong>, at a <strong>different memory location</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">uneliste</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">4</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="c1"># index 4 is excluded, remember...
+</span></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[47]
+</code></pre></div></div>
+
+<p>You can also do assignement while slicing a list, but the assigned iterable must be of same length of the number of items it is replacing</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">uneliste</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">4</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1700</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">uneliste</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[25, 2, 1700, 13, 17, 11, 9, 8]
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">uneliste</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">5</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">12334</span><span class="p">,</span><span class="mi">13949</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>the list on the right hand side of the statement must contain the same number of items as the slice it is replacing</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">uneliste</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[25, 2, 12334, 13, 13949, 11, 9, 8]
+</code></pre></div></div>
+
+<p>You can also use slice object</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">uneliste</span><span class="p">[</span><span class="nb">slice</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">)]</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[3, 'a']
+</code></pre></div></div>
+
+<p>Slice object are actually created when using the <code class="language-plaintext highlighter-rouge">start:stop:step</code> notation</p>
+
+<p>You can create a list from any iterable sequences (range, tuple, etc.)</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">8</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1, 2, 3, 4, 5, 6, 7, 8]
+</code></pre></div></div>
+
+<p>More on this on functionnal programming chapter</p>
+
+<h2 id="tuples">Tuples</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">untuple</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">untuple</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>()
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">type</span><span class="p">(</span><span class="n">untuple</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tuple
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">untuple</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">untuple</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(1, 2, 3, 4, 5, 6, 7, 8)
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">untuple</span> <span class="o">=</span> <span class="p">(</span><span class="s">"a"</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">untuple</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>('a', 2)
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">untuple</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>'a'
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span><span class="p">:</span>   
+    <span class="n">untuple</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">35</span>
+<span class="k">except</span> <span class="nb">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>'tuple' object does not support item assignment
+</code></pre></div></div>
+
+<p>tuple object does not support item assignement and is a member of the immutables family.</p>
+
+<p>Changing a tuple after creation is not possible, only recreating a new tuple is.</p>
+
+<p>So why using tuple if is a kind of “castrated” list ?</p>
+
+<h3 id="one-word-on-mutability--immutability">one word on mutability / immutability</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="nb">id</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>4430101024
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">y</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="nb">id</span><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="nb">id</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(4430101024, 4430101024)
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span><span class="o">+=</span><span class="mi">1</span>
+<span class="nb">id</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="nb">id</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(4430101056, 4430101024)
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">zeta</span> <span class="o">=</span> <span class="mi">257</span>
+<span class="nb">id</span><span class="p">(</span><span class="mi">257</span><span class="p">),</span> <span class="nb">id</span><span class="p">(</span><span class="n">zeta</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(4759839312, 4759839728)
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">b</span> <span class="o">=</span> <span class="n">zeta</span>
+<span class="nb">id</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>4759839728
+</code></pre></div></div>
+
+<blockquote>
+  <p>sur une liste</p>
+</blockquote>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">liste</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="s">'a'</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">liste</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[2, 3, 'a']
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">id</span><span class="p">(</span><span class="n">liste</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>4759836992
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">change</span><span class="p">(</span><span class="n">une_liste_en_param</span><span class="p">):</span>
+    <span class="n">une_liste_en_param</span><span class="o">+=</span><span class="p">[</span><span class="mi">13</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">change</span><span class="p">(</span><span class="n">liste</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">liste</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[2, 3, 'a', 13]
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">id</span><span class="p">(</span><span class="n">liste</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>4759836992
+</code></pre></div></div>
+
+<p><strong>Inplace modifications</strong> for a list didn’t change the address location for that list..</p>
+
+<p>A list is then a <strong>mutable</strong>.</p>
+<ul>
+  <li>mutable objects can be changed after their creation,</li>
+  <li>
+    <p>immutable objects can’t.</p>
+  </li>
+  <li><u>**Common mutable Objects:**</u> list, set, dict, user-defined class</li>
+  <li><u>**Common immutable objects:**</u> int, float, bool, string, tuple, frozenset, range</li>
+</ul>
+
+<h2 id="sets">Sets</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">set</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{1, 2, 3}
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span><span class="p">:</span>
+    <span class="nb">set</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="k">except</span> <span class="nb">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>'int' object is not iterable
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">set</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{1, 2}
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">un_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">])</span>
+<span class="n">un_autre_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">])</span>
+</code></pre></div></div>
+
+<ul>
+  <li>common elements between (intersection)</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">un_set</span> <span class="o">&amp;</span> <span class="n">un_autre_set</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{1, 2, 3, 4}
+</code></pre></div></div>
+
+<ul>
+  <li>all elements from the 2 sets (union)</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">un_set</span> <span class="o">|</span> <span class="n">un_autre_set</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{1, 2, 3, 4, 5, 9}
+</code></pre></div></div>
+
+<ul>
+  <li>distincts elements (contrary of commons / one not in the other and vice-versa)</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">un_set</span> <span class="o">^</span> <span class="n">un_autre_set</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{5, 9}
+</code></pre></div></div>
+
+<ul>
+  <li>distincts elements unilateraly (depends on order from the operation)</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">un_set</span> <span class="o">-</span> <span class="n">un_autre_set</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{5}
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">un_autre_set</span> <span class="o">-</span> <span class="n">un_set</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{9}
+</code></pre></div></div>
+
+<ul>
+  <li>does a set is a subect of another (without being sames)</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">un_nouveau_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+<span class="n">encore_un</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">])</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">un_nouveau_set</span> <span class="o">&lt;</span> <span class="n">un_set</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>True
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">encore_un</span> <span class="o">&lt;</span> <span class="n">un_set</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>False
+</code></pre></div></div>
+
+<h2 id="dictionaries">Dictionaries</h2>
+
+<p>A dictionary is a collection of key:value pairs</p>
+
+<blockquote>
+  <p>Python docs definition: An associative array, where arbitrary keys are mapped to values.</p>
+</blockquote>
+
+<p>Operations associated to dictionaries:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- add a new key:val pair
+- delete a key:val pair
+- modify val for a given key
+- look for val from key in dict
+</code></pre></div></div>
+
+<h3 id="an-implementation-of-an-hash-table">An implementation of an hash-table</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span> <span class="o">=</span> <span class="p">(</span><span class="s">"bonjour"</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="p">(</span><span class="s">"bonjour"</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span> <span class="ow">is</span> <span class="n">b</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>False
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span> <span class="o">==</span> <span class="n">b</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>True
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">id</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">==</span> <span class="nb">id</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>False
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">hash</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">==</span> <span class="nb">hash</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>True
+</code></pre></div></div>
+
+<p>Hash values are based on values, not the id (except for user-defined classes):</p>
+
+<p>They identify a particular value, independently if it is the same object or not</p>
+
+<p>Two objects that compare equal ( <code class="language-plaintext highlighter-rouge">==</code> ) must also have the same hash value</p>
+
+<blockquote>
+  <p><u>Python docs:</u> Numeric values that compare equal have the same hash value (even if they are of different types, as is the case for 1 and 1.0).</p>
+</blockquote>
+
+<h4 id="hashes-for-dict-look-ups">hashes for dict look-ups</h4>
+
+<p>Hash values are mostly used in dictionnary lookups to quicky compare dictionary keys.</p>
+
+<p>Should you try to find if a value is in the list, a tuple, or a character in a string, a linear search 0(N) would be operated as you need to go through the entire list by creating an iterator out of it to find a specified matching value.</p>
+
+<blockquote>
+  <p><a href="https://stackoverflow.com/questions/38204342/python-in-keyword-in-expression-vs-in-for-loop">stackoverflow</a>: x in y calls y.<strong>contains</strong>(x) if y has a <strong>contains</strong> member function. Otherwise, x in y tries iterating through y.<strong>iter</strong>() to find x, or calls y.<strong>getitem</strong>(x) if <strong>iter</strong> doesn’t exist.</p>
+</blockquote>
+
+<p>For dictionaries and sets though, data structures using hash-table, the search time is 0(1)</p>
+
+<h4 id="sometimes-collisions-occur">sometimes collisions occur</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">hash</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="nb">hash</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>True
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">-</span><span class="mi">1</span> <span class="o">==</span> <span class="o">-</span><span class="mi">2</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>False
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mondico</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mondico</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{}
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mondico</span> <span class="o">=</span> <span class="p">{}</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mondico</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{}
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mondico</span> <span class="o">=</span> <span class="p">{</span> 
+    <span class="mi">1</span><span class="p">:</span> <span class="s">"moi"</span><span class="p">,</span>
+    <span class="mi">2</span><span class="p">:</span> <span class="s">"toi"</span><span class="p">,</span>
+    <span class="mi">3</span><span class="p">:</span> <span class="s">"moi à nouveau"</span><span class="p">,</span>
+    <span class="mi">4</span><span class="p">:</span> <span class="s">"nous"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mondico</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{1: 'moi', 2: 'toi', 3: 'moi à nouveau', 4: 'nous'}
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dico_des_contacts</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s">"Marie"</span><span class="p">:</span> <span class="s">"0666102030"</span><span class="p">,</span>
+    <span class="s">"René"</span> <span class="p">:</span> <span class="s">"0710212121"</span><span class="p">,</span>
+    <span class="s">"Julien"</span><span class="p">:</span> <span class="s">"0820202020"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="an-associative-array-with-defined-base-operations">An associative array with defined base operations</h3>
+
+<h4 id="the-lookup-of-a-value-associated-with-a-particular-key">the lookup of a value associated with a particular key</h4>
+
+<p>look for val from key in dict</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dico_des_contacts</span><span class="p">[</span><span class="s">"Marie"</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>'0666102030'
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mondico</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>'moi à nouveau'
+</code></pre></div></div>
+
+<h4 id="the-modification-of-an-existing-pair">the modification of an existing pair)</h4>
+
+<p>modify val for a given key</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mondico</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="s">"finalement non"</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mondico</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{1: 'moi', 2: 'toi', 3: 'finalement non', 4: 'nous'}
+</code></pre></div></div>
+
+<h4 id="the-addition-of-a-pair-to-the-collection">the addition of a pair to the collection</h4>
+
+<p>add a new key:val pair</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mondico</span><span class="p">[</span><span class="s">"Jean-Yves"</span><span class="p">]</span> <span class="o">=</span> <span class="s">"987654"</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mondico</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{1: 'moi', 2: 'toi', 3: 'finalement non', 4: 'nous', 'Jean-Yves': '987654'}
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span><span class="p">:</span>
+    <span class="n">dico_des_contacts</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">uneliste</span> <span class="p">:</span> <span class="s">"123"</span>
+    <span class="p">}</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"ça n'a pas marché"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ça n'a pas marché
+</code></pre></div></div>
+
+<h4 id="the-removal-of-a-pair-from-the-collection">the removal of a pair from the collection</h4>
+
+<p>delete a key:val pair</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">del</span> <span class="n">mondico</span><span class="p">[</span><span class="s">"Jean-Yves"</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mondico</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{1: 'moi', 2: 'toi', 3: 'finalement non', 4: 'nous'}
+</code></pre></div></div>
+
+<h3 id="returning-to-the-question-hashability-of-keys">Returning to the question <em>hashability</em> of keys</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mondico</span><span class="p">[</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>---------------------------------------------------------------------------
+
+TypeError                                 Traceback (most recent call last)
+
+&lt;ipython-input-524-701697dd0a93&gt; in &lt;module&gt;
+----&gt; 1 mondico[ [1, 2] ] = 2
+
+
+TypeError: unhashable type: 'list'
+</code></pre></div></div>
+
+<p>Why is that error ? Can’t we define a key of <code class="language-plaintext highlighter-rouge">[1,2]</code></p>
+
+<p>a dictionary requires its keys to be <strong>hashable</strong>, as it uses under the hood an <strong>hash table</strong>.</p>
+
+<p>This is a <a href="https://stackoverflow.com/questions/42203673/in-python-why-is-a-tuple-hashable-but-not-a-list/42203721">good explanation</a> why hashable keys are required and what can occur if we try to play a bit around.</p>
+
+<p>Another useful <a href="https://stackoverflow.com/questions/37136878/list-unhashable-but-tuple-hashable">link</a>.</p>
+
+<p>“Most” objects are hashable. By most, we have to cover the case of a tuple, immutable type, where lies a list within:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tuple_</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span> <span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">id</span><span class="p">(</span><span class="n">tuple_</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>4757002816
+</code></pre></div></div>
+
+<p>as list is mutable, we can change any value <strong>inside</strong> of the list within the tuple</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tuple_</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">190</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tuple_</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(1, 2, [3, 190])
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">id</span><span class="p">(</span><span class="n">tuple_</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>4757002816
+</code></pre></div></div>
+
+<p>the <code class="language-plaintext highlighter-rouge">id</code> <strong>hasn’t change, as no tuple as been created (immutable)</strong>,</p>
+
+<p>but the values it contains <strong>cannot</strong> guarantee it reflect the previous <code class="language-plaintext highlighter-rouge">tuple_</code> anymore</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">hash</span><span class="p">(</span><span class="n">tuple_</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>---------------------------------------------------------------------------
+
+TypeError                                 Traceback (most recent call last)
+
+&lt;ipython-input-650-7d1b7933af29&gt; in &lt;module&gt;
+----&gt; 1 hash(tuple_)
+
+
+TypeError: unhashable type: 'list'
+</code></pre></div></div>
+
+<p>Hashing is not possible anymore though, as it is <strong>not guaranted the object values won’t change over time</strong></p>
+
+<p>All <strong>mutable objects</strong>, hence that can be modified over time, <strong>aren’t hashable</strong></p>
+
+<p>During lookup, the key is hashed and the resulting hash indicates where the corresponding value is stored</p>
+
+<p><u>Note:</u> A set object is an <strong>unordered collection of distinct hashable objects</strong>
+hence <code class="language-plaintext highlighter-rouge">set((1.0, 1))</code> will result in <code class="language-plaintext highlighter-rouge">{1}</code> as <code class="language-plaintext highlighter-rouge">1.0</code> and <code class="language-plaintext highlighter-rouge">1</code> share the same hash value</p>
+
+<p>Here is a good explanation of how hashing and open adressing works in <a href="https://stackoverflow.com/questions/327311/how-are-pythons-built-in-dictionaries-implemented">CPython</a></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">hash</span><span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="mi">1000</span><span class="p">)</span> <span class="o">==</span> <span class="nb">hash</span><span class="p">(</span><span class="mi">16777216</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>True
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="mi">16777216</span><span class="o">%</span><span class="mi">8</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">my_dict</span><span class="p">.</span><span class="n">__get__</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>---------------------------------------------------------------------------
+
+AttributeError                            Traceback (most recent call last)
+
+&lt;ipython-input-710-d6b1271c2048&gt; in &lt;module&gt;
+----&gt; 1 my_dict.__get__(0)
+
+
+AttributeError: 'dict' object has no attribute '__get__'
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">my_dict</span> <span class="o">=</span><span class="p">{}</span>
+<span class="n">my_dict</span><span class="p">[</span><span class="mi">2</span><span class="o">**</span><span class="mi">1000</span><span class="p">]</span> <span class="o">=</span> <span class="s">"One"</span>
+<span class="n">my_dict</span><span class="p">[</span><span class="mi">16777216</span><span class="p">]</span> <span class="o">=</span> <span class="s">"Two"</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">my_dict</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{10715086071862673209484250490600018105614048117055336074437503883703510511249361224931983788156958581275946729175531468251871452856923140435984577574698574803934567774824230985421074605062371141877954182153046474983581941267398767559165543946077062914571196477686542167660429831652624386837205668069376: 'One',
+ 16777216: 'Two'}
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">my_dict</span><span class="p">.</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{10715086071862673209484250490600018105614048117055336074437503883703510511249361224931983788156958581275946729175531468251871452856923140435984577574698574803934567774824230985421074605062371141877954182153046474983581941267398767559165543946077062914571196477686542167660429831652624386837205668069376: 'One',
+ 16777216: 'Two'}
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">newlist</span> <span class="o">=</span> <span class="n">List</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">my_dict</span><span class="p">[</span><span class="n">newlist</span><span class="p">]</span> <span class="o">=</span> <span class="s">"Three"</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">my_dict</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{10715086071862673209484250490600018105614048117055336074437503883703510511249361224931983788156958581275946729175531468251871452856923140435984577574698574803934567774824230985421074605062371141877954182153046474983581941267398767559165543946077062914571196477686542167660429831652624386837205668069376: 'One',
+ 16777216: 'Two',
+ [1, 2, 3]: 'Three'}
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">newlist</span> <span class="o">=</span> <span class="n">List</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">newlist</span><span class="p">.</span><span class="n">remove</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span> <span class="n">newlist</span><span class="p">.</span><span class="n">remove</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span> <span class="n">newlist</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">newlist</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[2, 4]
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">my_dict</span><span class="p">[</span><span class="n">newlist</span><span class="p">]</span> <span class="o">=</span> <span class="s">"Five"</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">my_dict</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{10715086071862673209484250490600018105614048117055336074437503883703510511249361224931983788156958581275946729175531468251871452856923140435984577574698574803934567774824230985421074605062371141877954182153046474983581941267398767559165543946077062914571196477686542167660429831652624386837205668069376: 'One',
+ 16777216: 'Two',
+ [1, 2, 3]: 'Three',
+ [2, 4]: 'Five'}
+</code></pre></div></div>
+
+<h3 id="an-example-of-subclass-of-dict-orderdict">An example of subclass of dict: Orderdict</h3>
+
+<p>Sometimes it is interesting to play with higher-level data structures, that is, data structures leaning on lower-level ones to add either set of functionalities or behaviors.</p>
+
+<blockquote>
+  <p>dict subclass that remembers the order entries were added</p>
+</blockquote>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">OrderedDict</span><span class="p">.</span><span class="n">__bases__</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(dict,)
+</code></pre></div></div>
+
+<p><a href="https://github.com/python/cpython/blob/master/Lib/collections/__init__.py#L71">OrderedDict CPython implementation!</a></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">hash</span><span class="p">(</span><span class="s">"a"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1052182404982694077
+</code></pre></div></div>
+
+<h2 id="strings">Strings</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">voiciunstring</span> <span class="o">=</span> <span class="s">"hello-world"</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">voiciunstring</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>'hello-world'
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">voiciunstring</span><span class="p">.</span><span class="n">capitalize</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>'Hello-world'
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">voiciunstring</span><span class="p">.</span><span class="n">upper</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>'HELLO-WORLD'
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">voiciunstring</span><span class="p">.</span><span class="n">lower</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>'hello-world'
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">voiciunstring</span><span class="p">.</span><span class="n">replace</span><span class="p">(</span><span class="s">'l'</span><span class="p">,</span> <span class="s">'a'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>'heaao-worad'
+</code></pre></div></div>
+
+<p>We can slice a string</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">voiciunstring</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>'l'
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">voiciunstring</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>'d'
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">voiciunstring</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">5</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>'ello'
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">voiciunstring</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">10</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>'el-ol'
+</code></pre></div></div>
+
+<p>nombre d’occurences</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">voiciunstring</span><span class="p">.</span><span class="n">count</span><span class="p">(</span><span class="s">"l"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>3
+</code></pre></div></div>
+
+<h2 id="booleans">Booleans</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">e</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">e</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>False
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">e</span> <span class="o">=</span> <span class="bp">True</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">type</span><span class="p">(</span><span class="n">e</span><span class="p">),</span> <span class="n">e</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(bool, True)
+</code></pre></div></div>
+
+<p>tester que <strong>e</strong> soit égal (pas assignement)</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">e</span><span class="o">==</span><span class="bp">True</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>True
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">b</span> <span class="o">=</span> <span class="mi">6</span>
+<span class="n">c</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="k">print</span><span class="p">(</span> <span class="n">a</span> <span class="o">==</span> <span class="mi">5</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span> <span class="n">a</span> <span class="o">==</span> <span class="n">b</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span> <span class="n">a</span> <span class="o">==</span> <span class="n">c</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>True
+False
+True
+</code></pre></div></div>
+
+<p>Boolean inherits from integer !</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">bool</span><span class="p">.</span><span class="n">__bases__</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(int,)
+</code></pre></div></div>
+
+<p>Hence,</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="bp">True</span> <span class="o">*</span><span class="mi">18</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>18
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="bp">False</span> <span class="o">*</span><span class="mi">2</span> <span class="o">+</span> <span class="bp">True</span><span class="o">*</span><span class="mi">18</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>18
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="bp">False</span> <span class="o">==</span> <span class="mi">0</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>True
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="bp">True</span> <span class="o">==</span> <span class="mi">1</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>True
+</code></pre></div></div>
+
+<p>by the way <code class="language-plaintext highlighter-rouge">hash(False) == hash(0) == 0</code></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">my_dict</span><span class="p">[</span><span class="bp">True</span><span class="p">]</span> <span class="o">=</span> <span class="mi">25</span>
+<span class="n">my_dict</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">29</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">my_dict</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{10715086071862673209484250490600018105614048117055336074437503883703510511249361224931983788156958581275946729175531468251871452856923140435984577574698574803934567774824230985421074605062371141877954182153046474983581941267398767559165543946077062914571196477686542167660429831652624386837205668069376: 'One',
+ 16777216: 'Two',
+ [1, 2, 3]: 'Three',
+ [2, 4]: 'Five',
+ True: 29}
+</code></pre></div></div>
+
+<h1 id="loops">Loops</h1>
+
+<h2 id="while-condition-based-loop-and-for">while (condition-based loop) and for</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span><span class="o">=</span><span class="mi">3</span>
+<span class="k">while</span> <span class="n">a</span><span class="o">&lt;</span><span class="mi">10</span><span class="p">:</span>
+    <span class="n">a</span><span class="o">+=</span><span class="mi">1</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>4
+5
+6
+7
+8
+9
+10
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="p">[</span><span class="s">"a"</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">45</span><span class="p">]:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">element</span><span class="p">))</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>a &lt;class 'str'&gt;
+3 &lt;class 'int'&gt;
+45 &lt;class 'int'&gt;
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">5</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">uneliste</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>3456789
+4
+5
+</code></pre></div></div>
+
+<ul>
+  <li>Loop on dict</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dico_des_contacts</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{'Marie': '0666102030', 'René': '0710212121', 'Julien': '0820202020'}
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">dico_des_contacts</span><span class="p">.</span><span class="n">keys</span><span class="p">():</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Marie
+René
+Julien
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">dico_des_contacts</span><span class="p">.</span><span class="n">values</span><span class="p">():</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0666102030
+0710212121
+0820202020
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">dico_des_contacts</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">dico_des_contacts</span><span class="p">[</span><span class="n">element</span><span class="p">])</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Marie
+0666102030
+René
+0710212121
+Julien
+0820202020
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">dico_des_contacts</span><span class="p">.</span><span class="n">values</span><span class="p">()):</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(0, '0666102030')
+(1, '0710212121')
+(2, '0820202020')
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">tuple_</span> <span class="ow">in</span> <span class="n">dico_des_contacts</span><span class="p">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">tuple_</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>('Marie', '0666102030')
+('René', '0710212121')
+('Julien', '0820202020')
+</code></pre></div></div>
+
+<h2 id="a-nice-feature-iterable-unpacking-here-on-a-tuple">a nice feature: Iterable unpacking (here on a tuple)</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">b</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2
+</code></pre></div></div>
+
+<h2 id="pep-3132-extended-iterable-unpacking">PEP 3132: extended Iterable unpacking</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span><span class="p">,</span> <span class="o">*</span><span class="n">b</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">b</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[2, 3, 4]
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span><span class="p">,</span> <span class="o">*</span><span class="n">b</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[2, 3]
+</code></pre></div></div>
+
+<p>This can also be done to unpack collections of tuples</p>
+
+<p>an example from the docs directy</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="o">*</span><span class="n">b</span> <span class="ow">in</span> <span class="p">[(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">)]:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[2, 3]
+[5, 6, 7]
+</code></pre></div></div>
+
+<p>Hence, one can loop on a dict from this:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">tuple_</span> <span class="ow">in</span> <span class="n">dico_des_contacts</span><span class="p">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">tuple_</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>('Marie', '0666102030')
+('René', '0710212121')
+('Julien', '0820202020')
+</code></pre></div></div>
+
+<p>To</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">dico_des_contacts</span><span class="p">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> 
+    <span class="k">print</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Marie
+0666102030
+René
+0710212121
+Julien
+0820202020
+</code></pre></div></div>
+
+<h1 id="functions">Functions</h1>
+
+<h2 id="function-definition-and-function-calls">Function definition and function call(s)</h2>
+
+<ul>
+  <li>Defining a function: function may or may not have parameters, can return a value but are not forced too.</li>
+</ul>
+
+<p>Here is an example of a function that has a parameter, and return a value.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">mafonction</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">a</span><span class="o">**</span><span class="mi">2</span>
+</code></pre></div></div>
+
+<ul>
+  <li>calling a function: you call call it once, twice, or more, passing-in an argument for the corresponding function parameter.</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mafonction</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>81
+</code></pre></div></div>
+
+<p><u>Terminology alert here:</u> A parameter is a variable in the function definition. Just like in Maths. An argument is the passed-in value at function call for that parameter.</p>
+
+<ul>
+  <li>for short and simple functions, one call use <strong>lambda</strong> notation/functions</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mafonction</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mafonction</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>121
+</code></pre></div></div>
+
+<ul>
+  <li>Put default arguments for any parameter in the functions</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">mafonction2</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">a</span><span class="o">**</span><span class="mi">2</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mafonction2</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>25
+</code></pre></div></div>
+
+<p><u>**Note:**</u> default arguments always at the end:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">mafonction3</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">d</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="o">+</span><span class="n">c</span><span class="o">+</span><span class="n">d</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  File "&lt;ipython-input-806-1a1f779ed717&gt;", line 1
+    def mafonction3(a,b,c=2, d):
+                    ^
+SyntaxError: non-default argument follows default argument
+</code></pre></div></div>
+
+<h2 id="recall-unpacking-">Recall unpacking ?</h2>
+
+<p>Say we have this function:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">acomplicatedcalculus</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">d</span><span class="p">,</span><span class="n">e</span><span class="p">,</span><span class="n">f</span><span class="o">=</span><span class="mi">23</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span> <span class="o">*</span> <span class="n">c</span> <span class="o">-</span> <span class="n">d</span><span class="o">*</span><span class="n">e</span><span class="o">*</span><span class="n">f</span>
+</code></pre></div></div>
+
+<p>What if we this list: <code class="language-plaintext highlighter-rouge">mylistargs = [1,2,3,4,5,6]</code> to be parsed in funciton call ?</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mylistargs</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">acomplicatedcalculus</span><span class="p">(</span><span class="o">*</span><span class="n">mylistargs</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-113
+</code></pre></div></div>
+
+<p><strong>Note:</strong> this overwrited f, you could skip last argument</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">*</span><span class="n">mylistreduced</span><span class="p">,</span> <span class="n">rest</span> <span class="o">=</span> <span class="n">mylistargs</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">acomplicatedcalculus</span><span class="p">(</span><span class="o">*</span><span class="n">mylistreduced</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-453
+</code></pre></div></div>
+
+<p>you can also as of PEP448 you can also unpack multiple iterables in function call i.e.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">liste1</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]</span>
+<span class="n">liste2</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span>
+<span class="n">liste3</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">acomplicatedcalculus</span><span class="p">(</span><span class="o">*</span><span class="n">liste1</span><span class="p">,</span> <span class="o">*</span><span class="n">liste2</span><span class="p">,</span> <span class="o">*</span><span class="n">liste3</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-113
+</code></pre></div></div>
+
+<p>We can also provide a smarter unpacking based on keywords, also known as positional arguments, using double-star unpacking</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dictargs1</span> <span class="o">=</span> <span class="p">{</span><span class="s">'b'</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="s">'a'</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span> <span class="s">'c'</span><span class="p">:</span><span class="mi">3</span><span class="p">}</span>
+<span class="n">dictargs2</span> <span class="o">=</span> <span class="p">{</span><span class="s">'f'</span><span class="p">:</span><span class="mi">6</span><span class="p">,</span> <span class="s">'e'</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="s">'d'</span><span class="p">:</span><span class="mi">4</span><span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">acomplicatedcalculus</span><span class="p">(</span><span class="o">**</span><span class="n">dictargs1</span><span class="p">,</span> <span class="o">**</span><span class="n">dictargs2</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-113
+</code></pre></div></div>
+
+<p>Hurra ! the elements in the sequence has been included according to the keys of the dictionnary</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dictargs2</span><span class="p">[</span><span class="s">'b'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">325</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">acomplicatedcalculus</span><span class="p">(</span><span class="o">**</span><span class="n">dictargs1</span><span class="p">,</span> <span class="o">**</span><span class="n">dictargs2</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>---------------------------------------------------------------------------
+
+TypeError                                 Traceback (most recent call last)
+
+&lt;ipython-input-827-d48aa343e588&gt; in &lt;module&gt;
+----&gt; 1 acomplicatedcalculus(**dictargs1, **dictargs2)
+
+
+TypeError: acomplicatedcalculus() got multiple values for keyword argument 'b'
+</code></pre></div></div>
+
+<p style="font-size: 20px;">Oh 😢 </p>
+
+<p><u>**Note2:**</u> ** unpackings must additionally follow * unpackings</p>
+
+<h2 id="tuple-packing-for-function-definitions">Tuple packing for function definitions</h2>
+
+<p>You can also think the other way around and think about functions as containing an undefined number of arguments, example:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># args is a convention
+</span></code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">newfunction</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+    <span class="s">"""This is a doctstring, it is a description to let
+    the user know what your function does
+    it's a string literal that can be found 
+    on top of a function, a module or a class.
+    At runtime, it is detected by python Bytecode and assigned to 
+    object.__doc__, you can then use Tab keys and Shift in Jupyter
+    to see in work, cool isn't it ? check PEP257😉
+    """</span>
+    <span class="n">somme</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
+        <span class="n">somme</span> <span class="o">+=</span> <span class="n">arg</span>
+    <span class="k">return</span> <span class="n">somme</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">newfunction</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">),</span> <span class="n">newfunction</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(15, 6)
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">newfunction</span><span class="p">.</span><span class="n">__doc__</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>"This is a doctstring, it is a description to let\nthe user know what your function does\n    it's a string literal that can be found \n    on top of a function, a module or a class.\n    At runtime, it is detected by python Bytecode and assigned to \n    object.__doc__, you can then use Tab keys and Shift in Jupyter\n    to see in work, cool isn't it ? check PEP257😉\n    "
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">newfunction2</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">kwargs</span><span class="p">[</span><span class="s">'e'</span><span class="p">]</span> <span class="o">/</span> <span class="n">kwargs</span><span class="p">[</span><span class="s">'f'</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">newfunction2</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="s">'e'</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span> <span class="s">'f'</span><span class="p">:</span><span class="mi">8</span><span class="p">,</span> <span class="s">'g'</span><span class="p">:</span><span class="mi">9</span><span class="p">})</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>0.875
+</code></pre></div></div>
+
+<p>Starting PEP484, Python 3.5 you can add type hints (it is just hints, not forced, but yçou can use a type checking tool for that)</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">power</span><span class="p">(</span><span class="n">to_be_powered</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">by</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">by</span><span class="p">):</span>
+        <span class="n">to_be_powered</span> <span class="o">*=</span> <span class="n">to_be_powered</span>
+    <span class="k">return</span> <span class="n">to_be_powered</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">power</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>6561
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">pow</span><span class="p">(</span><span class="n">base</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">exp</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>16
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="n">arg1</span><span class="p">,</span> <span class="n">arg2</span><span class="p">,</span> <span class="o">/</span><span class="p">,</span><span class="n">key</span><span class="p">,</span><span class="o">*</span><span class="p">,</span> <span class="n">key1</span><span class="p">,</span> <span class="n">key2</span><span class="o">=</span><span class="s">''</span><span class="p">):</span>
+    <span class="s">"""positional_only / pos_or_keyword_args * keywords only"""</span>
+    <span class="k">return</span> <span class="n">arg1</span><span class="o">+</span><span class="n">arg2</span><span class="o">+</span><span class="s">"    "</span><span class="o">+</span><span class="n">key1</span><span class="o">+</span><span class="n">key2</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">name</span><span class="p">(</span><span class="s">"a"</span><span class="p">,</span> <span class="s">"7"</span><span class="p">,</span> <span class="s">"test"</span><span class="p">,</span> <span class="n">key1</span><span class="o">=</span><span class="s">"2"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>'a7    2'
+</code></pre></div></div>
+
+<h1 id="list-comprehension">List comprehension</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">uneliste</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[2, 2, 47, 13, 17, 11, 9, 8]
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">uneliste</span> <span class="p">]</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[4, 4, 2209, 169, 289, 121, 81, 64]
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span> <span class="n">element</span> <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">uneliste</span> <span class="k">if</span> <span class="n">element</span><span class="o">&gt;</span><span class="mi">7</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[47, 13, 17, 11, 9, 8]
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">uneliste</span> <span class="k">if</span> <span class="n">x</span><span class="o">&gt;</span><span class="mi">7</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[2209, 169, 289, 121, 81, 64]
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="k">if</span> <span class="n">x</span><span class="o">&gt;</span><span class="mi">7</span> <span class="k">else</span> <span class="n">x</span><span class="o">-</span><span class="mi">4</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">uneliste</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[-2, -2, 2209, 169, 289, 121, 81, 64]
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">unelistemodifiee</span> <span class="o">=</span> <span class="p">[</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">uneliste</span> <span class="p">]</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="n">uneliste</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">unelistemodifiee</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[2, 2, 47, 13, 17, 11, 9, 8]
+[4, 4, 2209, 169, 289, 121, 81, 64]
+</code></pre></div></div>
+
+<p>cartesian product</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="n">x</span><span class="o">+</span><span class="n">y</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">1000</span><span class="p">]]</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[12, 102, 1002, 13, 103, 1003, 14, 104, 1004]
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="n">x</span><span class="o">+</span><span class="n">y</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span> <span class="k">if</span> <span class="n">x</span><span class="o">&gt;</span><span class="mi">2</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">1000</span><span class="p">]]</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[13, 103, 1003, 14, 104, 1004]
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="n">x</span><span class="o">+</span><span class="n">y</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span> <span class="k">if</span> <span class="n">x</span><span class="o">&gt;</span><span class="mi">2</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">1000</span><span class="p">]</span> <span class="k">if</span> <span class="n">y</span><span class="o">&gt;</span><span class="mi">100</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[1003, 1004]
+</code></pre></div></div>
+
+<h1 id="dict-comprehension">Dict comprehension</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dico_des_contacts</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{'Marie': '0666102030', 'René': '0710212121', 'Julien': '0820202020'}
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span> <span class="n">cle</span><span class="p">:</span><span class="n">valeur</span> <span class="k">for</span> <span class="n">cle</span><span class="p">,</span><span class="n">valeur</span> <span class="ow">in</span> <span class="n">dico_des_contacts</span><span class="p">.</span><span class="n">items</span><span class="p">()}</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{'Marie': '0666102030', 'René': '0710212121', 'Julien': '0820202020'}
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mondico2</span> <span class="o">=</span> <span class="p">{</span><span class="s">"a"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span> <span class="s">"b"</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="s">"c"</span><span class="p">:</span><span class="mi">3</span><span class="p">}</span>
+<span class="n">mondico2</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{'a': 1, 'b': 2, 'c': 3}
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span> <span class="n">cle</span><span class="p">:</span><span class="n">valeur</span><span class="o">*</span><span class="mi">2</span> <span class="k">for</span> <span class="n">cle</span><span class="p">,</span> <span class="n">valeur</span> <span class="ow">in</span> <span class="n">mondico2</span><span class="p">.</span><span class="n">items</span><span class="p">()}</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{'a': 2, 'b': 4, 'c': 6}
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span> <span class="n">cle</span><span class="p">:</span><span class="n">valeur</span><span class="o">*</span><span class="mi">2</span> <span class="k">for</span> <span class="n">cle</span><span class="p">,</span> <span class="n">valeur</span> <span class="ow">in</span> <span class="n">mondico2</span><span class="p">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">cle</span><span class="o">==</span><span class="s">'b'</span><span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{'b': 4}
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span> <span class="n">cle</span><span class="p">:</span><span class="n">valeur</span><span class="o">*</span><span class="mi">2</span> <span class="k">for</span> <span class="n">cle</span><span class="p">,</span> <span class="n">valeur</span> <span class="ow">in</span> <span class="n">mondico2</span><span class="p">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">valeur</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{'b': 4, 'c': 6}
+</code></pre></div></div>
+
+<h2 id="exercice-take-phone-number-only-for-name-starting-with-r">exercice: take phone number only for name starting with ‘R’</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dico_des_contacts</span><span class="p">[</span><span class="s">'Renard'</span><span class="p">]</span> <span class="o">=</span> <span class="s">"0678899099"</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dico_des_contacts</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{'Marie': '0666102030',
+ 'René': '0710212121',
+ 'Julien': '0820202020',
+ 'Renard': '0678899099'}
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span> <span class="n">cle</span><span class="p">:</span><span class="n">valeur</span> <span class="k">for</span> <span class="n">cle</span><span class="p">,</span> <span class="n">valeur</span> <span class="ow">in</span> <span class="n">dico_des_contacts</span><span class="p">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">cle</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s">"R"</span> <span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{'René': '0710212121', 'Renard': '0678899099'}
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span> <span class="n">cle</span><span class="p">:</span><span class="n">valeur</span> <span class="k">for</span> <span class="n">cle</span><span class="p">,</span> <span class="n">valeur</span> <span class="ow">in</span> <span class="n">dico_des_contacts</span><span class="p">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">cle</span><span class="p">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">"R"</span><span class="p">)}</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{'René': '0710212121', 'Renard': '0678899099'}
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dico_des_contacts</span><span class="p">[</span><span class="s">'remi'</span><span class="p">]</span> <span class="o">=</span> <span class="s">"067234099"</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span> <span class="n">cle</span><span class="p">:</span><span class="n">valeur</span> <span class="k">for</span> <span class="n">cle</span><span class="p">,</span> <span class="n">valeur</span> <span class="ow">in</span> <span class="n">dico_des_contacts</span><span class="p">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">cle</span><span class="p">.</span><span class="n">lower</span><span class="p">().</span><span class="n">startswith</span><span class="p">(</span><span class="s">"r"</span><span class="p">)}</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{'René': '0710212121', 'Renard': '0678899099', 'remi': '067234099'}
+</code></pre></div></div>
+
+<h1 id="decorators">Decorators</h1>
+
+<p><u>**A decorator:**</u></p>
+<ul>
+  <li>takes a function as argument (remembered? function is a object, all objects are first-class objects by design)</li>
+  <li>return a function</li>
+</ul>
+
+<p>Aim is to provide a wrapper function that implements additional feature for an existing function</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">unefonction</span><span class="p">():</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"Hello"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">inspect</span>
+<span class="k">print</span><span class="p">(</span> <span class="n">inspect</span><span class="p">.</span><span class="n">getsource</span><span class="p">(</span><span class="n">function</span><span class="p">)</span> <span class="p">)</span> 
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def function():
+    return 2+"2"
+</code></pre></div></div>
+
+<p>Here the function take a function as argument, but does not return a function</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">une_autre</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+    <span class="n">func</span><span class="p">()</span>
+    <span class="k">return</span> <span class="s">"yes"</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">une_autre</span><span class="p">(</span><span class="n">unefonction</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Hello
+
+
+
+
+
+'yes'
+</code></pre></div></div>
+
+<p>We must then define a new function (to be returned) <strong>inside</strong> the body of the calling function</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">une_autre</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">wrapper</span><span class="p">():</span>
+        <span class="n">func</span><span class="p">()</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"yes"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">wrapper</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">une_autre</span><span class="p">(</span><span class="n">unefonction</span><span class="p">)()</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Hello
+yes
+</code></pre></div></div>
+
+<p>une_autre is a function, we can then assign it to a variable:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">unefonction</span> <span class="o">=</span> <span class="n">une_autre</span><span class="p">(</span><span class="n">unefonction</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>assigning back to <code class="language-plaintext highlighter-rouge">unefonction</code> just changed the consecutive calls of unefontion to a new behavior with added functionnality</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">unefonction</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Hello
+yes
+</code></pre></div></div>
+
+<p>Note we could have used this syntactic sugar syntax during definition of the decorated function to had permanently the functionnality added by <code class="language-plaintext highlighter-rouge">une_autre</code> decorator :<br /></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@une_autre
+def unefonction():
+    pass
+</code></pre></div></div>
+
+<h2 id="passing-arguments-to-the-decorated-function">passing arguments to the decorated function</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">une_autre</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+    <span class="c1">## adding undefining number of positional and keyword params
+</span>    <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"yes"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span>
+    <span class="k">return</span> <span class="n">wrapper</span>
+</code></pre></div></div>
+
+<p>Let’s now use the newer shortcut syntax</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">@</span><span class="n">une_autre</span>
+<span class="k">def</span> <span class="nf">unefonction</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+    <span class="c1">## fonction to be decorated
+</span>    <span class="k">print</span><span class="p">(</span><span class="s">"Hello"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">name</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">unefonction</span><span class="p">(</span><span class="s">"Luc"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Hello
+yes
+
+
+
+
+
+'Luc'
+</code></pre></div></div>
+
+<p>wrapper replaces func, then if func was often being passed an argument, wrapper must handle it</p>
+
+<h2 id="passing-arguments-to-the-decorator">passing arguments to the decorator</h2>
+
+<p>“higher higher”-order function 😜</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">togiveargs</span><span class="p">(</span><span class="n">argument</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">decorator</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+        <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="k">print</span><span class="p">(</span><span class="s">"Hello"</span><span class="p">)</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">argument</span><span class="p">:</span>
+                <span class="k">print</span><span class="p">(</span><span class="s">"Yes"</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">print</span><span class="p">(</span><span class="s">"No"</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">result</span>
+        <span class="k">return</span> <span class="n">wrapper</span>
+    <span class="k">return</span> <span class="n">decorator</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">@</span><span class="n">togiveargs</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">unefonction</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+    <span class="c1">## fonction to be decorated
+</span>    <span class="k">print</span><span class="p">(</span><span class="s">"Hello"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">name</span> 
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">unefonction</span><span class="p">(</span><span class="s">"Luc"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Hello
+Hello
+No
+
+
+
+
+
+'Luc'
+</code></pre></div></div>
+
+<h1 id="classes">Classes</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span><span class="o">=</span><span class="s">"hello-world"</span>
+
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>'hello-world'
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span><span class="o">+</span><span class="s">"bonjour"</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>'hello-worldbonjour'
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Oeuvre</span><span class="p">:</span>
+    <span class="s">"""Classe définissant une Oeuvre 
+        Attributs: 
+          param1
+          param2
+        Methodes:
+          method1
+          method2
+        Return 
+          une oeuvre
+    """</span>
+    
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">auteur</span><span class="p">,</span> <span class="n">titre</span><span class="p">,</span> <span class="n">date</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">auteur</span> <span class="o">=</span> <span class="n">auteur</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">titre</span>  <span class="o">=</span> <span class="n">titre</span>
+        <span class="k">if</span> <span class="n">date</span><span class="p">.</span><span class="n">count</span><span class="p">(</span><span class="s">'/'</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>    
+            <span class="bp">self</span><span class="p">.</span><span class="n">date</span> <span class="o">=</span> <span class="n">date</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">date</span> <span class="o">=</span> <span class="s">"01/01/2019"</span>
+        <span class="c1"># self.date = date if date.count('/')==2 else "01/01/2019"
+</span>    
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="s">"</span><span class="se">\n</span><span class="s">Auteur : "</span>     <span class="o">+</span> <span class="bp">self</span><span class="p">.</span><span class="n">auteur</span> <span class="o">+</span>\
+            <span class="s">"</span><span class="se">\n</span><span class="s">Titre : "</span>           <span class="o">+</span> <span class="bp">self</span><span class="p">.</span><span class="n">titre</span> <span class="o">+</span>\
+            <span class="s">"</span><span class="se">\n</span><span class="s">Conçu à la date : "</span> <span class="o">+</span> <span class="bp">self</span><span class="p">.</span><span class="n">date</span>
+        <span class="k">return</span> <span class="n">output</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">uneOeuvre</span> <span class="o">=</span> <span class="n">Oeuvre</span><span class="p">(</span><span class="n">auteur</span><span class="o">=</span><span class="s">"Luc"</span><span class="p">,</span> <span class="n">titre</span><span class="o">=</span><span class="s">"Cours avec IIM"</span><span class="p">,</span> <span class="n">date</span><span class="o">=</span><span class="s">"12/11/2019"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">dir</span><span class="p">(</span><span class="n">uneOeuvre</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>['__class__',
+ '__delattr__',
+ '__dict__',
+ '__dir__',
+ '__doc__',
+ '__eq__',
+ '__format__',
+ '__ge__',
+ '__getattribute__',
+ '__gt__',
+ '__hash__',
+ '__init__',
+ '__init_subclass__',
+ '__le__',
+ '__lt__',
+ '__module__',
+ '__ne__',
+ '__new__',
+ '__reduce__',
+ '__reduce_ex__',
+ '__repr__',
+ '__setattr__',
+ '__sizeof__',
+ '__str__',
+ '__subclasshook__',
+ '__weakref__',
+ 'auteur',
+ 'date',
+ 'titre']
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">uneOeuvre</span><span class="p">.</span><span class="n">auteur</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>'Luc'
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">uneOeuvre</span><span class="p">.</span><span class="n">date</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>'12/11/2019'
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">uneOeuvre</span><span class="p">.</span><span class="n">titre</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>'Cours avec IIM'
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="n">uneOeuvre</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Auteur : Luc
+Titre : Cours avec IIM
+Conçu à la date : 12/11/2019
+</code></pre></div></div>
+
+<h2 id="inheritance--heritage-de-classes">inheritance = heritage de classes</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Sculpture</span><span class="p">(</span><span class="n">Oeuvre</span><span class="p">):</span>
+    
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">auteur</span><span class="p">,</span> <span class="n">titre</span><span class="p">,</span> <span class="n">date</span><span class="p">,</span> <span class="n">materiau</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">().</span><span class="n">__init__</span><span class="p">(</span><span class="n">auteur</span><span class="p">,</span> <span class="n">titre</span><span class="p">,</span> <span class="n">date</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">materiau</span> <span class="o">=</span> <span class="n">materiau</span>
+    
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="nb">super</span><span class="p">().</span><span class="n">__str__</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">output</span> <span class="o">+</span> <span class="s">"</span><span class="se">\n</span><span class="s">Materiau : "</span><span class="o">+</span> <span class="bp">self</span><span class="p">.</span><span class="n">materiau</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Livre</span><span class="p">(</span><span class="n">Oeuvre</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">auteur</span><span class="p">,</span> <span class="n">titre</span><span class="p">,</span> <span class="n">date</span><span class="p">,</span> <span class="n">nb_pages</span><span class="p">,</span> <span class="n">categorie</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">().</span><span class="n">__init__</span><span class="p">(</span><span class="n">auteur</span><span class="p">,</span> <span class="n">titre</span><span class="p">,</span> <span class="n">date</span><span class="p">)</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">nb_pages</span> <span class="o">=</span> <span class="n">nb_pages</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">categorie</span> <span class="o">=</span> <span class="n">categorie</span>
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="nb">super</span><span class="p">().</span><span class="n">__str__</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">output</span> <span class="o">+</span> <span class="s">"</span><span class="se">\n</span><span class="s">Nb de Pages : "</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">nb_pages</span><span class="p">)</span> <span class="o">+</span>\
+                        <span class="s">"</span><span class="se">\n</span><span class="s">Categorie de livre : "</span> <span class="o">+</span><span class="bp">self</span><span class="p">.</span><span class="n">categorie</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sculpture</span> <span class="o">=</span> <span class="n">Sculpture</span><span class="p">(</span><span class="s">"Rodin"</span><span class="p">,</span> <span class="s">"Le Penseur"</span><span class="p">,</span> <span class="s">"02-1234"</span><span class="p">,</span> <span class="s">"Bronze"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sculpture</span><span class="p">.</span><span class="n">auteur</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>'Rodin'
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sculpture</span><span class="p">.</span><span class="n">date</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>'01/01/2019'
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">sculpture</span><span class="p">.</span><span class="n">materiau</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>'Bronze'
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="n">sculpture</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Auteur : Rodin
+Titre : Le Penseur
+Conçu à la date : 01/01/2019
+Materiau : Bronze
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">unLivre</span> <span class="o">=</span> <span class="n">Livre</span><span class="p">(</span><span class="s">"Victor Hugo"</span><span class="p">,</span> <span class="s">"Les Misérables"</span><span class="p">,</span> <span class="s">"01/01/1862"</span><span class="p">,</span> <span class="mi">265</span><span class="p">,</span> <span class="n">categorie</span><span class="o">=</span><span class="s">"Drame"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="n">unLivre</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Auteur : Victor Hugo
+Titre : Les Misérables
+Conçu à la date : 01/01/1862
+Nb de Pages : 265
+Categorie de livre : Drame
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">liste_</span> <span class="o">=</span> <span class="p">[</span><span class="n">uneOeuvre</span><span class="p">,</span> <span class="n">sculpture</span><span class="p">,</span> <span class="n">unLivre</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="s">"test"</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">liste_</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[&lt;__main__.Oeuvre at 0x10adcad68&gt;,
+ &lt;__main__.Sculpture at 0x10adca128&gt;,
+ &lt;__main__.Livre at 0x10adb9a58&gt;,
+ 5,
+ 'test']
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">liste_</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span> <span class="n">element</span> <span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Auteur : Luc
+Titre : Cours avec IIM
+Conçu à la date : 12/11/2019
+
+Auteur : Rodin
+Titre : Le Penseur
+Conçu à la date : 01/01/2019
+Materiau : Bronze
+
+Auteur : Victor Hugo
+Titre : Les Misérables
+Conçu à la date : 01/01/1862
+Nb de Pages : 265
+Categorie de livre : Drame
+5
+test
+</code></pre></div></div>
+
+<h1 id="sync-to-github">Sync to GitHub</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">!</span><span class="n">ls</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Mon_Premier_Notebook.ipynb capture_ecran.png
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">!</span><span class="n">echo</span> <span class="n">salut</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>salut
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">!</span><span class="n">git</span> <span class="n">init</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Reinitialized existing Git repository in /Users/lucbertin/Desktop/TDs_Python_ESILV_5A/.git/
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">!</span><span class="n">git</span> <span class="n">add</span> <span class="n">Mon_Premier_Notebook</span><span class="p">.</span><span class="n">ipynb</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">!</span><span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">m</span> <span class="s">"reformed course"</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[master 5267bc0] reformed course
+ 1 file changed, 4043 insertions(+), 1367 deletions(-)
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">!</span><span class="n">git</span> <span class="n">remote</span> <span class="n">add</span> <span class="n">origin</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">Luc</span><span class="o">-</span><span class="n">Bertin</span><span class="o">/</span><span class="n">TDs_ESILV</span><span class="p">.</span><span class="n">git</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">!</span><span class="n">git</span> <span class="n">remote</span> <span class="o">-</span><span class="n">v</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>origin  https://github.com/Luc-Bertin/TDs_ESILV.git (fetch)
+origin  https://github.com/Luc-Bertin/TDs_ESILV.git (push)
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">!</span><span class="n">git</span> <span class="n">push</span> <span class="n">origin</span> <span class="n">master</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Enumerating objects: 5, done.
+Counting objects: 100% (5/5), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 13.62 KiB | 4.54 MiB/s, done.
+Total 3 (delta 2), reused 0 (delta 0)
+remote: Resolving deltas: 100% (2/2), completed with 2 local objects.[K
+To https://github.com/Luc-Bertin/TDs_ESILV.git
+   ea2ff39..5267bc0  master -&gt; master
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+</code></pre></div></div>

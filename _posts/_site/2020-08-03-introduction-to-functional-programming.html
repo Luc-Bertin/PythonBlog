@@ -1,0 +1,383 @@
+
+<p>You’ve probably heard of list comprehension in Python before. It is a declarative-like, concise, and generally easier way to read than a simple for loop.</p>
+
+<p>Example:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">[</span><span class="n">x</span> <span class="o">**</span> <span class="mi">2</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]]</span>
+</code></pre></div></div>
+
+<p>Have you also heard of generator expression in Python?</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">(</span><span class="n">x</span> <span class="o">**</span> <span class="mi">2</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+</code></pre></div></div>
+
+<p>Reduced to appearance, the only notable difference would be the removal of brackets for the addition of parentheses? But is this really the case in practice?</p>
+
+<p>Have you noticed that you can easily iterate over a list, dictionary, tuple, or string with a for loop?
+What are the shared similarities among all of these built-in types ?</p>
+
+<p><img src="/assets/images/post_functional_programming/post_image1.png" width="500px" style="display: inline-block;" class=".center" /></p>
+
+<p><img src="/assets/images/post_functional_programming/post_image2.png" width="500px" style="display: inline-block;" class=".center" /></p>
+
+<h1 id="why-functional-programming-">Why functional programming ?</h1>
+
+<p>Picking up the definition from the python docs: functional programming is the principle of breaking down a problem into a set of functions which take inputs and produce outputs. They have no internal states subject to altering the output produced for a given input, and act deterministically for some given conditions.
+We can therefore in a certain way oppose functional programming to object-oriented programming in which an instance of a class can see its internal state, represented by its attributes, be modified internally by the call of associated methods.</p>
+
+<p>Thanks to this definition we can already understand the assets of functional programming. First by its <em>modularity</em>: each function would fulfill a precise, well-defined task and we could therefore break down a large problem into several mini-problems in the form of functions.</p>
+
+<p>Then each function would be <em>easy to test</em> (by that I mean develop an associated unit-test) due to its reduced action spectrum and its deterministic side.</p>
+
+<p>In a data scientist approach, this approach would allow us to build pipelines, in which some flow of data would pass through different processing functions, the output of one would be the input for another, and so on.</p>
+
+<p>Another big advantage is the parallelization: as each function is stateless and deterministic i.e. f(x)=y, if we wish to transform a sequence of elements, we can transform parallely each element x1, x2, x3,…  of this sequence into y1, y2, y3,… by calling f in parallel for each input</p>
+
+<p>Here, of course, I show a fairly simplistic but totally viable diagram, for example transforming the column of a dataset into a log.</p>
+
+<!-- Functional programming in Python can also be seen similar to declarative programming in the sense that we [describe what we want to achieve](https://stackoverflow.com/questions/128057/what-are-the-benefits-of-functional-programming
+) rather than a set of imperative instructions to achieve it.
+ -->
+<h1 id="1-the-iterators">1. the iterators</h1>
+
+<h2 id="definition">definition</h2>
+<p>Again, based on the official python documentation: <strong>an Iterator is an object representing a sequence of data</strong>. The object returns data one item at a time, much <strong>like a bookmark in a book announces the page of that book.</strong>
+It is an object that enables to traverse a container, such as list or dict.</p>
+
+<p>To know if we are dealing with an iterator we must look in the magic methods associated with this object: if the object contains the <code class="language-plaintext highlighter-rouge">__next__()</code> and <code class="language-plaintext highlighter-rouge">__iter__()</code> methods then it is an iterator. This is also called the <strong><a href="https://docs.python.org/3/library/stdtypes.html#iterator-types">iterator protocol</a></strong>.
+This method can also be called by the function: <code class="language-plaintext highlighter-rouge">next(iterator)</code> and simply allows you to return the next element of the sequence, as by moving the bookmark of the book.
+If the last element is reached and <code class="language-plaintext highlighter-rouge">__next__()</code> is called again, a StopIteration exception is raised.</p>
+
+<h2 id="a-list-is-a-sequence-of-elements-is-a-list-an-iterator">A list is a sequence of elements, is a list an iterator?</h2>
+
+<p>We can call <code class="language-plaintext highlighter-rouge">dir()</code>, a built-in function that returns a list of attributes and methods (magic or not) for a given object.</p>
+
+<p><img src="/assets/images/post_functional_programming/post_image3.png" width="500px" style="display: inline-block;" class=".center" /></p>
+
+<p>We can see that <code class="language-plaintext highlighter-rouge">__next__</code> does not exist here. List is therefore <em>not</em> an iterator.
+On the other hand, we see that the <code class="language-plaintext highlighter-rouge">__iter__()</code> method exists:</p>
+
+<p><img src="/assets/images/post_functional_programming/post_image4.png" width="500px" style="display: inline-block;" class=".center" /></p>
+
+<p>This method can also be invoked from the <code class="language-plaintext highlighter-rouge">iter(list)</code> function.
+What does <code class="language-plaintext highlighter-rouge">iter()</code> produce from this list?</p>
+
+<p><img src="/assets/images/post_functional_programming/post_image5.png" width="500px" style="display: inline-block;" class=".center" /></p>
+
+<p>Iter seems to return an iterator from the list.</p>
+
+<p>We can verify it as follows:</p>
+
+<p><img src="/assets/images/post_functional_programming/post_image6.png" width="500px" style="display: inline-block;" class=".center" /></p>
+
+<p>If we do the same thing on a dictionary, this is what we get.</p>
+
+<p><img src="/assets/images/post_functional_programming/post_image7.png" width="500px" style="display: inline-block;" class=".center" /></p>
+
+<p>Again an iterator.</p>
+
+<p>Now, we can return each of the elements sequentially by calling next().</p>
+
+<p><img src="/assets/images/post_functional_programming/post_image8.png" width="500px" style="display: inline-block;" class=".center" /></p>
+
+<p>Conversely, we can also call <code class="language-plaintext highlighter-rouge">iterator.__next__()</code>
+Note again that <code class="language-plaintext highlighter-rouge">next(a_list)</code> cannot be done, the error message is self-explanatory.</p>
+
+<p><img src="/assets/images/post_functional_programming/post_image9.png" width="500px" style="display: inline-block;" class=".center" /></p>
+
+<p>Thus we see that a dictionary or a list, although being a sequence of objects, are not iterators, but iterables, that is to say that we can create an iterator from those - here by calling the <code class="language-plaintext highlighter-rouge">__iter__</code> method, the iterator being, I remind you, is an object, which returns its elements one by one thanks to the implementation of its <code class="language-plaintext highlighter-rouge">__next__</code> method.</p>
+
+<p>In a similar fashion, we can therefore consider the book as an iterable, i.e. a sequence of elements from which we can create an object that returns each of its pages one by one.</p>
+
+<p>We also see that only the dictionary keys are returned here. (Reminder, if we want to return tuples of (key, value) we can use the items () method in python 3+).</p>
+
+<p><img src="/assets/images/post_functional_programming/post_image10.png" width="500px" style="display: inline-block;" class=".center" /></p>
+
+<p>Isn’t this behavior similar to what you would get by looping with for?</p>
+
+<p>This is what is implicitly done when looping through a dictionary or a list:
+As the python documentation shows, these 2 loops are equivalent.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">iter</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">obj</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</code></pre></div></div>
+<p>So that’s what’s behind it when you loop through a sequence of tuple, list, or dictionary elements. Note that we can also express an iterator as a list or tuple from the constructor of these objects which can admit an iterator as a parameter.</p>
+
+<p>To get the original dictionary from the old example again we can also call the <code class="language-plaintext highlighter-rouge">dict()</code> constructor on the previously discussed item_iterator.</p>
+
+<p><img src="/assets/images/post_functional_programming/post_image11.png" width="500px" style="display: inline-block;" class=".center" /></p>
+
+<p>If we can extract an iterator from an iterable, and iterate over it, what’s the point of this extra step, why doesn’t list understand the <code class="language-plaintext highlighter-rouge">__next__</code> method?</p>
+
+<p>Well because an iterator can only be iterated once, once “consumed” it is necessary to recreate a new iterator from the iterable.
+The idea is that a new iterator will start at the beginning, while a partially used iterator picks up where it left off.</p>
+
+<p><img src="/assets/images/post_functional_programming/post_image12.png" width="500px" style="display: inline-block;" class=".center" /></p>
+
+<p>Wikipedia defines it well: you must see an iterator as an object that enables a programmer to traverse a container and gives access to data elements from this container.</p>
+
+<p>This iterator could use data stored in memory (from a list by iterating on it), or read a file or generate each value <a href="https://stackoverflow.com/questions/19151/build-a-basic-python-iterator">“on-the-fly”.</a></p>
+
+<h2 id="creating-an-iterator">Creating an iterator</h2>
+
+<p>Here is a <strong><em>Counter</em></strong> class which defines an iterator, here the values ​​are generated on-the-fly rather than stored previously in a list. You are probably starting to understand now the crucial functionality that some iterators bring, if you do not need to store all the values ​​in memory, where in the case of infinite sequence, you can successively generate the values ​​and do calculations on these at the time of iteration / “lazy generation” which results in less memory usage.
+Some iterable are lazy too, it’s the case of <code class="language-plaintext highlighter-rouge">map</code> objects.</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="code"><pre><span class="k">class</span> <span class="nc">Counter</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">):</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">current</span> <span class="o">=</span> <span class="n">low</span> <span class="o">-</span> <span class="mi">1</span>
+        <span class="bp">self</span><span class="p">.</span><span class="n">high</span> <span class="o">=</span> <span class="n">high</span>
+     <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span>
+     <span class="k">def</span> <span class="nf">__next__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> 
+        <span class="bp">self</span><span class="p">.</span><span class="n">current</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="p">.</span><span class="n">current</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="p">.</span><span class="n">high</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="p">.</span><span class="n">current</span>
+        <span class="k">raise</span> <span class="nb">StopIteration</span>
+</pre></td></tr></tbody></table></code></pre></figure>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">Counter</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">9</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+<span class="mi">3</span>
+<span class="mi">4</span>
+<span class="mi">5</span>
+<span class="mi">6</span>
+<span class="mi">7</span>
+<span class="mi">8</span>
+</code></pre></div></div>
+<p>Note: iterators implement <code class="language-plaintext highlighter-rouge">__iter__</code> method just as iterables, they just return themselves (return self), they can then be used in for-loops just the same way iterables did.</p>
+
+<h2 id="a-nice-use-case">A nice use-case</h2>
+
+<p>Opening a file using the built-in open() function generates a file object which turns out to be an iterator!
+Reading line by line using a for loop implicitly calls the readline method, so only certain lines can be re-requisitioned on demand, rather than reading the whole file in memory, particularly useful in the event of a large file!</p>
+
+<p>We can therefore <a href="https://stackoverflow.com/questions/25645039/readline-in-a-loop-is-not-working-in-python">only traverse the file once</a> (unless we reopen and recreate another iterator), and can just load the lines on demand that we want!</p>
+
+<p><img src="/assets/images/post_functional_programming/post_image13.png" width="500px" style="display: inline-block;" class=".center" /></p>
+
+<p>Something interesting to mention, calling <code class="language-plaintext highlighter-rouge">__iter__</code> on a iterable such as a list returns a new iterator each time (reading the beginning of this article should help you understand why). However, doing the same thing on an iterator returns himself. Have a look at the below screenshot and then look back at the <strong>Counter</strong> class definition.</p>
+
+<p><img src="/assets/images/post_functional_programming/post_image15.png" width="500px" style="display: inline-block;" class=".center" /></p>
+
+<h1 id="2-the-generators">2. The generators</h1>
+
+<h2 id="generators-vs-iterators">Generators vs Iterators</h2>
+
+<p>Don’t get me wrong, generators are not something different from an iterator, they are actually iterators. Conversely, iterators are not all generators.</p>
+
+<p><em>Why are generators objects… iterators?</em> because they implement <code class="language-plaintext highlighter-rouge">__next__</code>
+and <code class="language-plaintext highlighter-rouge">__iter__</code> methods.
+<em>How to create a generator object?</em> from a <strong>generator function</strong> or a <strong>generator expression.</strong>
+<em>What are the purpose of doing so?</em> writing a generator function (or a generator) expression is generally being easier to write than iterators (where we created a class and implemented by hand the 2 magic methods). Here we will implement some sort of logic in a function or an expression. When called they will return a generator object which behave the same way as the iterator i’ve mentionned.</p>
+
+<p>I will then break this section in 2 parts: generators expression and generators ‘functions’, as they share similarities in their <a href="https://stackoverflow.com/questions/1995418/python-generator-expression-vs-yield">implementation</a>.</p>
+
+<h2 id="generators-expressions">Generators expressions:</h2>
+
+<p>Back to the first paragraphe of this chapter, we talked about list comprehension and generator expression.</p>
+
+<p><img src="/assets/images/post_functional_programming/post_image17.png" width="500px" style="display: inline-block;" class=".center" /></p>
+
+<p>Here you can see the object returned behaves exactly as an iterator. It is indeed an iterator. But, once again, why not using simply list comprehension rather than generator expression? because of memory usage and lazyness evaluation of each item.
+When we use a list comprehension, every element of the list have been computed and the whole result is returned as a list with allocated memory space.</p>
+
+<p><img src="/assets/images/post_functional_programming/post_image18.png" width="500px" style="display: inline-block;" class=".center" /></p>
+
+<p>When we use a gen expression, elements of the sequence are evaluated only when requested (lazy evaluation). This lead to use less memory and sometimes, depending on what you do thereafter, an increase in performance.</p>
+
+<p>Note that <code class="language-plaintext highlighter-rouge">range(start, stop[, step])</code> here is actually an iterable. It does not implement <code class="language-plaintext highlighter-rouge">__next__</code> unless you call <code class="language-plaintext highlighter-rouge">iter()</code> on it. However, range implement lazyness implementation, just like previously showed iterators, it will <a href="https://docs.python.org/3/library/functions.html">always take the same (small) amount of memory, no matter the size of the range it represents (as it only stores the start, stop and step values, calculating individual items and subranges as needed)</a>. Also range has the nice property to be indexable, which is not the case of our simple generator expression.</p>
+
+<p><img src="/assets/images/post_functional_programming/post_image20.png" width="500px" style="display: inline-block;" class=".center" /></p>
+
+<p>I can then start doing fancy stuff such as piping generator expression:</p>
+
+<p><img src="/assets/images/post_functional_programming/post_image19.png" width="500px" style="display: inline-block;" class=".center" /></p>
+
+<p><a href="http://code.activestate.com/recipes/578000-indexable-generator/">Here</a> is a code to make an generator indexable, seems beautiful. Have to test it .</p>
+
+<h2 id="generators-functions">Generators functions:</h2>
+
+<p>Have you ever seen the <code class="language-plaintext highlighter-rouge">yield</code> keyword in certain functions before ? That keyword tranforms the function definition into a special type of function — when compiled into Bytecode —, named generator functions, also abbrieved generators.
+Instead of destroying local variables defined in the scope of a normal function when this function returns a value or ends, you can here resume the function where it left-off, preserving those local variables.</p>
+
+<p>Test those lines of code from the documentation and see the behavior of the function.</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+</pre></td><td class="code"><pre><span class="k">def</span> <span class="nf">generate_ints</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+        <span class="k">yield</span> <span class="n">i</span>
+</pre></td></tr></tbody></table></code></pre></figure>
+
+<p>The generator function, when called, returns a generator object, which is an iterator, which implements next and iter and controls the execution of the generator function. Close behavior to a generator expression here. Hence the close names. <code class="language-plaintext highlighter-rouge">yield</code> operates just like a <code class="language-plaintext highlighter-rouge">return</code> statement then, but preserved the state of the local variables for later ‘next’ calls.</p>
+
+<p><img src="/assets/images/post_functional_programming/post_image21.png" width="500px" style="display: inline-block;" class=".center" /></p>
+
+<p>As you can also see, the above function is <a href="https://stackoverflow.com/questions/2776829/difference-between-pythons-generators-and-iterators">easier</a> to write than Counter although achieving the same thing at last.</p>
+
+<h2 id="sending-values-to-a-generator-function">sending values to a generator function</h2>
+
+<p>As highlighted by the Python docs, you can also send values to the generator by writing: <code class="language-plaintext highlighter-rouge">val = (yield i)</code>. Actually, the value of the yield expression after resuming the function is None if <code class="language-plaintext highlighter-rouge">__next__()</code> has been used. Otherwise, if send() was used, then the result will be the value passed in to that method.</p>
+
+<p>Have a look at the counter definition from the docs:</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="code"><pre><span class="k">def</span> <span class="nf">counter</span><span class="p">(</span><span class="n">maximum</span><span class="p">):</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">maximum</span><span class="p">:</span>
+        <span class="n">val</span> <span class="o">=</span> <span class="p">(</span><span class="k">yield</span> <span class="n">i</span><span class="p">)</span>
+        <span class="c1"># If value provided, change counter
+</span>        <span class="k">if</span> <span class="n">val</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="n">val</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+</pre></td></tr></tbody></table></code></pre></figure>
+
+<p>and the output where you can send an arbitrary value inside of the</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt;&gt;&gt; it = counter(10)  
+&gt;&gt;&gt; next(it)  
+0
+&gt;&gt;&gt; next(it)  
+1
+&gt;&gt;&gt; it.send(8)  
+8
+&gt;&gt;&gt; next(it)  
+9
+&gt;&gt;&gt; next(it)  
+Traceback (most recent call last):
+  File "t.py", line 15, in &lt;module&gt;
+    it.next()
+StopIteration
+</code></pre></div></div>
+
+<p>hence, yield does not only preserve local variable but gives us an entrypoint to the generator function to send input.</p>
+
+<h1 id="3-functions-operating-on-iterators">3. Functions operating on iterators</h1>
+
+<p>Now that you have a good grasp on how to design one-time objects that read through a sequence of elements, it is to browse some built-in Python functions that leverage use of iterators.</p>
+
+<h2 id="any-and-all">any() and all()</h2>
+<p>Clearly the first ones that come up to my mind: those functions are evaluating trueness of elements of a sequence.</p>
+<ul>
+  <li>any return True if <strong>any</strong> element of a sequence is true (caution: 0 and None are falsy)</li>
+  <li>all return True is <strong>all</strong> element of a sequence evaluates to true.
+But the most interesting about those 2 functions is that they are lazy, this means,  they abort as soon as the outcome is clear. Combined to a generator expression, this could drastically improve performance rather than using a list-comprehension (hence resulting in returning a complete list first before evaluating trueness of the elements)</li>
+</ul>
+
+<p>Don’t do that:</p>
+
+<p><code class="language-plaintext highlighter-rouge">all([x for x in range(0,100000000)])</code></p>
+
+<p>But that:</p>
+
+<p><code class="language-plaintext highlighter-rouge">all((x for x in range(0,100000000)))</code></p>
+
+<p>compare the difference in execution time, why do the second one stop so quickly ? (reminder: 0 is falsy)</p>
+
+<p>By the way, you can delete the parentheses when the generator expression is used directly in a function that can expect to take iterators as parameter.</p>
+
+<h2 id="mapfunction-sequences-imap-in-python-2">map(function, sequence(s)) (imap in Python 2+)</h2>
+
+<p>In Python 2 (deprecated as of 2020), imap is the lazy version of map.
+In Python 3+, map replaced imap. 
+Thus as of Python3+, just use only map. <strong>map</strong> returns a map object an iterator and evaluates an iterator as parameter lazily evaluated.</p>
+
+<p><img src="/assets/images/post_functional_programming/post_image22.png" width="500px" style="display: inline-block;" class=".center" /></p>
+
+<p>Interesting sidenote i didn’t know before reading the docs, you can use map with 2 or more iterators and encapsulate them in the lambda x1,x2,x3,… function.</p>
+
+<h2 id="filterfunction-sequence">filter(function, sequence)</h2>
+
+<p>Also returns an iterator, whose content has been filtered from another sequence.</p>
+<ul>
+  <li>1st parameter: a function to evaluate trueness, if <code class="language-plaintext highlighter-rouge">None</code> : return only non-falsy elements from the sequence</li>
+  <li>2nd parameter: iterable
+evaluation</li>
+</ul>
+
+<p>Note that filter(function, iterable) is equivalent to the generator expression (item for item in iterable if function(item)) if function is not None and (item for item in iterable if item) if function is None.</p>
+
+<p><code class="language-plaintext highlighter-rouge">filter(None, range(0,10000000000000000000))</code></p>
+
+<p>Very fast isn’t it? once again, the iterator returned is evaluated only on demand when calling <code class="language-plaintext highlighter-rouge">__next__</code></p>
+
+<h2 id="the-itertools-module">The itertools module</h2>
+
+<p>The Python docs also mention the itertools module that add some other functions making use of (or returning) iterators, i will just then pick the one that i found quite important:</p>
+
+<ul>
+  <li>itertools.count(start, step) =&gt; returns an infinite stream of evenly spaced values.</li>
+  <li>itertools.cycle(iterable) =&gt; from an iterable, returns an infinite stream of copies of this iterable</li>
+  <li>itertools.repeat(elem, [n]) =&gt; similar to iterable, but with an element only, repeated infinitely or n times</li>
+  <li>itertools.chain(iterA, iterB, …) =&gt; concatenates the iterables</li>
+  <li>itertools.islice(iterable, [start], stop, [step]) =&gt; from an iterable, return a slice of it.</li>
+  <li>itertools.tee(iter, [n]) =&gt; copy n times the provided iterator (reminder: once consumed, an iterator cannot be used anymore)</li>
+  <li>itertools.starmap(function, iterable) =&gt; the name is actually well chosen, think of it as a <code class="language-plaintext highlighter-rouge">*map</code> or maybe more like <code class="language-plaintext highlighter-rouge">map(function, *sequence_of_tuples)</code>. For sequences being tuples: it will unpack each tuple and apply the function with multiple unpacked paramaters f(*tuple)</li>
+  <li>itertools.takewhile(predicate, iter): returned an iterator sliced from the iterable till the first falsy value from the predicate is encountered.</li>
+  <li>itertools.dropwhile(predicate, iter): inverse of takewhile</li>
+</ul>
+
+<h3 id="combinations">Combinations</h3>
+<p>For some use-cases (when creating unit-testing during an internship trying to cover all possible cases, some combinatoric functions where really useful):</p>
+<ul>
+  <li>itertools.combinations(iter, n): returns an iterator of all psosible combinations of n elements (order doesn’t matter)</li>
+  <li>itertools.permutations(iterable, n): ordre matter (2 different order = 2 possible combinations)
+For statistics, can be useful to simulate the sample of balls <strong>with replacement</strong>.</li>
+  <li>itertools.combinations_with_replacement(iterable, n)</li>
+</ul>
+
+<h3 id="functools-module">functools module</h3>
+<ul>
+  <li>functools.partial(function, *args, **kwargs): create a partial object, (callable object, just like a function) which when called will behave like the function in parameter, with positional and keyword arguments passed in.
+VERY USEFUL:</li>
+  <li>functools.reduce(function, sequence, [initial_value]): cumulately perform an operation on each element: <code class="language-plaintext highlighter-rouge">function(function(function(x1, x2), x3), x4))</code>
+For example for a prod: <code class="language-plaintext highlighter-rouge">((x1*x2)*x3)*x4</code>
+you can provide an initial value (optional) for starting conditions just before x1.</li>
+</ul>
+
+<h1 id="4-what-about-multiprocessing-">4. What about multiprocessing ?</h1>
+
+<p>With reduced memory usage <a href="https://stackoverflow.com/questions/60802328/how-can-i-use-python-multiprocessing-with-generators">in certain cases</a>, and a evaluation of each item on-demand, iterators/generators are somehow appealing to create pipelines in Data Science for example.</p>
+
+<p>One might want to involve multiprocessing with iterators/generators, by splitting the latter in multiple processes. However, even functions defined within generators/iterators are stateless, the iterator construct is inherently <strong>stateful</strong>: each item are requested using the <code class="language-plaintext highlighter-rouge">next()</code> after one has been consumed already. Splitting a generator into multiple processes would lead to make multiple copies of this generator (one for each process: remember that processes have separate memory). You could still use <a href="https://docs.python.org/3/library/multiprocessing.html">some techniques</a> but sharing memory should be avoided in general, and in most cases would lead no performance gains from the one expected doing true parallelization.</p>
+
+<p>So where could we leverage multiprocessing while creating some pipelines and making use of iterators/generators? <br />
+Well, I see 2 uses cases here, although I’m open to suggestions.</p>
+
+<p>If we have an in-memory stored list and not-so-long, we could use <code class="language-plaintext highlighter-rouge">multiprocessing.map</code> to take the list as a whole and split it (or not) in multiple chuncks to be fed to the number of processes in the pool. This could speed up the programm mostly if some heavy CPU-bound computations are being done. The side effect is that <code class="language-plaintext highlighter-rouge">multiprocessing.map</code> blocks the <a href="https://stackoverflow.com/questions/53109249/python-multiprocessing-pool-blocking-main-thread">calling process</a> until all the processes complete and return the results as a whole.</p>
+
+<p>We could also use <code class="language-plaintext highlighter-rouge">multiprocessing.imap</code> to <strong>fed</strong> sequentially chuncks (or element) to worker processes from a to-long-to-be-stored-iterable and <strong>also return</strong> lazily an iterable.</p>
+
+<p><img src="/assets/images/post_functional_programming/multiprocessing_pool_imap_vs_pool_map.png" width="500px" style="display: inline-block;" class=".center" /></p>
+
+<p><img src="/assets/images/post_functional_programming/multiprocessing_template_script.png" width="500px" style="display: inline-block;" class=".center" /></p>
+
+<p>I’ve also found a smart implementation using <code class="language-plaintext highlighter-rouge">map</code>along with <code class="language-plaintext highlighter-rouge">itertools.islice</code>, which will <strong>still go through</strong> the iterator (can’t slice at any place without calling next on preceding elements as iterator are stateful), but has the benefit to be lazy: 
+    <code class="language-plaintext highlighter-rouge">pool.imap(function, itertools.islice(iter, N))</code>
+<a href="https://stackoverflow.com/questions/5318936/python-multiprocessing-pool-lazy-iteration">here</a></p>
+
+<p><img src="/assets/images/post_functional_programming/itertools_islice_is_lazy_but_still_go_through_iterator.png" width="500px" style="display: inline-block;" class=".center" /></p>
+
+<p>That’s all for this tutorial, I hope it was informative and concise enough, don’t hesitate to reach me or comment below for any questions.</p>
+

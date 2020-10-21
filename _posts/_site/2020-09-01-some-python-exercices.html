@@ -1,0 +1,238 @@
+<p>Some exercices following tutorial <em>Beginning in Python</em> to make you more comfortable with some object-oriented concepts in Python ;)</p>
+
+<p><u><strong>SendTo</strong>:</u> contact  &lt; at &gt;   lucbertin   &lt; dot &gt;  com <br />
+<u><strong>Subject</strong>:</u> PYTHON - EXERCICES1 - &lt;SCHOOL&gt; - &lt;FIRSTNAMES LASTNAMES&gt; <br />
+<u><strong>CC</strong>:</u> your teammates’ email if any<br />
+<u><strong>Content</strong>:</u> A Jupyter Notebook <strong>converted in HTML</strong> file <br /></p>
+
+<h2 id="ex-1-from-a-list-of-lists-to-a-dictionnary">Ex. 1: from a list of lists to a dictionnary</h2>
+
+<p>Transform this:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">liste</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">],</span> <span class="p">[</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">]]</span> 
+</code></pre></div></div>
+
+<p>into this:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">OUTPUT</span><span class="p">:</span> <span class="p">{</span><span class="mi">1</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">:</span> <span class="mi">8</span><span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>using dict comprehension</li>
+  <li>using dict constructor</li>
+</ul>
+
+<h2 id="ex-2-counting-letter-frequencies-in-a-text">Ex. 2: Counting letter frequencies in a text.</h2>
+
+<ol>
+  <li>You should count letter frequencies using these strategies:
+    <ul>
+      <li>using a simple Python dictionary</li>
+      <li>using <code class="language-plaintext highlighter-rouge">defaultdict</code> (subclass of <code class="language-plaintext highlighter-rouge">dict</code>)</li>
+      <li>using <code class="language-plaintext highlighter-rouge">Counter</code> (subclass of <code class="language-plaintext highlighter-rouge">dict</code>)
+<code class="language-plaintext highlighter-rouge">defaultdict</code> and <code class="language-plaintext highlighter-rouge">Counter</code> can be found in <code class="language-plaintext highlighter-rouge">collections</code> (i.e. <code class="language-plaintext highlighter-rouge">from collections import defaultdict, Counter</code>)</li>
+    </ul>
+  </li>
+  <li>Count word frequencies (store them in a Python dictionary).</li>
+</ol>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">text</span> <span class="o">=</span> <span class="s">"""Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sagittis neque turpis, in gravida erat tincidunt a. Maecenas lobortis rutrum arcu, in posuere dolor fermentum sed. Duis imperdiet laoreet nibh, a pretium lectus condimentum eget. Maecenas eu elit vitae nibh euismod lacinia et a tortor. Donec at egestas leo, eget molestie quam. Sed elementum scelerisque sapien, quis suscipit ex malesuada vel. Aenean non mollis erat, in tincidunt massa.
+
+Mauris semper, purus in dictum imperdiet, libero nunc bibendum ex, eget facilisis turpis lorem ac lorem. Sed bibendum scelerisque tortor vel dictum. Aliquam dignissim eget erat non mollis. Maecenas vehicula feugiat tortor, in vulputate ex molestie nec. Ut suscipit iaculis nulla, auctor elementum urna dapibus non. Fusce facilisis mollis tellus sit amet venenatis. Praesent metus enim, tincidunt posuere tellus et, placerat tincidunt justo.
+
+Nunc id gravida ipsum, id porttitor magna. Maecenas porttitor accumsan odio non mattis. Suspendisse ultrices eleifend tristique. Vivamus accumsan libero tortor, eu aliquam sapien iaculis sed. In congue quis mi sed condimentum. Ut est libero, condimentum sit amet sagittis eu, tincidunt sed risus. Suspendisse pharetra molestie rutrum. Cras bibendum, dui ac consectetur eleifend, leo leo laoreet nibh, eget tristique lorem enim a nisi.
+
+Duis a purus eu augue consectetur malesuada id nec ex. Pellentesque sed odio laoreet, imperdiet dui ut, sodales odio. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Donec interdum, tortor eu dapibus pharetra, libero nisi faucibus nisl, id malesuada felis diam id urna. Praesent est metus, gravida eu luctus vitae, egestas vel metus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Cras suscipit malesuada dui, vitae faucibus libero mollis a. In posuere blandit augue, sed semper ante imperdiet sed. Cras egestas posuere augue at semper. Praesent fermentum nunc risus, vitae aliquet augue consectetur a. Fusce interdum orci nunc, non posuere ex venenatis id. Nam faucibus fringilla mollis. Nulla ac enim accumsan, accumsan risus sit amet, rutrum tellus. Praesent lacinia augue at pulvinar venenatis. Etiam nunc augue, suscipit a faucibus sed, sodales ut mauris.
+
+Quisque quis magna malesuada, ultricies leo eget, elementum est. Praesent enim purus, pretium a nisl quis, accumsan blandit sapien. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Mauris ultricies iaculis nunc, quis fringilla arcu bibendum ac. Integer eu sem eget dui tempor sagittis. Ut sit amet ipsum quis nisi porttitor pulvinar. Etiam suscipit, leo nec fringilla luctus, lacus est egestas augue, eget vestibulum augue diam non eros. Duis posuere ac magna eget ullamcorper.
+"""</span>
+</code></pre></div></div>
+
+<h2 id="ex-3-decoding-marn-using-dict-and-list-comprehensions-">Ex. 3: decoding mARN using dict and list comprehensions !</h2>
+
+<p>In a cell, ribosomes synthesises proteins by translating <strong>triplets</strong> of <strong>nucleotides</strong> from the mRNA into a chain of amino-acids.</p>
+
+<p>Here is a dictionary made from the inverse table of the DNA-codon-to-amino-acids conversions.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">amino_acids_from_triplets</span> <span class="o">=</span> <span class="p">{</span>
+ <span class="s">"Ala"</span><span class="p">:</span>   <span class="p">(</span><span class="s">"GCT"</span><span class="p">,</span> <span class="s">"GCC"</span><span class="p">,</span> <span class="s">"GCA"</span><span class="p">,</span> <span class="s">"GCG"</span><span class="p">),</span>
+ <span class="s">"Arg"</span><span class="p">:</span>    <span class="p">(</span><span class="s">"CGT"</span><span class="p">,</span> <span class="s">"CGC"</span><span class="p">,</span> <span class="s">"CGA"</span><span class="p">,</span> <span class="s">"CGG"</span><span class="p">,</span> <span class="s">"AGA"</span><span class="p">,</span> <span class="s">"AGG"</span><span class="p">),</span>
+ <span class="s">"Asn"</span><span class="p">:</span>    <span class="p">(</span><span class="s">"AAT"</span><span class="p">,</span> <span class="s">"AAC"</span><span class="p">),</span>
+ <span class="s">"Asp"</span><span class="p">:</span>    <span class="p">(</span><span class="s">"GAT"</span><span class="p">,</span> <span class="s">"GAC"</span><span class="p">),</span>
+ <span class="s">"Cys"</span><span class="p">:</span>    <span class="p">(</span><span class="s">"TGT"</span><span class="p">,</span> <span class="s">"TGC"</span><span class="p">),</span>
+ <span class="s">"Gln"</span><span class="p">:</span>    <span class="p">(</span><span class="s">"CAA"</span><span class="p">,</span> <span class="s">"CAG"</span><span class="p">),</span>
+ <span class="s">"Glu"</span><span class="p">:</span>    <span class="p">(</span><span class="s">"GAA"</span><span class="p">,</span> <span class="s">"GAG"</span><span class="p">),</span>
+ <span class="s">"Gly"</span><span class="p">:</span>    <span class="p">(</span><span class="s">"GGT"</span><span class="p">,</span> <span class="s">"GGC"</span><span class="p">,</span> <span class="s">"GGA"</span><span class="p">,</span> <span class="s">"GGG"</span><span class="p">),</span>
+ <span class="s">"His"</span><span class="p">:</span>    <span class="p">(</span><span class="s">"CAT"</span><span class="p">,</span> <span class="s">"CAC"</span><span class="p">),</span>
+ <span class="s">"START"</span><span class="p">:</span>  <span class="p">(</span><span class="s">"ATG"</span><span class="p">),</span>
+ <span class="s">"Ile"</span><span class="p">:</span>    <span class="p">(</span><span class="s">"ATT"</span><span class="p">,</span> <span class="s">"ATC"</span><span class="p">,</span> <span class="s">"ATA"</span><span class="p">),</span>
+ <span class="s">"Leu"</span><span class="p">:</span>    <span class="p">(</span><span class="s">"CTT"</span><span class="p">,</span> <span class="s">"CTC"</span><span class="p">,</span> <span class="s">"CTA"</span><span class="p">,</span> <span class="s">"CTG"</span><span class="p">,</span> <span class="s">"TTA"</span><span class="p">,</span> <span class="s">"TTG"</span><span class="p">),</span>
+ <span class="s">"Lys"</span><span class="p">:</span>    <span class="p">(</span><span class="s">"AAA"</span><span class="p">,</span> <span class="s">"AAG"</span><span class="p">),</span>
+ <span class="s">"Met"</span><span class="p">:</span>    <span class="p">(</span><span class="s">"ATG"</span><span class="p">),</span>
+ <span class="s">"Phe"</span><span class="p">:</span>    <span class="p">(</span><span class="s">"TTT"</span><span class="p">,</span> <span class="s">"TTC"</span><span class="p">),</span>
+ <span class="s">"Pro"</span><span class="p">:</span>    <span class="p">(</span><span class="s">"CCT"</span><span class="p">,</span> <span class="s">"CCC"</span><span class="p">,</span> <span class="s">"CCA"</span><span class="p">,</span> <span class="s">"CCG"</span><span class="p">),</span>
+ <span class="s">"Ser"</span><span class="p">:</span>    <span class="p">(</span><span class="s">"TCT"</span><span class="p">,</span> <span class="s">"TCC"</span><span class="p">,</span> <span class="s">"TCA"</span><span class="p">,</span> <span class="s">"TCG"</span><span class="p">,</span> <span class="s">"AGT"</span><span class="p">,</span> <span class="s">"AGC"</span><span class="p">),</span>
+ <span class="s">"Thr"</span><span class="p">:</span>    <span class="p">(</span><span class="s">"ACT"</span><span class="p">,</span> <span class="s">"ACC"</span><span class="p">,</span> <span class="s">"ACA"</span><span class="p">,</span> <span class="s">"ACG"</span><span class="p">),</span>
+ <span class="s">"Trp"</span><span class="p">:</span>    <span class="p">(</span><span class="s">"TGG"</span><span class="p">),</span>
+ <span class="s">"Tyr"</span><span class="p">:</span>    <span class="p">(</span><span class="s">"TAT"</span><span class="p">,</span> <span class="s">"TAC"</span><span class="p">),</span>
+ <span class="s">"Val"</span><span class="p">:</span>    <span class="p">(</span><span class="s">"GTT"</span><span class="p">,</span> <span class="s">"GTC"</span><span class="p">,</span> <span class="s">"GTA"</span><span class="p">,</span> <span class="s">"GTG"</span><span class="p">),</span>
+ <span class="s">"STOP"</span><span class="p">:</span>   <span class="p">(</span><span class="s">"TAA"</span><span class="p">,</span> <span class="s">"TGA"</span><span class="p">,</span> <span class="s">"TAG"</span><span class="p">)</span> 
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ol>
+  <li>
+    <p>Using dict comprehension, convert this dictionary in another one having <strong>keys as tuples of nucleotides</strong> and resulting <strong>amino-acids as values</strong> (e.g. for “His” amino_acid, <code class="language-plaintext highlighter-rouge">{("CAT", "CAC"):"His"}</code>.<br />
+We will call this dictionary <code class="language-plaintext highlighter-rouge">all_triplets_to_amino_acids</code></p>
+  </li>
+  <li>
+    <p>Using dict comprehension, expand the tuples in dictionary <code class="language-plaintext highlighter-rouge">all_triplets_to_amino_acids</code> as simple keys for each element of the tuples. Hence you should have in the resulting dictionary multiple same amino acids values for some keys (e.g. “CAT”: “His”, “CAC”: “His”)<br />
+We will call this dictionary <code class="language-plaintext highlighter-rouge">triplets_to_amino_acids</code><br /></p>
+  </li>
+  <li>
+    <p>This is an mARN extract that is about to get translated in protein synthesis:<br />
+arn = ‘GCCGAGTAACTAGCCAGCT
+ATGACACGATCCCGGCTAGGAAAGTG
+AACCCGCGGAAGTATATTGGTACCTC
+ACGGTAGGAGACGGCGGGATAATTCT
+TGTCGCTGTGTGTGCCATCGTACACG
+AGACGGGTCCACTGAGTAAAGCGAGT
+ATCACACAGACGAAGGTGACCTCCCC
+TTGTAGTCAGTAATCTTTCCTGAATC
+TAATTACTGTCATCGATTGCAAAACT
+TTGCAAAAAAACATTTGTAGACAACC
+GCTTACGTGGCGCTTCCTGCATTAAA
+CGATTCCGGTGCACGGAACAA’<br />
+Split this arn in sequence of triplets to further get the amino-acids conversion (you can use list comprehension + <code class="language-plaintext highlighter-rouge">range</code>).</p>
+  </li>
+  <li>
+    <p>Translate the sequence of triplets into a corresponding <strong>string</strong> of <strong>amino acid</strong> separated by a separator “-“ (Hint: use a list comprehension for the looping part, then convert the resulting list into a string with “-“ separators)/</p>
+  </li>
+</ol>
+
+<h2 id="ex-4-functions">Ex. 4: functions</h2>
+
+<!-- ### Fonction definition and calls
+ -->
+<ol>
+  <li>Create/define a simple function that prints ‘hello’. The function should not return anything neither take any inputs.<br />
+Call that function.</li>
+  <li>Create/define a simple function that takes <strong>one parameter</strong> ‘name’ and returns ‘hello &lt;name&gt;’.<br />
+Call that function.</li>
+  <li>Create/define a simple function that does the same as <strong>2</strong>, but provides default value if the name argument is not passed-in the function call by the user.<br />
+Call that function.
+<!-- ### A slightly bigger function of multiple arguments
+ --></li>
+  <li>Create/define a simple function that takes 2 params: <strong>age</strong> and <strong>name</strong>.<br />
+It first “upperizes” the name, and convert age as a string so to have the returned form as ‘Hello &lt;name&gt;, you are &lt;age&gt; years old’.</li>
+  <li>Call the function in <strong>4</strong> passing <strong>positional</strong> arguments in the right order.<br />
+Call a the function a second time passing <strong>keywords</strong> arguments in either orders.<br />
+Prove the order of keywords arguments does not matter here.
+<!-- ### Applying a function on each input of a sequence
+ --></li>
+  <li>Call the function in <strong>4</strong> each time on each input (name and age) provided below, using <strong>for loop</strong> and <strong>tuple unpacking</strong> from the <strong>dict</strong> below:
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">inputs</span> <span class="o">=</span> <span class="p">{</span><span class="s">'Luc'</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span> <span class="s">'Corentin'</span><span class="p">:</span> <span class="mi">18</span><span class="p">,</span> <span class="s">'Thomas'</span><span class="p">:</span> <span class="mi">29</span><span class="p">,</span> <span class="s">'Julie'</span><span class="p">:</span> <span class="mi">22</span><span class="p">,</span> <span class="s">'Juliette'</span><span class="p">:</span> <span class="mi">21</span><span class="p">}</span>
+</code></pre></div>    </div>
+    <!-- ### Unpacking a sequence of arguments in a function-->
+  </li>
+  <li>Using this input list of arguments below:
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">list_of_arguments</span> <span class="o">=</span> <span class="p">[</span><span class="s">'Luc'</span><span class="p">,</span> <span class="mi">25</span><span class="p">]</span>
+</code></pre></div>    </div>
+    <p>Call the function defined in <strong>4</strong> passing-in the <code class="language-plaintext highlighter-rouge">list_of_arguments</code> to be “parsed”/unpacked into <strong>positional arguments</strong> in the function.</p>
+  </li>
+  <li>Using this dict of arguments below:
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">dict_of_arguments</span> <span class="o">=</span> <span class="p">{</span><span class="s">'age'</span><span class="p">:</span><span class="mi">25</span><span class="p">,</span> <span class="s">'name'</span><span class="p">:</span> <span class="s">'Luc'</span><span class="p">}</span>
+</code></pre></div>    </div>
+    <p>Call the function defined in <strong>4</strong> passing-in the <code class="language-plaintext highlighter-rouge">dict_of_arguments</code> to be “parsed”/unpacked into <strong>keyword arguments</strong> in the function.<br />
+Does the position matter ? <strong>Prove it.</strong></p>
+  </li>
+  <li>Recall what we did in <strong>6</strong>? Reuse the same variable <code class="language-plaintext highlighter-rouge">inputs</code> below:
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">inputs</span> <span class="o">=</span> <span class="p">{</span><span class="s">'Luc'</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span> <span class="s">'Corentin'</span><span class="p">:</span> <span class="mi">18</span><span class="p">,</span> <span class="s">'Thomas'</span><span class="p">:</span> <span class="mi">29</span><span class="p">,</span> <span class="s">'Julie'</span><span class="p">:</span> <span class="mi">22</span><span class="p">,</span> <span class="s">'Juliette'</span><span class="p">:</span> <span class="mi">21</span><span class="p">}</span>
+</code></pre></div>    </div>
+    <p>to print a hello message using <strong>for loop</strong> from the <strong>dict</strong> below, <strong>but this time with the unpacking that happens within the function call !</strong></p>
+  </li>
+</ol>
+
+<h3 id="a-function-with-undefined-number-of-arguments">A function with undefined number of arguments</h3>
+
+<ol>
+  <li>
+    <p>Create/define a more flexible function named <code class="language-plaintext highlighter-rouge">multiply</code> that returns a value made from multiplying any number of <strong>positional arguments</strong> passed in that function.<br />
+Call multiply(8,2,3)<br />
+Call multiply(19,2,10)<br />
+Call multiply(1)<br />
+To prove validity of the function.</p>
+  </li>
+  <li>
+    <p>Create/define the function <code class="language-plaintext highlighter-rouge">multiply2</code>that do the same as <code class="language-plaintext highlighter-rouge">multiply</code>take an additional <strong>boolean keyword argument</strong> <code class="language-plaintext highlighter-rouge">inverse</code> defaulting to <code class="language-plaintext highlighter-rouge">False</code>, but when set as <code class="language-plaintext highlighter-rouge">True</code> on function call, will inverse the final result to be returned.<br />
+Call multiply(8,2,3, inverse=True)<br />
+Call multiply(19,2,10, inverse=True)<br />
+Call multiply(1, inverse=True)<br />
+To prove validity of the function.
+What happens if i do ? Explain it.
+Call multiply(8,2,3, True)</p>
+  </li>
+  <li>
+    <p>Create/define the same function <code class="language-plaintext highlighter-rouge">multiply2</code>, but this time that takes <strong>any number of keywords arguments</strong> (just like <code class="language-plaintext highlighter-rouge">inverse</code>, but would not be reduced to that).<br />
+Add some behavior in the function definition for arbitrarily named keywords arguments (just as we did with <code class="language-plaintext highlighter-rouge">inverse</code>), and use them in different calls.</p>
+  </li>
+</ol>
+
+<h2 id="ex-4-sort-a-dictionary-by-values-">Ex. 4: Sort a dictionary… by values !</h2>
+
+<p>Hint: use <code class="language-plaintext highlighter-rouge">Ordereddict</code></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">x</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="ex-5-lets-create-a-decorator-using-class-definition">Ex. 5: Let’s create a decorator using class definition</h2>
+
+<p>A decorator is a construct often written as a function, that takes a <strong>function as parameter</strong> and returns <strong>another one which extends</strong> the behavior of the passed-in function.
+It thus needs to return a new function who had been defined in its inner scope and wrapped the first one.</p>
+
+<p>We can also write a decorator using a class: the method  <code class="language-plaintext highlighter-rouge">__call__</code> (instance method) enables to an instance of a class to behave just like a function by being callable (the instance, not the class! “Calling” the class equals to calling its constructor e.g. <code class="language-plaintext highlighter-rouge">People("boulanger")</code>)</p>
+
+<p>1 / Create a class <code class="language-plaintext highlighter-rouge">NbFunctionCalls</code>.</p>
+
+<p>2/ Each instance need to have one instance attribute to which is assigned a function during the initialization process.</p>
+
+<p>2/ The instance (not the class) also needs to have <code class="language-plaintext highlighter-rouge">counter</code>.</p>
+
+<p>3/ Use the <code class="language-plaintext highlighter-rouge">__call__</code> instance method so to be able to <strong>call</strong> the instance as if it was a function.</p>
+
+<p>4/ To each call, the instance attribute function needs to be called and the counter incremented by 1.</p>
+
+<p>5/ Define a function <code class="language-plaintext highlighter-rouge">somme</code> which compute the sum of an undefined number of params passed to it.</p>
+
+<p>6/ Use the notation <code class="language-plaintext highlighter-rouge">@NbFunctionCalls</code> to add the functionality brought by the decorator.</p>
+
+<p>7/ Which formula equals to the preceding notation ?</p>
+
+<p>7b/ What does <code class="language-plaintext highlighter-rouge">somme</code>’s type become ?</p>
+
+<p>7c/ Access to the <code class="language-plaintext highlighter-rouge">counter</code>.</p>
+
+<p>8/ What functionality does <code class="language-plaintext highlighter-rouge">NbFunctionCalls</code> bring ?</p>
+
+<p>9/ Keep the overall structure from <code class="language-plaintext highlighter-rouge">NbFunctionCalls</code> . But this time, move <code class="language-plaintext highlighter-rouge">counter</code> as class variable and not instance variable.</p>
+
+<p>10/ Create a <code class="language-plaintext highlighter-rouge">multiply</code> function, that multiplies all passed-in args (a * b * c * … * z)</p>
+
+<p>11/ Create a <code class="language-plaintext highlighter-rouge">divide</code> function that divides all passed-in args (a / b / c / d …)</p>
+
+<p>12/ Add <code class="language-plaintext highlighter-rouge">@NbOfAllFunctionCalls</code> to both of those functions.</p>
+
+<p>13/ Call them separately and check their respective counters, what is happening ?</p>
+
+<p>14/ Create a decorator in the same context to record the different results from those functions.</p>
+
+<p>The results must be saved in a dictionary:</p>
+<ul>
+  <li>keys    = params used</li>
+  <li>values  = results obtained</li>
+</ul>
+
+<h2 id="ex-6-create-a-custom-list-">Ex. 6: Create a custom list 😉</h2>
+
+<p>Create a class <code class="language-plaintext highlighter-rouge">List</code> whose behavior upon doing <code class="language-plaintext highlighter-rouge">liste1 + liste2</code>  (with <code class="language-plaintext highlighter-rouge">liste1</code> and <code class="language-plaintext highlighter-rouge">liste2</code> being <code class="language-plaintext highlighter-rouge">List</code> instances), is to add each of their elements element-wise i.e. <code class="language-plaintext highlighter-rouge">liste1[i] + liste2[i]</code> for each <code class="language-plaintext highlighter-rouge">i</code>.</p>
+
+<p>If the lists have different length, the sum is considered <code class="language-plaintext highlighter-rouge">longestliste[i] + 0</code>.</p>

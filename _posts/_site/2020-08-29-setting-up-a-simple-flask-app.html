@@ -1,0 +1,491 @@
+<p>Flask is a <strong>micro web framework</strong> written in <strong>Python</strong>, first released in 2010. It is <strong>lightweight</strong> (hence the “micro”), has more stars on GitHub that is “concurrent” Django — first released in 2005 — and is based on the philosophy that the main fundations and services are built into Flask and ready-to-use, while additional features can be seamlessly added to your app by installing extensions and initializing them to your app.</p>
+
+<p>2 main dependencies:</p>
+<ul>
+  <li><strong>Jinja2</strong>, a web templating engine</li>
+  <li><strong>Werkzeug</strong>, a WSGI library, provides a communication layer between your Python code and a WSGI-compatible server.</li>
+</ul>
+
+<p><strong>Databases</strong>, <strong>forms validations</strong>, <strong>user authentification</strong> are provided by <strong>Flask extensions</strong> created by the community.</p>
+
+<h3 id="setting-up-the-flask-project">Setting up the flask project</h3>
+
+<p>We need to create a Python virtual environement using <code class="language-plaintext highlighter-rouge">venv</code>, which comes in the standard Python library as of Python 3.3.</p>
+
+<p><img src="/assets/images/post_setting_up_a_simple_flask_app/create_an_environment_for_flask_project_monokai.gif" style="display: inline-block;" class=".center" /></p>
+
+<p>Installation of flask module:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip <span class="nb">install </span>flask
+</code></pre></div></div>
+
+<h3 id="first-app">First app</h3>
+
+<p>A client makes a request through an URL <strong>endpoint</strong>. 
+An <strong>endpoint</strong> is specified as a relative or absolute url that usually results in a response from the server. 
+Upon a request, the server (which can be the built-in WSGI flask dev-server, or a production-grade server such as Gunicorn), which are WSGI compatbile servers, passes this request to the <strong>application instance</strong>, an object of class/type <code class="language-plaintext highlighter-rouge">Flask</code>, which needs to handle it, what code should it run, code embedded within a function for that specific matched endpoint. <br />
+This handling function is called a <strong>route</strong>.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="c1"># creation of the application instance (there could be many)
+</span>	<span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span>
+	<span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="n">__name__</span><span class="p">)</span> <span class="c1"># so flask knows where is the root path of the app
+</span></code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># application instance is called `app`
+# those routes are handled by the application instance 'app' (`app` may be imported from a different file or this code could be simply written in the same file after the previous code block)
+</span>
+<span class="c1"># endpoint here is the root url '/'
+# the decorator turns root_url function to a "route function"
+</span><span class="o">@</span><span class="n">app</span><span class="p">.</span><span class="n">route</span><span class="p">(</span><span class="s">'/'</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">root_url</span><span class="p">():</span>
+	<span class="c1"># returned value = response
+</span>	<span class="k">return</span> <span class="s">"&lt;h1&gt;Hello !&lt;/h1&gt;"</span>
+
+<span class="c1"># endpoint here is '/home/'
+# with dynamic url routing
+</span><span class="o">@</span><span class="n">app</span><span class="p">.</span><span class="n">route</span><span class="p">(</span><span class="s">'/home/&lt;name&gt;/'</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">second_url_function_handler</span><span class="p">():</span>
+	<span class="c1"># name becomes an argument that you can use in the decorated function wrapped by flask decorator
+</span>	<span class="n">response_string</span> <span class="o">=</span> <span class="s">"&lt;h1&gt;Hello to Home {}!&lt;/h1&gt;"</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+	<span class="k">return</span> <span class="n">response_string</span>
+</code></pre></div></div>
+
+<p>You can access the <code class="language-plaintext highlighter-rouge">request</code> object within route functions to get more insight of the incoming request (<code class="language-plaintext highlighter-rouge">args</code>, <code class="language-plaintext highlighter-rouge">method</code>, <code class="language-plaintext highlighter-rouge">json</code>).
+This “context glocal” variable is accessible <strong>by pushing</strong> the <code class="language-plaintext highlighter-rouge">request context</code> so Flask knows in which environment/thread/client request he is operating on.
+The same way, <code class="language-plaintext highlighter-rouge">session</code> object is persistent between requests (can be used to store user informations) and depends on the <code class="language-plaintext highlighter-rouge">request context</code> too.</p>
+
+<p>Finally, <code class="language-plaintext highlighter-rouge">g</code>  and <code class="language-plaintext highlighter-rouge">current_app</code> depend on the <code class="language-plaintext highlighter-rouge">application context</code>, <code class="language-plaintext highlighter-rouge">g</code> is reset between each request and used as storage during handling of requests.</p>
+
+<p><code class="language-plaintext highlighter-rouge">app.url_map</code> shows all the mapped URL endpoint to routes.</p>
+
+<h3 id="responses">Responses:</h3>
+
+<ul>
+  <li>returned value(s) from the route as a tuple.</li>
+  <li>better: <code class="language-plaintext highlighter-rouge">make_response(data, HTTP_code, [dict_of_header])</code>, you can set additional things using methods of the <code class="language-plaintext highlighter-rouge">response</code> object such as setting cookies</li>
+  <li><code class="language-plaintext highlighter-rouge">redirect(url_to_redirect)</code> (flask automatically set the default <code class="language-plaintext highlighter-rouge">302</code> HTTP response code used for redirection).</li>
+</ul>
+
+<h3 id="adding-extensions">Adding extension(s):</h3>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">flask_extension</span> <span class="kn">import</span> <span class="n">TheClass</span>
+<span class="n">the_instance</span> <span class="o">=</span> <span class="n">TheClass</span><span class="p">(</span><span class="n">app</span><span class="p">)</span> <span class="c1"># app instance goes in the constructor of the extension
+</span></code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">flask-script</code>: add command-line parser instead of modifying args in <code class="language-plaintext highlighter-rouge">app.run()</code></li>
+  <li><code class="language-plaintext highlighter-rouge">flask-bootstrap</code>: open source CSS framework from Twitter (also include some js animations)</li>
+</ul>
+
+<p>To connect from another host in the network:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">FLASK_ENV</span><span class="o">=</span>development python ./script.py runserver <span class="nt">-h</span> 192.168.0.16
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">presentation logic</code>: what the user sees and interact with.
+<code class="language-plaintext highlighter-rouge">business logic</code>: processings invisible to the user.</p>
+
+<p>view functions handle both logics by design, but it is better to allocate presentation logic to the templating engine <strong>Jinja</strong> to improve readibility and maintainability of the app.</p>
+
+<p>The <strong>template</strong> is a file that contains the text of the response, with placeholder variables or dynamic parts (loops/conditions) changing from a request to the other.
+The <strong>rendering</strong> is the process of associating the computed value from the request to the template placeholders.</p>
+
+<p>Templates are located in “templates” subfolder by default (can be change in Flask constructor)</p>
+
+<p>Then in the view function:
+<code class="language-plaintext highlighter-rouge">render_template(file.html, key1=val1, key2=val2)</code></p>
+
+<p>the value could be of any type (<code class="language-plaintext highlighter-rouge">dict</code>, <code class="language-plaintext highlighter-rouge">list</code>, <code class="language-plaintext highlighter-rouge">user-defined objects</code>, etc.)</p>
+
+<ul>
+  <li>filters modify variables in-place {{ variable | filter_name }}</li>
+  <li>example1: <code class="language-plaintext highlighter-rouge">capitalize</code> to capitalize the variable : “luc” -&gt; “Luc”</li>
+  <li>
+    <p>example2:  <code class="language-plaintext highlighter-rouge">safe</code> to avoid escaping the content of the variable (hence you can put some html tags inside variable it will be rendered as is). Be careful though on security concerns (malicious code that can be inserted into your website).</p>
+  </li>
+  <li>conditional statements and loops:</li>
+</ul>
+
+<p><img src="/assets/images/post_setting_up_a_simple_flask_app/img_jinja1.png" width="100px" style="display: block; margin-left: auto; margin-right: auto;" /></p>
+
+<p><img src="/assets/images/post_setting_up_a_simple_flask_app/img_jinja2.png" width="300px" style="display: block; margin-left: auto; margin-right: auto;" /></p>
+
+<ul>
+  <li>include an html file as is — for example a navigation bar that does not need to be changed — from a template file to another</li>
+</ul>
+
+<p><img src="/assets/images/post_setting_up_a_simple_flask_app/img_jinja3.png" width="220px" style="display: block; margin-left: auto; margin-right: auto;" /></p>
+
+<ul>
+  <li>for portion of html code that need to be modified by a template you can use</li>
+</ul>
+
+<p><img src="/assets/images/post_setting_up_a_simple_flask_app/img_jinja4.png" width="500px" style="display: block; margin-left: auto; margin-right: auto;" /></p>
+
+<p>and in <code class="language-plaintext highlighter-rouge">file_with_blocs.html</code>:</p>
+
+<p><img src="/assets/images/post_setting_up_a_simple_flask_app/img_jinja5.png" width="300px" style="display: block; margin-left: auto; margin-right: auto;" /></p>
+
+<p>A good practice would be to create different categories of pages with a layout by creating <code class="language-plaintext highlighter-rouge">base.html</code> file(s) and derive them for all pages being part of some kind of subcategory. Subcategories can also further be extended:</p>
+
+<p><img src="/assets/images/post_setting_up_a_simple_flask_app/img_jinja7.png" width="300px" style="display: block; margin-left: auto; margin-right: auto;" /></p>
+
+<h4 id="adding-an-error-handler-for-a-webpage-returning-some-error-code">adding an error handler for a webpage returning some error code</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">@</span><span class="n">app</span><span class="p">.</span><span class="n">errorhandler</span><span class="p">(</span><span class="mi">404</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">page_not_found</span><span class="p">(</span><span class="n">e</span><span class="p">):</span>
+	<span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s">'404.html'</span><span class="p">),</span> <span class="mi">404</span>
+</code></pre></div></div>
+
+<p>This handler function won’t be call <strong>unless</strong> an Exception is raised, here an HTTPException. 
+Hence we need to import and raises it first:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">werkzeug.exceptions</span> <span class="kn">import</span> <span class="n">HTTPException</span>
+</code></pre></div></div>
+
+<p>Then for any endpoint that does not match our previous urls in the <code class="language-plaintext highlighter-rouge">url_map</code>, an <code class="language-plaintext highlighter-rouge">HTTPException</code> is raised along with the path variable.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">@</span><span class="n">app</span><span class="p">.</span><span class="n">route</span><span class="p">(</span><span class="s">'/&lt;path:nompath&gt;'</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">error_test</span><span class="p">(</span><span class="n">nompath</span><span class="p">):</span>
+	<span class="c1"># raises an HTTPException of status code 404
+</span>	<span class="c1"># nompath is the error message
+</span>	<span class="c1"># retrieved from e in page_not_found(e)
+</span>	<span class="n">abort</span><span class="p">(</span><span class="mi">404</span><span class="p">,</span> <span class="n">nompath</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Links should not be hard-coded into the templates folder either.</p>
+<ul>
+  <li>to respect the DRY principle (<strong>Don’t Repeat Yourself</strong>)</li>
+  <li>also because it is too complex to write dynamic paths (based on the name provided by a person for example just as for routes handling)</li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">url_for</code> is here for the rescue!, its parameters are the:</p>
+<ul>
+  <li>1st parameter: the name of the routed function</li>
+  <li>any number of keyword arguments, each corresponding to a variable part of the URL rule.</li>
+  <li><code class="language-plaintext highlighter-rouge">_external</code>(Boolean): if evaluated to True, returns the absolute URL, otherwise relative to the root ‘/’.</li>
+  <li>unrecognized params are appended to the URL as query parameters e.g. test=25 /?test=25</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">url_for</span>
+</code></pre></div></div>
+
+<p>Opening the interpreter we can check what url_for could build us:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">with</span> <span class="n">app</span><span class="p">.</span><span class="n">app_context</span><span class="p">():</span>
+	<span class="k">with</span> <span class="n">current_app</span><span class="p">.</span><span class="n">test_request_context</span><span class="p">():</span>
+		<span class="n">url_for</span><span class="p">(</span><span class="s">'second_url_function_handler'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">"luc"</span><span class="p">)</span>
+</code></pre></div></div>
+<p>We obtain <strong>‘/home/luc’</strong> which makes sense with the route logic.
+Now we can use it in our template file, for example in the <code class="language-plaintext highlighter-rouge">navigation.html</code></p>
+
+<p><img src="/assets/images/post_setting_up_a_simple_flask_app/img_jinja6.png" width="800px" style="display: block; margin-left: auto; margin-right: auto;" /></p>
+
+<p>Hence we just linked the route url with the navigation link</p>
+
+<p>But <code class="language-plaintext highlighter-rouge">url_for</code> can also be used in the routes handling:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># just as an example
+</span><span class="o">@</span><span class="n">app</span><span class="p">.</span><span class="n">route</span><span class="p">(</span><span class="s">'/admin/'</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">admin</span><span class="p">():</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">loggedin</span><span class="p">:</span>
+    	<span class="c1"># should login endpoint exist
+</span>        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s">'login'</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p>And even querying static files (images, assets, CSS) using url_for(‘static’) along with the <strong>filename</strong> param (e.g. <code class="language-plaintext highlighter-rouge">filename='logos/favicon.ico'</code>).</p>
+
+<h3 id="forms">Forms</h3>
+
+<p>You can access data from POST requests on forms using <code class="language-plaintext highlighter-rouge">request.form</code>.
+Why using an extension for forms then ?</p>
+<ul>
+  <li>For automatic rendering of HTML for the forms (based on a library call WTForms), mainly based on the data type required for each component of the form.</li>
+  <li>data validation (critical, before storing in a database for example)</li>
+  <li>CSRF protection: to avoid malicious persons making hidden malicious requests from another website visited by a user who is logged-in to the first, and on behalf on him/her (cookies are sent automatically along with the request).</li>
+</ul>
+
+<h5 id="csrf-protection">CSRF protection</h5>
+
+<p>We first need a key which create encrypted tokens passed along with the form to make sure of user authenticity. the server would generate a <strong>random</strong> string and add it as an hidden field to the form which is accessible only by the <a href="https://stackoverflow.com/questions/5207160/what-is-a-csrf-token-what-is-its-importance-and-how-does-it-work">user</a></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">app</span><span class="p">.</span><span class="n">config</span><span class="p">[</span><span class="s">"SECRET_KEY"</span><span class="p">]</span> <span class="o">=</span> <span class="s">"randomly generated string"</span>
+</code></pre></div></div>
+
+<h3 id="a-form-class">A Form Class</h3>
+
+<p>To create a form, define a Class “data model”.
+Each class attribute = a field
+Each field can have multiple validations hence validators with it.
+1st argument is the label of the field, visible to the user.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">wtforms</span> <span class="kn">import</span> <span class="n">Form</span><span class="p">,</span> <span class="n">StringField</span><span class="p">,</span> <span class="n">SubmitField</span><span class="p">,</span> <span class="n">IntegerField</span>
+<span class="kn">from</span> <span class="nn">wtforms.validators</span> <span class="kn">import</span> <span class="n">DataRequired</span><span class="p">,</span> <span class="n">Length</span>
+
+<span class="k">class</span> <span class="nc">MyForm</span><span class="p">(</span><span class="n">Form</span><span class="p">):</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">StringField</span><span class="p">(</span><span class="s">"Name"</span><span class="p">,</span> <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">DataRequired</span><span class="p">()])</span>
+    <span class="n">age</span> <span class="o">=</span> <span class="n">IntegerField</span><span class="p">(</span><span class="s">"Age"</span><span class="p">,</span> <span class="n">validators</span><span class="o">=</span><span class="p">[</span><span class="n">Length</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span><span class="nb">max</span><span class="o">=</span><span class="mi">19</span><span class="p">),</span> <span class="n">Required</span><span class="p">()])</span>
+    <span class="n">submit</span> <span class="o">=</span> <span class="n">SubmitField</span><span class="p">(</span><span class="s">"Submit"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Here is a list of built-in <a href="https://wtforms.readthedocs.io/en/2.3.x/validators/">validators</a> provided by the extension.
+You can also build your custom validators by creating <a href="https://wtforms.readthedocs.io/en/2.3.x/validators/#custom-validators">callable classes</a></p>
+
+<p>After that, you can simply import functions for WTF forms rendering using Bootstrap and call <code class="language-plaintext highlighter-rouge">wtf.quick_form()</code> directly on the <code class="language-plaintext highlighter-rouge">MyForm</code> object instance.</p>
+
+<p>To pass the form object, we need to change a bit the index function, corresponding to the url endpoint hit by the client where the form will be visible.</p>
+
+<p>from Miguel Grinberg’s book:</p>
+<blockquote>
+  <p>Adding POST to the method list is necessary because form submissions are much more conveniently handled as POST requests. It is possible to submit a form as a GET request, but as GET requests have no body, the data is appended to the URL as a query string and becomes visible in the browser’s address bar. For this and several other reasons, form submissions are almost universally done as POST requests.</p>
+</blockquote>
+
+<p>instance_Form.validate_on_submit(): True if form submitted and data valid.</p>
+
+<p>When a browser is refresh, the last request is submitted again, which is a form submission, leading to a warning by the browser of a double submit. To counteract this we have to do redirect HTTP get request back to the form or in another endpoint/place.</p>
+
+<p>But then, after an HTTP redirect, we don’t have memory anymmore of the values submitted by the user, we then use the request-context global variable <code class="language-plaintext highlighter-rouge">session</code>for memorizing informations among different requests.</p>
+
+<blockquote>
+  <p>From <a href="https://pythonise.com/series/learning-flask/flask-session-object">pythonise.com</a> Sessions in Flask are a way to store information about a specific user from one request to the next. They work by storing a cryptographically signed cookie on the users browser and decoding it on every request.</p>
+</blockquote>
+
+<p>You can set the datetime.delta for when the session should be erased.
+They expire if the user close the browser, unless we specify:</p>
+
+<p>flask sessions expire once you close the browser, unless modify the permanent attribute and set a timeout for expiration.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">session</span><span class="p">.</span><span class="n">permanent</span> <span class="o">=</span> <span class="bp">True</span>
+<span class="n">app</span><span class="p">.</span><span class="n">permanent_session_lifetime</span> <span class="o">=</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">minutes</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span> <span class="c1"># lasts 30 minutes
+</span></code></pre></div></div>
+
+<p>Those line can be encapsulated within a request hook i.e. :</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">@</span><span class="n">app</span><span class="p">.</span><span class="n">before_first_request</span>
+<span class="k">def</span> <span class="nf">permanent_session</span><span class="p">():</span>
+	<span class="p">...</span>
+	<span class="c1"># here
+</span>	<span class="p">...</span>
+</code></pre></div></div>
+
+<p>You can also play with those items to set a short timedelta value within a <code class="language-plaintext highlighter-rouge">before_request</code> hook. Hence an short inactivity would lead to the user being kicked out of the website.</p>
+
+<h3 id="databases">Databases</h3>
+
+<p>We will use the ORM <strong>SQLAlchemy</strong> using the extension Flask-SQLAlchemy. 
+ORM is short for <strong>Object-relational mapper</strong>. 
+It is an higher level of abstraction that enables you to define the data model for your website using Python classes. One class for each table, each class attribute for a field, in an analogous way when we created forms using <code class="language-plaintext highlighter-rouge">Flask WTForms</code>.</p>
+
+<p>The main advantage of doing so is mainly because it makes it a very easy-to-use and highly <strong>portable</strong> solution, since you can sometimes use the same classes for different databases engine (SQLAlchemy will take care of converting those Python representations of the data model into a set of SQL instructions for the proper database engine to create the corresponding table(s)).</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip <span class="nb">install </span>flask-sqlalchemy
+</code></pre></div></div>
+
+<p>We now have to create a new entry in the flask <code class="language-plaintext highlighter-rouge">app.config</code> object to incorporate the URI location for the database engine (i.e. “where can i locate the database”).</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># we will use here the SQLite as it is stored in a disk in the computer rather that relying on another server hosting the database service (either on the same computer or outside).
+</span>
+<span class="c1"># absolute path of the directory containing this file
+</span><span class="n">basedir</span> <span class="o">=</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">__file__</span><span class="p">))</span>
+<span class="n">app</span><span class="p">.</span><span class="n">config</span><span class="p">[</span><span class="s">"SQLALCHEMY_DATABASE_URI"</span><span class="p">]</span> <span class="o">=</span> <span class="s">'sqlite:///'</span> <span class="o">+</span> <span class="n">os</span><span class="p">.</span><span class="n">path</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="n">basedir</span><span class="p">,</span> <span class="s">'data.sqlite'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Here are the defined models. 
+1 User can have multiple Posts
+1 Post have 1 User only
+Hence Post is the thinnest degree of granularity if we where to join those 2 tables.
+It has a foreign key of user representing the user.id_ values.
+And a relationship is created on the User model with respect to Post to make SQLAlchemy understand the relationship, giving meanwhile a <code class="language-plaintext highlighter-rouge">backref</code> for how to refer to a user instance from a post level.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">### models ####
+</span>
+<span class="k">class</span> <span class="nc">Post</span><span class="p">(</span><span class="n">db</span><span class="p">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s">"posts"</span>
+    <span class="n">id_</span> <span class="o">=</span> <span class="n">db</span><span class="p">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="p">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">db</span><span class="p">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="p">.</span><span class="n">String</span><span class="p">(</span><span class="mi">64</span><span class="p">),</span> <span class="n">unique</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="c1"># 1 User can have multiple Posts.
+</span>    <span class="c1"># Hence we need to put a foreignkey on the Posts, 
+</span>    <span class="c1"># where the level of granularity is the thinnest 
+</span>    <span class="c1"># (idpost1-user1, idpost2, user1, etc.)
+</span>    <span class="n">user_id</span> <span class="o">=</span> <span class="n">db</span><span class="p">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="p">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">db</span><span class="p">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s">"users.id_"</span><span class="p">))</span> <span class="c1"># the ids in this column match with the ids column in user.
+</span>    <span class="c1"># and a relationship in the "Parent" to link them.
+</span>
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">"Post: {}: name {}"</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">id_</span><span class="p">,</span> <span class="bp">self</span><span class="p">.</span><span class="n">name</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">User</span><span class="p">(</span><span class="n">db</span><span class="p">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="c1"># renaming the table and not default user
+</span>    <span class="n">__tablename__</span> <span class="o">=</span> <span class="s">"users"</span>
+    <span class="n">id_</span> <span class="o">=</span> <span class="n">db</span><span class="p">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="p">.</span><span class="n">Integer</span><span class="p">,</span> <span class="n">primary_key</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">username</span> <span class="o">=</span> <span class="n">db</span><span class="p">.</span><span class="n">Column</span><span class="p">(</span><span class="n">db</span><span class="p">.</span><span class="n">String</span><span class="p">(</span><span class="mi">64</span><span class="p">),</span> <span class="n">unique</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="c1"># this is how SQLAlchemy understand there is a relationship with the model Post
+</span>    <span class="n">posts</span> <span class="o">=</span> <span class="n">db</span><span class="p">.</span><span class="n">relationship</span><span class="p">(</span><span class="s">"Post"</span><span class="p">,</span> <span class="n">backref</span><span class="o">=</span><span class="s">"user"</span><span class="p">)</span>
+    <span class="c1"># posts will show a list of related post to one user
+</span>    <span class="c1"># from post, you can access to the user as an object using the backref instead of the "user" foreign_key (which returns only the user id)
+</span>    
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">"User {}: with name: {}"</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="bp">self</span><span class="p">.</span><span class="n">id_</span><span class="p">,</span> <span class="bp">self</span><span class="p">.</span><span class="n">username</span><span class="p">)</span>
+
+<span class="c1">###############
+</span></code></pre></div></div>
+<p>using <code class="language-plaintext highlighter-rouge">uselist=False</code> (in the <code class="language-plaintext highlighter-rouge">db.relationship()</code>) lead to a one-to-one relationship instead of one-to-many relationship.</p>
+
+<p>To create the tables from the models we can interactively open a python interpreter using:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python script.py shell
+</code></pre></div></div>
+
+<p>and instruct:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">script</span> <span class="kn">import</span> <span class="n">db</span>
+<span class="n">db</span><span class="p">.</span><span class="n">create_all</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>A new <code class="language-plaintext highlighter-rouge">data.sqlite</code> file is created (using the URI defined in the <code class="language-plaintext highlighter-rouge">app.config</code>).</p>
+
+<p>As highlighted by Miguel Grinberg, <code class="language-plaintext highlighter-rouge">db.create_all()</code> does not update on models changes in the code. Hence a base solution (not the best, especially if your website run and you want to migrate smoothly without loosing your data) is to do a:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>db.drop_all<span class="o">()</span>
+db.create_all<span class="o">()</span>
+</code></pre></div></div>
+
+<p>note the during the <code class="language-plaintext highlighter-rouge">db.drop_all()</code> process, only the tables are being deleted/dropped, not the database-file itself (same for <code class="language-plaintext highlighter-rouge">db.create_all()</code> if a database-file at the URI does already exist).</p>
+
+<p>Below is a cope snipped to play with the database, create new entries, set them, filter some</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">python</span> <span class="n">script</span><span class="p">.</span><span class="n">py</span> <span class="n">shell</span>
+<span class="kn">from</span> <span class="nn">script</span> <span class="kn">import</span> <span class="n">db</span>
+<span class="kn">from</span> <span class="nn">script</span> <span class="kn">import</span> <span class="n">User</span><span class="p">,</span> <span class="n">Post</span>
+
+<span class="n">db</span><span class="p">.</span><span class="n">create_all</span><span class="p">()</span>
+<span class="c1"># You can query using the `ModelClass.query`
+# From simple query
+</span><span class="n">User</span><span class="p">.</span><span class="n">query</span><span class="p">.</span><span class="nb">all</span><span class="p">()</span> <span class="c1"># all users
+</span><span class="n">Post</span><span class="p">.</span><span class="n">query</span><span class="p">.</span><span class="nb">all</span><span class="p">()</span> <span class="c1"># all posts
+</span>
+<span class="c1"># You can insert new elements / rows by first creating the higher-level Python instances
+</span><span class="n">user1</span> <span class="o">=</span> <span class="n">User</span><span class="p">(</span><span class="n">username</span> <span class="o">=</span> <span class="s">"David"</span><span class="p">)</span>
+<span class="n">user2</span> <span class="o">=</span> <span class="n">User</span><span class="p">(</span><span class="n">username</span> <span class="o">=</span> <span class="s">"Corentin"</span><span class="p">)</span>
+<span class="n">user3</span> <span class="o">=</span> <span class="n">User</span><span class="p">(</span><span class="n">username</span> <span class="o">=</span> <span class="s">"Joséphine"</span><span class="p">)</span>
+<span class="n">post1</span> <span class="o">=</span> <span class="n">Post</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"Le savoir-faire"</span><span class="p">,</span> <span class="n">user</span> <span class="o">=</span> <span class="n">user1</span><span class="p">)</span>
+<span class="n">post2</span> <span class="o">=</span> <span class="n">Post</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"L'étrange Noël"</span><span class="p">,</span> <span class="n">user</span> <span class="o">=</span> <span class="n">user1</span><span class="p">)</span>
+<span class="n">post3</span> <span class="o">=</span> <span class="n">Post</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"coder en Python"</span><span class="p">,</span> <span class="n">user</span> <span class="o">=</span> <span class="n">user2</span><span class="p">)</span>
+
+<span class="c1"># Using a dict and unpacking it inside the function signature
+</span><span class="n">post4_dict</span> <span class="o">=</span> <span class="p">{</span> <span class="s">"name"</span><span class="p">:</span> <span class="s">"coder en C"</span><span class="p">,</span> <span class="s">"user"</span><span class="p">:</span> <span class="n">user2</span> <span class="p">}</span>
+<span class="n">post4</span> <span class="o">=</span> <span class="n">Post</span><span class="p">(</span> <span class="o">**</span><span class="n">post4_dict</span> <span class="p">)</span> 
+
+
+<span class="c1"># SQLAlchemy will take care of assigning a primary key id_ when writing into the database
+# print(user1.id_) output None so far
+# add the changes to be made
+</span><span class="n">db</span><span class="p">.</span><span class="n">session</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">user1</span><span class="p">)</span> 
+<span class="n">db</span><span class="p">.</span><span class="n">session</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">user2</span><span class="p">)</span>
+<span class="n">db</span><span class="p">.</span><span class="n">session</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">user3</span><span class="p">)</span>
+<span class="n">db</span><span class="p">.</span><span class="n">session</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">post1</span><span class="p">)</span>
+<span class="n">db</span><span class="p">.</span><span class="n">session</span><span class="p">.</span><span class="n">add_all</span><span class="p">(</span> <span class="p">[</span> <span class="n">post2</span><span class="p">,</span> <span class="n">post3</span><span class="p">,</span> <span class="n">post4</span> <span class="p">])</span>
+
+<span class="c1"># write the changes to the database
+# “All-or-nothing”, if any error occurs, the previous state is unchanged.
+</span><span class="n">db</span><span class="p">.</span><span class="n">session</span><span class="p">.</span><span class="n">commit</span><span class="p">()</span>
+<span class="c1"># Querying again
+</span><span class="n">User</span><span class="p">.</span><span class="n">query</span><span class="p">.</span><span class="nb">all</span><span class="p">()</span> <span class="c1"># all users
+</span><span class="n">Post</span><span class="p">.</span><span class="n">query</span><span class="p">.</span><span class="nb">all</span><span class="p">()</span> <span class="c1"># all posts
+</span>
+<span class="c1"># To more advanced ones
+# We define a query object
+</span><span class="n">one_query</span> <span class="o">=</span> <span class="n">Post</span><span class="p">.</span><span class="n">query</span><span class="p">.</span><span class="n">filter_by</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">"Le savoir-faire"</span><span class="p">)</span>
+<span class="c1"># We execute the query using `all()`
+</span><span class="n">one_query</span><span class="p">.</span><span class="nb">all</span><span class="p">()</span>
+
+<span class="c1"># Some other examples
+</span><span class="n">Post</span><span class="p">.</span><span class="n">query</span><span class="p">.</span><span class="n">filter_by</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="n">user1</span><span class="p">).</span><span class="nb">all</span><span class="p">()</span>
+<span class="c1"># the equivalent using `filter`
+</span><span class="n">Post</span><span class="p">.</span><span class="n">query</span><span class="p">.</span><span class="nb">filter</span><span class="p">(</span><span class="n">Post</span><span class="p">.</span><span class="n">user</span> <span class="o">==</span> <span class="n">user1</span><span class="p">).</span><span class="nb">all</span><span class="p">()</span>
+<span class="n">Post</span><span class="p">.</span><span class="n">query</span><span class="p">.</span><span class="nb">filter</span><span class="p">(</span><span class="n">Post</span><span class="p">.</span><span class="n">user</span><span class="p">.</span><span class="n">has</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="s">"David"</span><span class="p">)).</span><span class="nb">all</span><span class="p">()</span>
+<span class="c1"># we can also use other type of operators
+</span><span class="n">Post</span><span class="p">.</span><span class="n">query</span><span class="p">.</span><span class="n">group_by</span><span class="p">(</span><span class="n">Post</span><span class="p">.</span><span class="n">name</span><span class="p">).</span><span class="nb">all</span><span class="p">()</span>
+
+<span class="n">executed_query</span> <span class="o">=</span> <span class="n">Post</span><span class="p">.</span><span class="n">query</span><span class="p">.</span><span class="n">group_by</span><span class="p">(</span><span class="n">Post</span><span class="p">.</span><span class="n">name</span><span class="p">).</span><span class="nb">all</span><span class="p">()</span>
+<span class="n">one_post</span> <span class="o">=</span> <span class="n">executed_query</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">one_post</span><span class="p">.</span><span class="n">user</span>
+
+<span class="n">executed_query</span> <span class="o">=</span> <span class="n">User</span><span class="p">.</span><span class="n">query</span><span class="p">.</span><span class="n">filter_by</span><span class="p">(</span><span class="n">username</span><span class="o">=</span><span class="s">"David"</span><span class="p">).</span><span class="nb">all</span><span class="p">()</span>
+<span class="n">executed_query</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">posts</span>
+
+<span class="c1"># when using `posts` from the  db.relationship, a query is issued but it returns here a list, no longer queryable, we would want to query the objects it could contain. This can be circumvented using `lazy = 'dynamic’` in `db.relationship` so query is not issued too soon
+</span></code></pre></div></div>
+
+<h4 id="migrations">Migrations</h4>
+
+<p>Dropping and recreating all the tables in the database each time the data model change a little bit is really neither convenient nor easy to maintain, even more in the situation where your application is already deployed and registering user or user’s data that you don’t want to be lost.</p>
+
+<p><strong>Alembic</strong> is a tool which checks changes in your data model and creates <strong>migrations scripts</strong> for SQLAlchemy database migrations. Each script contains 2 Python functions (<code class="language-plaintext highlighter-rouge">upgrade</code> and <code class="language-plaintext highlighter-rouge">downgrade</code>) which can be invoked directly by command-line using <code class="language-plaintext highlighter-rouge">Flask-Migrate</code> extensions, so to perform changes on the database level. <code class="language-plaintext highlighter-rouge">upgrade()</code> applies the new changes while <code class="language-plaintext highlighter-rouge">downgrade()</code> does the exact inverse, allowing you to go to any structures your tables had at a certain timepoint.</p>
+
+<p>Installation of Flask-Migrate:</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip <span class="nb">install </span>flask-migrate
+</code></pre></div></div>
+
+<p>Import ad connection to the app:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">from</span> <span class="n">flask</span><span class="o">-</span><span class="n">migrate</span> <span class="kn">import</span> <span class="nn">Migrate</span><span class="p">,</span> <span class="n">MigrateCommand</span> 
+<span class="c1"># adding an handler for web page
+</span><span class="n">migrate</span> <span class="o">=</span> <span class="n">Migrate</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="n">db</span><span class="p">)</span>
+<span class="c1"># to run as command line options using Flask Script
+</span><span class="n">manager</span><span class="p">.</span><span class="n">add_command</span><span class="p">(</span><span class="s">'db'</span><span class="p">,</span> <span class="n">MigrateCommand</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Creation of the migration folder:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python script.py db init
+</code></pre></div></div>
+
+<p>Creation of the first script (from nothing to actual table structure):</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python script.py db migrate <span class="nt">-m</span> <span class="s2">"first migration"</span>
+</code></pre></div></div>
+
+<p>You can known check the scripts in the migration folder which should look like that:</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">upgrade</span><span class="p">():</span>
+    <span class="c1"># ### commands auto generated by Alembic - please adjust! ###
+</span>    <span class="n">op</span><span class="p">.</span><span class="n">create_table</span><span class="p">(</span><span class="s">'users'</span><span class="p">,</span>
+    <span class="n">sa</span><span class="p">.</span><span class="n">Column</span><span class="p">(</span><span class="s">'id_'</span><span class="p">,</span> <span class="n">sa</span><span class="p">.</span><span class="n">Integer</span><span class="p">(),</span> <span class="n">nullable</span><span class="o">=</span><span class="bp">False</span><span class="p">),</span>
+    <span class="n">sa</span><span class="p">.</span><span class="n">Column</span><span class="p">(</span><span class="s">'username'</span><span class="p">,</span> <span class="n">sa</span><span class="p">.</span><span class="n">String</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">64</span><span class="p">),</span> <span class="n">nullable</span><span class="o">=</span><span class="bp">True</span><span class="p">),</span>
+    <span class="n">sa</span><span class="p">.</span><span class="n">PrimaryKeyConstraint</span><span class="p">(</span><span class="s">'id_'</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">op</span><span class="p">.</span><span class="n">create_index</span><span class="p">(</span><span class="n">op</span><span class="p">.</span><span class="n">f</span><span class="p">(</span><span class="s">'ix_users_username'</span><span class="p">),</span> <span class="s">'users'</span><span class="p">,</span> <span class="p">[</span><span class="s">'username'</span><span class="p">],</span> <span class="n">unique</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">op</span><span class="p">.</span><span class="n">create_table</span><span class="p">(</span><span class="s">'posts'</span><span class="p">,</span>
+    <span class="n">sa</span><span class="p">.</span><span class="n">Column</span><span class="p">(</span><span class="s">'id_'</span><span class="p">,</span> <span class="n">sa</span><span class="p">.</span><span class="n">Integer</span><span class="p">(),</span> <span class="n">nullable</span><span class="o">=</span><span class="bp">False</span><span class="p">),</span>
+    <span class="n">sa</span><span class="p">.</span><span class="n">Column</span><span class="p">(</span><span class="s">'name'</span><span class="p">,</span> <span class="n">sa</span><span class="p">.</span><span class="n">String</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="mi">64</span><span class="p">),</span> <span class="n">nullable</span><span class="o">=</span><span class="bp">True</span><span class="p">),</span>
+    <span class="n">sa</span><span class="p">.</span><span class="n">Column</span><span class="p">(</span><span class="s">'user_id'</span><span class="p">,</span> <span class="n">sa</span><span class="p">.</span><span class="n">Integer</span><span class="p">(),</span> <span class="n">nullable</span><span class="o">=</span><span class="bp">True</span><span class="p">),</span>
+    <span class="n">sa</span><span class="p">.</span><span class="n">ForeignKeyConstraint</span><span class="p">([</span><span class="s">'user_id'</span><span class="p">],</span> <span class="p">[</span><span class="s">'users.id_'</span><span class="p">],</span> <span class="p">),</span>
+    <span class="n">sa</span><span class="p">.</span><span class="n">PrimaryKeyConstraint</span><span class="p">(</span><span class="s">'id_'</span><span class="p">),</span>
+    <span class="n">sa</span><span class="p">.</span><span class="n">UniqueConstraint</span><span class="p">(</span><span class="s">'name'</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="c1"># ### end Alembic commands ###
+</span>
+
+<span class="k">def</span> <span class="nf">downgrade</span><span class="p">():</span>
+    <span class="c1"># ### commands auto generated by Alembic - please adjust! ###
+</span>    <span class="n">op</span><span class="p">.</span><span class="n">drop_table</span><span class="p">(</span><span class="s">'posts'</span><span class="p">)</span>
+    <span class="n">op</span><span class="p">.</span><span class="n">drop_index</span><span class="p">(</span><span class="n">op</span><span class="p">.</span><span class="n">f</span><span class="p">(</span><span class="s">'ix_users_username'</span><span class="p">),</span> <span class="n">table_name</span><span class="o">=</span><span class="s">'users'</span><span class="p">)</span>
+    <span class="n">op</span><span class="p">.</span><span class="n">drop_table</span><span class="p">(</span><span class="s">'users'</span><span class="p">)</span>
+    <span class="c1"># ### end Alembic commands ###
+</span></code></pre></div></div>
+
+<p>This is the same as creating the tables the first time. After that, any new changes in the model and any new migrations scripts derived from them will be incremental changes from the current model.</p>
+
+<p>The script isn’t applied yet, it was here for review. 
+To apply it (and in that case actually create the 2 tables along with their data attributes), let’s run <code class="language-plaintext highlighter-rouge">upgrade()</code></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python script.py db upgrade
+</code></pre></div></div>
+
+<p>output:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>INFO  [alembic.runtime.migration] Running upgrade  -&gt; 3dc85275c029, first migration
+</code></pre></div></div>
+
+<p>You can finally:</p>
+<ul>
+  <li>create a GitHub repository</li>
+  <li>create a <code class="language-plaintext highlighter-rouge">.gitignore</code> file (to exclude including unecessary <code class="language-plaintext highlighter-rouge">myenv</code> virtual environment)</li>
+  <li>create a <code class="language-plaintext highlighter-rouge">requirements.txt</code> file where all files will be</li>
+  <li>create a <code class="language-plaintext highlighter-rouge">READMe.md</code> markdown file for the users who will go to this GitHub repository</li>
+</ul>

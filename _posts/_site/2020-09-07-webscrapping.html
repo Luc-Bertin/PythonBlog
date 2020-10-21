@@ -1,0 +1,386 @@
+<p>Selenium is an open-source automated testing suite for web apps. It was at first used to automate tests for web applications as it can emulate user interactions with browsers, although its scope is wider as it can be used for other purposes: such as webscrapping for example.</p>
+
+<p>— Related practical session <a href="https://github.com/Luc-Bertin/TDs_ESILV/blob/master/TD2_Instagram_scrapping_with_selenium.ipynb">Jupyter Notebook</a> —</p>
+
+<h1 id="how-does-selenium-webdriver-work-">How does Selenium Webdriver work ?</h1>
+
+<p>How to programmatically create user interactions with Selenium ? through its WebDriver component</p>
+
+<blockquote>
+  <p>It allows users to simulate common activities performed by end-users; entering text into fields, selecting drop-down values and checking boxes, and clicking links in documents. It also provides many other controls such as mouse movement, arbitrary JavaScript execution, and much more.</p>
+</blockquote>
+
+<p>Every web browser are different in their ways of performing operations, <em>Selenium WebDriver API</em> aims at giving a common language neutral interface, whichever browser you may use, whichever language you code with.</p>
+
+<ul>
+  <li>Downstream, one * “ browser driver”* (many exist), i.e. <em>“<strong>one</strong> Selenium WebDriver implementation”</em> , is a layer:</li>
+</ul>
+
+<blockquote>
+  <p>responsible for delegating down to the browser, and handles communication to and from Selenium and the browser.
+To do so, it uses the automation APIs provided by the browser vendors.</p>
+</blockquote>
+
+<ul>
+  <li>Upstream, Webdriver API also refers to the language bindings to enable developpers to write test cases in different languages like Python, Java, C#, Ruby or NodeJS.</li>
+</ul>
+
+<p>Thus, referring to both the language bindings and the browsers controlling codes, the Webdriver API aims to abstract differences among all browsers by providing a common object-oriented interface.</p>
+
+<p><img src="/assets/images/post_webscrapping/selenium_schema.png" width="800px" style="display: inline-block;" class="center" /></p>
+
+<p>How does your Python code get executed in the browser?
+By JSON Wire Protocol, tie to the Webdriver API.</p>
+
+<p>Each webdriver implementation (e.g. ChromeDriver) has a little server waiting for the Python commands (try to execute the <code class="language-plaintext highlighter-rouge">chromedriver.exe</code> file and you will see on which port it is listening too).
+You can communicate directly with the Webdriver implementation API (e.g. Chromedriver API), but also can use a selenium Python client library for issuing those requests one by one as HTTP client requests for the WebDriver server.</p>
+
+<p>When these commands come in the form of HTTP ones, the Webdriver implementation interprets those, ordering the underlying browser to perform them, and then returns the results back to the Webdriver API through the wire protocol.</p>
+
+<p>WebDriver became recently a W3C standard, it is an interface provided by Selenium. Thus, all classes (e.g. ChromeDriver) implementing this interface need to have a certain set of methods. It is then a structure/syntax that allows the computer to enforce certain properties on a class, certain behavior or requirements any object instanciated with that class must fulfill.</p>
+
+<p>A good example to <a href="https://engineering.zalando.com/posts/2016/03/selenium-webdriver-explained.html?gh_src=4n3gxh1?gh_src=4n3gxh1">read</a>.
+Also Safari Dev docs <a href="https://developer.apple.com/documentation/webkit/testing_with_webdriver_in_safari">highlights this schema</a></p>
+
+<p><strong>Edit:</strong>  WebDriver W3C Living Document has <a href="https://www.guru99.com/introduction-webdriver-comparison-selenium-rc.html">replaced</a> JSON Wire Protocol.</p>
+
+<blockquote>
+  <p>Note from wikipedia: <em>Where possible</em>, WebDriver uses native operating system level functionality rather than browser-based JavaScript commands to drive the browser. This bypasses problems with subtle differences between native and JavaScript commands, including security restrictions.</p>
+</blockquote>
+
+<p>Interesting article to read <a href="https://stackoverflow.com/questions/42562963/why-we-dont-need-server-in-selenium-webdriver">too</a></p>
+
+<h1 id="installation">Installation</h1>
+<p>Reading the installation process from the <a href="https://selenium-python.readthedocs.io/installation.html">unofficial but thorough community docs</a>
+is a good starting point to set the tools we need.</p>
+
+<ol>
+  <li>Create a virtual environement</li>
+  <li>Install Python bindings client library:
+<code class="language-plaintext highlighter-rouge">pip install selenium</code></li>
+  <li>Takes a (web)driver matching with the browser you want to automate a session in. I.E. I have Chrome, i can download the ChromeDriver <a href="https://sites.google.com/a/chromium.org/chromedriver/downloads">here</a> for <strong>the matching version</strong> of Chrome I have.</li>
+  <li>You can put the downloaded driver (e.g. <code class="language-plaintext highlighter-rouge">chromedriver.exe</code>) in the current working directory and reference its path <code class="language-plaintext highlighter-rouge">./chromedriver.exe</code> later in the webscrapping code for the instanciation of a <code class="language-plaintext highlighter-rouge">ChromeDriver</code> instance. Altough this may not seem ideal as the script will rely on the path where any person put the driver in. Hence it is better to <code class="language-plaintext highlighter-rouge">export</code> the executable driver path first and then not use anything in the code.</li>
+</ol>
+
+<p>As per the requirements of ChromeDriver:</p>
+<blockquote>
+  <p>The ChromeDriver consists of three separate pieces. There is the <strong>browser itself</strong> i.e. chrome, the <strong>language bindings</strong> provided by the Selenium project i.e. the driver and an <strong>executable</strong> downloaded from the Chromium project which acts as a <strong>bridge between chrome and the driver</strong>. This executable is called the <strong>chromedriver</strong>, we generally refer to it as the server to reduce confusion.</p>
+</blockquote>
+
+<p>Later on I will use the term browser driver for the controlling code provided by browser-vendors, to not confuse with language driver, the bindings provided by Selenium project as a client library for communciating with the Webdriver (or one of its implementation).</p>
+
+<h1 id="initialisation">Initialisation</h1>
+
+<p>I use the Chrome Webdriver hence the line below does set up a Webdriver server and ultimately launch a new browser session using the browser driver.<br />
+When we’re done, we can later use <code class="language-plaintext highlighter-rouge">close()</code>method to close the automated browser initialized session.<br />
+We could also use the driver <a href="http://sametmax.com/les-context-managers-et-le-mot-cle-with-en-python/">context manager</a> using a <code class="language-plaintext highlighter-rouge">with</code> statement.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">selenium</span> <span class="kn">import</span> <span class="n">webdriver</span> <span class="c1"># 
+</span><span class="n">driver</span> <span class="o">=</span> <span class="n">webdriver</span><span class="p">.</span><span class="n">Chrome</span><span class="p">()</span> 
+
+<span class="c1">##
+## Your operations
+##
+</span>
+<span class="n">driver</span><span class="p">.</span><span class="n">close</span><span class="p">()</span> <span class="c1"># to close the browser tab (window if there is only one tab.)
+</span></code></pre></div></div>
+
+<h1 id="operations">Operations</h1>
+
+<h2 id="navigating">Navigating</h2>
+
+<ol>
+  <li>
+    <p>Going to an url:</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   <span class="n">driver</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="n">url_name</span><span class="p">)</span> <span class="c1"># loaded when `onload` even has fired
+</span></code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Selecting an element:</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="c1"># ! find element return the first element matching !
+</span> <span class="n">driver</span><span class="p">.</span><span class="n">find_element_by_class_name</span><span class="p">()</span>
+ <span class="n">driver</span><span class="p">.</span><span class="n">find_element_by_css_selectorn</span><span class="p">()</span>
+ <span class="n">driver</span><span class="p">.</span><span class="n">find_element_by_link_text</span><span class="p">()</span> <span class="c1"># the text attached to the link
+</span> <span class="n">driver</span><span class="p">.</span><span class="n">find_element_by_partial_link_text</span><span class="p">()</span> <span class="c1"># part of the text attached to the link
+</span> <span class="n">driver</span><span class="p">.</span><span class="n">find_element_by_name</span><span class="p">()</span> <span class="c1">#name attribute of the element
+</span> <span class="n">driver</span><span class="p">.</span><span class="n">find_element_by_id</span><span class="p">()</span> <span class="c1">#id attribute of the element
+</span> <span class="n">driver</span><span class="p">.</span><span class="n">find_element_by_xpath</span><span class="p">()</span> <span class="c1">#using XPath, see later
+</span> <span class="n">driver</span><span class="p">.</span><span class="n">find_element_by_tag_name</span><span class="p">()</span> <span class="c1">#tag name
+</span> <span class="n">driver</span><span class="p">.</span><span class="n">find_element</span><span class="p">()</span> <span class="c1"># private method, you can use By from selenium.webdriver.common.by import By, rather than using the shortcuts methods https://stackoverflow.com/questions/29065653/what-is-the-difference-between-findelementby-findelementby
+</span>
+ <span class="c1"># Note that you can use directly on a webelement:
+</span> <span class="c1"># &lt;webelement&gt;.find_element_by...()  will use the element as the scope in which to search for your selector. https://stackoverflow.com/questions/26882604/selenium-difference-between-webdriver-findelement-and-webelement-findelement
+</span> <span class="c1"># An example provided here https://github.com/Luc-Bertin/TDs_ESILV/blob/master/webscrapping_test2find_element.ipynb
+</span> <span class="c1"># 
+</span> <span class="c1"># 
+</span> <span class="c1"># When no element exist: NoSuchElementException is raised
+</span>
+ <span class="c1"># ! find elementS return a list of Web elements !
+</span> <span class="n">driver</span><span class="p">.</span><span class="n">find_elements_by_class_name</span><span class="p">()</span>
+ <span class="n">driver</span><span class="p">.</span><span class="n">find_elements_by_css_selectorn</span><span class="p">()</span>
+ <span class="n">driver</span><span class="p">.</span><span class="n">find_elements_by_link_text</span><span class="p">()</span>
+ <span class="c1">## ...
+</span> <span class="c1"># When no elements exist: just an empty list
+</span></code></pre></div>    </div>
+  </li>
+  <li>Interacting with forms:
+    <ul>
+      <li>send keys to a form field / input:
+        <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="n">element</span> <span class="o">=</span> <span class="n">driver</span><span class="p">.</span><span class="n">find_element_by_name</span><span class="p">(</span><span class="s">"loginform"</span><span class="p">)</span>
+ <span class="n">element</span><span class="p">.</span><span class="n">send_keys</span><span class="p">(</span><span class="s">"mot_de_passe"</span><span class="p">)</span>
+ <span class="c1">## To add use special keys in the keyboard:
+</span> <span class="kn">from</span> <span class="nn">selenium.webdriver.common.keys</span> <span class="kn">import</span> <span class="n">Keys</span>
+</code></pre></div>        </div>
+      </li>
+      <li>clear the content of the form
+        <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="n">element</span> <span class="o">=</span> <span class="n">driver</span><span class="p">.</span><span class="n">find_element_by_name</span><span class="p">(</span><span class="s">"loginform"</span><span class="p">)</span>
+  <span class="n">element</span><span class="p">.</span><span class="n">clear</span><span class="p">()</span>
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+  <li>Toggle the selection of checkboxes:
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="c1"># example: https://www.w3schools.com/howto/howto_custom_select.asp
+</span>  <span class="kn">from</span> <span class="nn">selenium.webdriver.support.ui</span> <span class="kn">import</span> <span class="n">Select</span>
+  <span class="n">select</span> <span class="o">=</span> <span class="n">Select</span><span class="p">(</span><span class="n">driver</span><span class="p">.</span><span class="n">find_element_by_tag_name</span><span class="p">(</span><span class="s">"select"</span><span class="p">))</span>
+  <span class="c1"># Select by index (starts at 0)
+</span>  <span class="n">select</span><span class="p">.</span><span class="n">select_by_index</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+  <span class="c1"># Select by visible text
+</span>  <span class="c1">#select.select_by_visible_text("text")
+</span>  <span class="c1"># Select by value
+</span>  <span class="n">select</span><span class="p">.</span><span class="n">select_by_value</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+  <span class="c1"># Deselecting all the selected options (for mutliselect elements only), a good example of multiselect
+</span>  <span class="c1"># https://www.w3schools.com/tags/tryit.asp?filename=tryhtml_select_multiple
+</span>  <span class="n">select</span><span class="p">.</span><span class="n">deselect_all</span><span class="p">()</span>
+  <span class="c1"># loop over options available
+</span>  <span class="k">for</span> <span class="n">option</span> <span class="ow">in</span> <span class="n">select</span><span class="p">.</span><span class="n">options</span><span class="p">:</span>
+  	<span class="c1"># print their text
+</span>   <span class="k">print</span><span class="p">(</span> <span class="n">option</span><span class="p">.</span><span class="n">text</span> <span class="p">)</span>
+</code></pre></div>    </div>
+  </li>
+  <li>Managing Pop-Up dialogs (javascript <code class="language-plaintext highlighter-rouge">alerts</code>):
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="c1"># A good example of alert here: http://demo.guru99.com/test/delete_customer.php
+</span>  <span class="c1"># Wait for the alert to be displayed
+</span>  <span class="n">alert</span> <span class="o">=</span> <span class="n">wait</span><span class="p">.</span><span class="n">until</span><span class="p">(</span><span class="n">expected_conditions</span><span class="p">.</span><span class="n">alert_is_present</span><span class="p">())</span>
+  <span class="c1"># Switch to the alert pop-up
+</span>  <span class="n">alert</span> <span class="o">=</span> <span class="n">driver</span><span class="p">.</span><span class="n">switch_to</span><span class="p">.</span><span class="n">alert</span>
+  <span class="c1"># Check the content of the alert
+</span>  <span class="n">alert</span><span class="p">.</span><span class="n">text</span>
+  <span class="c1"># Click on the OK button / accept the alert the pop-up
+</span>  <span class="n">alert</span><span class="p">.</span><span class="n">accept</span><span class="p">()</span>
+  <span class="c1"># or dismiss it: alert.dissmiss()
+</span></code></pre></div>    </div>
+  </li>
+  <li>Moving between windows
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="n">driver</span><span class="p">.</span><span class="n">switch_to</span><span class="p">.</span><span class="n">window</span><span class="p">(</span><span class="s">"windowName"</span><span class="p">)</span>
+ <span class="c1"># to find out the name of the window you can check the link or js code that generated it
+</span>
+ <span class="c1"># or loop other all windows handles by the driver
+</span> <span class="k">for</span> <span class="n">window</span> <span class="ow">in</span> <span class="n">driver</span><span class="p">.</span><span class="n">windows</span><span class="p">:</span>
+   <span class="n">driver</span><span class="p">.</span><span class="n">switch_to</span><span class="p">.</span><span class="n">window</span><span class="p">(</span><span class="n">window</span><span class="p">)</span>
+</code></pre></div>    </div>
+  </li>
+  <li>Moving between frames
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="c1"># by name of the frame
+</span> <span class="n">driver</span><span class="p">.</span><span class="n">switch_to_frame</span><span class="p">(</span><span class="s">"name_of_frame"</span><span class="p">)</span>
+ <span class="c1"># by index
+</span> <span class="n">driver</span><span class="p">.</span><span class="n">switch_to</span><span class="p">.</span><span class="n">frame</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+ <span class="c1"># a subframe of a frame
+</span> <span class="n">driver</span><span class="p">.</span><span class="n">switch_to</span><span class="p">.</span><span class="n">frame</span><span class="p">(</span><span class="s">"name_of_frame1.0.frame3"</span><span class="p">)</span>
+ <span class="c1"># going back to parent frame
+</span> <span class="n">driver</span><span class="p">.</span><span class="n">switch_to</span><span class="p">.</span><span class="n">default_content</span><span class="p">()</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Cookies</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="c1"># 1. Go to the correct url / domain
+</span> <span class="c1"># 2. Set the cookie, it is valid for the entire domain
+</span> <span class="c1"># the cookie needs a 2 key:vals at least:
+</span> <span class="c1">#  - 'name':&lt;name&gt; of the cookie
+</span> <span class="c1">#  - 'value':&lt;thevalue&gt; of the cookie
+</span> <span class="c1">#  You can set additional params such as if the cookie is HTTPOnly or not
+</span> <span class="c1">#  E.g.
+</span> <span class="n">driver</span><span class="p">.</span><span class="n">add_cookie</span><span class="p">({</span><span class="s">'name'</span><span class="p">:</span><span class="s">'test'</span><span class="p">,</span> <span class="s">'value'</span><span class="p">:</span><span class="s">'thevalue'</span><span class="p">})</span>
+ <span class="c1"># 4. Get all cookies
+</span> <span class="n">driver</span><span class="p">.</span><span class="n">get_cookies</span><span class="p">()</span>
+ <span class="c1"># As an exercice you can apply this to check that you have a new EU cookie consent record after clicking the pop-up where you accept the use of cookies by the website
+</span>
+ <span class="p">[{</span><span class="s">'domain'</span><span class="p">:</span> <span class="s">'.w3schools.com'</span><span class="p">,</span>
+   <span class="s">'expiry'</span><span class="p">:</span> <span class="mi">1633354196</span><span class="p">,</span>
+   <span class="s">'httpOnly'</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span>
+   <span class="s">'name'</span><span class="p">:</span> <span class="s">'euconsent-v2'</span><span class="p">,</span>
+   <span class="s">'path'</span><span class="p">:</span> <span class="s">'/'</span><span class="p">,</span>
+   <span class="s">'sameSite'</span><span class="p">:</span> <span class="s">'Lax'</span><span class="p">,</span>
+   <span class="s">'secure'</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span>
+   <span class="s">'value'</span><span class="p">:</span> <span class="s">'CO5eHhQO5eHhQDlBzAENA2CsAP_AAH_AACiQGetf_X_fb2vj-_599_t0eY1f9_63v-wzjheNs-8NyZ_X_L4Xv2MyvB36pq4KuR4ku3bBAQdtHOncTQmRwIlVqTLsbk2Mr7NKJ7LEmlsbe2dYGH9vn8XT_ZKZ70_v___7_3______777-YGekEmGpfAQJCWMBJNmlUKIEIVxIVAOACihGFo0sNCRwU7K4CPUECABAagIwIgQYgoxZBAAAAAElEQAkBwIBEARAIAAQArQEIACJAEFgBIGAQACgGhYARRBKBIQZHBUcogQFSLRQTzRgSQAA'</span><span class="p">},</span>
+  <span class="p">{</span><span class="s">'domain'</span><span class="p">:</span> <span class="s">'.w3schools.com'</span><span class="p">,</span>
+   <span class="s">'expiry'</span><span class="p">:</span> <span class="mi">1633354196</span><span class="p">,</span>
+   <span class="s">'httpOnly'</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span>
+   <span class="s">'name'</span><span class="p">:</span> <span class="s">'snconsent'</span><span class="p">,</span>
+   <span class="s">'path'</span><span class="p">:</span> <span class="s">'/'</span><span class="p">,</span>
+   <span class="s">'sameSite'</span><span class="p">:</span> <span class="s">'Lax'</span><span class="p">,</span>
+   <span class="s">'secure'</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span>
+   <span class="s">'value'</span><span class="p">:</span> <span class="s">'eyJwdWJsaXNoZXIiOjAsInZlbmRvciI6MywiY3ZDb25zZW50cyI6e319'</span><span class="p">},</span>
+  <span class="p">{</span><span class="s">'domain'</span><span class="p">:</span> <span class="s">'.www.w3schools.com'</span><span class="p">,</span>
+   <span class="s">'expiry'</span><span class="p">:</span> <span class="mi">253402257600</span><span class="p">,</span>
+   <span class="s">'httpOnly'</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span>
+   <span class="s">'name'</span><span class="p">:</span> <span class="s">'G_ENABLED_IDPS'</span><span class="p">,</span>
+   <span class="s">'path'</span><span class="p">:</span> <span class="s">'/'</span><span class="p">,</span>
+   <span class="s">'secure'</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span>
+   <span class="s">'value'</span><span class="p">:</span> <span class="s">'google'</span><span class="p">},</span>
+  <span class="p">{</span><span class="s">'domain'</span><span class="p">:</span> <span class="s">'.w3schools.com'</span><span class="p">,</span>
+   <span class="s">'expiry'</span><span class="p">:</span> <span class="mi">1599744590</span><span class="p">,</span>
+   <span class="s">'httpOnly'</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span>
+   <span class="s">'name'</span><span class="p">:</span> <span class="s">'_gid'</span><span class="p">,</span>
+   <span class="s">'path'</span><span class="p">:</span> <span class="s">'/'</span><span class="p">,</span>
+   <span class="s">'secure'</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span>
+   <span class="s">'value'</span><span class="p">:</span> <span class="s">'GA1.2.1056235777.1599658190'</span><span class="p">},</span>
+  <span class="p">{</span><span class="s">'domain'</span><span class="p">:</span> <span class="s">'www.w3schools.com'</span><span class="p">,</span>
+   <span class="s">'httpOnly'</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span>
+   <span class="s">'name'</span><span class="p">:</span> <span class="s">'test'</span><span class="p">,</span>
+   <span class="s">'path'</span><span class="p">:</span> <span class="s">'/'</span><span class="p">,</span>
+   <span class="s">'secure'</span><span class="p">:</span> <span class="bp">True</span><span class="p">,</span>
+   <span class="s">'value'</span><span class="p">:</span> <span class="s">'thevalue'</span><span class="p">},</span>
+  <span class="p">{</span><span class="s">'domain'</span><span class="p">:</span> <span class="s">'.w3schools.com'</span><span class="p">,</span>
+   <span class="s">'expiry'</span><span class="p">:</span> <span class="mi">1606003200</span><span class="p">,</span>
+   <span class="s">'httpOnly'</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span>
+   <span class="s">'name'</span><span class="p">:</span> <span class="s">'_gaexp'</span><span class="p">,</span>
+   <span class="s">'path'</span><span class="p">:</span> <span class="s">'/'</span><span class="p">,</span>
+   <span class="s">'secure'</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span>
+   <span class="s">'value'</span><span class="p">:</span> <span class="s">'GAX1.2.U2DF0lIpTsOVepnCdIak9A.18588.0'</span><span class="p">},</span>
+  <span class="p">{</span><span class="s">'domain'</span><span class="p">:</span> <span class="s">'.w3schools.com'</span><span class="p">,</span>
+   <span class="s">'expiry'</span><span class="p">:</span> <span class="mi">1662730198</span><span class="p">,</span>
+   <span class="s">'httpOnly'</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span>
+   <span class="s">'name'</span><span class="p">:</span> <span class="s">'__gads'</span><span class="p">,</span>
+   <span class="s">'path'</span><span class="p">:</span> <span class="s">'/'</span><span class="p">,</span>
+   <span class="s">'secure'</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span>
+   <span class="s">'value'</span><span class="p">:</span> <span class="s">'ID=34d373f41409cec7-229cd97515a60048:T=1599658198:S=ALNI_MaHAR9T3-JOlXvVv0J_m6hrSCzcPQ'</span><span class="p">},</span>
+  <span class="p">{</span><span class="s">'domain'</span><span class="p">:</span> <span class="s">'.w3schools.com'</span><span class="p">,</span>
+   <span class="s">'expiry'</span><span class="p">:</span> <span class="mi">1662730190</span><span class="p">,</span>
+   <span class="s">'httpOnly'</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span>
+   <span class="s">'name'</span><span class="p">:</span> <span class="s">'_ga'</span><span class="p">,</span>
+   <span class="s">'path'</span><span class="p">:</span> <span class="s">'/'</span><span class="p">,</span>
+   <span class="s">'secure'</span><span class="p">:</span> <span class="bp">False</span><span class="p">,</span>
+   <span class="s">'value'</span><span class="p">:</span> <span class="s">'GA1.2.669605950.1599658190'</span><span class="p">}]</span>
+
+</code></pre></div>    </div>
+  </li>
+</ol>
+
+<h2 id="xpath">XPath</h2>
+
+<p>Although it is part of the navigation, I think it should be dedicated an entire section.</p>
+
+<p>In XPath you can select a lot type of objects (also designed as nodes). Among them: attribute, text, or element.</p>
+
+<p>A good read for <a href="https://www.w3schools.com/xml/xpath_syntax.asp">XPath</a></p>
+
+<p>Here on <a href="https://stackoverflow.com/questions/29526080/xpath-attribute-wildcard-not-returning-element-with-attribute-named-value">dot notation in startswith in XPath</a></p>
+
+<p>Here on <a href="https://stackoverflow.com/questions/38240763/xpath-difference-between-dot-and-text">dot versus text()</a></p>
+
+<p>And on the <a href="https://stackoverflow.com/questions/35606708/what-is-the-difference-between-and-in-xpath/35606964">current node vs everywhere</a>
+<code class="language-plaintext highlighter-rouge">//ol/descendant::code[contains(text(), "//*")][2]</code></p>
+
+<p>node-set passes to starts-with function as 1st argument (@*). The starts-with function converts a node-set to a string by returning the string value of the first node in the node-set, i.e. only 1st attribute</p>
+
+<h2 id="waits">Waits</h2>
+
+<p>A lot of browser are using AJAX (<em>asynchronous javascript and XML</em>), hence making calls from a client to the server asynchronously to modify components in a web page without needing to refresh the concerned page.
+Although this separates the presentation logic from the data exchange logic and greatly improve user experience, a “loaded” page doesn’t mean other scripts won’t display other elements later on.</p>
+
+<h3 id="implicit-wait">implicit wait:</h3>
+<p>For the whole lifetime of the WebDriver object, each time an object is not available on request, repeat till <strong>n</strong> seconds elapsed.</p>
+
+<h3 id="explicit-wait">explicit wait:</h3>
+<p>Makes the webdriver wait for a certain condition to execute further instructions.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">selenium.webdriver.support.ui</span> <span class="kn">import</span> <span class="n">WebDriverWait</span>
+<span class="kn">from</span> <span class="nn">selenium.webdriver.support</span> <span class="kn">import</span> <span class="n">expected_conditions</span> <span class="k">as</span> <span class="n">ec</span>
+
+<span class="c1"># timeout after 10s without success
+# or returning the web element otherwise
+</span>
+<span class="k">try</span><span class="p">:</span>
+	<span class="n">element</span> <span class="o">=</span> <span class="n">WebDriverWait</span><span class="p">(</span><span class="n">driver</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">10</span><span class="p">).</span><span class="n">until</span><span class="p">(</span>
+		<span class="n">ec</span><span class="p">.</span><span class="n">presence_of_element_located</span><span class="p">((</span><span class="n">By</span><span class="p">.</span><span class="n">ID</span><span class="p">,</span> <span class="s">"myDynamicElement"</span><span class="p">)))</span>
+<span class="k">except</span> <span class="n">TimeoutException</span><span class="p">:</span>
+	<span class="k">print</span><span class="p">(</span><span class="s">"Looks like it didn't work out during the time requested"</span><span class="p">)</span>
+<span class="c1"># caution: inside the expected condition class constructor, you must fill a locator in the form of a tuple (by, path)
+</span></code></pre></div></div>
+
+<p>Directly from the <a href="https://selenium-python.readthedocs.io/waits.html">docs</a> here are some convenient expected conditions class’constructors you can use:</p>
+<ul>
+  <li>title_is</li>
+  <li>title_contains</li>
+  <li>presence_of_element_located</li>
+  <li>visibility_of_element_located</li>
+  <li>visibility_of</li>
+  <li>presence_of_all_elements_located</li>
+  <li>text_to_be_present_in_element</li>
+  <li>text_to_be_present_in_element_value</li>
+  <li>frame_to_be_available_and_switch_to_it</li>
+  <li>invisibility_of_element_located</li>
+  <li>element_to_be_clickable</li>
+  <li>staleness_of</li>
+  <li>element_to_be_selected</li>
+  <li>element_located_to_be_selected</li>
+  <li>element_selection_state_to_be</li>
+  <li>element_located_selection_state_to_be</li>
+  <li>alert_is_present</li>
+</ul>
+
+<p>Custom wait conditions are also interesting to <a href="https://selenium-python.readthedocs.io/waits.html">check</a> as it uses some concepts (<code class="language-plaintext highlighter-rouge">__call__</code>) we have covered elsewhere in this blog.</p>
+
+<h2 id="action-chains">Action chains</h2>
+
+<p>One of the most useful WebDriver tool:</p>
+
+<blockquote>
+  <p>ActionChains are a way to automate low level interactions such as mouse movements, mouse button actions, key press, and context menu interactions. This is useful for doing more complex actions like hover over and drag and drop.</p>
+</blockquote>
+
+<p><strong><u>Usage:</u></strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 1. import the class ActionChains
+</span><span class="kn">from</span> <span class="nn">selenium.webdriver.common.actions_chains</span> <span class="kn">import</span> <span class="n">ActionChains</span>
+<span class="c1"># 2. Keep for later the elements you are going to interact with
+</span><span class="n">menu</span> <span class="o">=</span> <span class="n">driver</span><span class="p">.</span><span class="n">find_element_by_css_selector</span><span class="p">(</span><span class="s">".nav"</span><span class="p">)</span>
+<span class="n">hidden_submenu</span> <span class="o">=</span> <span class="n">driver</span><span class="p">.</span><span class="n">find_element_by_css_selector</span><span class="p">(</span><span class="s">".nav #submenu1"</span><span class="p">)</span>
+<span class="c1"># 3. ActionChains constructor expects the driver
+</span><span class="n">pile_of_actions</span> <span class="o">=</span> <span class="n">ActionChains</span><span class="p">(</span><span class="n">driver</span><span class="p">)</span>
+<span class="c1"># 3. stack of actions (not performed yet)
+</span><span class="n">actions</span><span class="p">.</span><span class="n">move_to_element</span><span class="p">(</span><span class="n">menu</span><span class="p">)</span> <span class="c1"># moving the mouse to the middle of the element
+</span><span class="n">actions</span><span class="p">.</span><span class="n">click</span><span class="p">(</span><span class="n">hidden_submenu</span><span class="p">)</span>
+<span class="c1"># 4. perform the stored actions in the order it was defined (top to bottom) 
+</span><span class="n">actions</span><span class="p">.</span><span class="n">perform</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">move_by_offset(xoffset, yoffset)</code> is really useful to cause web animations/interactions which rely heavily on the user’s mouse moves. It moves to an offset (x or y coordinates) from current mouse position.</p>
+
+<p>See example below (this is for educational purposes only !)</p>
+
+<div class="iframe-container">
+	<iframe width="100%" height="100%" src="https://www.youtube.com/embed/jm_Lmq50oAs" frameborder="0" allowfullscreen=""></iframe>
+</div>
+
+<h2 id="injecting-js-code-in-the-browser">injecting js code in the browser</h2>
+
+<p>One use case could be to scroll in a news or social network feed.
+Here is an example of such:</p>
+
+<div class="iframe-container">
+	<iframe width="100%" height="100%" src="https://www.youtube.com/embed/bpa7dS3iO3U" frameborder="0" allowfullscreen=""></iframe>
+</div>
+
+<h2 id="additional-infos">additional infos</h2>
+
+<p>DOM: Document Object Model 
+Wikipedia best describes it:</p>
+
+<p><img src="/assets/images/post_webscrapping/DOM.png" width="600px" style="display: inline-block;" class="center" /></p>
+
+<p>Another interesting link on the <a href="https://stackoverflow.com/questions/57528987/what-is-the-difference-between-remotewebdriver-and-webdriver">difference</a> between <code class="language-plaintext highlighter-rouge">RemoteWebDriver</code> and <code class="language-plaintext highlighter-rouge">Webdriver</code></p>

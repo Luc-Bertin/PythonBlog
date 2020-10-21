@@ -1,0 +1,107 @@
+<p>Some exercices following tutorial <em>Discover Pandas</em> to make you more comfortable with the concepts.</p>
+
+<p><u><strong>SendTo</strong>:</u> contact  &lt; at &gt;   lucbertin   &lt; dot &gt;  com <br />
+<u><strong>Subject</strong>:</u> PANDAS - EXERCICES1 - &lt;SCHOOL&gt; - &lt;FIRSTNAMES LASTNAMES&gt; <br />
+<u><strong>CC</strong>:</u> your teammates’ email if any<br />
+<u><strong>Content</strong>:</u> A Jupyter Notebook <strong>converted in HTML</strong> file <br /></p>
+
+<h1 id="base-de-données-accidents-corporels-de-la-circulation">Base de données accidents corporels de la circulation</h1>
+
+<p>data.gouv est une plateforme de diffusion de données publiques de l’État français lancée en 2011. <br /> data.gouv.fr est développé par Etalab, une mission placée sous l’autorité du Premier ministre.<br /></p>
+
+<p>Pour cet exercice nous allons utiliser quelques données tabulaires (format CSV) sur les accidents <a href="https://www.data.gouv.fr/fr/datasets/base-de-donnees-accidents-corporels-de-la-circulation/">corporels liés de la circulation</a>.</p>
+
+<p>Voici les 3 url vers les CSV correspondants que nous allons exploiter.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">url_usagers2017</span> <span class="o">=</span> <span class="s">"https://static.data.gouv.fr/resources/base-de-donnees-accidents-corporels-de-la-circulation/20180927-111153/usagers-2017.csv"</span>
+<span class="n">url_lieux2017</span> <span class="o">=</span> <span class="s">"https://static.data.gouv.fr/resources/base-de-donnees-accidents-corporels-de-la-circulation/20180927-111131/lieux-2017.csv"</span>
+<span class="n">url_caracteristiques2017</span> <span class="o">=</span> <span class="s">"https://static.data.gouv.fr/resources/base-de-donnees-accidents-corporels-de-la-circulation/20180927-111012/caracteristiques-2017.csv"</span>
+</code></pre></div></div>
+
+<h4 id="1--open-the-csvs-whose-urls-are-given-above-store-the-dataframes-in-variables-usagers2017-lieux2017-caracteristiques2017">1. ••• Open the CSVs whose urls are given above, store the <code class="language-plaintext highlighter-rouge">DataFrames</code> in variables <code class="language-plaintext highlighter-rouge">usagers2017</code>, <code class="language-plaintext highlighter-rouge">lieux2017</code>, <code class="language-plaintext highlighter-rouge">caracteristiques2017</code>.</h4>
+
+<h4 id="2--show-the-10-first-lines-of-usagers2017">2. ••• Show the 10 first lines of <code class="language-plaintext highlighter-rouge">usagers2017</code></h4>
+
+<h4 id="3--show-the-10-last-lines-of-caracteristiques2017">3. ••• Show the 10 last lines of <code class="language-plaintext highlighter-rouge">caracteristiques2017</code></h4>
+
+<h4 id="4--how-many-lines-does-caracteristiques2017-contain-">4. ••• How many lines does <code class="language-plaintext highlighter-rouge">caracteristiques2017</code> contain ?</h4>
+
+<h4 id="5--how-many-column-does-caracteristiques2017-contain-">5. ••• How many column does <code class="language-plaintext highlighter-rouge">caracteristiques2017</code> contain ?</h4>
+
+<h4 id="6--show-the-dtype-of-each-column-of-usagers2017-same-for-caracteristiques2017">6. ••• Show the dtype of each column of <code class="language-plaintext highlighter-rouge">usagers2017</code>. Same for <code class="language-plaintext highlighter-rouge">caracteristiques2017</code>.</h4>
+
+<h4 id="7--does-num_acc-in-usager2017-contain-duplicated-values--what-about-num_acc-in-caracteristiques2017--hint-duplicated">7. ••• Does <code class="language-plaintext highlighter-rouge">Num_Acc</code> in <code class="language-plaintext highlighter-rouge">usager2017</code> contain duplicated values ? What about <code class="language-plaintext highlighter-rouge">Num_Acc</code> in <code class="language-plaintext highlighter-rouge">caracteristiques2017</code> ? <strong>Hint</strong>: <code class="language-plaintext highlighter-rouge">duplicated()</code>…</h4>
+
+<h4 id="8--conclude-on-the-type-of-relationship-if-we-were-to-join-catacteristiques2017-and-usagers2017-on-num_acc--one-to-one-one-to-many-many-to-many">8. ••• Conclude on the type of relationship if we were to join <code class="language-plaintext highlighter-rouge">catacteristiques2017</code> and <code class="language-plaintext highlighter-rouge">usagers2017</code> on <code class="language-plaintext highlighter-rouge">Num_Acc</code> ( one-to-one? one-to-many? many-to-many?)</h4>
+
+<h4 id="9--replace-all-values-1-and-2-in-column-sexe-by-homme-and-femme">9. ••• Replace all values “1” and “2” in column <code class="language-plaintext highlighter-rouge">sexe</code> by <code class="language-plaintext highlighter-rouge">Homme</code> and <code class="language-plaintext highlighter-rouge">Femme</code></h4>
+
+<h4 id="10--show-women-who-had-experienced-accidents">10. ••• Show women who had experienced accidents.</h4>
+
+<h4 id="11--replace-each-integers-in-grav-gravité-de-laccident-column-by-their-corresponding-mapping">11. ••• Replace each integers in <code class="language-plaintext highlighter-rouge">grav</code> (gravité de l’accident) column by their corresponding mapping.</h4>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>		1 - Indemne
+		2 - Tué
+		3 - Blessé hospitalisé 
+		4 - Blessé léger
+</code></pre></div></div>
+
+<h4 id="12--same-for-catu-catégorie-dusagers-column">12. ••• Same for <code class="language-plaintext highlighter-rouge">catu</code> (catégorie d’usagers) column</h4>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>		1 - Conducteur
+		2 - Passager
+		3 - Piéton
+		4 - Piéton en roller ou en trottinette
+		99 - Autre véhicule
+</code></pre></div></div>
+
+<h4 id="13--show-the-counts-for-each-distinct-values-in-grav">13. ••• Show the counts for each distinct values in <code class="language-plaintext highlighter-rouge">grav</code>.</h4>
+
+<h4 id="14--plot-it">14. ••• Plot it.</h4>
+
+<h4 id="15--show-the-counts-for-each-distinct-values-in-catu">15. ••• Show the counts for each distinct values in <code class="language-plaintext highlighter-rouge">catu</code>.</h4>
+
+<h4 id="16--find-women-who-had-mild-accidents-indemne-or-blessé-léger-but-not-more-severe">16. ••• Find women who had mild accidents (“Indemne” or “Blessé léger”, but not more severe!).<br /></h4>
+<p>Hint: you can use masking and save in an intermediate variable for clean code.</p>
+
+<h4 id="17--show-the-number-of-accidents-by-sexe-and-gravity">17. ••• Show the number of accidents by <code class="language-plaintext highlighter-rouge">sexe</code> AND <code class="language-plaintext highlighter-rouge">grav</code>ity.</h4>
+
+<h5 id="18--using-groupby">18. ••• Using <code class="language-plaintext highlighter-rouge">GroupBy</code></h5>
+
+<h5 id="19-using-a-pivot-table">19. Using a <code class="language-plaintext highlighter-rouge">Pivot Table</code></h5>
+
+<h4 id="20--display-it-in-the-form-of-a-stacked-bar-chart">20. ••• Display it in the form of a stacked bar-chart.</h4>
+
+<h4 id="21--do-a-merge-between-usagers2017-and-caracteristiques2017-on-num_acc">21. ••• Do a merge between <code class="language-plaintext highlighter-rouge">usagers2017</code> and <code class="language-plaintext highlighter-rouge">caracteristiques2017</code> on <code class="language-plaintext highlighter-rouge">Num_Acc</code>.</h4>
+
+<h4 id="22-is-there-any-new-value-in-num_acc-in-the-final-merged-table-compared-to-either-of-table-that-has-been-used-for-merging--eg-does-num_acc-has-a-value-that-does-not-exist-in-usagers2017-but-does-exist-in-caracteristiques2017-or-the-other-way-around">22. Is there any new value in <code class="language-plaintext highlighter-rouge">Num_Acc</code> in the final merged table compared to either of table that has been used for merging ? (e.g. does <code class="language-plaintext highlighter-rouge">Num_acc</code> has a value that does not exist in <code class="language-plaintext highlighter-rouge">usagers2017</code> but does exist in <code class="language-plaintext highlighter-rouge">caracteristiques2017</code>, or the other way around)</h4>
+
+<p>Hint: <code class="language-plaintext highlighter-rouge">DataFrame.equals(other)</code></p>
+<blockquote>
+  <p>This function allows two Series or DataFrames to be compared against each other to see if they have the same shape and elements</p>
+</blockquote>
+
+<h4 id="23--count-missing-values-in-each-column-of-caracteristiques2017-hint-isnull">23. ••• Count missing values in each column of <code class="language-plaintext highlighter-rouge">caracteristiques2017</code>. Hint: <code class="language-plaintext highlighter-rouge">.isnull()</code></h4>
+
+<h4 id="24-filter-the-results-only-by-taking-the-columns-having-more-than-0-missing-values--sorted-by-decreasing-number-of-them">24. Filter the results only by taking the columns having more than 0 missing values + sorted by decreasing number of them.</h4>
+
+<h4 id="25-show-the-same-number-of-missing-values-as-a-pourcentage-of-the-total-number-of-values-lines">25. Show the same number of missing values as a pourcentage of the total number of values (lines).</h4>
+
+<h4 id="26--select-the-accidents-who-took-place-in-paris-county-département--750-in-the-table">26. ••• Select the accidents who took place in Paris county (département &lt;=&gt; “750” in the table)</h4>
+
+<h4 id="27--plot-the-mapthe-maps-of-accidents-by-gravity-in-paris-county">27. ••• Plot the map/the maps of accidents by gravity in Paris county.</h4>
+
+<h4 id="28-plot-a-graph-that-shows-graphically-the-importance-of-missing-values-in-each-column-of-the-dataset">28. Plot a graph that “shows graphically” the importance of missing values in each column of the dataset.</h4>
+
+<h2 id="lets-play-with-the-dates">Let’s play with the dates</h2>
+
+<h4 id="29-rename-the-columns">29. Rename the columns:</h4>
+<ul>
+  <li>‘jour’ as ‘day’</li>
+  <li>‘mois’ as ‘month’</li>
+  <li>‘an’   as ‘year’</li>
+</ul>
+
+<h4 id="30-add-20-to-each-element-in-the-lately-renamed-year-column-eg-2017-so-to-be-an-understandable-year-format-for-pdto_datetime">30. Add ‘20’ to each element in the lately renamed <code class="language-plaintext highlighter-rouge">year</code> column, (e.g.: 2017) so to be an understandable year format for <code class="language-plaintext highlighter-rouge">pd.to_datetime</code>.</h4>
+
+<h4 id="31-create-a-date-column-taking-into-account-the-year-month-and-day-from-question29-and-using-pdto_datetime-in-question30">31. Create a <code class="language-plaintext highlighter-rouge">date</code> column taking into account the year, month, and day from question29 and using <code class="language-plaintext highlighter-rouge">pd.to_datetime</code> in question30.</h4>
+
+<h4 id="32-plot-the-daily-death-trends-during-the-entire-year">32. Plot the daily death trends during the entire year.</h4>

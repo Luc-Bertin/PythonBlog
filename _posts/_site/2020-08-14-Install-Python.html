@@ -1,0 +1,141 @@
+<p>This tutorial helps newcomers to install Python properly and manage different Python versions, especially for Mac users having a system 2.7 Python installed already.</p>
+
+<h2 id="a-few-basics-first">A few basics first</h2>
+
+<p>The shell PATH is an environment variable that lists of directories browsed from left to right by the shell to look for a requested executable.
+e.g. on a MacOS system  <strong>python</strong> can be found in /usr/bin. If PATH = /usr/bin:/usr/local/bin and python can be found in both directories, left one take precedence.</p>
+
+<p>In Unix, <strong>/usr/local/bin</strong> are user-installed executables, <strong>/bin</strong> contains executables which are required by the system for emergency repairs and <strong>/usr/bin</strong> are application binaries meant to be accessed by locally logged in users.
+PROTIP from <a href="https://wilsonmar.github.io/pyenv/#what-is-the-magic-of-pyenv">Wilson Mar</a>: “The <strong>/usr/bin/</strong> folder is owned by the operating system, so elevated sudo priviledges are required to modify files in it (such as “python”). So Homebrew and other installers install to /usr/local/ which does NOT require sudo to access”</p>
+
+<h2 id="mac-os">Mac OS:</h2>
+<p>Best <a href="https://opensource.com/article/19/5/python-3-default-mac">summarising</a> article on the different approaches, prons and cons.</p>
+
+<p>Mac OS X 10.8 comes with Python 2.7 pre-installed by Apple.
+On a <a href="https://unix.stackexchange.com/questions/9711/what-is-the-proper-way-to-manage-multiple-python-versions">unix stackexchange forum</a>:
+“Changing the default Python (or Perl, etc) on an OS is really bad idea. This interpreter is actually part of the OS and there may well be other OS components that are written specifically to work with that version of the interpreter. For example on Redhat the yum tool that performs system software updates is a python application. You really don’t want to break this. Such applications may depend on specific, perhaps non standard, python modules being installed which the version you installed may not have. For example on Ubuntu I believe some of the built-in OS tools written in Python use an ORM called Storm that isn’t part of the Python standard library. Does your clean Python 2.7 install have the specific expected version of the Storm module installed? Does it have any version of Storm? No? Then you’ve just broken a chunk of your OS.”</p>
+
+<p>Recently running on Mac OS Catalina, i’ve noticed a python3 executable located in usr/bin, i suspect this came along with the <a href="https://apple.stackexchange.com/questions/376077/is-usr-bin-python3-provided-with-macos-catalina">MacOS update</a> and we shouldn’t touch that either.</p>
+
+<p>4 solutions here for an installation of a personnal Python, best one is definitely last one ! 2nd one is not bad either for beginners.</p>
+
+<h4 id="1-from-the-python-docs">1. From the Python docs:</h4>
+<blockquote>
+  <p>The Apple-provided build of Python is installed in /System/Library/Frameworks/Python.framework and /usr/bin/python, respectively. You should never modify or delete these, as they are Apple-controlled and are used by Apple- or third-party software. Remember that if you choose to install a newer Python version from python.org, you will have two different but functional Python installations on your computer, so it will be important that your paths and usages are consistent with what you want to do. 
+You can read the <a href="https://docs.python-guide.org/starting/install3/osx/">docs</a> to have a simple installation yet functionnal. This is the simplest approach to get a Python3 interpreter.</p>
+</blockquote>
+
+<h4 id="2-another-article-suggests-using-the-homebrew-approach">2. Another <a href="https://docs.python-guide.org/starting/install3/osx/">article</a> suggests using the Homebrew approach,</h4>
+<p>Homebrew is a free downloadable package manager tool for MacOS (similar to apt-get for Ubuntu), and leaves it manage and update for us the python version using:
+ <code class="language-plaintext highlighter-rouge">brew update &amp;&amp; brew upgrade python</code></p>
+
+<p>which we would call later on using <strong>python3</strong> command (or creating a <strong>shebang on top of the file to instruct the shell to use the python3 executable</strong>).</p>
+
+<p>Note that using shortcut like <strong>shell aliases</strong> to prefer using “python” over “python3” imply 2 things:</p>
+<ul>
+  <li>aliases takes precedence over PATH browsing, but in case not corresponding aliases are defined or no shell are being involved (don’t forget that aliases are a shell feature), PATH will be read.</li>
+  <li>using aliases might cause problems in case of virtual environments (pip aliased to pip3 won’t look at virtual env pip one!)</li>
+</ul>
+
+<h4 id="3-using-pyenv">3. Using PyEnv</h4>
+
+<p>Pyenv is a tool to <strong>isolate different versions of Python</strong> i.e. isolated environements for Python.
+From the GitHub of the author : “It’s simple, unobtrusive, and follows the UNIX tradition of single-purpose tools that do one thing well”. Also, “pyenv does not depend on Python itself. pyenv was made from <strong>pure shell scripts</strong>. There is no bootstrap problem of Python”. Seems as a good candidate to better manage multiple Python versions.</p>
+
+<p>This is different from virtualenv : a tool which creates isolated virtual python environments for the per-project specific Python <strong>libraries</strong>.</p>
+
+<p>You can then define a Python version to run globally, or per-project basis !</p>
+
+<p><strong>Step-by-Step process:</strong></p>
+
+<p>Install pyenv using Homebrew</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">brew install pyenv</code></li>
+</ul>
+
+<p>Install a version of Python using pyenv</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">pyenv install 3.8.5</code></li>
+</ul>
+
+<p>To have pyenv effects available at each shell instantiation you need to modify the bashrc or zshrc file:</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="c">## does pyenv exist as a command ? then init pyenv and virtualenv</span>
+ <span class="k">if </span><span class="nb">command</span> <span class="nt">-v</span> pyenv 1&gt;/dev/null 2&gt;&amp;1<span class="p">;</span> <span class="k">then
+  </span><span class="nb">eval</span> <span class="s2">"</span><span class="si">$(</span>pyenv init -<span class="si">)</span><span class="s2">"</span>
+ <span class="k">fi</span>
+</code></pre></div></div>
+
+<p><strong>Use cases:</strong></p>
+
+<ol>
+  <li>Wanna define this version of Python as a global version ? (and not care about system Python):
+ Check which versions are available:
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">pyenv install list</code></li>
+      <li><code class="language-plaintext highlighter-rouge">pyenv global 3.8.5</code></li>
+      <li>then run <code class="language-plaintext highlighter-rouge">python</code> and check the output/</li>
+    </ul>
+  </li>
+  <li>Wanna define this version of Python as per-project basis ?
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">cd project/</code></li>
+      <li><code class="language-plaintext highlighter-rouge">pyenv local 3.8.5</code></li>
+      <li>this writes a <em>.python-version</em> file in working directory.</li>
+      <li>Then run <code class="language-plaintext highlighter-rouge">python</code> in and outside the directory and notice the difference ;</li>
+    </ul>
+  </li>
+  <li>Remove any versions ?
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">pyenv uninstall 3.8.5</code></li>
+    </ul>
+  </li>
+  <li>See which versions you can have and switch in:
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">pyenv versions</code></li>
+      <li>to switch between one another: use global as in <strong>1.</strong></li>
+    </ul>
+  </li>
+  <li>See where is the real executable path (not renaming based on intercepting the command, which is what shims do)
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">pyenv which python</code></li>
+    </ul>
+  </li>
+  <li>Better:
+    <ul>
+      <li>using virtualenv AND pyenv using pyenv-virtualenv plugin, create a new environment with a <strong>Python version</strong></li>
+      <li><code class="language-plaintext highlighter-rouge">pyenv virtualenv 3.8.5 myenv</code></li>
+      <li><code class="language-plaintext highlighter-rouge">cd project_where_i_should_need_to_active_myenv/</code></li>
+      <li><code class="language-plaintext highlighter-rouge">pyenv local myenv</code></li>
+    </ul>
+  </li>
+</ol>
+
+<h3 id="4-anaconda">4. Anaconda</h3>
+<p>You can simply install the installer from anaconda, you shouldn’t modify PATH:</p>
+<blockquote>
+  <p>Should I add Anaconda to the macOS or Linux PATH? We do not recommend adding Anaconda to the PATH manually. During installation, you will be asked “Do you wish the installer to initialize Anaconda3 by running conda init?” We recommend “yes”. If you enter “no”, then conda will not modify your shell scripts at all. In order to initialize after the installation process is done, first run source <path to="" conda="">/bin/activate and then run conda init.</path></p>
+</blockquote>
+
+<p>In zsh, a command not found error might occur on typing <strong>conda</strong> command, to fix this, use steps cited <a href="https://towardsdatascience.com/how-to-successfully-install-anaconda-on-a-mac-and-actually-get-it-to-work-53ce18025f97">here</a></p>
+
+<h2 id="windows">Windows:</h2>
+<p>From official Python docs:</p>
+<blockquote>
+  <p>Unlike most Unix systems and services, Windows does not include a system supported installation of Python. To make Python available, the CPython team has compiled Windows installers (MSI packages) with every release for many years.” The full installer contains all components and is the best option for developers using Python for any kind of project.</p>
+</blockquote>
+
+<h4 id="1-pyenv-win">1. Pyenv-win</h4>
+<p>For windows user: https://github.com/pyenv-win/pyenv-win</p>
+
+<h4 id="2-anaconda">2. Anaconda:</h4>
+<p>Installation using the GUI installer
+From the anaconda docs:</p>
+<blockquote>
+  <p>Should I add Anaconda to the Windows PATH?
+When installing Anaconda, we recommend that you do not add Anaconda to the Windows PATH because this can interfere with other software. Instead, open Anaconda with the Start Menu and select Anaconda Prompt, or use Anaconda Navigator (Start Menu - Anaconda Navigator).</p>
+</blockquote>
+
+<p>Enjoy Python ! ;)</p>

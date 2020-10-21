@@ -1,0 +1,232 @@
+<blockquote>
+  <p>Machine Learning is the field of study that gives computers the ability to learn without being explicitly programmed (if,if,if,else,if). — Arthur Samuel, 1959</p>
+</blockquote>
+
+<h1 id="introduction">Introduction</h1>
+
+<h2 id="why-machine-learning-ml-">Why Machine Learning (ML) ?</h2>
+
+<p>The promise with ML is to have a general framework to create data-related models which we expect to be <strong>more robust, personalized and easier to maintain</strong> into detecting patterns than <strong>hard-coding a set of rules</strong>.<br />
+Detecting new patterns over time, or from different sources, only require you to update the model or retrain it over the corresponding set of data.<br /></p>
+
+<p>ML models can also be inspected to infer about relationships between variables, and give humans a better understanding on complex and massive data, this is also called <strong>data mining</strong>. <br />
+But in my opinion there should be caution on such practice as to infer on the data generation process which is something that better falls in the scope of <strong>statistics</strong>.</p>
+
+<h2 id="machine-learning-vs-statistics">Machine Learning vs Statistics</h2>
+
+<p>Statistics emphasizes inference, whereas Machine Learning emphasizes prediction.</p>
+
+<p>Actually the term <em>inference</em> in ML refers more as the predictions made on <strong>unseen data</strong> from a <strong>trained model</strong> while inference in statistics is the <strong>process to deduce properties of an underlying distribution of probability</strong>, the observed data is believed to have originated from a larger population. Hence statistics is employed towards better <a href="https://www.peggykern.org/uploads/5/6/6/7/56678211/edu90790_decision_chart.pdf">understanding some particular data generating process</a></p>
+
+<blockquote>
+  <p>A statistical model (SM) is a data model that incorporates probabilities for the data generating mechanism and has identified unknown parameters that are usually interpretable and of special interest.</p>
+</blockquote>
+
+<p>Satistics explicitly takes uncertainty into account by specifying a <a href="https://www.fharrell.com/post/stat-ml/">probabilistic model for the data</a>.</p>
+<ul>
+  <li>It has a <a href="https://online.stat.psu.edu/stat504/node/16/">mathematical formulation that shows the relationships between random variables and parameters</a>.</li>
+  <li>Residuals are the portion of the data unexplained by the model.</li>
+  <li>Most of the variation in the data should be explained by the latter though i.e. \(data = model + residuals\).</li>
+  <li>It makes assumptions about the random variables.</li>
+</ul>
+
+<p>ML is more empirical including allowance for high-order interactions that are not pre-specified.</p>
+
+<p>Neithertheless, ML emboddies <strong>representation</strong> (the transformation of inputs from one space to another more useful space which can be more easily interpreted), and ML models can be also exploited or interpreted to extract meaningful information or patterns from the underlying observed data (this is also encapsulated by what is called as <strong>Data Mining</strong>).</p>
+
+<h1 id="some-terminology">Some terminology</h1>
+
+<h2 id="estimator-vs-estimate-vs-estimand">Estimator vs estimate vs estimand</h2>
+
+<p>Directly from Wikipedia (this is self-exaplanatory):</p>
+<blockquote>
+  <p>In statistics, an estimator is a rule for calculating an estimate of a given quantity based on observed data: thus the rule (the estimator), the quantity of interest (the estimand) and its result (the estimate) are distinguished.</p>
+</blockquote>
+
+<h2 id="probability-space">Probability space</h2>
+
+<p>It is a mathematical construct to give a theoretical frame to random process / “experiment”.</p>
+
+<p>Again using Wikipedia definition; it is constituted of 3 composants: \((\Omega, F, P)\)</p>
+<ul>
+  <li>a sample space (all the possible outcomes of the experiment)</li>
+  <li>an event space (all the events, an event being a set of outcomes in the sample space)</li>
+  <li>a probability function: which assigns to each event in the event space a probability.
+E.g. tossing a coin once</li>
+  <li>sample space = {(head, head), (head, tail), (tail, tail)} (if we don’t care about the order : unordered)<br /></li>
+  <li>event space includes event1 “E=having eads twice” or event2 “E=having head and tail once”.</li>
+  <li>probability function: fair coin: 1/2 of 1 head and 1/2 of one tail.</li>
+</ul>
+
+<h2 id="random-variable">Random Variable</h2>
+
+<p>A random variable is a function defined on a probability space which assigns to a element in the sample space (an outcome of an experiment) a real value.</p>
+
+<p>\(X=(x_1, x_2, \dots, x_M)\) is one row of your dataset, then \(X\) can be associated with the “realization” of \(M\) random variables: \(X_1, X_2, \dots, X_M\)</p>
+
+<h2 id="hypothesis">Hypothesis</h2>
+
+<blockquote>
+  <p>From Wikipedia: A statistical hypothesis is a hypothesis that is testable on the basis of observed data modeled as the realised values taken by a collection of random variables. A set of data (or several sets of data, taken together) are modelled as being realised values of a collection of random variables having a joint probability distribution in some set of possible joint distributions. The hypothesis being tested is exactly that set of possible probability distributions.</p>
+</blockquote>
+
+<h2 id="prediction-vs-estimation">Prediction vs Estimation</h2>
+
+<p>An estimator is a function (of a <strong>random variable corresponding to the observed data</strong> \(X\)), and is denoted \(\hat{\theta}\)<br />
+The composition  \(\hat{\theta}(X)\) is an estimate produced by applying the estimator function on some realizations of \(X\) (the observed data or a subset of it).<br />
+The estimator thus maps the realizations of \(X\) to a (set of) sample estimates, depending on \(X\), making the composition a random variable, with a fixed value for a given input.</p>
+
+<p>For example, the OLS estimate for a simple linear regression is \((\hat{\alpha}, \hat{\beta})\).<br /></p>
+
+<p>In OLS again, you can think of the formulas to define the \(\beta\)s and the \(intercept\) as <strong>estimators</strong>, and the corresponding estimates produced from <strong>applying the estimators</strong> on a given <a href="https://stats.stackexchange.com/questions/7581/what-is-the-relation-between-estimator-and-estimate">sample or set of data</a>.</p>
+
+<p>A <strong>predictor</strong> concerns the <strong>independent observation/value</strong> of another <strong>random variable \(Z\)</strong> whose distribution is <strong>related to the unknown parameters we try to estimate using estimators</strong>.<br /> 
+Hence, \(Z\) being a random variable, it also brings an additional uncertainty as the outcomes from \(Z\) are random, not only from the randomness of the data, but the randomness of \(Z\) itself.<br />
+The predictor applied on a single vector of data-points, and \(Z\) itself, are not part of the dataset. Here we talk about <a href="https://stats.stackexchange.com/questions/17773/what-is-the-difference-between-estimation-and-prediction">realizations of a <strong>random variable that depends on the independent variables in the data</strong> \(Z\)=\(Y(x)\)</a>.</p>
+<blockquote>
+  <p>in addition, there is uncertainty in just what value of \(Y(x)\) will occur. This additional uncertainty - because \(Y(x)\) is random - characterizes predictions. […] The source of potential confusion is that the prediction usually builds on the estimated parameters and might even have the same formula as an estimator.</p>
+</blockquote>
+
+<h2 id="the-data">The Data</h2>
+
+<h3 id="units-of-observation">Units of observation</h3>
+
+<p>These are items that you actually observe, the level at which you collect the data.</p>
+
+<h3 id="unit-of-analysis-case">Unit of analysis (case)</h3>
+
+<p>On another hand, this is <a href="http://re-design.dimiter.eu/?p=253">the level at which you pitch the conclusions</a>. For example, you may draw conclusions on group differences based on results you’ve collected on a student level.</p>
+
+<h3 id="caracteristics-attributes-and-features">Caracteristics: attributes and features</h3>
+
+<p>We may look at different caracteristics/dimensions for each given item we are observing.<br />
+The name of each of the dimension that encapsulates the respective individual measurements is called a <strong>data attribute</strong> (e.g. weight of a patient, e.g. level of glucose).<br />
+Similarly a <strong>feature</strong> embeds both the data attribute <strong>and</strong> its corresponding value for a given unit of observation. Often though, features and attributes are interchangeably used terminology.<br />
+Finally <strong>feature variable</strong> is even more closely related to data attribute, a slight difference is that the variable is the “operationalized representation” of the latter.<br />
+In other tutorials of this blog, we will use data attribute and feature variable interchangeably.</p>
+
+<h3 id="data-points">Data points</h3>
+
+<p><strong>Data points</strong> are the <strong>different measures carried out for a unit of observation</strong>. It is a <strong>collection of features</strong> / caracteristics.<br />
+For example, one patient could have a data point defined as the collection {weight, height, level of glucose, BMI}.<br />
+The point could be “plot” in such n-dimensional figure. Features here are each of these dimensions.</p>
+
+<h3 id="data-structure">Data structure</h3>
+
+<p>For most ML algorithsm, data collected are often stored in a 2-dimensional dataframe or similarly shaped array.<br />The features variables / data attributes correspond to the <strong>columns</strong> of the dataset, while the <strong>rows</strong> match the <strong>units of observation</strong>.</p>
+
+<h3 id="cross-sectionnal-vs-longitudinal-vs-time-series-study">Cross-sectionnal vs longitudinal vs time-series study</h3>
+
+<p>Units of observation could be <strong>equally spaced time records</strong> for one individual/entity/study unit. Say for example Apple stock price variations over time: we would then talk about a <strong>time-series</strong> study.<br />
+When <strong>multiple individuals</strong> do have each different time point observations, we are talking about <strong>longitudinal</strong> study.<br />
+Lastly, cross-sectional studies are constituted of <strong>entities’ observations at one speficic point in time</strong> (e.g. Boston houses price dataset).<br /></p>
+
+<h3 id="quantitative-vs-qualitative-research">Quantitative vs qualitative research</h3>
+
+<p>A quantitative research is an <strong>empirical method</strong> that relies <strong>on collected numerical data</strong> to apply elements of the <strong>scientific method</strong> on: such as the <strong>drawing hypotheses</strong>, generation of <strong>mathematical models</strong> and the ultimate <strong>acquiring of knowledge</strong>.<br />
+A qualitative research is rather used to <strong>explore trends</strong> or <strong>gather insights</strong> using <strong>non-numerical</strong> data (video, text, etc.) by conducting surveys or <strong>interviews</strong> for example.</p>
+
+<h3 id="quantitative-vs-categorical-variables-or-nominal">Quantitative vs Categorical variables (or “nominal”)</h3>
+
+<p>Statistical computations and analyses assume that the <a href="https://stats.idre.ucla.edu/other/mult-pkg/whatstat/what-is-the-difference-between-categorical-ordinal-and-numerical-variables/">variables have specific levels of measurement</a>.</p>
+
+<p>Categorical variables are <strong>variable holding 2 or more categories</strong> but <strong>without any ordering between the categories</strong> (can you order someone with blue eyes from someone else with red ones ?).<br />
+Ordinal variables, on the other hand, have categories that <strong>can be ordered</strong> (e.g. Height could be Low, Medium or High), but the <strong>spacing between the values</strong> may not be the same across the levels of the variables ! Were it be, the variables would be numerical / quantitative.<br />
+Numerical variables can be subclassed in <strong>continuous or discrete variables</strong>. Continuous variables is more of a conceptual construct: values discretion appears inevitably as instruments of measurement does not have infinite countable range values. The difference between numerical and ordinal variable is that the former <strong>necessarily implies an interval scale</strong> where the <strong>difference between two values is meaningful</strong>.</p>
+
+<h2 id="the-ml-part">The ML part</h2>
+
+<h3 id="algorithm-vs-model">Algorithm vs model</h3>
+
+<p>An algorithm is the <strong>set of instructions</strong> i.e. the approach <strong>to build</strong> a model.</p>
+
+<p>The model is the <strong>final construct - computational tool obtained from running the algorithm on the data</strong> (training data more exactly).</p>
+
+<p><strong>Model parameters change over the data</strong> the model has been trained on.</p>
+
+<blockquote>
+  <p>from <a href="https://docs.microsoft.com/en-us/windows/ai/windows-ml/what-is-a-machine-learning-model">windows docs</a>: You train a model over a set of data, providing it an algorithm that it can use to reason over and learn from those data. Once you have trained the model, you can use it to reason over data that it hasn’t seen before, and make predictions about those data.</p>
+</blockquote>
+
+<h3 id="model-parameters-vs-hyperparameters">Model parameters vs hyperparameters</h3>
+
+<p>Model parameters change over the data the model has been trained on.</p>
+
+<p>Model hyperparameters have values that should be <strong>fixed prior to running the algorithm</strong> on the data to construct the model. The model structure can change depending on the values set for the hyperparameters. Hyperparams then eventually control the process of defining your model.<br />
+These are “parameters” to ultimately fine-tune, often controlling overfitting tendency of the model.<br />
+A regression model built using OLS method and not using any penalization does not have any hyperparameters. A regression model made from using Gradient Descent algorithm does indeed use an hyperparameter: the learning rate.</p>
+
+<h3 id="outcome-variable">Outcome variable</h3>
+
+<p>What you’re trying to predict, in a supervised machine learning problem.
+The \(y\) is the true/observed value from the data.</p>
+<ul>
+  <li>\(y\) could be a single numerical value (this leads to a regression problem) or a categorical one (this leads to a classification problem).</li>
+  <li>\(y\) could be one element (univariate problem, e.g. the salaries of employees in the company), or a vector \(Y\) of elements (multivariate statistics). Actually many of the common techniques in multivariate analysis (ordination and clustering, for instance) use unsupervised learning algorithms (e.g. PCA).</li>
+</ul>
+
+<p>The term dependent variable is also used to refer to the outcome variable, under the hypothesis often drawn in statistics that this variables does not depend on the value of other variables by a mathematical function.</p>
+
+<h3 id="independent-variables">Independent variables</h3>
+
+<p>It is used to refer to the variables that should <strong>not depend</strong> on other variables in the scope of the experiment, and that are used as <strong>predictor variables</strong>, as it is assumed a <strong>relationship</strong> does exist between the outcome variable and those.</p>
+
+<h3 id="a-performance-measure">A performance measure</h3>
+
+<p>How well does perform your model ?<br />
+How does it compare to another model ?<br />
+To draw such comparisons you need to specify a performance measure.</p>
+
+<p>A <strong>fitness function</strong> is a function that returns an integer value for how good your model is. For traditional ML algorithms, we will use what we call a loss function.</p>
+
+<p>Similarly, the <strong>loss</strong> function measures how bad your model is on predicting one data point.
+It could be a quadractic loss function (squared difference between the real and predicted value):
+\(L(Y, f(X)) =  (y - \hat{f}(X))^2\)</p>
+
+<p>(nice as it is differentiable), indicative loss function (0/1), absolute difference loss function, or other.<br /></p>
+
+<p>Actually, more generally, a loss function can show how close an estimate is from its corresponding estimand (quantity of interest we try to estimate). Then, it could be how close an estimate $\hat{\beta}$ of the parameter $\beta$ is close to $\beta$ itself. Or it could be how close a model prediction $ \hat{f}(X) $ is close to the true observation y (e.g. MSE for an predictor, MSE for an estimator) given an single input vector (of features \(X\)), which assign the prediction \(\hat{y}\).</p>
+
+<p>The risk function, in a frequentist statistical theory, is the <strong>expected loss</strong> i.e. the <strong>averaging over all of the loss functions</strong>. It then describes how bad your model is on the <strong>set</strong> of data. Hence the <strong>closer</strong> the predictions <strong>match</strong> the real expected / true value, the <strong>lower the prediction errors</strong> are, and then the <strong>lower the cost</strong> functions gets, <strong>so is the risk</strong> function.
+We then seek to <strong>minimize</strong> the risk function.</p>
+
+<p>It is often nice to differentiate, if possible, such risk function over the model parameters, so to see how changing one parameter or the other could possibly minimize the risk function.</p>
+
+<p>Note: Sometimes <strong>cost function</strong> is used as synonym of <strong>loss function</strong>, sometimes as the <strong>risk</strong> one. Hence you should always read the underlying equation in a paper to ascertain of the definition one use.</p>
+
+<h3 id="training-vs-test-sets">training vs test sets</h3>
+
+<p>If we were to <strong>preprocess data and later train a model</strong> — that could be hyperparametrized — on these data, and finally compute a risk function applied on the model predictions for these same data versus the observed values, we could then be <strong>tempted to lower the value</strong> returned by the risk function by <strong>changing our model hyperparameters</strong> or changing the way we <strong>processed data</strong> (this could include changing the data representation of some input features, handling of outliers, handling of missing data, feature selection and feature engineering).<br /></p>
+
+<p>That would be such a bad idea though: how can one ensure the model will perform any better on a another sample from the population, so to say: <strong>generalize</strong> well to other inputs and probably unseed data from the generation process ?</p>
+
+<p>In order to mitigate this, you split the main dataset in train and test datasets.</p>
+<ul>
+  <li>The data processing decisions and training of the model will be performed on the training dataset.</li>
+  <li><strong>An unbiased evaluation of the trained model</strong> (trained on the training dataset) will be raised by applying the risk function on a test set i.e. predicted outcome values on <strong>new, possibly unseen data</strong> from the test set will be <strong>compared to</strong> the <strong>observed outcome values</strong> from this same <strong>test set</strong>. This enables us to check how well does the model actually perform on new data in a <strong>supervised learning framework</strong>.</li>
+</ul>
+
+<h3 id="supervised-vs-unsupervised-learning">Supervised vs Unsupervised Learning</h3>
+
+<p>A supervised machine learning alorigthm makes used of the <strong>presence of the outcome variable to guide the learning process</strong> (Element of Statistical Analysis Book).</p>
+
+<p>An <strong>unsupervised machine learning</strong> algorithm finds patterns in the data with <strong>no pre-existing **labels or outcome variable</strong> used for guidance in the learning process.</p>
+
+<p>Taking one approach or the other depends on your use case (making prediction vs trying to get new insights of your data using ML).</p>
+
+<p>Although splitting data into training and testing sets is mainly granted for supervised problems, <a href="https://stackoverflow.com/questions/31673388/is-train-test-split-in-unsupervised-learning-necessary-useful">unsupervised problems and algorithms can also benefit from this approach</a></p>
+
+<h3 id="a-base-scenario-in-a-supervised-learning-problem">A base scenario in a Supervised Learning problem</h3>
+
+<p>This example should be fully understandable after reading the preceding questions.</p>
+
+<p>I directly quote this example framework from <strong><em>Elements of statistical Learning</em></strong>:</p>
+
+<blockquote>
+  <p>In a typical scenario, we have an <strong>outcome measurement</strong>, usually <strong>quantitative</strong> (such as a <strong>stock price</strong>) or <strong>categorical</strong> (such as <strong>yes</strong> heart attack/<strong>no</strong> heart attack), that we <strong>wish to predict</strong> based on a <strong>set of features</strong> (such as diet and clinical <strong>measurements</strong>). We have a <strong>training set of data</strong>, in which <strong>we observe the outcome and feature measurements</strong> for a <strong>set of observations</strong> (such <strong>as people</strong>). Using <strong>this</strong> data we <strong>build a prediction model</strong>, or <strong><em>learner</em></strong>, which will enable us to <strong>predict the outcome for new unseen objects</strong>. A good learner is <strong>one that accurately predicts such an outcome</strong>.</p>
+</blockquote>
+
+<h2 id="modelling">Modelling</h2>
+
+<h3 id="linear-regression">Linear-Regression</h3>
+

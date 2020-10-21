@@ -1,0 +1,68 @@
+<p>Some exercices following tutorial <em>Introduction to functional programming</em> to make you more comfortable with the concepts.</p>
+
+<h2 id="exo1-lets-create-a-data-science-pipeline-of-generators-">Exo1: Let’s create a Data Science pipeline of generators 😉</h2>
+
+<p>Let’s say we have 1000 data points generated using <code class="language-plaintext highlighter-rouge">range(1000)</code> to process through a set of functions.</p>
+
+<p>We would want to pass those data inputs to multiple functions so that the output of the one becomes the input of the other. This is also named a <strong>pipeline.</strong></p>
+
+<ul>
+  <li>Example:</li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">range(1000) --&gt; FUNCTION1 ---&gt; intermediate_output1 ---&gt; FUNCTION2 --&gt; intermediate_output2 --&gt; FUNCTION3 </code></p>
+
+<p>in terms of code this would look like this:</p>
+
+<p><code class="language-plaintext highlighter-rouge">function3(function2(function1(range(1000))))</code></p>
+
+<p>As the number of processing functions grows, it becomes less “clean” and readible.</p>
+
+<p>we would prefer to build a function <code class="language-plaintext highlighter-rouge">set_pipeline</code> which would result in the following signature:</p>
+
+<p><code class="language-plaintext highlighter-rouge">set_pipeline(inputs, function1, function2, ...)</code></p>
+
+<p>What’s your strategy ? Hint: think about <code class="language-plaintext highlighter-rouge">functools.reduce</code></p>
+
+<h2 id="define-3-generators-functions">Define 3 generators functions</h2>
+<p>1.</p>
+<ul>
+  <li>one that just multiply by 2</li>
+  <li>one that power by 2</li>
+  <li>one that divide by 5</li>
+</ul>
+
+<p>2.</p>
+<ul>
+  <li>use those generators in the <code class="language-plaintext highlighter-rouge">set_pipeline</code> function you defined earlier</li>
+</ul>
+
+<h2 id="exo2-create-a-range-with-decimal-increment">Exo2: Create a range with decimal increment</h2>
+
+<p>Create a generator function which gives you the behavior of range(start, stop, step) with step that could be a float</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span><span class="p">:</span>
+    <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="k">except</span> <span class="nb">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>'float' object cannot be interpreted as an integer
+</code></pre></div></div>
+
+<h2 id="exo3--counting-letter-occurences-in-a-large-file">Exo3 : Counting letter occurences in a large file</h2>
+
+<p>Generate a 10Mb file using this command:<br />
+<code class="language-plaintext highlighter-rouge">base64 /dev/urandom | head -c 10000000 &gt; file.txt</code></p>
+
+<ul>
+  <li>
+    <p>Create the function:<br />
+<code class="language-plaintext highlighter-rouge">read_large_file(big_file, block_size=10000)</code><br />
+which reads a large file by <strong>chunks</strong>.<br />
+A chunk of size 1 equals one line of the file.</p>
+  </li>
+  <li>
+    <p>Create a generator function that stored <strong>cumulated</strong> occurences of each letter over the passing chunks.</p>
+  </li>
+</ul>

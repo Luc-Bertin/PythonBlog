@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en_US"><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="en_US" /><updated>2020-10-18T19:20:55+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">PythonMood | Let’s code with Lulu</title><subtitle>Luc Bertin's blog of Python theoretical and hands-on tutorials. Here we cover Python from scratch and some use cases for Data Science related subjects</subtitle><entry><title type="html">Supervised Machine Learning</title><link href="http://localhost:4000/Scikit-Learn/" rel="alternate" type="text/html" title="Supervised Machine Learning" /><published>2020-09-25T00:00:00+02:00</published><updated>2020-09-25T00:00:00+02:00</updated><id>http://localhost:4000/Scikit-Learn</id><content type="html" xml:base="http://localhost:4000/Scikit-Learn/">&lt;blockquote&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en_US"><generator uri="https://jekyllrb.com/" version="3.9.0">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" hreflang="en_US" /><updated>2020-10-21T09:58:13+02:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">PythonMood | Let’s code with Lulu</title><subtitle>Luc Bertin's blog of Python theoretical and hands-on tutorials. Here we cover Python from scratch and some use cases for Data Science related subjects</subtitle><entry><title type="html">Supervised Machine Learning</title><link href="http://localhost:4000/Notions-Supervised-Machine-Learning/" rel="alternate" type="text/html" title="Supervised Machine Learning" /><published>2020-09-25T00:00:00+02:00</published><updated>2020-09-25T00:00:00+02:00</updated><id>http://localhost:4000/Notions-Supervised-Machine-Learning</id><content type="html" xml:base="http://localhost:4000/Notions-Supervised-Machine-Learning/">&lt;blockquote&gt;
   &lt;p&gt;Machine Learning is the field of study that gives computers the ability to learn without being explicitly programmed (if,if,if,else,if). — Arthur Samuel, 1959&lt;/p&gt;
 &lt;/blockquote&gt;
 
@@ -185,7 +185,7 @@ It could be a quadractic loss function (squared difference between the real and 
 
 &lt;p&gt;(nice as it is differentiable), indicative loss function (0/1), absolute difference loss function, or other.&lt;br /&gt;&lt;/p&gt;
 
-&lt;p&gt;Actually, more generally, a loss function can show how close an estimate is from its corresponding estimand (quantity of interest we try to estimate). Here, the estimate is simply the model prediction \(\hat{f}(X)\) given an single input vector of features \(X\), which assign the prediction \(\hat{y}\).&lt;/p&gt;
+&lt;p&gt;Actually, more generally, a loss function can show how close an estimate is from its corresponding estimand (quantity of interest we try to estimate). Then, it could be how close an estimate $\hat{\beta}$ of the parameter $\beta$ is close to $\beta$ itself. Or it could be how close a model prediction $ \hat{f}(X) $ is close to the true observation y (e.g. MSE for an predictor, MSE for an estimator) given an single input vector (of features \(X\)), which assign the prediction \(\hat{y}\).&lt;/p&gt;
 
 &lt;p&gt;The risk function, in a frequentist statistical theory, is the &lt;strong&gt;expected loss&lt;/strong&gt; i.e. the &lt;strong&gt;averaging over all of the loss functions&lt;/strong&gt;. It then describes how bad your model is on the &lt;strong&gt;set&lt;/strong&gt; of data. Hence the &lt;strong&gt;closer&lt;/strong&gt; the predictions &lt;strong&gt;match&lt;/strong&gt; the real expected / true value, the &lt;strong&gt;lower the prediction errors&lt;/strong&gt; are, and then the &lt;strong&gt;lower the cost&lt;/strong&gt; functions gets, &lt;strong&gt;so is the risk&lt;/strong&gt; function.
 We then seek to &lt;strong&gt;minimize&lt;/strong&gt; the risk function.&lt;/p&gt;
@@ -7556,13 +7556,17 @@ https://stackoverflow.com/questions/26998223/what-is-the-difference-between-cont
 
 &lt;h2 id=&quot;ex-2-counting-letter-frequencies-in-a-text&quot;&gt;Ex. 2: Counting letter frequencies in a text.&lt;/h2&gt;
 
-&lt;ul&gt;
-  &lt;li&gt;using a simple Python dictionary&lt;/li&gt;
-  &lt;li&gt;using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;defaultdict&lt;/code&gt; (subclass of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dict&lt;/code&gt;)&lt;/li&gt;
-  &lt;li&gt;using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Counter&lt;/code&gt; (subclass of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dict&lt;/code&gt;)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;defaultdict&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Counter&lt;/code&gt; can be found in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;collections&lt;/code&gt; (i.e. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;from collections import defaultdict, Counter&lt;/code&gt;)&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;You should count letter frequencies using these strategies:
+    &lt;ul&gt;
+      &lt;li&gt;using a simple Python dictionary&lt;/li&gt;
+      &lt;li&gt;using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;defaultdict&lt;/code&gt; (subclass of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dict&lt;/code&gt;)&lt;/li&gt;
+      &lt;li&gt;using &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Counter&lt;/code&gt; (subclass of &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dict&lt;/code&gt;)
+&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;defaultdict&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Counter&lt;/code&gt; can be found in &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;collections&lt;/code&gt; (i.e. &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;from collections import defaultdict, Counter&lt;/code&gt;)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Count word frequencies (store them in a Python dictionary).&lt;/li&gt;
+&lt;/ol&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;text&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;&quot;&quot;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sagittis neque turpis, in gravida erat tincidunt a. Maecenas lobortis rutrum arcu, in posuere dolor fermentum sed. Duis imperdiet laoreet nibh, a pretium lectus condimentum eget. Maecenas eu elit vitae nibh euismod lacinia et a tortor. Donec at egestas leo, eget molestie quam. Sed elementum scelerisque sapien, quis suscipit ex malesuada vel. Aenean non mollis erat, in tincidunt massa.
 
@@ -7614,9 +7618,8 @@ Quisque quis magna malesuada, ultricies leo eget, elementum est. Praesent enim p
 We will call this dictionary &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;all_triplets_to_amino_acids&lt;/code&gt;&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;Expand the tuples in dictionary &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;all_triplets_to_amino_acids&lt;/code&gt; as simple keys for each element of the tuples. Hence you should have in the resulting dictionary multiple same amino acids values for some keys (e.g. “CAT”: “His”, “CAC”: “His”)&lt;br /&gt;
-We will call this dictionary &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;triplets_to_amino_acids&lt;/code&gt;&lt;br /&gt;
-You can still use dict comprehension for that.&lt;/p&gt;
+    &lt;p&gt;Using dict comprehension, expand the tuples in dictionary &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;all_triplets_to_amino_acids&lt;/code&gt; as simple keys for each element of the tuples. Hence you should have in the resulting dictionary multiple same amino acids values for some keys (e.g. “CAT”: “His”, “CAC”: “His”)&lt;br /&gt;
+We will call this dictionary &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;triplets_to_amino_acids&lt;/code&gt;&lt;br /&gt;&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;This is an mARN extract that is about to get translated in protein synthesis:&lt;br /&gt;
@@ -7635,11 +7638,79 @@ CGATTCCGGTGCACGGAACAA’&lt;br /&gt;
 Split this arn in sequence of triplets to further get the amino-acids conversion (you can use list comprehension + &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;range&lt;/code&gt;).&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;Translate the sequence of triplets into the corresponding amino acid&lt;/p&gt;
+    &lt;p&gt;Translate the sequence of triplets into a corresponding &lt;strong&gt;string&lt;/strong&gt; of &lt;strong&gt;amino acid&lt;/strong&gt; separated by a separator “-“ (Hint: use a list comprehension for the looping part, then convert the resulting list into a string with “-“ separators)/&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;h2 id=&quot;ex-4-sort-the--a-sorted-dictionary-sorted-by-values&quot;&gt;Ex. 4: Sort the  a sorted dictionary, sorted by values&lt;/h2&gt;
+&lt;h2 id=&quot;ex-4-functions&quot;&gt;Ex. 4: functions&lt;/h2&gt;
+
+&lt;!-- ### Fonction definition and calls
+ --&gt;
+&lt;ol&gt;
+  &lt;li&gt;Create/define a simple function that prints ‘hello’. The function should not return anything neither take any inputs.&lt;br /&gt;
+Call that function.&lt;/li&gt;
+  &lt;li&gt;Create/define a simple function that takes &lt;strong&gt;one parameter&lt;/strong&gt; ‘name’ and returns ‘hello &amp;lt;name&amp;gt;’.&lt;br /&gt;
+Call that function.&lt;/li&gt;
+  &lt;li&gt;Create/define a simple function that does the same as &lt;strong&gt;2&lt;/strong&gt;, but provides default value if the name argument is not passed-in the function call by the user.&lt;br /&gt;
+Call that function.
+&lt;!-- ### A slightly bigger function of multiple arguments
+ --&gt;&lt;/li&gt;
+  &lt;li&gt;Create/define a simple function that takes 2 params: &lt;strong&gt;age&lt;/strong&gt; and &lt;strong&gt;name&lt;/strong&gt;.&lt;br /&gt;
+It first “upperizes” the name, and convert age as a string so to have the returned form as ‘Hello &amp;lt;name&amp;gt;, you are &amp;lt;age&amp;gt; years old’.&lt;/li&gt;
+  &lt;li&gt;Call the function in &lt;strong&gt;4&lt;/strong&gt; passing &lt;strong&gt;positional&lt;/strong&gt; arguments in the right order.&lt;br /&gt;
+Call a the function a second time passing &lt;strong&gt;keywords&lt;/strong&gt; arguments in either orders.&lt;br /&gt;
+Prove the order of keywords arguments does not matter here.
+&lt;!-- ### Applying a function on each input of a sequence
+ --&gt;&lt;/li&gt;
+  &lt;li&gt;Call the function in &lt;strong&gt;4&lt;/strong&gt; each time on each input (name and age) provided below, using &lt;strong&gt;for loop&lt;/strong&gt; and &lt;strong&gt;tuple unpacking&lt;/strong&gt; from the &lt;strong&gt;dict&lt;/strong&gt; below:
+    &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;inputs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Luc'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;25&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Corentin'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;18&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Thomas'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;29&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Julie'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;22&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Juliette'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;21&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+    &lt;!-- ### Unpacking a sequence of arguments in a function--&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Using this input list of arguments below:
+    &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;list_of_arguments&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Luc'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;25&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+    &lt;p&gt;Call the function defined in &lt;strong&gt;4&lt;/strong&gt; passing-in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;list_of_arguments&lt;/code&gt; to be “parsed”/unpacked into &lt;strong&gt;positional arguments&lt;/strong&gt; in the function.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Using this dict of arguments below:
+    &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;dict_of_arguments&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'age'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;25&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'name'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Luc'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+    &lt;p&gt;Call the function defined in &lt;strong&gt;4&lt;/strong&gt; passing-in the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dict_of_arguments&lt;/code&gt; to be “parsed”/unpacked into &lt;strong&gt;keyword arguments&lt;/strong&gt; in the function.&lt;br /&gt;
+Does the position matter ? &lt;strong&gt;Prove it.&lt;/strong&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Recall what we did in &lt;strong&gt;6&lt;/strong&gt;? Reuse the same variable &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;inputs&lt;/code&gt; below:
+    &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;inputs&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Luc'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;25&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Corentin'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;18&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Thomas'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;29&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Julie'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;22&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;'Juliette'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;21&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
+    &lt;p&gt;to print a hello message using &lt;strong&gt;for loop&lt;/strong&gt; from the &lt;strong&gt;dict&lt;/strong&gt; below, &lt;strong&gt;but this time with the unpacking that happens within the function call !&lt;/strong&gt;&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h3 id=&quot;a-function-with-undefined-number-of-arguments&quot;&gt;A function with undefined number of arguments&lt;/h3&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Create/define a more flexible function named &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;multiply&lt;/code&gt; that returns a value made from multiplying any number of &lt;strong&gt;positional arguments&lt;/strong&gt; passed in that function.&lt;br /&gt;
+Call multiply(8,2,3)&lt;br /&gt;
+Call multiply(19,2,10)&lt;br /&gt;
+Call multiply(1)&lt;br /&gt;
+To prove validity of the function.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Create/define the function &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;multiply2&lt;/code&gt;that do the same as &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;multiply&lt;/code&gt;take an additional &lt;strong&gt;boolean keyword argument&lt;/strong&gt; &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;inverse&lt;/code&gt; defaulting to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;False&lt;/code&gt;, but when set as &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;True&lt;/code&gt; on function call, will inverse the final result to be returned.&lt;br /&gt;
+Call multiply(8,2,3, inverse=True)&lt;br /&gt;
+Call multiply(19,2,10, inverse=True)&lt;br /&gt;
+Call multiply(1, inverse=True)&lt;br /&gt;
+To prove validity of the function.
+What happens if i do ? Explain it.
+Call multiply(8,2,3, True)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Create/define the same function &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;multiply2&lt;/code&gt;, but this time that takes &lt;strong&gt;any number of keywords arguments&lt;/strong&gt; (just like &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;inverse&lt;/code&gt;, but would not be reduced to that).&lt;br /&gt;
+Add some behavior in the function definition for arbitrarily named keywords arguments (just as we did with &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;inverse&lt;/code&gt;), and use them in different calls.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;ex-4-sort-a-dictionary-by-values-&quot;&gt;Ex. 4: Sort a dictionary… by values !&lt;/h2&gt;
 
 &lt;p&gt;Hint: use &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Ordereddict&lt;/code&gt;&lt;/p&gt;
 
@@ -8555,7 +8626,7 @@ KeyError: 'webencodings'
   &lt;p&gt;multiple names (in multiple scopes) can be bound to the same object. This is known as aliasing. Passing an object as parameter to a function is cheap since just a pointer is passed by the implemententation. Hence using mutable objects might affect the code&lt;/p&gt;
 &lt;/blockquote&gt;</content><author><name>luc</name></author><summary type="html"></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:4000/assets/images/post_execution_model/namespaces.svg" /><media:content medium="image" url="http://localhost:4000/assets/images/post_execution_model/namespaces.svg" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry><title type="html">Beginning in Python</title><link href="http://localhost:4000/Beginning-in-Python/" rel="alternate" type="text/html" title="Beginning in Python" /><published>2020-08-22T00:00:00+02:00</published><updated>2020-08-22T00:00:00+02:00</updated><id>http://localhost:4000/Beginning-in-Python</id><content type="html" xml:base="http://localhost:4000/Beginning-in-Python/">&lt;p&gt;1st course will mainly focus on how to approach Python for the first time. For that we will use Jupyter module.&lt;/p&gt;
 
-&lt;h2 id=&quot;in-python-everything-is-an-object&quot;&gt;“In Python, everything is an object”&lt;/h2&gt;
+&lt;h1 id=&quot;in-python-everything-is-an-object&quot;&gt;“In Python, everything is an object”&lt;/h1&gt;
 
 &lt;p&gt;This is a very well-known sentence but I think it is the best, along with some examples, to start getting a good grasp of the language.
 In Python, everything is an object, according to the creator of Python, Guido van Rossum:&lt;/p&gt;
@@ -8563,9 +8634,9 @@ In Python, everything is an object, according to the creator of Python, Guido va
   &lt;p&gt;One of my goals for Python was to make it so that &lt;strong&gt;all objects were “first class.”&lt;/strong&gt; By this, I meant that I wanted &lt;strong&gt;all objects that could be named in the language&lt;/strong&gt; (e.g., integers, strings, functions, classes, modules, methods, etc.) to have equal status. That is, they can be &lt;strong&gt;assigned to variables, placed in lists, stored in dictionaries, passed as arguments, and so forth”s&lt;/strong&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;h3 id=&quot;lets-dive-in-a-bit-and-then-experiment-from-there&quot;&gt;Let’s dive-in a bit, and then experiment from there&lt;/h3&gt;
+&lt;h2 id=&quot;a-dynamically-typed-language&quot;&gt;A dynamically-typed language&lt;/h2&gt;
 
-&lt;p&gt;In Python EVERYTHING IS AN OBJECT !&lt;/p&gt;
+&lt;p&gt;Let’s dive-in a bit, and then experiment from there.&lt;/p&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -8588,7 +8659,7 @@ a = 3 /* storing the value 3; not a string, not a list, but an integer as asked.
 
 &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a&lt;/code&gt; will be simply redirecting to another object of different data type.&lt;/p&gt;
 
-&lt;p&gt;The type is then not associated to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a&lt;/code&gt; but to the run-time values, Python is then &lt;strong&gt;dynamically-typed&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;The type is then not associated to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a&lt;/code&gt; but to the run-time values, Python is then &lt;strong&gt;dynamically-typed&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;p&gt;Hence i can write:&lt;/p&gt;
 
@@ -8600,9 +8671,29 @@ a = 3 /* storing the value 3; not a string, not a list, but an integer as asked.
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Bonjour&quot;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
+&lt;p&gt;the type is checked only at runtime, hence making Python 
+&lt;strong&gt;dynamically-typed&lt;/strong&gt;. (If the line is not read, the types are not checked).&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
+    &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;25&quot;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# should raise an error, but as the condition is not entered, no types are checked here
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;same happens during function definition and not execution&lt;/p&gt;
+
+&lt;h2 id=&quot;an-id-a-type-a-value&quot;&gt;An id, a type, a value&lt;/h2&gt;
+
+&lt;p&gt;In Python, everything is an object, each object has 3 core elements:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;an &lt;strong&gt;id&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;a &lt;strong&gt;type&lt;/strong&gt;&lt;/li&gt;
+  &lt;li&gt;a &lt;strong&gt;value&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;Every object has an identity, a type and a value&lt;/strong&gt;&lt;/p&gt;
+
 &lt;p&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;ìd()&lt;/code&gt; is a built-in function that can show us the memory location of the object (at least for CPython implementation), and is certified to be unique to an object, and still during the lifetime of this object&lt;/p&gt;
 
-&lt;p&gt;Hence, in Python, every object has an identity&lt;/p&gt;
+&lt;p&gt;Hence, in Python, everything is an object, hence every object has an identity.&lt;/p&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -8617,7 +8708,7 @@ a = 3 /* storing the value 3; not a string, not a list, but an integer as asked.
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;2
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;Note that if an object (example: the object “Bonjour” is not linked anymore by any names (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a&lt;/code&gt; etc), then it can be garbage-collected.&lt;/p&gt;
+&lt;p&gt;Note that if an object (example: the object “Bonjour” is not linked anymore by any names (&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a&lt;/code&gt; etc), then it can be &lt;strong&gt;garbage-collected&lt;/strong&gt;.&lt;/p&gt;
 
 &lt;p&gt;A counter &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sys.getrefcount(X)&lt;/code&gt; is used to keep track of all the references to a given object “X”.&lt;/p&gt;
 
@@ -8636,68 +8727,13 @@ a = 3 /* storing the value 3; not a string, not a list, but an integer as asked.
 &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Yo&quot;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;the type is checked only at runtime, hence making Python 
-&lt;strong&gt;dynamically-typed&lt;/strong&gt;. (If the line is not read, the types are not checked).&lt;/p&gt;
+&lt;p&gt;All objects have a &lt;strong&gt;value&lt;/strong&gt;, a is linked here by the last binding statement. It is now &lt;strong&gt;refering to the object&lt;/strong&gt;, this object has a certain &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;id&lt;/code&gt; different from the previous one, and has a value &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;&quot;Yo&quot;&lt;/code&gt;.&lt;/p&gt;
 
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
-    &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;25&quot;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# should raise an error, but as the condition is not entered, no types are checked here
-&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;“Yo” embeds a certain &lt;strong&gt;datatype&lt;/strong&gt;, also called a &lt;strong&gt;type&lt;/strong&gt;.&lt;br /&gt;
+Any Python object &lt;strong&gt;has a type&lt;/strong&gt;.&lt;br /&gt;
+The &lt;strong&gt;type&lt;/strong&gt; of the object of value “Yo” is a &lt;strong&gt;string&lt;/strong&gt;.&lt;/p&gt;
 
-&lt;p&gt;same happens during function definition and not execution&lt;/p&gt;
-
-&lt;h3 id=&quot;wait-you-said--200000-or-bonjour-are-each-other-objects-value-&quot;&gt;Wait, you said  200000 or “bonjour” are each other object’s value ?&lt;/h3&gt;
-
-&lt;p&gt;Let’s talk about &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dir()&lt;/code&gt; first,
-it is a built-in function (we don’t need to import a python package to call this function)
-With an argument (here a), it returns a list of valid attributes for that object.&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;dir&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;['__abs__', '__add__', '__and__', '__bool__', '__ceil__', '__class__', '__delattr__', '__dir__', '__divmod__', '__doc__', '__eq__', '__float__', '__floor__', '__floordiv__', '__format__', '__ge__', '__getattribute__', '__getnewargs__', '__gt__', '__hash__', '__index__', '__init__', '__init_subclass__', '__int__', '__invert__', '__le__', '__lshift__', '__lt__', '__mod__', '__mul__', '__ne__', '__neg__', '__new__', '__or__', '__pos__', '__pow__', '__radd__', '__rand__', '__rdivmod__', '__reduce__', '__reduce_ex__', '__repr__', '__rfloordiv__', '__rlshift__', '__rmod__', '__rmul__', '__ror__', '__round__', '__rpow__', '__rrshift__', '__rshift__', '__rsub__', '__rtruediv__', '__rxor__', '__setattr__', '__sizeof__', '__str__', '__sub__', '__subclasshook__', '__truediv__', '__trunc__', '__xor__', 'as_integer_ratio', 'bit_length', 'conjugate', 'denominator', 'from_bytes', 'imag', 'numerator', 'real', 'to_bytes']
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a&lt;/code&gt; refers to an object, and this object, designed by &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a&lt;/code&gt;, has been passed as argument to the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dir&lt;/code&gt; function&lt;/li&gt;
-  &lt;li&gt;Also, it seems dir() returns a certain number of ‘things’ for this parameter. The object that &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a&lt;/code&gt; refers to, (we will later call object “a” for convenience), has then a number of “attributes” related to it.
-    &lt;ul&gt;
-      &lt;li&gt;functions: which in OOP are also known as methods,&lt;/li&gt;
-      &lt;li&gt;or variables also known as attributes&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;We get close to the initial meaning Rossum has defined by everything is object, and all objects are first-class objects (see later in the course).&lt;/p&gt;
-
-&lt;p&gt;it evens seems &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a&lt;/code&gt; contains a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;__dir__()&lt;/code&gt; method we can access doing: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a.__dir__()&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;We used &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sorted()&lt;/code&gt; built-in function to sort alphabetically the content of the list outputed by &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a.__dir__()&lt;/code&gt;&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sorted&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;__dir__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()))&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;['__abs__', '__add__', '__and__', '__bool__', '__ceil__', '__class__', '__delattr__', '__dir__', '__divmod__', '__doc__', '__eq__', '__float__', '__floor__', '__floordiv__', '__format__', '__ge__', '__getattribute__', '__getnewargs__', '__gt__', '__hash__', '__index__', '__init__', '__init_subclass__', '__int__', '__invert__', '__le__', '__lshift__', '__lt__', '__mod__', '__mul__', '__ne__', '__neg__', '__new__', '__or__', '__pos__', '__pow__', '__radd__', '__rand__', '__rdivmod__', '__reduce__', '__reduce_ex__', '__repr__', '__rfloordiv__', '__rlshift__', '__rmod__', '__rmul__', '__ror__', '__round__', '__rpow__', '__rrshift__', '__rshift__', '__rsub__', '__rtruediv__', '__rxor__', '__setattr__', '__sizeof__', '__str__', '__sub__', '__subclasshook__', '__truediv__', '__trunc__', '__xor__', 'as_integer_ratio', 'bit_length', 'conjugate', 'denominator', 'from_bytes', 'imag', 'numerator', 'real', 'to_bytes']
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;dir(a)&lt;/strong&gt; actually call internally &lt;strong&gt;a.__dir__()&lt;/strong&gt; associated to the object a&lt;/p&gt;
-
-&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;dir&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;['__abs__', '__add__', '__and__', '__bool__', '__ceil__', '__class__', '__delattr__', '__dir__', '__divmod__', '__doc__', '__eq__', '__float__', '__floor__', '__floordiv__', '__format__', '__ge__', '__getattribute__', '__getnewargs__', '__gt__', '__hash__', '__index__', '__init__', '__init_subclass__', '__int__', '__invert__', '__le__', '__lshift__', '__lt__', '__mod__', '__mul__', '__ne__', '__neg__', '__new__', '__or__', '__pos__', '__pow__', '__radd__', '__rand__', '__rdivmod__', '__reduce__', '__reduce_ex__', '__repr__', '__rfloordiv__', '__rlshift__', '__rmod__', '__rmul__', '__ror__', '__round__', '__rpow__', '__rrshift__', '__rshift__', '__rsub__', '__rtruediv__', '__rxor__', '__setattr__', '__sizeof__', '__str__', '__sub__', '__subclasshook__', '__truediv__', '__trunc__', '__xor__', 'as_integer_ratio', 'bit_length', 'conjugate', 'denominator', 'from_bytes', 'imag', 'numerator', 'real', 'to_bytes']
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;Not the same attributes and methods here…&lt;/p&gt;
-
-&lt;p&gt;If 2 and “Bonjour” are both objects, what does make them different appart from their value and id ?&lt;/p&gt;
-
-&lt;blockquote&gt;
-  &lt;p&gt;&lt;strong&gt;Every object has an identity, a type and a value&lt;/strong&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
-
-&lt;p&gt;The type !&lt;/p&gt;
-
-&lt;p&gt;Let’s check the type of both of these objects&lt;/p&gt;
+&lt;p&gt;Let’s check the type of both of these 2 objects:&lt;/p&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Bonjour&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -8716,15 +8752,72 @@ With an argument (here a), it returns a list of valid attributes for that object
 
 &lt;p&gt;“Bonjour” is the value of an object of type string.&lt;/p&gt;
 
-&lt;p&gt;If you see “class” in the print statement, you can also say the &lt;em&gt;class or type&lt;/em&gt; of the object of value 2 is &lt;em&gt;integer&lt;/em&gt;, as type and class in Python3 as beed &lt;a href=&quot;https://stackoverflow.com/questions/35958961/class-vs-type-in-python&quot;&gt;unified concepts&lt;/a&gt;, see also &lt;a href=&quot;https://stackoverflow.com/questions/54867/what-is-the-difference-between-old-style-and-new-style-classes-in-python&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;If you see “&lt;em&gt;class&lt;/em&gt;” in the print statement, you can interchangeably say that the &lt;em&gt;class&lt;/em&gt; or &lt;em&gt;type&lt;/em&gt; of the object of value 2 is &lt;em&gt;integer&lt;/em&gt;, as type and class in Python3 has been &lt;a href=&quot;https://stackoverflow.com/questions/35958961/class-vs-type-in-python&quot;&gt;unified concepts&lt;/a&gt;, see also &lt;a href=&quot;https://stackoverflow.com/questions/54867/what-is-the-difference-between-old-style-and-new-style-classes-in-python&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
 
-&lt;p&gt;or &lt;strong&gt;object of value 2&lt;/strong&gt; is an &lt;strong&gt;instance&lt;/strong&gt; of class integer, integer class &lt;strong&gt;being also an object as everything is an object&lt;/strong&gt; (go to see the role of metaclasses)&lt;/p&gt;
+&lt;p&gt;You can also say that the &lt;strong&gt;object of value 2&lt;/strong&gt; is an &lt;strong&gt;instance&lt;/strong&gt; of the &lt;strong&gt;integer class&lt;/strong&gt;. By the way, the integer class itself is an object &lt;strong&gt;as everything is object in Python&lt;/strong&gt; (check out the role of metaclasses if interested !).&lt;/p&gt;
 
-&lt;p&gt;Are the methods from &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dir(a)&lt;/code&gt; familiar ? Those methods are relative to a string object&lt;/p&gt;
+&lt;h2 id=&quot;onwards-object-oriented-programming-attributes-of-an-object&quot;&gt;Onwards Object-Oriented Programming: attributes of an object&lt;/h2&gt;
 
-&lt;p&gt;Let’s try &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lower()&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Objects in Python have an id, a type and a value.&lt;br /&gt;
+Objects &lt;strong&gt;may&lt;/strong&gt; also have attributes related to them.&lt;br /&gt;
+Let’s talk about &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dir()&lt;/code&gt; first, it is a built-in function (we don’t need to import a python package to call this function).&lt;br /&gt;
+With an argument (here a), it returns a list of valid attributes for that object.&lt;/p&gt;
 
-&lt;p&gt;We can access it by using the &lt;strong&gt;“dot”&lt;/strong&gt; notation after the object refered by &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a&lt;/code&gt;, so to access the method corresponding to &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;dir&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;['__abs__', '__add__', '__and__', '__bool__', '__ceil__', '__class__', '__delattr__', '__dir__', '__divmod__', '__doc__', '__eq__', '__float__', '__floor__', '__floordiv__', '__format__', '__ge__', '__getattribute__', '__getnewargs__', '__gt__', '__hash__', '__index__', '__init__', '__init_subclass__', '__int__', '__invert__', '__le__', '__lshift__', '__lt__', '__mod__', '__mul__', '__ne__', '__neg__', '__new__', '__or__', '__pos__', '__pow__', '__radd__', '__rand__', '__rdivmod__', '__reduce__', '__reduce_ex__', '__repr__', '__rfloordiv__', '__rlshift__', '__rmod__', '__rmul__', '__ror__', '__round__', '__rpow__', '__rrshift__', '__rshift__', '__rsub__', '__rtruediv__', '__rxor__', '__setattr__', '__sizeof__', '__str__', '__sub__', '__subclasshook__', '__truediv__', '__trunc__', '__xor__', 'as_integer_ratio', 'bit_length', 'conjugate', 'denominator', 'from_bytes', 'imag', 'numerator', 'real', 'to_bytes']
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a&lt;/code&gt; refers to an object, and this object, designed by &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a&lt;/code&gt;, has been passed as argument to the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dir&lt;/code&gt; function&lt;/li&gt;
+  &lt;li&gt;Also, it seems &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;dir()&lt;/code&gt; returns a certain number of ‘things’ for this parameter. The object that &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a&lt;/code&gt; refers to, (we will later call object “a” for convenience), has then a number of “attributes” related to it.
+    &lt;ul&gt;
+      &lt;li&gt;&lt;strong&gt;functions&lt;/strong&gt;: which in OOP (object-oriented programming) are also known as &lt;strong&gt;(attributes) methods&lt;/strong&gt;,&lt;/li&gt;
+      &lt;li&gt;or &lt;strong&gt;variables&lt;/strong&gt; also known as &lt;strong&gt;(attributes) variables&lt;/strong&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;We get closer to the definition of an object in OOP !&lt;/p&gt;
+
+&lt;p&gt;Let’s check some methods here. It evens seems &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a&lt;/code&gt; contains a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;__dir__()&lt;/code&gt; method we can access doing: &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a.__dir__()&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;We used &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;sorted()&lt;/code&gt; built-in function to sort alphabetically the content of the list outputed by &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a.__dir__()&lt;/code&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sorted&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;__dir__&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;['__abs__', '__add__', '__and__', '__bool__', '__ceil__', '__class__', '__delattr__', '__dir__', '__divmod__', '__doc__', '__eq__', '__float__', '__floor__', '__floordiv__', '__format__', '__ge__', '__getattribute__', '__getnewargs__', '__gt__', '__hash__', '__index__', '__init__', '__init_subclass__', '__int__', '__invert__', '__le__', '__lshift__', '__lt__', '__mod__', '__mul__', '__ne__', '__neg__', '__new__', '__or__', '__pos__', '__pow__', '__radd__', '__rand__', '__rdivmod__', '__reduce__', '__reduce_ex__', '__repr__', '__rfloordiv__', '__rlshift__', '__rmod__', '__rmul__', '__ror__', '__round__', '__rpow__', '__rrshift__', '__rshift__', '__rsub__', '__rtruediv__', '__rxor__', '__setattr__', '__sizeof__', '__str__', '__sub__', '__subclasshook__', '__truediv__', '__trunc__', '__xor__', 'as_integer_ratio', 'bit_length', 'conjugate', 'denominator', 'from_bytes', 'imag', 'numerator', 'real', 'to_bytes']
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;The outputs are the same !&lt;br /&gt;
+&lt;strong&gt;dir(a)&lt;/strong&gt; actually call internally &lt;strong&gt;a.__dir__()&lt;/strong&gt; associated to the object a !&lt;/p&gt;
+
+&lt;p&gt;We get closer to the initial meaning Rossum has defined by all objects are &lt;strong&gt;first-class&lt;/strong&gt; objects (see related link).&lt;/p&gt;
+
+&lt;p&gt;Let’s resume our investigations…&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;dir&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;['__abs__', '__add__', '__and__', '__bool__', '__ceil__', '__class__', '__delattr__', '__dir__', '__divmod__', '__doc__', '__eq__', '__float__', '__floor__', '__floordiv__', '__format__', '__ge__', '__getattribute__', '__getnewargs__', '__gt__', '__hash__', '__index__', '__init__', '__init_subclass__', '__int__', '__invert__', '__le__', '__lshift__', '__lt__', '__mod__', '__mul__', '__ne__', '__neg__', '__new__', '__or__', '__pos__', '__pow__', '__radd__', '__rand__', '__rdivmod__', '__reduce__', '__reduce_ex__', '__repr__', '__rfloordiv__', '__rlshift__', '__rmod__', '__rmul__', '__ror__', '__round__', '__rpow__', '__rrshift__', '__rshift__', '__rsub__', '__rtruediv__', '__rxor__', '__setattr__', '__sizeof__', '__str__', '__sub__', '__subclasshook__', '__truediv__', '__trunc__', '__xor__', 'as_integer_ratio', 'bit_length', 'conjugate', 'denominator', 'from_bytes', 'imag', 'numerator', 'real', 'to_bytes']
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Not the same attributes and methods here…&lt;/p&gt;
+
+&lt;p&gt;Although 2 and “Bonjour” are both objects, with different ids and values, they seem to also &lt;strong&gt;have different methods associated to them&lt;/strong&gt;, depending on their data&lt;strong&gt;type&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Let’s try the method &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lower()&lt;/code&gt; in the methods found by doing&lt;/p&gt;
+
+&lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;Bonjour&quot;&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;dir&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This method is relative to all strings object.&lt;/p&gt;
+
+&lt;p&gt;We can access it by using the &lt;strong&gt;“dot”&lt;/strong&gt; notation after the object refered by &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a&lt;/code&gt;, so to access the method that &lt;strong&gt;applies on&lt;/strong&gt; the object refered by &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;a&lt;/code&gt;.&lt;/p&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;lower&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -8771,11 +8864,11 @@ With an argument (here a), it returns a list of valid attributes for that object
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;'yo'
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;Note that str is called a built-in type, in CPython implementation, str is a C struct. Just like int, list, dict, tuple, set, and &lt;a href=&quot;https://docs.python.org/3/library/stdtypes.html&quot;&gt;others&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Note that str is called a &lt;strong&gt;built-in type&lt;/strong&gt;, in &lt;strong&gt;&lt;em&gt;CPython&lt;/em&gt;&lt;/strong&gt; implementation, &lt;strong&gt;str is a C struct&lt;/strong&gt;. Just &lt;strong&gt;like int, list, dict, tuple, set, and &lt;a href=&quot;https://docs.python.org/3/library/stdtypes.html&quot;&gt;others&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;
 
-&lt;h3 id=&quot;lets-experiment-on-other-common-built-in-types&quot;&gt;Let’s experiment on other common built-in types.&lt;/h3&gt;
+&lt;h1 id=&quot;common-built-in-types&quot;&gt;Common built-in types.&lt;/h1&gt;
 
-&lt;h2 id=&quot;21-lists&quot;&gt;2.1 Lists&lt;/h2&gt;
+&lt;h2 id=&quot;lists&quot;&gt;Lists&lt;/h2&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;uneliste&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[]&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;uneliste&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
@@ -8853,6 +8946,8 @@ With an argument (here a), it returns a list of valid attributes for that object
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[2, 3, 4, 'a']
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
+&lt;h3 id=&quot;using-some-list-methods-as-example&quot;&gt;Using some list methods as example&lt;/h3&gt;
+
 &lt;p&gt;i can access to some methods or attributes of list&lt;/p&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;uneliste&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;## append the list with object integer 3
@@ -8864,9 +8959,9 @@ With an argument (here a), it returns a list of valid attributes for that object
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[2, 3, 4, 'a', 3]
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;après le ‘.’ appui sur Tab pour les options&lt;/p&gt;
+&lt;p&gt;In Jupyter Notebook, after the ‘.’ you can press &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Tab&lt;/code&gt; for showing some autocomplete suggestions.&lt;/p&gt;
 
-&lt;p&gt;second appui sur Tab ou shift+tab pour plus d’infos&lt;/p&gt;
+&lt;p&gt;After writing the entire attribute name, a press on &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Shift&lt;/code&gt; + &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Tab&lt;/code&gt; display information about this attribute, what it is, what it does.&lt;/p&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;uneliste&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;reverse&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -8895,9 +8990,9 @@ With an argument (here a), it returns a list of valid attributes for that object
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[2, 3, 4, 5]
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h4 id=&quot;parcourir-une-liste&quot;&gt;Parcourir une liste&lt;/h4&gt;
+&lt;h3 id=&quot;list-manipulations&quot;&gt;List manipulations&lt;/h3&gt;
 
-&lt;h4 id=&quot;index&quot;&gt;index&lt;/h4&gt;
+&lt;h4 id=&quot;indexing&quot;&gt;Indexing&lt;/h4&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;item_number&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;uneliste&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;item_number&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
@@ -9168,7 +9263,7 @@ IndexError: list index out of range
 
 &lt;p&gt;More on this on functionnal programming chapter&lt;/p&gt;
 
-&lt;h3 id=&quot;les-tuples&quot;&gt;les tuples&lt;/h3&gt;
+&lt;h2 id=&quot;tuples&quot;&gt;Tuples&lt;/h2&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;untuple&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;tuple&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -9216,9 +9311,11 @@ IndexError: list index out of range
 
 &lt;p&gt;tuple object does not support item assignement and is a member of the immutables family.&lt;/p&gt;
 
-&lt;p&gt;Changing a tuple after creation is not possible, only recreating a new tuple is&lt;/p&gt;
+&lt;p&gt;Changing a tuple after creation is not possible, only recreating a new tuple is.&lt;/p&gt;
 
-&lt;h2 id=&quot;les-mutables--immutables&quot;&gt;les mutables / immutables&lt;/h2&gt;
+&lt;p&gt;So why using tuple if is a kind of “castrated” list ?&lt;/p&gt;
+
+&lt;h3 id=&quot;one-word-on-mutability--immutability&quot;&gt;one word on mutability / immutability&lt;/h3&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;
 &lt;span class=&quot;nb&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
@@ -9293,10 +9390,9 @@ IndexError: list index out of range
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;4759836992
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;Inplace modification, didn’t change the address location of the list.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Inplace modifications&lt;/strong&gt; for a list didn’t change the address location for that list..&lt;/p&gt;
 
-&lt;p&gt;A list is then a &lt;strong&gt;mutable&lt;/strong&gt;&lt;/p&gt;
-
+&lt;p&gt;A list is then a &lt;strong&gt;mutable&lt;/strong&gt;.&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;mutable objects can be changed after their creation,&lt;/li&gt;
   &lt;li&gt;
@@ -9306,7 +9402,7 @@ IndexError: list index out of range
   &lt;li&gt;&lt;u&gt;**Common immutable objects:**&lt;/u&gt; int, float, bool, string, tuple, frozenset, range&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h3 id=&quot;les-sets&quot;&gt;les sets&lt;/h3&gt;
+&lt;h2 id=&quot;sets&quot;&gt;Sets&lt;/h2&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;set&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -9399,7 +9495,7 @@ IndexError: list index out of range
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;False
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h3 id=&quot;dictionaries&quot;&gt;dictionaries&lt;/h3&gt;
+&lt;h2 id=&quot;dictionaries&quot;&gt;Dictionaries&lt;/h2&gt;
 
 &lt;p&gt;A dictionary is a collection of key:value pairs&lt;/p&gt;
 
@@ -9415,7 +9511,7 @@ IndexError: list index out of range
 - look for val from key in dict
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h4 id=&quot;one-word-on-hashes&quot;&gt;one word on hashes&lt;/h4&gt;
+&lt;h3 id=&quot;an-implementation-of-an-hash-table&quot;&gt;An implementation of an hash-table&lt;/h3&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;bonjour&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;bonjour&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
@@ -9455,7 +9551,7 @@ IndexError: list index out of range
   &lt;p&gt;&lt;u&gt;Python docs:&lt;/u&gt; Numeric values that compare equal have the same hash value (even if they are of different types, as is the case for 1 and 1.0).&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;h5 id=&quot;hashes-for-dict-look-ups&quot;&gt;hashes for dict look-ups&lt;/h5&gt;
+&lt;h4 id=&quot;hashes-for-dict-look-ups&quot;&gt;hashes for dict look-ups&lt;/h4&gt;
 
 &lt;p&gt;Hash values are mostly used in dictionnary lookups to quicky compare dictionary keys.&lt;/p&gt;
 
@@ -9467,7 +9563,7 @@ IndexError: list index out of range
 
 &lt;p&gt;For dictionaries and sets though, data structures using hash-table, the search time is 0(1)&lt;/p&gt;
 
-&lt;h3 id=&quot;sometimes-collisions-occur&quot;&gt;sometimes collisions occur&lt;/h3&gt;
+&lt;h4 id=&quot;sometimes-collisions-occur&quot;&gt;sometimes collisions occur&lt;/h4&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;hash&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;hash&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -9523,7 +9619,11 @@ IndexError: list index out of range
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h5 id=&quot;-look-for-val-from-key-in-dict&quot;&gt;* look for val from key in dict&lt;/h5&gt;
+&lt;h3 id=&quot;an-associative-array-with-defined-base-operations&quot;&gt;An associative array with defined base operations&lt;/h3&gt;
+
+&lt;h4 id=&quot;the-lookup-of-a-value-associated-with-a-particular-key&quot;&gt;the lookup of a value associated with a particular key&lt;/h4&gt;
+
+&lt;p&gt;look for val from key in dict&lt;/p&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;dico_des_contacts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Marie&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -9537,7 +9637,9 @@ IndexError: list index out of range
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;'moi à nouveau'
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h4 id=&quot;-modify-val-for-a-given-key&quot;&gt;* modify val for a given key&lt;/h4&gt;
+&lt;h4 id=&quot;the-modification-of-an-existing-pair&quot;&gt;the modification of an existing pair)&lt;/h4&gt;
+
+&lt;p&gt;modify val for a given key&lt;/p&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;mondico&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;finalement non&quot;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -9548,7 +9650,9 @@ IndexError: list index out of range
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;{1: 'moi', 2: 'toi', 3: 'finalement non', 4: 'nous'}
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h4 id=&quot;-add-a-new-keyval-pair&quot;&gt;* add a new key:val pair&lt;/h4&gt;
+&lt;h4 id=&quot;the-addition-of-a-pair-to-the-collection&quot;&gt;the addition of a pair to the collection&lt;/h4&gt;
+
+&lt;p&gt;add a new key:val pair&lt;/p&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;mondico&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Jean-Yves&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;987654&quot;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -9570,7 +9674,9 @@ IndexError: list index out of range
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;ça n'a pas marché
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h4 id=&quot;-delete-a-keyval-pair&quot;&gt;* delete a key:val pair&lt;/h4&gt;
+&lt;h4 id=&quot;the-removal-of-a-pair-from-the-collection&quot;&gt;the removal of a pair from the collection&lt;/h4&gt;
+
+&lt;p&gt;delete a key:val pair&lt;/p&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;del&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mondico&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Jean-Yves&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -9581,7 +9687,7 @@ IndexError: list index out of range
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;{1: 'moi', 2: 'toi', 3: 'finalement non', 4: 'nous'}
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h4 id=&quot;-the-question-of-hashability&quot;&gt;* the question of “hashability“&lt;/h4&gt;
+&lt;h3 id=&quot;returning-to-the-question-hashability-of-keys&quot;&gt;Returning to the question &lt;em&gt;hashability&lt;/em&gt; of keys&lt;/h3&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;mondico&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -9745,7 +9851,9 @@ AttributeError: 'dict' object has no attribute '__get__'
  [2, 4]: 'Five'}
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h4 id=&quot;orderdict&quot;&gt;Orderdict&lt;/h4&gt;
+&lt;h3 id=&quot;an-example-of-subclass-of-dict-orderdict&quot;&gt;An example of subclass of dict: Orderdict&lt;/h3&gt;
+
+&lt;p&gt;Sometimes it is interesting to play with higher-level data structures, that is, data structures leaning on lower-level ones to add either set of functionalities or behaviors.&lt;/p&gt;
 
 &lt;blockquote&gt;
   &lt;p&gt;dict subclass that remembers the order entries were added&lt;/p&gt;
@@ -9768,7 +9876,7 @@ AttributeError: 'dict' object has no attribute '__get__'
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;1052182404982694077
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h3 id=&quot;chaines-de-caracteres&quot;&gt;chaines de caracteres&lt;/h3&gt;
+&lt;h2 id=&quot;strings&quot;&gt;Strings&lt;/h2&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;voiciunstring&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;hello-world&quot;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -9803,7 +9911,7 @@ AttributeError: 'dict' object has no attribute '__get__'
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;'heaao-worad'
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;slicer une chaine de caracteres&lt;/p&gt;
+&lt;p&gt;We can slice a string&lt;/p&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;voiciunstring&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -9837,7 +9945,7 @@ AttributeError: 'dict' object has no attribute '__get__'
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;3
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h3 id=&quot;boolean&quot;&gt;boolean&lt;/h3&gt;
+&lt;h2 id=&quot;booleans&quot;&gt;Booleans&lt;/h2&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;e&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;bool&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -9928,7 +10036,9 @@ True
  True: 29}
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h2 id=&quot;loops&quot;&gt;Loops&lt;/h2&gt;
+&lt;h1 id=&quot;loops&quot;&gt;Loops&lt;/h1&gt;
+
+&lt;h2 id=&quot;while-condition-based-loop-and-for&quot;&gt;while (condition-based loop) and for&lt;/h2&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;
 &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;
@@ -10038,7 +10148,7 @@ Julien
 ('Julien', '0820202020')
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h4 id=&quot;a-nice-feature-iterable-unpacking-here-on-a-tuple&quot;&gt;a nice feature: Iterable unpacking (here on a tuple)&lt;/h4&gt;
+&lt;h2 id=&quot;a-nice-feature-iterable-unpacking-here-on-a-tuple&quot;&gt;a nice feature: Iterable unpacking (here on a tuple)&lt;/h2&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -10055,7 +10165,7 @@ Julien
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;2
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h6 id=&quot;pep-3132-extended-iterable-unpacking&quot;&gt;PEP 3132: extended Iterable unpacking&lt;/h6&gt;
+&lt;h2 id=&quot;pep-3132-extended-iterable-unpacking&quot;&gt;PEP 3132: extended Iterable unpacking&lt;/h2&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -10117,15 +10227,23 @@ Julien
 0820202020
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h3 id=&quot;functions&quot;&gt;Functions&lt;/h3&gt;
+&lt;h1 id=&quot;functions&quot;&gt;Functions&lt;/h1&gt;
 
-&lt;p&gt;Defining a function&lt;/p&gt;
+&lt;h2 id=&quot;function-definition-and-function-calls&quot;&gt;Function definition and function call(s)&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Defining a function: function may or may not have parameters, can return a value but are not forced too.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Here is an example of a function that has a parameter, and return a value.&lt;/p&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;mafonction&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;calling a function&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;calling a function: you call call it once, twice, or more, passing-in an argument for the corresponding function parameter.&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;mafonction&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -10133,7 +10251,11 @@ Julien
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;81
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;for short and simple functions, one call use lambda notation&lt;/p&gt;
+&lt;p&gt;&lt;u&gt;Terminology alert here:&lt;/u&gt; A parameter is a variable in the function definition. Just like in Maths. An argument is the passed-in value at function call for that parameter.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;for short and simple functions, one call use &lt;strong&gt;lambda&lt;/strong&gt; notation/functions&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;mafonction&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;lambda&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -10144,7 +10266,9 @@ Julien
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;121
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;Put defaults params in functions&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Put default arguments for any parameter in the functions&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;mafonction2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
     &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;**&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;
@@ -10168,7 +10292,7 @@ Julien
 SyntaxError: non-default argument follows default argument
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h4 id=&quot;recall-unpacking-&quot;&gt;Recall unpacking ?&lt;/h4&gt;
+&lt;h2 id=&quot;recall-unpacking-&quot;&gt;Recall unpacking ?&lt;/h2&gt;
 
 &lt;p&gt;Say we have this function:&lt;/p&gt;
 
@@ -10246,7 +10370,7 @@ TypeError: acomplicatedcalculus() got multiple values for keyword argument 'b'
 
 &lt;p&gt;&lt;u&gt;**Note2:**&lt;/u&gt; ** unpackings must additionally follow * unpackings&lt;/p&gt;
 
-&lt;h3 id=&quot;function-definitions--tuple-packing&quot;&gt;function definitions : tuple packing&lt;/h3&gt;
+&lt;h2 id=&quot;tuple-packing-for-function-definitions&quot;&gt;Tuple packing for function definitions&lt;/h2&gt;
 
 &lt;p&gt;You can also think the other way around and think about functions as containing an undefined number of arguments, example:&lt;/p&gt;
 
@@ -10321,9 +10445,7 @@ TypeError: acomplicatedcalculus() got multiple values for keyword argument 'b'
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;'a7    2'
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;Below should be another practice session&lt;/p&gt;
-
-&lt;h3 id=&quot;list-comprehension&quot;&gt;list comprehension&lt;/h3&gt;
+&lt;h1 id=&quot;list-comprehension&quot;&gt;List comprehension&lt;/h1&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;uneliste&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -10386,7 +10508,7 @@ TypeError: acomplicatedcalculus() got multiple values for keyword argument 'b'
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;[1003, 1004]
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h3 id=&quot;dict-comprehension&quot;&gt;dict comprehension&lt;/h3&gt;
+&lt;h1 id=&quot;dict-comprehension&quot;&gt;Dict comprehension&lt;/h1&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;dico_des_contacts&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -10425,7 +10547,7 @@ TypeError: acomplicatedcalculus() got multiple values for keyword argument 'b'
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;{'b': 4, 'c': 6}
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h3 id=&quot;exercice-take-phone-number-only-for-name-starting-with-r&quot;&gt;exercice: take phone number only for name starting with ‘R’&lt;/h3&gt;
+&lt;h2 id=&quot;exercice-take-phone-number-only-for-name-starting-with-r&quot;&gt;exercice: take phone number only for name starting with ‘R’&lt;/h2&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;dico_des_contacts&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;'Renard'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;0678899099&quot;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
@@ -10460,7 +10582,7 @@ TypeError: acomplicatedcalculus() got multiple values for keyword argument 'b'
 &lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;{'René': '0710212121', 'Renard': '0678899099', 'remi': '067234099'}
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h4 id=&quot;decorators&quot;&gt;Decorators&lt;/h4&gt;
+&lt;h1 id=&quot;decorators&quot;&gt;Decorators&lt;/h1&gt;
 
 &lt;p&gt;&lt;u&gt;**A decorator:**&lt;/u&gt;&lt;/p&gt;
 &lt;ul&gt;
@@ -10537,7 +10659,7 @@ def unefonction():
     pass
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h5 id=&quot;passing-arguments-to-the-decorated-function&quot;&gt;passing arguments to the decorated function&lt;/h5&gt;
+&lt;h2 id=&quot;passing-arguments-to-the-decorated-function&quot;&gt;passing arguments to the decorated function&lt;/h2&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;def&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;une_autre&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;func&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;):&lt;/span&gt;
     &lt;span class=&quot;c1&quot;&gt;## adding undefining number of positional and keyword params
@@ -10572,7 +10694,7 @@ yes
 
 &lt;p&gt;wrapper replaces func, then if func was often being passed an argument, wrapper must handle it&lt;/p&gt;
 
-&lt;h5 id=&quot;passing-arguments-to-the-decorator&quot;&gt;passing arguments to the decorator&lt;/h5&gt;
+&lt;h2 id=&quot;passing-arguments-to-the-decorator&quot;&gt;passing arguments to the decorator&lt;/h2&gt;
 
 &lt;p&gt;“higher higher”-order function 😜&lt;/p&gt;
 
@@ -10611,9 +10733,7 @@ No
 'Luc'
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h3 id=&quot;end-rest-of-the-practice-session-will-be-on-another-page&quot;&gt;End (Rest of the practice session will be on another page)&lt;/h3&gt;
-
-&lt;h3 id=&quot;classes&quot;&gt;Classes&lt;/h3&gt;
+&lt;h1 id=&quot;classes&quot;&gt;Classes&lt;/h1&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;hello-world&quot;&lt;/span&gt;
 
@@ -10790,8 +10910,6 @@ Nb de Pages : 265
 Categorie de livre : Drame
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h3 id=&quot;retour-vis-à-vis-des-listes&quot;&gt;retour vis à vis des listes….&lt;/h3&gt;
-
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;liste_&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;uneOeuvre&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sculpture&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;unLivre&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&quot;test&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
@@ -10827,7 +10945,7 @@ Categorie de livre : Drame
 test
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h2 id=&quot;sync-to-github&quot;&gt;Sync to GitHub&lt;/h2&gt;
+&lt;h1 id=&quot;sync-to-github&quot;&gt;Sync to GitHub&lt;/h1&gt;
 
 &lt;div class=&quot;language-python highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;err&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;ls&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;

@@ -1,0 +1,368 @@
+
+<h1 id="what-is-a-code-block-">What is a code block ?</h1>
+
+<p>A <strong>code block</strong> is a piece of Python code executed as a unit:</p>
+<ul>
+  <li>A function body is executed as a unit</li>
+  <li>A script file to be run from the terminal using Python shell: <code class="language-plaintext highlighter-rouge">python ./script.py</code></li>
+  <li>A module is a unit</li>
+  <li>A class definition is a unit</li>
+  <li>A single command run in a python interpreter is a unit</li>
+</ul>
+
+<p>we already saw what are names/variables = pointers refering to an object location, hence being bound to it doing so. <br />
+You can then adress the object by using its associated name.</p>
+
+<p style="font-size: 16px; font-family: Menlo">But is any binding created within a block still visible anywhere in the code?<br /> By "visible" we not only mean <strong>nameA</strong> exists, but that the relation to the object <strong>objectA</strong> is still valid. 
+<br /><br />The "where" the bindings, defined in a block, are "visible/meaningful", is also named <strong>scope</strong> of a name/variable.<br />
+<a href="https://stackoverflow.com/questions/39801617/what-does-it-mean-that-a-scope-is-determined-statically-and-used-dynamically">scopes are determined statically, they are used dynamically</a>
+</p>
+
+<p>Sometimes, scope is also defined as the set of variables/names available at a certain point in the code, but this refers more to the context of namespaces.</p>
+
+<p>but it is better to take the definition of W3Schools:</p>
+<blockquote>
+  <p>A variable is only available from inside the region it is created. This is called scope.</p>
+</blockquote>
+
+<h1 id="scope">scope</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># variable defined in a block
+</span><span class="n">a</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="c1"># in the same block, `a` is visible
+</span><span class="k">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>4
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># a is defined on the block module level
+# ...(imagining this markdown code is a .py file on its own)
+# a is then a global variable (RELATIVE to this module)
+</span><span class="n">a</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="c1"># a is then reachable for any block within this one, which is the top-level 
+</span>
+<span class="k">def</span> <span class="nf">multiply_by_2</span><span class="p">():</span>
+    <span class="c1"># the function body is a block
+</span>    <span class="c1"># b is bound to the object of value 2 within that block
+</span>    <span class="c1"># b is then said a "local variable"
+</span>    <span class="n">b</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="c1"># it is discoverable anywhere after this assignement
+</span>    <span class="c1"># and inside any inner blocks may exist
+</span>    <span class="c1"># a is not defined, but was in the nearest enclosing scope
+</span>    <span class="c1"># in a function, as highlighted in the FAQ, referenced variable are implicitly global
+</span>    <span class="k">return</span> <span class="n">a</span><span class="o">*</span><span class="n">b</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">multiply_by_2</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>8
+</code></pre></div></div>
+
+<p>If we change a little bit the code to that, it will raise us an <code class="language-plaintext highlighter-rouge">UnboundLocalError</code>:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span> <span class="o">=</span> <span class="mi">4</span>
+
+<span class="k">def</span> <span class="nf">multiply_by_2</span><span class="p">():</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="n">a</span><span class="o">+=</span><span class="mi">1</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="k">return</span> <span class="n">a</span><span class="o">*</span><span class="n">b</span>
+
+<span class="n">multiply_by_2</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>---------------------------------------------------------------------------
+
+UnboundLocalError                         Traceback (most recent call last)
+
+&lt;ipython-input-96-98e4dc25cb3c&gt; in &lt;module&gt;
+      7     return a*b
+      8 
+----&gt; 9 multiply_by_2()
+
+
+&lt;ipython-input-96-98e4dc25cb3c&gt; in multiply_by_2()
+      2 
+      3 def multiply_by_2():
+----&gt; 4     print(a)
+      5     a+=1
+      6     b = 2
+
+
+UnboundLocalError: local variable 'a' referenced before assignment
+</code></pre></div></div>
+
+<blockquote>
+  <p>It has a <a href="https://docs.python.org/3/faq/programming.html#why-am-i-getting-an-unboundlocalerror-when-the-variable-has-a-value">pretty good explanation</a> on the Python FAQ. If you make an assignement in the function scope, <code class="language-plaintext highlighter-rouge">a</code> becomes a local-variable to that function block and <u>**shadows**</u> any same named variable in the outer/enclosing scope. “The compiler recognizes this as a local-variable. Hence any statement before the variable has actually been assigned raise an UnboundLocalError.</p>
+</blockquote>
+
+<blockquote>
+  <p>Same explanation in different words from the docs: “If a name binding operation occurs anywhere within a code block all uses of the name within the block are treated as references to the current block. This rule is subtle. Python lacks declarations. The local variables of a code block can be determined by scanning the entire text of the block for name binding operations”</p>
+</blockquote>
+
+<p>If you recall the course from the functional programming, it is the same type of behavior when any <code class="language-plaintext highlighter-rouge">yield</code> word scanned within the function body makes it a generator</p>
+
+<p>To workaround this issue, we can use <code class="language-plaintext highlighter-rouge">global</code> keyword, saying “no, this is not a local variable, use the global variable <code class="language-plaintext highlighter-rouge">a</code> that must have been defined elsewhere, at top-level module.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="k">print</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">multiply_by_2</span><span class="p">():</span>
+    <span class="k">global</span> <span class="n">a</span>
+    <span class="k">print</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="n">a</span><span class="p">)</span> <span class="c1"># same object location
+</span>    <span class="n">a</span><span class="o">+=</span><span class="mi">1</span>
+    <span class="k">print</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="n">a</span><span class="p">)</span> <span class="c1"># different because it is an immutable
+</span>    <span class="n">b</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="k">return</span> <span class="n">a</span><span class="o">*</span><span class="n">b</span>
+<span class="n">BERTIN</span>
+<span class="n">multiply_by_2</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>4465474080
+4465474080 4
+4465474112 5
+
+
+
+
+
+10
+</code></pre></div></div>
+
+<p>if the name is not found in the function body or enclosing scopes, you get a NameError exception</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">Luc</span> <span class="n">BERTIN</span>
+<span class="k">def</span> <span class="nf">multiply_by_2</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">a</span><span class="o">*</span><span class="n">c</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">multiply_by_2</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>---------------------------------------------------------------------------
+
+NameError                                 Traceback (most recent call last)
+
+&lt;ipython-input-39-64522ae2309b&gt; in &lt;module&gt;
+----&gt; 1 multiply_by_2()
+
+
+&lt;ipython-input-36-9910d1b69fd6&gt; in multiply_by_2()
+      2 
+      3 def multiply_by_2():
+----&gt; 4     return a*c
+
+
+NameError: name 'c' is not defined
+</code></pre></div></div>
+
+<h1 id="namespaces">Namespaces</h1>
+
+<p>Python needs to keep track of all the ‘visible’ bindings within a block, or at a certain point of the program, this is also called <strong>namespace</strong> or <strong>context</strong>.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>{
+    symbolic_name1 : referenced object1, 
+    symbolic_name2 : referenced object2
+}
+</code></pre></div></div>
+
+<p>Namespaces are implemented as <strong>dictionaries</strong> in Python, a table listing symbolic variables/names (keys) to their objects (values) at a certain point in the program.</p>
+
+<p>back to the definition of scope we can pick up from the [docs]:(https://docs.python.org/3/tutorial/classes.html)</p>
+<blockquote>
+  <p>A scope is a textual region of a Python program where a namespace is directly accessible.</p>
+</blockquote>
+
+<p><code class="language-plaintext highlighter-rouge">globals()</code> is a built-in function which returns the global namespace/context</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">globals</span><span class="p">()[</span><span class="s">'a'</span><span class="p">]</span><span class="n">BERTIN</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>4
+</code></pre></div></div>
+
+<p>You can use it to change a globally defined binding</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">globals</span><span class="p">()[</span><span class="s">'a'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">37</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>37
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">locals()</code>is a built-in function which returns the local namespace</p>
+
+<p>in the top-level module, locals and globals return the same thing</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">locals</span><span class="p">()</span> <span class="ow">is</span> <span class="nb">globals</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>True
+</code></pre></div></div>
+
+<p>but inside a function it is not,</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">function</span><span class="p">():</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="k">print</span><span class="p">(</span> <span class="s">"Is locals()  same as globals()? {}"</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="nb">locals</span><span class="p">()</span> <span class="ow">is</span> <span class="nb">globals</span><span class="p">()))</span> 
+    <span class="k">print</span><span class="p">(</span> <span class="s">"Locals dictionary: {}"</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="nb">locals</span><span class="p">()))</span>
+    <span class="k">print</span><span class="p">(</span> <span class="s">"What about name a in globals(): {}"</span><span class="p">.</span><span class="nb">format</span><span class="p">({</span><span class="n">k</span><span class="p">:</span><span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="nb">globals</span><span class="p">().</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">k</span><span class="o">==</span><span class="s">'a'</span><span class="p">}))</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">function</span><span class="p">(</span><span class="n">Luc</span> <span class="n">BERTIN</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Is locals()  same as globals()? False
+Locals dictionary: {'a': 2}
+What about name a in globals(): {'a': 37}
+</code></pre></div></div>
+
+<p><strong>note:</strong> after the function finishes executing, Python “forget” about the function local namespace</p>
+
+<p><u>**Caution:**</u> <strong>global variables</strong> are relative to a module context/namespace <br />they are <strong>not</strong> shared across all modules.
+All the global variables i wrote since then can also be seen in <code class="language-plaintext highlighter-rouge">__main__</code> (name of the scope in which top-level code executes)</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">__main__</span>
+<span class="n">__main__</span><span class="p">.</span><span class="n">aLuc</span> <span class="n">BERTIN</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>37
+</code></pre></div></div>
+
+<p>This is a working example attached here</p>
+
+<p><img src="/assets/images/post_execution_model/centurion.png" width="500px" style="display: inline-block;" class=".center" /></p>
+
+<p><img src="/assets/images/post_execution_model/centurion_script.png" width="500px" style="display: inline-block;" class=".center" /></p>
+
+<p>The local variables are always the ones defined within the current called function</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">a</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>37
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">function</span><span class="p">():</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"outer function locals:{}"</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="nb">locals</span><span class="p">()))</span>
+    <span class="n">d</span><span class="o">=</span><span class="mi">4</span>
+    <span class="k">def</span> <span class="nf">function2</span><span class="p">():</span>
+        <span class="n">b</span><span class="o">=</span><span class="mi">2</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"inner function locals:{}"</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="nb">locals</span><span class="p">()))</span>
+        <span class="k">nonlocal</span> <span class="n">d</span>
+    <span class="n">c</span><span class="o">=</span><span class="mi">3</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"outer function locals:{}"</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="nb">locals</span><span class="p">()))</span>
+    <span class="n">function2</span><span class="p">()</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"outer function locals:{}"</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="nb">locals</span><span class="p">()))</span>
+<span class="n">function</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>outer function locals:{}
+outer function locals:{'function2': &lt;function function.&lt;locals&gt;.function2 at 0x10e39bca0&gt;, 'c': 3, 'd': 4}
+inner function locals:{'b': 2, 'd': 4}
+outer function locals:{'function2': &lt;function function.&lt;locals&gt;.function2 at 0x10e39bca0&gt;, 'c': 3, 'd': 4}
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">function</span><span class="p">():</span>
+    <span class="k">def</span> <span class="nf">function2</span><span class="p">():</span>
+        <span class="k">nonlocal</span> <span class="n">c</span>
+        <span class="n">c</span> <span class="o">+=</span> <span class="mi">4</span>
+    <span class="n">c</span><span class="o">=</span><span class="mi">3</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"outer function locals:{}"</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="nb">locals</span><span class="p">()))</span>
+    <span class="n">function2</span><span class="p">()</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">"outer function locals:{}"</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="nb">locals</span><span class="p">()))</span>
+<span class="n">function</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>outer function locals:{'function2': &lt;function function.&lt;locals&gt;.function2 at 0x10e39bdc0&gt;, 'c': 3}
+outer function locals:{'function2': &lt;function function.&lt;locals&gt;.function2 at 0x10e39bdc0&gt;, 'c': 7}
+</code></pre></div></div>
+
+<p>3 types of namespace exist:</p>
+<ul>
+  <li>Built-in namespace: containing the built-in objects (<code class="language-plaintext highlighter-rouge">dir(__builtins__)</code> to list them)</li>
+  <li>Global namespace: global names <strong>IN THE MODULE</strong></li>
+  <li>Local namespace</li>
+</ul>
+
+<p>There is absolutely no relation between 2 names in different scopes.</p>
+
+<blockquote>
+  <p>Each module has its own private symbol table, which is used as the global symbol table by all functions defined in the module.</p>
+</blockquote>
+
+<blockquote>
+  <p>The statements executed by the top-level invocation of the interpreter, either read from a script file or interactively, are considered part of a module called <code class="language-plaintext highlighter-rouge">__main__</code></p>
+</blockquote>
+
+<p>names are resolved dynamically at runtime by following the <strong>LEGB rule</strong>:</p>
+<ul>
+  <li>is the variable <strong>L</strong>ocal?</li>
+  <li>no? is it in the nearest <strong>E</strong>nclosing blocks?</li>
+  <li>no? may be <strong>G</strong>lobal to the module ?</li>
+  <li>then look in <strong>B</strong>uilt-in namespace or raise an exception</li>
+</ul>
+
+<h2 id="classes">Classes</h2>
+
+<p>classes have their own namespace<br /></p>
+<blockquote>
+  <p>In a sense the set of attributes of an object also form a namespace</p>
+</blockquote>
+
+<p><code class="language-plaintext highlighter-rouge">obj.name</code> is an attribute reference, a name in obj namespace bound to a corresponding method or attribute</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Test</span><span class="p">:</span>
+    <span class="n">i</span><span class="o">=</span><span class="mi">12</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">globals</span><span class="p">()[</span><span class="s">'Test'</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>__main__.Test
+</code></pre></div></div>
+
+<h2 id="module-import">module import</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">webencodings</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">globals</span><span class="p">()[</span><span class="s">'webencodings'</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;module 'webencodings' from '/Users/lucbertin/.pyenv/versions/3.8.4/lib/python3.8/site-packages/webencodings/__init__.py'&gt;
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">del</span> <span class="n">webencodings</span>
+<span class="kn">from</span> <span class="nn">webencodings</span> <span class="kn">import</span> <span class="n">ascii_lower</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">globals</span><span class="p">()[</span><span class="s">'webencodings'</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>---------------------------------------------------------------------------
+
+KeyError                                  Traceback (most recent call last)
+
+&lt;ipython-input-237-3cf7b0abaaac&gt; in &lt;module&gt;
+----&gt; 1 globals()['webencodings']
+
+
+KeyError: 'webencodings'
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">globals</span><span class="p">()[</span><span class="s">'ascii_lower'</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;function webencodings.ascii_lower(string)&gt;
+</code></pre></div></div>
+
+<h1 id="one-word-on-mutability">One word on mutability</h1>
+
+<blockquote>
+  <p>multiple names (in multiple scopes) can be bound to the same object. This is known as aliasing. Passing an object as parameter to a function is cheap since just a pointer is passed by the implemententation. Hence using mutable objects might affect the code</p>
+</blockquote>
