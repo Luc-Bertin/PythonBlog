@@ -3348,7 +3348,9 @@ def hello(name):
     print("Hello")
     return name 
 ```
-This notation will equals: `hello = togiveargs(decorator(function), argument)`
+This notation will equal, conceptually (as we can't access decorator this way) to:
+
+`hello = togiveargs(decorator(function), argument)`
 
 Now calling the decorated `hello`:
 
@@ -3364,6 +3366,59 @@ No
 
 Out[70]: 'Luc'
 ```
+
+
+## keeping decorated function's name
+
+When you use a decorator, but would want to print the decorated function's name in the body of the function.
+
+```python
+def une_autre(func):
+    def wrapper(*args):
+        print("the function called is {}".format(func.__name__))
+        result = func(*args)
+        return result
+    return wrapper
+
+@une_autre
+def compute_power2(number):
+    print("I'm the function {}".format(compute_power2.__name__))
+    return number**2
+```
+
+You have this output:
+
+```python
+"the function called is compute_power2"
+"I'm the function wrapper"
+```
+
+This makes sense, the `compute_power2` is no longer the base one but the returned `wrapper`.
+To keep the docstring and name from the decorated function, use `@wraps` from `functools` (yes! indeed it is another decorator :D)
+
+```python
+from functools import wraps
+
+def une_autre(func):
+    @wraps(func)
+    def wrapper(*args):
+        print("the function called is {}".format(func.__name__))
+        result = func(*args)
+        return result
+    return wrapper
+
+@une_autre
+def compute_power2(number):
+    print("I'm the function {}".format(compute_power2.__name__))
+    return number**2
+```
+
+output:
+```python
+"the function called is compute_power2"
+"I'm the function compute_power2"
+```
+
 
 # Classes
 
