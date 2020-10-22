@@ -3014,7 +3014,7 @@ dico_des_contacts['remi'] = "067234099"
 Aim is then to return a **wrapper function** that **appends additional features** to an existing **function**.
 
 
-Let's take this simply example of a function without args, and without returned value.
+Let's take this simple example of a function without any arguments, and without which does not return anything.
 
 ```python
 def hello():
@@ -3033,9 +3033,10 @@ print( inspect.getsource(hello) )
     
 
 
-Let's create another function, here this one takes a function as parameter.<br>
-And later call this passed in function in his body definition.<br>
-But does not return a function, just a string "yes".
+Let's create another function.<br>
+Here this one takes a **function as parameter**.<br>
+We will later call this **the passed-in function** within the body of `une_autre`.<br>
+Then it will not return a function, but rather just a "yes".
 
 
 ```python
@@ -3050,15 +3051,10 @@ une_autre(hello)
 ```
 
     Hello
-
-
-
-
-
     'yes'
 
 
-This is hence not a decorator, as the decorator should return a function !
+This is hence not a decorator, as the decorator **should return a function** !
 
 We could easily work around by simply returning the paramater `func` itself as below (with or without calling it).
 
@@ -3085,7 +3081,7 @@ une_autre(hello)
 <function __main__.hello()>
 ```
 
-As une_autre returns the hello function. Thos lines are equivalent.
+As `une_autre` returns the `hello` function. Those lines are equivalent.
 
 ```python
 new_hello = une_autre(hello)
@@ -3103,7 +3099,7 @@ This function will later be the one returned.
 def une_autre(func): # decorator function
     def wrapper(): # wrapper function, inside the decorator definition
         func() # calling func !
-        print("yes") # + adding another functionnality (here just saying "hello")
+        return "yes" # + adding another functionnality (here to return "yes")
     return wrapper # we return the wrapper, not func !
 ```
 
@@ -3117,13 +3113,13 @@ une_autre(unefonction)
 <function __main__.une_autre.<locals>.wrapper()>
 ```
 
-To call the actual wrapper we can do this:
+To call the actual `wrapper` we can do this:
 
 ```python
 une_autre(hello)() # this is equivalent to 'wrapper_returned()'
 ```
 
-A function in Python is a first-class citizen object, we could have done that in 2 steps too, just like before:
+A function in Python is a first-class citizen object, hence we could have done that in 2 steps, just like before:
 
 ```python
 new_hello = une_autre(hello) # the wrapper function
@@ -3132,12 +3128,12 @@ new_hello2 = hello # just hello, without any added functionality
 new_hello is new_hello2 
 ```
 
-We could also simply assign this new returned wrapper function back to the variable refering to the fonction passed as argument:
+We could also simply assign this new returned `wrapper` function back to the variable refering to the fonction passed as argument:
 ```python
 hello = une_autre(hello) # the wrapper function
 ```
 
-Now `hello`, although named the same way as before, is not the same as before, it **encapsulates** the what hello did before, + display "yes". Consecutive calls of `hello` hence does have a new behavior with an added functionnality.
+Now `hello`, although named the same way as before, is not the same as before, it **encapsulates** the what hello did before, + return "yes". Consecutive calls of `hello` hence does have a new behavior with an added functionnality.
 
 
 ```python
@@ -3159,7 +3155,7 @@ def hello():
 
 ## passing arguments to the decorated function 
 
-By now, our decorator `une_autre` didn't do that much than printing an additional "yes".<br>
+By now, our decorator `une_autre` didn't do that much than returning an additional "yes".<br>
 Also it suffers a big flaw. If we change hello to be a little more interactive:
 
 ```python
@@ -3181,7 +3177,7 @@ TypeError: wrapper() takes 0 positional arguments but 1 was given
 ```
 
 This makes sense, `hello` isn't the former function we defined. It is now the `wrapper`. And the `wrapper` **didn't take any arguments** so far. (Note that if we added a default argument value for the `hello` function, and call `hello` without any argument, the decorator would have still worked).<br>
-We hence need to account for this change by adding this parameter to the wrapper.
+We hence need to account for this change by adding this parameter to the `wrapper`.
 
 ```python
 def une_autre(func):
@@ -3189,8 +3185,7 @@ def une_autre(func):
         result = func(name) # of course you still need to 
         # forward it to the func (here hello) so it displays
         # "Hello <name>"
-        print("yes") # added functionality does not change
-        return result
+        return "yes" # added functionality does not change
     return wrapper
 ```
 
@@ -3202,61 +3197,139 @@ def hello2(name, age):
     print("Hello {}, {}".format(name, age))
 ```
 
-This will crash, the function is wrapped. The function expected to parameter, the wrapper just one.
+This will crash. The function was wrapped: the function **expected 2 parameters**, the `wrapper` just **one**.
 
-From now, you probably understood we need the decorator to be flexible enough to take any number of arguments.
+From now, you probably understood we need the decorator to be **flexible enough to take any number of arguments**.
 
 We can account for this change by adding the function template for any number of **positional** and **keyword** arguments.
 
 ```python
 def une_autre(func):
     #the wrapper now takes any number of args you could pass to it
-    def wrapper(*args, **kwargs): 
-        result = func(*args, **kwargs)
-        print("yes")
-        return result
+    def wrapper(*args, **kwargs):
+        func(*args, **kwargs) # and forwards them to the function itself
+        return "yes"
     return wrapper
 ```
 
-Let's now use the newer shortcut syntax
-
+Let's now use again the shortcut syntax `@une_autre` (equivalent for `unefonction = une_autre(unefonction)`):
 
 ```python
 @une_autre
-def unefonction(name):
-    ## fonction to be decorated
-    print("Hello")
+def hello(name, age):
+    print("Hello {}, you are {} years old".format(name, age))
+    return name
+
+@une_autre
+def goodbye(name):
+    print("GoodBye {}".format(name))
     return name
 ```
 
+And the result by calling `hello` and `goodbye`:
 
 ```python
-unefonction("Luc")
+Hello Luc, 25
+Out[97]: "yes"
+```
+```python
+GoodBye Luc
+Out[97]: "yes"
 ```
 
-    Hello
-    yes
+Note that since the beginning, as "added functionnality" we were returning "yes"; but it is also perfectly fine to return a value computed by the decorated function
+
+```python
+def une_autre(func):
+    def wrapper(*args, **kwargs):
+        # hold the result computed by func (if func returns a value) in a variable
+        result = func(*args, **kwargs) 
+        # return it
+        return result
+    return wrapper
+
+@une_autre
+def compute_square(number):
+    return number**2
+```
 
 
+## An example of decorator
 
 
-
-    'Luc'
-
+The `timeit` decorator is quite famous by now:
 
 
-wrapper replaces func, then if func was often being passed an argument, wrapper must handle it
+```python
+def timeit(func):
+    import time
+    def wrapper(*args, **kwargs):
+        start = time.time() # current (starting) time
+        result = func(*args, **kwargs) # function called
+        end = time.time() # current (ending) time
+        # display the elapsed time during function call
+        print("The function took {} seconds to run".format(round(end-start, 2)))
+        return result # return the result of the function
+    return wrapper
+
+@timeit
+def compute_square(number):
+    return number**2
+
+@timeit
+def create_list(length):
+    return list(range(length))
+```
+
+output by calling `compute_square(10)`:
+```python
+The function took 1.6689300537109375e-06 seconds to run
+Out[9]: 100
+```
+
+output by calling `create_list(100000000)`:
+```python
+The function took 3.9860420227 seconds to run
+```
+
+`timeit` decorator then computes the time elapsed running the decorated function.
+
+
+Another decorator is to count the number of calls of a function
+
+```python
+def nbcalls(func):
+    def wrapper(*args, **kwargs):
+        result = func(*args, **kwargs) # function called
+        wrapper.counter += 1 # incrementing a counter specified in the enclosing scope
+        print("function called {} time(s)".format(wrapper.counter))
+        return result # i return the result of the function
+    # i dynamically add an attribute "counter" to the wrapper object
+    wrapper.counter = 0 # initializing counter at 0
+    return wrapper
+
+@nbcalls
+def create_list(length):
+    return list(range(length))
+```
+output:
+
+```python
+function called 7 time(s)
+
+Out[70]:
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+```
 
 ## passing arguments to the decorator
 
-"higher higher"-order function 😜
+We could call this a "higher-higher"-order function 😜 (a decorator is a higher-order function)
 
 
 ```python
 def togiveargs(argument):
     def decorator(func):
         def wrapper(*args, **kwargs):
-            print("Hello")
             result = func(*args, **kwargs)
             if argument:
                 print("Yes")
@@ -3270,27 +3343,27 @@ def togiveargs(argument):
 
 ```python
 @togiveargs(False)
-def unefonction(name):
+def hello(name):
     ## fonction to be decorated
     print("Hello")
     return name 
 ```
+This notation will equals: `hello = togiveargs(decorator(function), argument)`
 
+Now calling the decorated `hello`:
 
 ```python
-unefonction("Luc")
+hello("Luc")
 ```
 
-    Hello
-    Hello
-    No
+Output:
 
+```python
+Hello
+No
 
-
-
-
-    'Luc'
-
+Out[70]: 'Luc'
+```
 
 # Classes
 
