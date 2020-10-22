@@ -3006,30 +3006,36 @@ dico_des_contacts['remi'] = "067234099"
 
 # Decorators
 
+## Introduction to the concept
 <u>**A decorator:**</u>
- * takes a function as argument (remembered? function is a object, all objects are first-class objects by design)
- * return a function
+ * takes a function as argument (remembered? function is **an object**, all objects are **first-class objects/citizens** by design, i can then pass a function as argument to another one, and also return a function).
+ * returns a function, with an **additional** functionnality/behavior from the function passed as parameter
 
-Aim is to provide a wrapper function that implements additional feature for an existing function
+Aim is then to return a **wrapper function** that **appends additional features** to an existing **function**.
 
+
+Let's take this simply example of a function without args, and without returned value.
 
 ```python
-def unefonction():
+def hello():
     print("Hello")
 ```
 
+Note that you can inspect the source code of this funciton using `inspect` module from the Python standard library.
 
 ```python
 import inspect
-print( inspect.getsource(function) ) 
+print( inspect.getsource(hello) ) 
 ```
 
-    def function():
+    def hello():
         return 2+"2"
     
 
 
-Here the function take a function as argument, but does not return a function
+Let's create another function, here this one takes a function as parameter.<br>
+And later call this passed in function in his body definition.<br>
+But does not return a function, just a string "yes".
 
 
 ```python
@@ -3040,7 +3046,7 @@ def une_autre(func):
 
 
 ```python
-une_autre(unefonction)
+une_autre(hello)
 ```
 
     Hello
@@ -3052,59 +3058,160 @@ une_autre(unefonction)
     'yes'
 
 
+This is hence not a decorator, as the decorator should return a function !
 
-We must then define a new function (to be returned) **inside** the body of the calling function
-
+We could easily work around by simply returning the paramater `func` itself as below (with or without calling it).
 
 ```python
 def une_autre(func):
-    def wrapper():
-        func()
-        print("yes")
-    return wrapper
+    return func
 ```
+
+This time `une_autre` actually takes a function as argument, and return a function too.
+
+But, well, it's not really doing anything worth the attention... We're here returning the same function passed as arg. It we were to call `une_autre` with hello as arg this is what we would get:
+
+```python
+def hello():
+    print("Hello")
+
+def une_autre(func):
+    return func
+
+une_autre(hello)
+```
+
+```python
+<function __main__.hello()>
+```
+
+As une_autre returns the hello function. Thos lines are equivalent.
+
+```python
+new_hello = une_autre(hello)
+new_hello2 = hello
+# This gives True
+new_hello is new_hello2 
+```
+
+How one might expect to provide an additional functionality to a function passed-as argument ?
+We need to **define a new function** inside of the body of the decorator one.
+This function will later be the one returned.
 
 
 ```python
-une_autre(unefonction)()
+def une_autre(func): # decorator function
+    def wrapper(): # wrapper function, inside the decorator definition
+        func() # calling func !
+        print("yes") # + adding another functionnality (here just saying "hello")
+    return wrapper # we return the wrapper, not func !
+```
+
+If we call `une_autre`, on `hello`. This time the `wrapper` is the function returned, not the `hello` itself !:
+
+```python
+une_autre(unefonction)
+```
+
+```python
+<function __main__.une_autre.<locals>.wrapper()>
+```
+
+To call the actual wrapper we can do this:
+
+```python
+une_autre(hello)() # this is equivalent to 'wrapper_returned()'
+```
+
+A function in Python is a first-class citizen object, we could have done that in 2 steps too, just like before:
+
+```python
+new_hello = une_autre(hello) # the wrapper function
+new_hello2 = hello # just hello, without any added functionality
+# This gives False
+new_hello is new_hello2 
+```
+
+We could also simply assign this new returned wrapper function back to the variable refering to the fonction passed as argument:
+```python
+hello = une_autre(hello) # the wrapper function
+```
+
+Now `hello`, although named the same way as before, is not the same as before, it **encapsulates** the what hello did before, + display "yes". Consecutive calls of `hello` hence does have a new behavior with an added functionnality.
+
+
+```python
+hello()
 ```
 
     Hello
     yes
 
 
-une_autre is a function, we can then assign it to a variable:
-
-
-```python
-unefonction = une_autre(unefonction)
-```
-
-assigning back to ```unefonction``` just changed the consecutive calls of unefontion to a new behavior with added functionnality
-
+Note that instead of writing each time after the definition part  `def une_autre(func):...`, another line `hello = une_autre(hello)`, we could have used this **syntactic sugar syntax** during definition of the **decorated** function.<br>
 
 ```python
-unefonction()
-```
-
-    Hello
-    yes
-
-
-Note we could have used this syntactic sugar syntax during definition of the decorated function to had permanently the functionnality added by ```une_autre``` decorator :<br>
-```
+### this is equivalent to do the definition + hello = une_autre(hello) separatly
 @une_autre
-def unefonction():
-    pass
+def hello():
+    print("Hello")
 ```
 
 ## passing arguments to the decorated function 
 
+By now, our decorator `une_autre` didn't do that much than printing an additional "yes".<br>
+Also it suffers a big flaw. If we change hello to be a little more interactive:
+
+```python
+@une_autre
+def hello(name):
+    print("Hello {}".format(name))
+```
+
+Then running it:
+
+```python
+hello("Luc")
+```
+
+will crash:
+
+```python
+TypeError: wrapper() takes 0 positional arguments but 1 was given
+```
+
+This makes sense, `hello` isn't the former function we defined. It is now the `wrapper`. And the `wrapper` **didn't take any arguments** so far. (Note that if we added a default argument value for the `hello` function, and call `hello` without any argument, the decorator would have still worked).<br>
+We hence need to account for this change by adding this parameter to the wrapper.
 
 ```python
 def une_autre(func):
-    ## adding undefining number of positional and keyword params
-    def wrapper(*args, **kwargs):
+    def wrapper(name): # adding this parameter
+        result = func(name) # of course you still need to 
+        # forward it to the func (here hello) so it displays
+        # "Hello <name>"
+        print("yes") # added functionality does not change
+        return result
+    return wrapper
+```
+
+But what if we apply this same decorator to another function that has 2 parameters this time ?
+
+```python
+@une_autre
+def hello2(name, age):
+    print("Hello {}, {}".format(name, age))
+```
+
+This will crash, the function is wrapped. The function expected to parameter, the wrapper just one.
+
+From now, you probably understood we need the decorator to be flexible enough to take any number of arguments.
+
+We can account for this change by adding the function template for any number of **positional** and **keyword** arguments.
+
+```python
+def une_autre(func):
+    #the wrapper now takes any number of args you could pass to it
+    def wrapper(*args, **kwargs): 
         result = func(*args, **kwargs)
         print("yes")
         return result
