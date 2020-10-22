@@ -174,7 +174,7 @@ Call multiply(8,2,3, True)
 Add some behavior in the function definition for arbitrarily named keywords arguments (just as we did with `inverse`), and use them in different calls.
 
 
-## Ex. 4: Sort a dictionary... by values !
+## Ex. 5: Sort a dictionary... by values !
 
 Hint: use `Ordereddict`
 
@@ -182,7 +182,7 @@ Hint: use `Ordereddict`
 x = {1: 2, 3: 4, 4: 3, 2: 1, 0: 0}
 ```
 
-## Ex. 5: Let's create a decorator using class definition
+## Ex. 6: Let's create a decorator using class definition
 
 A decorator is a construct often written as a function, that takes a **function as parameter** and returns **another one which extends** the behavior of the passed-in function.
 It thus needs to return a new function who had been defined in its inner scope and wrapped the first one.
@@ -227,7 +227,7 @@ The results must be saved in a dictionary:
  * keys    = params used
  * values  = results obtained
 
-## Ex. 6: Create a custom list 😉
+## Ex. 7: Create a custom list 😉
 
 Create a class `List` whose behavior upon doing `liste1 + liste2`  (with `liste1` and `liste2` being `List` instances), is to add each of their elements element-wise i.e. `liste1[i] + liste2[i]` for each `i`.
 

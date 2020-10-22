@@ -3189,36 +3189,6 @@ unefonction("Luc")
 
 
 ```python
-a="hello-world"
-
-```
-
-
-```python
-a
-```
-
-
-
-
-    'hello-world'
-
-
-
-
-```python
-a+"bonjour"
-```
-
-
-
-
-    'hello-worldbonjour'
-
-
-
-
-```python
 class Oeuvre:
     """Classe définissant une Oeuvre 
         Attributs: 
@@ -3242,9 +3212,8 @@ class Oeuvre:
     
 
     def __str__(self):
-        output = "\nAuteur : "     + self.auteur +\
-            "\nTitre : "           + self.titre +\
-            "\nConçu à la date : " + self.date
+        output = "\nAuteur :{}, Titre : {}, Conçu à la date {}\n".format(
+            self.auteur, self.titre, self.date)
         return output
 ```
 
