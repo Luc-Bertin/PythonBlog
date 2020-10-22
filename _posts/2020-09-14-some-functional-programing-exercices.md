@@ -33,6 +33,7 @@ we would prefer to build a function `set_pipeline` which would result in the fol
 
 `set_pipeline(inputs, function1, function2, ...)`
 
+
 1. What's your strategy ? Hint: think about `functools.reduce`
 
 ## Define 3 generators functions

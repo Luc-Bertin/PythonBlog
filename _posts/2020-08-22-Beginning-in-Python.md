@@ -2433,12 +2433,28 @@ for key, value in dico_des_contacts.items():
 
 ## Function definition and function call(s)
 
-- Defining a function: function may or may not have parameters, can return a value but are not forced too. 
+- Defining a function: function **may or may not** have parameters, **can** return a value but are not forced too. 
 
 Here is an example of a function that has a parameter, and return a value.
 
 ```python
 def mafonction(a):
+    return a**2
+```
+
+and a function with some description (also named a `docstring`) of what it does, as it is always a good practice to comment your code:
+
+```python
+def mafonction(a):
+    """This is a doctstring, it is a description to let
+    the user know what your function does
+    it's a string literal that can be found 
+    on top of a function, a module or a class.
+    At runtime, it is detected by python Bytecode and assigned to 
+    object.__doc__, you can then use Tab keys and Shift in Jupyter
+    to see in work, cool isn't it ? check PEP257😉
+    You can later find me as the attribute mafonction.__doc__
+    """
     return a**2
 ```
 
@@ -2593,16 +2609,31 @@ acomplicatedcalculus(**dictargs1, **dictargs2)
 Hurra ! the elements in the sequence has been included **according to the keys of the dictionnary**
 Position does **not** matter here. Only the keyword to value association.
 
+Hence, not that 
 
 ```python
-dictargs2['b'] = 325 # b parameter will be submited argument (value) 325
+# (+ with Additional Unpacking Generalizations)
+acomplicatedcalculus(**dictargs2, **dictargs1)
 ```
+is same as:
+```python
+# (+ with Additional Unpacking Generalizations)
+acomplicatedcalculus(**dictargs2, **dictargs1)
+```
+is same also as keys in a different order, even in the same dictionary.
 
+
+Though you cannot **specify the same keyword argument twice** (here defined in another dictionary in the additional unpacking generalization).
+
+```python
+dictargs1 = {'b':2, 'a':1, 'c':3}
+dictargs2 = {'f':6, 'e': 5, 'd':4}
+dictargs2['b'] = 325
+```
 
 ```python
 acomplicatedcalculus(**dictargs1, **dictargs2)
 ```
-
 
     ---------------------------------------------------------------------------
 
@@ -2614,37 +2645,32 @@ acomplicatedcalculus(**dictargs1, **dictargs2)
 
     TypeError: acomplicatedcalculus() got multiple values for keyword argument 'b'
 
-
-<p style="font-size: 20px;">Oh 😢 </p>
-
-<u>**Note2:**</u> `**` unpackings follows `**` unpackings
-
-## Tuple packing for function definitions 
-
-You can also think the other way around and think about functions as containing an undefined number of arguments, example:
-
-
+Same error if we were to do:
 ```python
-# args is a convention
+acomplicatedcalculus(**dictargs1, **dictargs2, b=25)
 ```
+Although this would work, if b was not defined in `dictargs1`.
 
+<u>**Note2:**</u> `**` unpackings follows `**` unpackings, not the other way:
+
+This works: `acomplicatedcalculus(**{"a":25, "b":17, "e":25, "d":14}, c=25)`,
+This does not: `acomplicatedcalculus(**{"a":25, "b":17, "e":25, "d":14}, 25)`
+
+
+## Function definitions and tuple packing 
+
+What about the other way? 
+Instead of unpacking a variable length sequence of elements into positional or keywords arguments at function call, you can also create functions as containing an **undefined number of arguments**, **positional**, and/or **keywords**.
 
 ```python
 def newfunction(*args):
-    """This is a doctstring, it is a description to let
-    the user know what your function does
-    it's a string literal that can be found 
-    on top of a function, a module or a class.
-    At runtime, it is detected by python Bytecode and assigned to 
-    object.__doc__, you can then use Tab keys and Shift in Jupyter
-    to see in work, cool isn't it ? check PEP257😉
-    """
     somme = 0
     for arg in args:
         somme += arg
     return somme
 ```
 
+Now our function is flexible in its number of positional inputs:
 
 ```python
 newfunction(1,2,3,4,5), newfunction(1,2,3)
@@ -2652,26 +2678,52 @@ newfunction(1,2,3,4,5), newfunction(1,2,3)
 
     (15, 6)
 
-
+Inside `newfunction`, `args` becomes a **tuple** of **provided positional inputs arguments**.
+Its **packs** those arguments defined in:
 ```python
-newfunction.__doc__
+newfunction(1,2,3,4,5)
+```
+as if you were to do:
+```python
+*args, = (1,2,3,4,5)
+```
+which leads to args being a tuple of all those elements:
+```python
+args = 
+    (1,2,3,4,5)
 ```
 
-    "This is a doctstring, it is a description to let\nthe user know what your function does\n    it's a string literal that can be found \n    on top of a function, a module or a class.\n    At runtime, it is detected by python Bytecode and assigned to \n    object.__doc__, you can then use Tab keys and Shift in Jupyter\n    to see in work, cool isn't it ? check PEP257😉\n    "
-
+In the same frame,
 
 ```python
-def newfunction2(**kwargs):
-    return kwargs['e'] / kwargs['f']
+def newfunction2(number, **kwargs):
+    if kwargs.get("inverse", False):
+        number = 1/number
+    if kwargs.get("negative", False):
+        number = - number
+    return number
+```
+
+Inside `newfunction2`, `kwargs` becomes a **dict** of **provided keyword inputs arguments**.
+Its **packs** those arguments defined in:
+
+```python
+newfunction2(2, inverse=True, negation=True, gamma=True)
+```
+
+    -0.5
+
+as if you were (**conceptually**, as this would not work running this code below) to do:
+```python
+**kwargs, =  inverse=True, negation=True, gamma=True
+```
+which leads to kwargs being a tuple of all those elements:
+```python
+kwargs = { 'inverse':True, 'negation':True, 'gamma':True  }
 ```
 
 
-```python
-newfunction2(**{'e': 7, 'f':8, 'g':9})
-```
-
-    0.875
-
+## Type hints
 
 Starting PEP484, Python 3.5 you can add type hints (it is just hints, not forced, but yçou can use a type checking tool for that)
 
