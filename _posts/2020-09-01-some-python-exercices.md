@@ -191,37 +191,39 @@ We can also write a decorator using a class: the method  `__call__` (instance me
 
 1 / Create a class `NbFunctionCalls`. 
 
-2/ Each instance need to have one instance attribute to which is assigned a function during the initialization process.
+2/ Each instance need to have one instance attribute named `myfunction` to which is assigned a function during the initialization process.
 
-2/ The instance (not the class) also needs to have `counter`.
+3/ The instance (not the class) also needs to have `counter` attribute.
 
-3/ Use the `__call__` instance method so to be able to **call** the instance as if it was a function.
+4/ Use the `__call__` instance method so to be able to **call** the **instance** **as if it was a function**.
 
-4/ To each call, the instance attribute function needs to be called and the counter incremented by 1.
+5/ To each call, the function passed as instance attribute variable needs to be called and the **counter** variable incremented by 1.
 
-5/ Define a function `somme` which compute the sum of an undefined number of params passed to it.
+6/ Define a function `somme` which computes the sum of an undefined number of params passed to it.
 
-6/ Use the notation `@NbFunctionCalls` to add the functionality brought by the decorator.
+7/ Create a `multiply` function, that multiplies all passed-in args (a * b * c * ... * z)
 
-7/ Which formula equals to the preceding notation ?
+8/ Use the notation `@NbFunctionCalls` to add the functionality brought by the decorator to `somme`, and also to `multiply`.
 
-7b/ What does `somme`'s type become ? 
+9/ Which formula equals to the preceding notation ?
 
-7c/ Access to the `counter`.
+10/ What does `somme`'s type become ? 
 
-8/ What functionality does `NbFunctionCalls` bring ? 
+11/ Access to the `counter` in `somme`, then call mutliple times `somme`, then evaluates again the `counter`.
 
-9/ Keep the overall structure from `NbFunctionCalls` . But this time, move `counter` as class variable and not instance variable.
+12/ Evaluate the `counter` in `multiply`. Is it different from `somme` or similar ? 
 
-10/ Create a `multiply` function, that multiplies all passed-in args (a * b * c * ... * z)
+13/ What functionality does `NbFunctionCalls` bring ? 
 
-11/ Create a `divide` function that divides all passed-in args (a / b / c / d ...)
+14/ Copy the overall structure of `NbFunctionCalls`. Paste-it in another cell, and change the class name to `NbOfAllFunctionCalls`. 
 
-12/ Add `@NbOfAllFunctionCalls` to both of those functions.
+15/ This time, in this new class named `NbOfAllFunctionCalls`, move the `counter` as **class variable** and **not** instance variable.
 
-13/ Call them separately and check their respective counters, what is happening ?
+16/ Delete the`@NbFunctionCalls` for `multiply` and add `@NbOfAllFunctionCalls` to both `multiply` and `divide`.
 
-14/ Create a decorator in the same context to record the different results from those functions.
+17/ Call them separately and check their respective counters, what is happening ?
+
+18/ In the same context, create a new (class) decorator to record the different results from those functions.
 
 The results must be saved in a dictionary:
  * keys    = params used
