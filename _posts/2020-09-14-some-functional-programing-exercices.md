@@ -33,15 +33,15 @@ we would prefer to build a function `set_pipeline` which would result in the fol
 
 `set_pipeline(inputs, function1, function2, ...)`
 
-What's your strategy ? Hint: think about `functools.reduce`
+1. What's your strategy ? Hint: think about `functools.reduce`
 
 ## Define 3 generators functions
-1.
+2.
 * one that just multiply by 2
 * one that power by 2
 * one that divide by 5
 
-2.
+3.
 * use those generators in the `set_pipeline` function you defined earlier
 
 ## Exo2: Create a range with decimal increment
