@@ -2449,12 +2449,7 @@ def mafonction(a):
 mafonction(9)
 ```
 
-
-
-
     81
-
-
 
 <u>Terminology alert here:</u> A parameter is a variable in the function definition. Just like in Maths. An argument is the passed-in value at function call for that parameter.
 
@@ -2470,12 +2465,7 @@ mafonction = lambda x: x**2
 mafonction(11)
 ```
 
-
-
-
     121
-
-
 
 - Put default arguments for any parameter in the functions
 
@@ -2490,14 +2480,9 @@ def mafonction2(a=5):
 mafonction2()
 ```
 
-
-
-
     25
 
-
-
-<u>**Note:**</u> default arguments always at the end:
+<u>**Note:**</u> default arguments always follows non-default arguments:
 
 
 ```python
@@ -2513,7 +2498,7 @@ def mafonction3(a,b,c=2, d):
 
 
 
-## Recall unpacking ?
+## Iterable unpacking in function call
 
 Say we have this function:
 
@@ -2523,45 +2508,43 @@ def acomplicatedcalculus(a,b,c,d,e,f=23):
     return a + b * c - d*e*f
 ```
 
-What if we this list: ```mylistargs = [1,2,3,4,5,6]``` to be parsed in funciton call ? 
-
-
+Let's say we have a list:
 ```python
 mylistargs = [1,2,3,4,5,6]
 ```
 
+What if we want to avoid specifying manually each parameter and simply want to parse the list elements as arguments to the function call ?
+
+Recall iterable unpacking ? in a similar fashion (although the syntax a bit different), we can use it in the function call:
 
 ```python
 acomplicatedcalculus(*mylistargs)
 ```
 
-
-
-
     -113
 
+This equals doing:
+```python
+acomplicatedcalculus(mylistargs[0], mylistargs[1], ...)
+```
+hence this:
+```python
+acomplicatedcalculus(1, 2, 3, 4, 5, 6)
+```
 
-
-**Note:** this overwrited f, you could skip last argument 
-
+**Note:** this also of course overwrote the final argument `f` which has a default argument value by the same value `6`. You can skip last argument manipulating iterable unpacking:
 
 ```python
 *mylistreduced, rest = mylistargs
 ```
-
-
+and iterable unpacking inside the function call:
 ```python
 acomplicatedcalculus(*mylistreduced)
 ```
 
-
-
-
     -453
 
-
-
-you can also as of PEP448 you can also unpack multiple iterables in function call i.e.
+you can also as of PEP448 (Additional Unpacking Generalizations) you can also unpack multiple iterables in function call i.e.
 
 
 ```python
@@ -2570,43 +2553,49 @@ liste2 = [3,4]
 liste3 = [5,6]
 ```
 
+Then: 
 
 ```python
 acomplicatedcalculus(*liste1, *liste2, *liste3)
 ```
 
-
-
-
     -113
 
 
 
-We can also provide a smarter unpacking based on keywords, also known as positional arguments, using double-star unpacking
+Not that this unpacking is based on arguments positions:
+i.e. this:
+```python
+mylistargs = [1,2,3,4,5,6]
+acomplicatedcalculus(*mylistargs)
+```
+is different from that:
+```python
+mylistargs = [6,5,4,3,2,1]
+acomplicatedcalculus(*mylistargs)
+```
 
+We can also provide a smarter unpacking based on **keywords** and not **positions**, also known as positional arguments, using the **double-star unpacking** notation using dictionaries:
 
 ```python
 dictargs1 = {'b':2, 'a':1, 'c':3}
 dictargs2 = {'f':6, 'e': 5, 'd':4}
 ```
 
-
 ```python
+# (+ with Additional Unpacking Generalizations)
 acomplicatedcalculus(**dictargs1, **dictargs2)
 ```
-
-
-
 
     -113
 
 
-
-Hurra ! the elements in the sequence has been included according to the keys of the dictionnary
+Hurra ! the elements in the sequence has been included **according to the keys of the dictionnary**
+Position does **not** matter here. Only the keyword to value association.
 
 
 ```python
-dictargs2['b'] = 325
+dictargs2['b'] = 325 # b parameter will be submited argument (value) 325
 ```
 
 
@@ -2628,7 +2617,7 @@ acomplicatedcalculus(**dictargs1, **dictargs2)
 
 <p style="font-size: 20px;">Oh 😢 </p>
 
-<u>**Note2:**</u> \*\* unpackings must additionally follow \* unpackings
+<u>**Note2:**</u> `**` unpackings follows `**` unpackings
 
 ## Tuple packing for function definitions 
 
@@ -2661,24 +2650,14 @@ def newfunction(*args):
 newfunction(1,2,3,4,5), newfunction(1,2,3)
 ```
 
-
-
-
     (15, 6)
-
-
 
 
 ```python
 newfunction.__doc__
 ```
 
-
-
-
     "This is a doctstring, it is a description to let\nthe user know what your function does\n    it's a string literal that can be found \n    on top of a function, a module or a class.\n    At runtime, it is detected by python Bytecode and assigned to \n    object.__doc__, you can then use Tab keys and Shift in Jupyter\n    to see in work, cool isn't it ? check PEP257😉\n    "
-
-
 
 
 ```python
@@ -2691,11 +2670,7 @@ def newfunction2(**kwargs):
 newfunction2(**{'e': 7, 'f':8, 'g':9})
 ```
 
-
-
-
     0.875
-
 
 
 Starting PEP484, Python 3.5 you can add type hints (it is just hints, not forced, but yçou can use a type checking tool for that)
@@ -2714,11 +2689,7 @@ power(3, 4)
 ```
 
 
-
-
     6561
-
-
 
 
 ```python
@@ -2726,11 +2697,7 @@ pow(base=2, exp=4)
 ```
 
 
-
-
     16
-
-
 
 
 ```python
@@ -3153,7 +3120,7 @@ def hello():
     print("Hello")
 ```
 
-## passing arguments to the decorated function 
+## Passing arguments to the decorated function 
 
 By now, our decorator `une_autre` didn't do that much than returning an additional "yes".<br>
 Also it suffers a big flaw. If we change hello to be a little more interactive:
@@ -3254,7 +3221,7 @@ def compute_square(number):
 ```
 
 
-## An example of decorator
+## Examples of decorators
 
 
 The `timeit` decorator is quite famous by now:
@@ -3321,7 +3288,7 @@ Out[70]:
 [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 ```
 
-## passing arguments to the decorator
+## Passing arguments to the decorator
 
 We could call this a "higher-higher"-order function 😜 (a decorator is a higher-order function)
 
