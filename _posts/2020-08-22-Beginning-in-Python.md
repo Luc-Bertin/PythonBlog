@@ -2314,7 +2314,7 @@ for tuple_ in dico_des_contacts.items():
     ('Julien', '0820202020')
 
 
-## a nice feature: Iterable unpacking (here on a tuple) 
+## A nice feature: Iterable unpacking (here on a tuple) 
 
 
 ```python
@@ -2962,7 +2962,7 @@ mondico2
 
 
 
-## exercice: take phone number only for name starting with 'R'
+## Exercice: take phone number only for name starting with 'R'
 
 
 ```python
@@ -3562,7 +3562,7 @@ gives the following output:
 Out[2]: (1, 1)
 ```
 
-## one word on static methods:
+## One word on static methods:
 
 Finally static methods, described by the decorator `@staticmethod` does not have any first implicitly passed argument (like self or cls), and then does not interact at basis with either the instance or the class, although it has to be called from either of them (e.g. `people1.power2(25)` or `People.power2(25)`). It behaves just like a normal function. Main use case I have personally seen so far is to encapsulate functions with a common "scope", "purpose" or related context to mainly refactor code. E.g. we can imagine a class `Math` which does contain a lot of related mathematical functions that should be accessible from a same namespace: `Math.power2`, `Math.sqrt`, `Math.exp`, etc.
 
@@ -3636,7 +3636,7 @@ dir(people1)
 Familiar ?
 
 
-## class inheritance and mro (method resolution order)
+## Class inheritance and mro (method resolution order)
 
 Any student is also a people.<br>
 Hence what about creating a new class `Student` that **inherits** from `People` ?<br>
@@ -3707,7 +3707,16 @@ print(student1)
 student1.number_of_arms
 ```
 
-## inherits from primitive types
+What about inheriting from multiple classes? One can do so:
+
+```python
+class Student(People, Youngers):
+    pass
+```
+
+But you should be cautious about the order of the parent classes you state in the parenthesis, specifically when some methods can be found in different, parent, classes like `People` and `Youngers`. A good read about order and which prevail over which, in different contexts, can be found [there](http://www.srikanthtechnologies.com/blog/python/mro.aspx)
+
+## Inheriting from primitive types
 
 This is just an example to give you some teasing for the exercices.<br>
 If everyhing that has been stated earlier seems convincing to you, then what about inheriting from primitive types?
