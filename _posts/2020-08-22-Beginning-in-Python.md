@@ -2722,6 +2722,8 @@ which leads to kwargs being a tuple of all those elements:
 kwargs = { 'inverse':True, 'negation':True, 'gamma':True  }
 ```
 
+Hence it is free to you to actually manage or not the passed-in keywords arguments just like in `newfunction2.
+
 
 ## Type hints
 
@@ -3054,7 +3056,7 @@ print( inspect.getsource(hello) )
 
 Let's create another function.<br>
 Here this one takes a **function as parameter**.<br>
-We will later call this **the passed-in function** within the body of `une_autre`.<br>
+We will later call **this passed-in function** within the body of `une_autre`.<br>
 Then it will not return a function, but rather just a "yes".
 
 
@@ -3152,7 +3154,7 @@ We could also simply assign this new returned `wrapper` function back to the var
 hello = une_autre(hello) # the wrapper function
 ```
 
-Now `hello`, although named the same way as before, is not the same as before, it **encapsulates** the what hello did before, + return "yes". Consecutive calls of `hello` hence does have a new behavior with an added functionnality.
+Now `hello`, although named the same way as before, is not the same as before, it **encapsulates** what `hello` did before, and also return "yes". Consecutive calls of `hello` hence does have a new behavior with an added functionnality.
 
 
 ```python
