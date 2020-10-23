@@ -334,285 +334,225 @@ unbound_method_(a)
 
 Note that str is called a **built-in type**, in ***CPython*** implementation, **str is a C struct**. Just **like int, list, dict, tuple, set, and [others](https://docs.python.org/3/library/stdtypes.html)**
 
-# Common built-in types.
+# Primitive built-in types.
 
-## Lists
+## Strings
 
+Let's start with strings. A string is a sequence of characters.
 
+You can create it by simply writing it.
 ```python
-uneliste = []
-print(uneliste)
+"hello-world"
 ```
 
-    []
-
-
+You could have also created it using the `str()` constructor (more on that on chapter **Classes**).
 
 ```python
-dir(uneliste)
+str("hello-world")
 ```
 
+You can also bind a name/variable to that string 'first-class' object:
+```python
+string1 = "hello-world"
+```
 
-
-
-    ['__add__',
-     '__class__',
-     '__contains__',
-     '__delattr__',
-     '__delitem__',
-     '__dir__',
-     '__doc__',
-     '__eq__',
-     '__format__',
-     '__ge__',
-     '__getattribute__',
-     '__getitem__',
-     '__gt__',
-     '__hash__',
-     '__iadd__',
-     '__imul__',
-     '__init__',
-     '__init_subclass__',
-     '__iter__',
-     '__le__',
-     '__len__',
-     '__lt__',
-     '__mul__',
-     '__ne__',
-     '__new__',
-     '__reduce__',
-     '__reduce_ex__',
-     '__repr__',
-     '__reversed__',
-     '__rmul__',
-     '__setattr__',
-     '__setitem__',
-     '__sizeof__',
-     '__str__',
-     '__subclasshook__',
-     'append',
-     'clear',
-     'copy',
-     'count',
-     'extend',
-     'index',
-     'insert',
-     'pop',
-     'remove',
-     'reverse',
-     'sort']
-
-
-
+Then later referring to the string by using the variable `string1`.
 
 ```python
-uneliste = list()
+string1
 ```
-
 
 ```python
-uneliste
+Out[1]: "hello-world"
 ```
 
-
-
-
-    []
-
-
-
-arbitrary types of Python objects can be items in a list 
-
+string1 refers to an object, it has a id, type (str) and a value "hello-world", but more useful, maybe some methods associated to it ? We can check that using dir(string1) and call one of those particular method respective to this object type.
 
 ```python
-uneliste = [2,3,4,"a"]
-uneliste
+string1.capitalize() # to capitalize the world
 ```
+    'Hello-world'
 
-
-
-
-    [2, 3, 4, 'a']
-
-
-
-### Using some list methods as example
-
-i can access to some methods or attributes of list
-
+or another one:
 
 ```python
-uneliste.append(3) ## append the list with object integer 3
+string1.upper()
 ```
+    'HELLO-WORLD'
 
+or another one:
 
 ```python
-uneliste
+string1.lower()
+```
+    'hello-world'
+
+or another one:
+
+```python
+string1.replace('l', 'a')
+```
+    'heaao-worad'
+
+or another one:
+
+```python
+voiciunstring.count("l")
 ```
 
+    3
+
+A string being a sequence of characters, i can select one precise character using the indexing notation, that is, with brackets `[index]`
+
+```python
+string1[1]
+```
+    'e'
+
+Note that Python is 0-indexed, hence the first character in the string is found doing:
+
+```python
+string1[0]
+```
+
+You can also select the last index:
+
+```python
+string1[-1]
+```
+    'd'
 
 
+Or the last minux n index by the more generalized notation:
+```python
+n = 2 # 1 before last last index
+string1[-n]
+```
 
-    [2, 3, 4, 'a', 3]
+a string (of characters) having a length, you could have also done, to retrieve the last element:
+```python
+length = len(string1)
+string1[length-1] # recall that python is 0-indexed, hence the number of elements minus 1
+```
 
+You can change a particular character at certain index:
+```python
+string1[-1] = 'e'
+```
+    'hello-worle'
 
+We can also select a specific range of characters using slicing notation, that is, using brackets [start_index:stop_index:step_index]:
 
+the stop index is excluded, the step-index is optional, we will talk about it more on the chapter on Lists.
+```python
+string1[3:5]
+```
+    'he'
+
+```python
+voiciunstring[1:5]
+```
+    'ello'
+
+```python
+voiciunstring[1:10:2]
+```
+
+    'el-ol'
+
+You can also use some arithmetic expression such as "+"
+```python
+string1 + string2
+```
+This has the behavvior to concatenate strings.
+This is the same as the internal call:
+
+```python
+string1.__add__(string2)
+```
+
+this is the same method as for integers ! but hte behavior (concatenation) is different from the latter (addition) !
+
+**<u>Note:</u>**
 In Jupyter Notebook, after the '.' you can press `Tab` for showing some autocomplete suggestions.
 
 After writing the entire attribute name, a press on `Shift` + `Tab` display information about this attribute, what it is, what it does.
 
+## Lists
+
+Lists are the first sequence of objects we cover.
+
+```python
+[]
+```
+    []
+
+
+You could have also created it using the `list()` constructor (more on that on chapter **Classes**).
+
+```python
+list()
+```
+    []
+
+You can also bind a name/variable to that list, being a 'first-class' object:
+```python
+uneliste = [] # or liste1 = list()
+```
+
+Arbitrary **typed Python objects** can be items of a list:
+```python
+uneliste = [2,3,4,"a"]
+uneliste
+```
+    [2, 3, 4, 'a']
+
+
+### Using some list methods as example
+
+`uneliste` refers to an object, it has a `id`, `type` and `value`, but more useful, maybe some methods associated to it ? We can check that using `dir(uneliste)` and call one of those particular method respective to this object type.
+
+I can access to some methods or attributes of list:
+
+```python
+uneliste.append(3) ## append the list with object integer 3
+uneliste
+```
+
+    [2, 3, 4, 'a', 3]
+
+or another one:
 ```python
 uneliste.reverse()
-```
-
-
-```python
 uneliste
 ```
-
-
-
-
     [3, 'a', 4, 3, 2]
 
-
-
-
+or another one:
 ```python
 uneliste=[3,2,4,5]
-```
-
-
-```python
-uneliste
-```
-
-
-
-
-    [3, 2, 4, 5]
-
-
-
-
-```python
 uneliste.sort()
-```
-
-
-```python
 uneliste
 ```
-
-
-
-
     [2, 3, 4, 5]
-
 
 
 ### List manipulations
 
 #### Indexing
 
+You can access to a particular item in the sequence of items that caracterizes the list type:
 
 ```python
 item_number = 2
 uneliste[item_number]
 ```
 
-
-
-
     4
 
+**Warning: Python is 0-indexed.**
 
-
-Warning: Python is 0-indexed.
-
-You can also start from the end
-
-
-```python
-uneliste[-1]
-```
-
-
-
-
-    3
-
-
-
-You can find the number of elements in the list using len
-
-
-```python
-len(uneliste)
-```
-
-
-
-
-    6
-
-
-
-len is actually calling uneliste.\__len__() 
-
-
-```python
-uneliste.__len__()
-```
-
-
-
-
-    5
-
-
-
-Anything familiar with what said before ? 
-
-
-```python
-str().lower
-```
-
-
-
-
-    <function str.lower()>
-
-
-
-
-```python
-type(uneliste.__len__)
-```
-
-
-
-
-    method-wrapper
-
-
-
-> from Martijn Pieters, in a Stackoverflow thread
-[method-wrapper description](https://stackoverflow.com/questions/35998998/what-is-wrapped-by-a-python-method-wrapper): The method-wrapper object is wrapping a C function. It binds together an instance (here a function instance, defined in a C struct) and a C function, so that when you call it, the right instance information is passed to the C function
-
-
-```python
-uneliste[-1]
-```
-
-
-
-
-    3
-
-
-
+Using an index to high (where no such item exist for that index in the list) results in an `IndexError`:
 
 ```python
 uneliste[10]
@@ -630,69 +570,77 @@ uneliste[10]
     IndexError: list index out of range
 
 
+You can also start from the end
+
+```python
+uneliste[-1]
+```
+    3
+
+Or use the `len()` function, that internally calls method `__len__`.
+
+```python
+len(uneliste)
+```
+    6
+
+```python
+uneliste.__len__()
+```
+    6
+
+Anything familiar with what said before ? 
+
+By the way:
+
+```python
+type(uneliste.__len__)
+```
+
+    method-wrapper
+
+
+
+> from Martijn Pieters, in a Stackoverflow thread
+[method-wrapper description](https://stackoverflow.com/questions/35998998/what-is-wrapped-by-a-python-method-wrapper): The method-wrapper object is wrapping a C function. It binds together an instance (here a function instance, defined in a C struct) and a C function, so that when you call it, the right instance information is passed to the C function
+
+
 By the way, the ```uneliste[index]``` calls the lower-level ```__getitem__()``` method.
 
 We can check it there:
 
-
 ```python
 "__getitem__" in dir(list)
 ```
-
-
-
-
     True
 
-
-
 Hence i can do:
-
 
 ```python
 uneliste.__getitem__(2)
 ```
-
-
-
-
     47
 
-
-
-or even (as we did for ```str.lower```
-)
-
+or even (as we did for ```str.lower```)
 
 ```python
 list.__getitem__(uneliste, 2)
 ```
 
-
-
-
     47
-
 
 
 Beautiful, isn't it ?
 
+You can assign another object to a particular index:
 
 ```python
 ##### assigning a value:
 uneliste[2] = 25
-```
-
-
-```python
 uneliste
 ```
 
-
-
-
     [2, 3, 25, 'a', 3]
-
 
 
 The same way, ```uneliste[index] = value``` calls internally __setitem__() method:
@@ -701,53 +649,25 @@ The same way, ```uneliste[index] = value``` calls internally __setitem__() metho
 ```python
 "__setitem__" in dir(list)
 ```
-
-
-
-
     True
-
-
-
 
 ```python
 uneliste.__setitem__
 ```
-
-
-
-
     <method-wrapper '__setitem__' of list object at 0x11bbff640>
 
 
-
-
 ```python
 uneliste
 ```
-
-
-
-
     [25, 2, 47, 13, 17, 11, 9, 8]
-
-
-
 
 ```python
 uneliste.__setitem__(0, 2)
-```
-
-
-```python
 uneliste
 ```
 
-
-
-
     [2, 2, 47, 13, 17, 11, 9, 8]
-
 
 
 Changing an item object by another one in the list did not recreate a list object, this can be shown looking at the memory address of the list instance object, denoted by id, before and after the change of one of its element. 
@@ -772,12 +692,7 @@ uneliste=[25,2,47,13,17,11,9,8]
 uneliste[0:3] # stopped at index 2 (3 excluded)
 ```
 
-
-
-
     [25, 2, 47]
-
-
 
 Then notice than using indexing
 
@@ -805,11 +720,7 @@ But using slicing:
 uneliste[:len(uneliste)]
 ```
 
-
-
-
     [25, 2, 47, 13, 17, 11, 9, 8]
-
 
 
 More complicated example:
@@ -821,11 +732,7 @@ Start from 6th element (using 5 because 0-indexed) and finish at 2 by step -1, e
 uneliste[5:2:-1]
 ```
 
-
-
-
     [11, 17, 13]
-
 
 
 This:
@@ -835,11 +742,7 @@ This:
 uneliste[::]
 ```
 
-
-
-
     [25, 2, 47, 13, 17, 11, 9, 8]
-
 
 
 can be written also
@@ -848,26 +751,15 @@ can be written also
 ```python
 uneliste[:]
 ```
-
-
-
-
     [25, 2, 47, 13, 17, 11, 9, 8]
 
-
-
-but does have a slight difference from 
+but does have a slight difference from:
 
 
 ```python
 uneliste
 ```
-
-
-
-
     [25, 2, 47, 13, 17, 11, 9, 8]
-
 
 
 it makes a **copy** of the list, **returning an other object**, at a **different memory location**
@@ -877,31 +769,17 @@ it makes a **copy** of the list, **returning an other object**, at a **different
 uneliste[2:4:2] # index 4 is excluded, remember...
 ```
 
-
-
-
     [47]
-
 
 
 You can also do assignement while slicing a list, but the assigned iterable must be of same length of the number of items it is replacing
 
-
 ```python
 uneliste[2:4:2] = [1700]
-```
-
-
-```python
 uneliste
 ```
 
-
-
-
     [25, 2, 1700, 13, 17, 11, 9, 8]
-
-
 
 
 ```python
@@ -915,9 +793,6 @@ the list on the right hand side of the statement must contain the same number of
 uneliste
 ```
 
-
-
-
     [25, 2, 12334, 13, 13949, 11, 9, 8]
 
 
@@ -929,14 +804,10 @@ You can also use slice object
 uneliste[slice(1,4,2)]
 ```
 
-
-
-
     [3, 'a']
 
 
-
-Slice object are actually created when using the ```start:stop:step``` notation
+Slice objects are actually created when using the ```start:stop:step``` notation
 
 You can create a list from any iterable sequences (range, tuple, etc.)
 
@@ -945,45 +816,27 @@ You can create a list from any iterable sequences (range, tuple, etc.)
 list(range(1,8+1))
 ```
 
-
-
-
     [1, 2, 3, 4, 5, 6, 7, 8]
-
-
 
 More on this on functionnal programming chapter
 
 ## Tuples
 
+This is the second sequence of objects we cover.
 
 ```python
 untuple = tuple()
-```
-
-
-```python
 untuple
 ```
 
-
-
-
     ()
-
-
 
 
 ```python
 type(untuple)
 ```
 
-
-
-
     tuple
-
-
 
 
 ```python
@@ -991,38 +844,19 @@ untuple = (1,2,3,4,5,6,7,8)
 untuple
 ```
 
-
-
-
     (1, 2, 3, 4, 5, 6, 7, 8)
-
-
-
 
 ```python
 untuple = ("a",2)
 untuple
 ```
 
-
-
-
     ('a', 2)
-
-
-
 
 ```python
 untuple[0]
 ```
-
-
-
-
     'a'
-
-
-
 
 ```python
 try:   
@@ -1049,63 +883,35 @@ a = 4
 id(a)
 ```
 
-
-
-
     4430101024
-
-
-
 
 ```python
 y = 4
 id(y), id(4)
 ```
 
-
-
-
     (4430101024, 4430101024)
-
-
-
 
 ```python
 a+=1
 id(a), id(y)
 ```
 
-
-
-
     (4430101056, 4430101024)
-
-
-
 
 ```python
 zeta = 257
 id(257), id(zeta)
 ```
 
-
-
-
     (4759839312, 4759839728)
-
-
-
 
 ```python
 b = zeta
 id(b)
 ```
 
-
-
-
     4759839728
-
 
 
 > sur une liste
@@ -1120,24 +926,14 @@ liste = [2,3,'a']
 liste
 ```
 
-
-
-
     [2, 3, 'a']
-
-
 
 
 ```python
 id(liste)
 ```
 
-
-
-
     4759836992
-
-
 
 
 ```python
@@ -1154,25 +950,13 @@ change(liste)
 ```python
 liste
 ```
-
-
-
-
     [2, 3, 'a', 13]
-
-
 
 
 ```python
 id(liste)
 ```
-
-
-
-
     4759836992
-
-
 
 **Inplace modifications** for a list didn't change the address location for that list..
 
@@ -1191,12 +975,7 @@ A list is then a **mutable**.
 set([1,2,3])
 ```
 
-
-
-
     {1, 2, 3}
-
-
 
 
 ```python
@@ -1208,18 +987,11 @@ except Exception as e:
 
     'int' object is not iterable
 
-
-
 ```python
 set(range(1,3))
 ```
 
-
-
-
     {1, 2}
-
-
 
 
 ```python
@@ -1897,134 +1669,6 @@ hash("a")
 
 
 
-## Strings
-
-
-```python
-voiciunstring = "hello-world"
-```
-
-
-```python
-voiciunstring
-```
-
-
-
-
-    'hello-world'
-
-
-
-
-```python
-voiciunstring.capitalize()
-```
-
-
-
-
-    'Hello-world'
-
-
-
-
-```python
-voiciunstring.upper()
-```
-
-
-
-
-    'HELLO-WORLD'
-
-
-
-
-```python
-voiciunstring.lower()
-```
-
-
-
-
-    'hello-world'
-
-
-
-
-```python
-voiciunstring.replace('l', 'a')
-```
-
-
-
-
-    'heaao-worad'
-
-
-
-We can slice a string
-
-
-```python
-voiciunstring[3]
-```
-
-
-
-
-    'l'
-
-
-
-
-```python
-voiciunstring[-1]
-```
-
-
-
-
-    'd'
-
-
-
-
-```python
-voiciunstring[1:5]
-```
-
-
-
-
-    'ello'
-
-
-
-
-```python
-voiciunstring[1:10:2]
-```
-
-
-
-
-    'el-ol'
-
-
-
-nombre d'occurences
-
-
-```python
-voiciunstring.count("l")
-```
-
-
-
-
-    3
 
 
 
