@@ -4,8 +4,8 @@ title:  "Some Pandas exercices"
 author: luc
 categories: [ TDs, Exercices, Pandas, Python]
 image_folder: /assets/images/post_some_exercices_in_python/
-image: assets/images/post_some_pandas_exercices/index_img/cover.png
-image_index: assets/images/post_some_pandas_exercices/index_img/cover.png
+image: assets/images/post_some_pandas_exercices/index_img/cover.jpg
+image_index: assets/images/post_some_pandas_exercices/index_img/cover.jpg
 order: 4
 
 ---
