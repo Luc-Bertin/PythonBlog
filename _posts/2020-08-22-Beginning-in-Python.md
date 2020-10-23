@@ -3668,139 +3668,57 @@ What if we want to add a functionallity ? Let's do this:
 
 ```python
 class Student(People):
+    def __init__(self, years_of_studies):
+        self.years_of_studies = years_of_studies
+```
+
+and then instantiate again:
+```python
+student1 = Student("Luc", "Teacher", 25, 5)
+print(student1)
+student1.number_of_arms
+```
+
+We get an error:
+
+```python
+TypeError: __init__() takes 2 positional arguments but 5 were given
+```
+
+It seems rewriting `__init__` **overwrote** the actual parent same method rather than **surspecified it** to the case of students.<br>
+Hence we need a way to first actively call the parent method, then add the child.
+
+We can call `super()` for this exact purpose (without needed to explicitly write (`type(self)`, `self`) arguments starting Python3+)
+
+```python
+class Student(People):
+    def __init__(self, name, job, age, years_of_studies):
+        super().__init__(name, job, age) 
+        # calling parent __init__ <=> People().__init__(self)
+        # and still pass the self first argument required by __init__
+        self.years_of_studies = years_of_studies
+```
+
+Now we can do that:
+
+```python
+student1 = Student("Luc", "Teacher", 25, 5)
+print(student1)
+student1.number_of_arms
+```
+
+## inherits from primitive types
+
+This is just an example to give you some teasing for the exercices.<br>
+If everyhing that has been stated earlier seems convincing to you, then what about inheriting from primitive types?
+
+```python
+class SpecialList(list):
     pass
 ```
 
-
-
-
-```python
-class Livre(Oeuvre):
-    def __init__(self, auteur, titre, date, nb_pages, categorie):
-        super().__init__(auteur, titre, date)
-        self.nb_pages = nb_pages
-        self.categorie = categorie
-    def __str__(self):
-        output = super().__str__()
-        return output + "\nNb de Pages : "+ str(self.nb_pages) +\
-                        "\nCategorie de livre : " +self.categorie
-```
-
-
-```python
-sculpture = Sculpture("Rodin", "Le Penseur", "02-1234", "Bronze")
-```
-
-
-```python
-sculpture.auteur
-```
-
-
-
-
-    'Rodin'
-
-
-
-
-```python
-sculpture.date
-```
-
-
-
-
-    '01/01/2019'
-
-
-
-
-```python
-sculpture.materiau
-```
-
-
-
-
-    'Bronze'
-
-
-
-
-```python
-print(sculpture)
-```
-
-    
-    Auteur : Rodin
-    Titre : Le Penseur
-    Conçu à la date : 01/01/2019
-    Materiau : Bronze
-
-
-
-```python
-unLivre = Livre("Victor Hugo", "Les Misérables", "01/01/1862", 265, categorie="Drame")
-```
-
-
-```python
-print(unLivre)
-```
-
-    
-    Auteur : Victor Hugo
-    Titre : Les Misérables
-    Conçu à la date : 01/01/1862
-    Nb de Pages : 265
-    Categorie de livre : Drame
-
-
-```python
-liste_ = [uneOeuvre, sculpture, unLivre, 5, "test"]
-```
-
-
-```python
-liste_
-```
-
-
-
-
-    [<__main__.Oeuvre at 0x10adcad68>,
-     <__main__.Sculpture at 0x10adca128>,
-     <__main__.Livre at 0x10adb9a58>,
-     5,
-     'test']
-
-
-
-
-```python
-for element in liste_:
-    print( element )
-```
-
-    
-    Auteur : Luc
-    Titre : Cours avec IIM
-    Conçu à la date : 12/11/2019
-    
-    Auteur : Rodin
-    Titre : Le Penseur
-    Conçu à la date : 01/01/2019
-    Materiau : Bronze
-    
-    Auteur : Victor Hugo
-    Titre : Les Misérables
-    Conçu à la date : 01/01/1862
-    Nb de Pages : 265
-    Categorie de livre : Drame
-    5
-    test
-
+Now you have a `SpecialList` class that embodies all the functionalities brought by `list`.<br>
+You can later incorporate functionalities or override existing ones from the parent methods as we did earlier.
 
 # Sync to GitHub
 
