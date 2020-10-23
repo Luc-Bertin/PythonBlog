@@ -3466,11 +3466,16 @@ class People:
         self.name = name
         if job == "NA":
             self.job = "No jobs"
+        else:
+            self.job = job
         self.age = age
         
     def accident(self):
         self.number_of_arms -= 1
-    
+
+    def celebrates_birthday(self):
+        self.age += 1
+        
     @classmethod
     def apocalypse(cls):
         cls.number_of_arms -= 1
@@ -3480,8 +3485,8 @@ class People:
         return number ** 2
 
     def __str__(self):
-        output = "Auteur :{}, Titre : {}, Conçu à la date {}\n".format(
-            self.auteur, self.titre, self.date)
+        output = "age: {}, job: {}, name: {}\n".format(
+            self.age, self.job, self.name)
         return output
 ```
 
@@ -3493,6 +3498,8 @@ people1 = People("Luc", "Teacher", 25)
 people1 = People(name="Luc", job="Teacher", age=25)
 ```
 
+## class level vs instance level
+
 Of course you're not reduced to create only an instance, you can create multiple ones, they all share the same type, that is, the `People` class.
 Note that, by convention, a Class name is written in CamelCase, while an instance of this class is in lowercase.<br>
 Hence, later in the explanation by "people" we mean any instance of People.<br>
@@ -3503,10 +3510,63 @@ Back to the class definition part, it is important to differentiate what belongs
 - **class variables** are variables are variables defined on the class level. These are **shared among all instances of that class**. Here, `number_of_legs` and `number_of_arms` are class variables, as it is assumed that all peoples do have 2 arms and 2 legs (at basis).
 - **class methods** are functions that applies to the class itself. For a method to be applyable to the class and not to the instance of that class, you need to add the **decorator** (oh! a decorator!) `@classmethod`. The first parameter will be `cls` and its corresponding argument is implicitly the class, passed on call by either an instance (e.g. `people1.apocalypse()` will forward the class from which `people1` is instantiated), or by the class `People.apocalypse()` (here we directly have `People`).
 
+
+To put this into practice, if we were to create 2 instances of `People`, then celebrate Sebastien's birthday:
+
+```python
+people1 = People("Luc", "Teacher", 25)
+people2 = People("Sebastien", "Boulanger", 47)
+
+people2.celebrates_birthday()
+people1.age, people2.age
+```
+You will see only the instance `people2` (of name "Sebastien") just incremented his `age`.
+
+```python
+Out[1]: (25, 48)
+```
+
+We could also have added 1 year more to Sebastien performing the code below, as `age`is publicly available: 
+```python
+people2.age += 1
+```
+
+Nevertheless, Luc and Sebastien both have 2 arms and 2 legs, we can access in **reading** those **class variables** from either of the instance by using the same dot notation:
+
+```python
+people1.number_of_arms, people2.number_of_arms
+```
+```python
+Out[1]: (2, 2)
+```
+
+Instead, if we were to make an accident to happen to Sebastien just after his birthday (what a mean person we are !) we could do either of those:
+
+```python
+people2.accident()
+## or ##
+people2.number_of_arms -= 1
+```
+
+As we try to modify a **class variable** directly from one instance, a local copy of this attribute is made on the instance level. Hence you can see that only Sebastien lost an arm using the instance method `accident(self)` (notice the `self`) or modifying from the instance itself with the dot notation.
+
+If we were now to **rexecute all those code blocks except the last one** (where we performed an accident), and rather execute **class method** `apocalypse(cls)`, then we have access to the class variable in writing and every member of People just lost an arm.
+Note that an instance could also modify the underlying class variable using `__class__` attribute:
+
+```python
+people2.__class__.number_of_arms -= 1
+people1.number_of_arms, people2.number_of_arms
+```
+gives the following output:
+```python
+Out[2]: (1, 1)
+```
+
+## one word on static methods:
+
 Finally static methods, described by the decorator `@staticmethod` does not have any first implicitly passed argument (like self or cls), and then does not interact at basis with either the instance or the class, although it has to be called from either of them (e.g. `people1.power2(25)` or `People.power2(25)`). It behaves just like a normal function. Main use case I have personally seen so far is to encapsulate functions with a common "scope", "purpose" or related context to mainly refactor code. E.g. we can imagine a class `Math` which does contain a lot of related mathematical functions that should be accessible from a same namespace: `Math.power2`, `Math.sqrt`, `Math.exp`, etc.
 
 I am open to any suggestions if you've seen other use cases.
-
 
 
 ## Magic methods
@@ -3516,108 +3576,102 @@ Among some of the defined instance methods you are seeing defined (or redifined)
 When have seen some magic functions in actions when doing '+' (internally calling `__add__`), '+=' (calling `__iadd__`), the indexing notation `[i]` for a `list`, `str` or other iterable (internally calling `__getitem__`), same for the length of the list, string, or other iterable `len(liste)`, (internally calling `__len__`)
 
 
-__init__ is most certainly one of the most famous magic method always defined in the class definition. i
+`__init__` is most certainly one of the most famous magic method. It enables you to gives a behavior for the constructor (when calling the class, along with `__new__` magics) and pass additional arguments to it to initialize instance variables / customize the instance to a specific initial state.
+
+`__str__` gives the behavior when `str()` constructor is called with the instance argument, or when you simply print the instance `print(people1)`, so to give a natural description of it:
 
 ```python
-dir(uneOeuvre)
+Out[3]: age: 25, job: Teacher, name: Luc
+```
+
+rather than this without:
+
+```python
+<__main__.People object at 0x1074c7340>
+```
+
+You can reuse `dir()` built-in as in the beginning of that lesson:
+
+```python
+dir(people1)
+```
+```python
+['__class__',
+ '__delattr__',
+ '__dict__',
+ '__dir__',
+ '__doc__',
+ '__eq__',
+ '__format__',
+ '__ge__',
+ '__getattribute__',
+ '__gt__',
+ '__hash__',
+ '__init__',
+ '__init_subclass__',
+ '__le__',
+ '__lt__',
+ '__module__',
+ '__ne__',
+ '__new__',
+ '__reduce__',
+ '__reduce_ex__',
+ '__repr__',
+ '__setattr__',
+ '__sizeof__',
+ '__str__',
+ '__subclasshook__',
+ '__weakref__',
+ 'accident',
+ 'age',
+ 'apocalypse',
+ 'celebrates_birthday',
+ 'job',
+ 'name',
+ 'number_of_arms',
+ 'number_of_legs',
+ 'power2']
+```
+
+Familiar ?
+
+
+## class inheritance and mro (method resolution order)
+
+Any student is also a people.<br>
+Hence what about creating a new class `Student` that **inherits** from `People` ?<br>
+
+We can do that by passing in the parenthesis the name of the **parent class**.<br>
+Now a relationship is specified between `Student` data model and `People` one. Hence `Student` can actively reuse methods and variables from the parent ! Think about it as a *specification* of `People`.
+
+```python
+class Student(People):
+    pass
+```
+
+Then we can instantiate a student:
+
+```python
+student1 = Student("Luc", "Teacher", 25)
+print(student1)
+student1.number_of_arms
+```
+And get:
+```python
+Out[4] age: 25, job: Teacher, name: Luc
+2
+```
+
+We accessed to __str__ for the printing, and all the **instance variables** while printing, and also the `People`'s `number_of_arms` variable.
+
+What if we want to add a functionallity ? Let's do this:
+
+```python
+class Student(People):
+    pass
 ```
 
 
-
-
-    ['__class__',
-     '__delattr__',
-     '__dict__',
-     '__dir__',
-     '__doc__',
-     '__eq__',
-     '__format__',
-     '__ge__',
-     '__getattribute__',
-     '__gt__',
-     '__hash__',
-     '__init__',
-     '__init_subclass__',
-     '__le__',
-     '__lt__',
-     '__module__',
-     '__ne__',
-     '__new__',
-     '__reduce__',
-     '__reduce_ex__',
-     '__repr__',
-     '__setattr__',
-     '__sizeof__',
-     '__str__',
-     '__subclasshook__',
-     '__weakref__',
-     'auteur',
-     'date',
-     'titre']
-
-
-
-
-```python
-uneOeuvre.auteur
-```
-
-
-
-
-    'Luc'
-
-
-
-
-```python
-uneOeuvre.date
-```
-
-
-
-
-    '12/11/2019'
-
-
-
-
-```python
-uneOeuvre.titre
-```
-
-
-
-
-    'Cours avec IIM'
-
-
-
-
-```python
-print(uneOeuvre)
-```
-
-    
-    Auteur : Luc
-    Titre : Cours avec IIM
-    Conçu à la date : 12/11/2019
-
-
-## inheritance = heritage de classes 
-
-
-```python
-class Sculpture(Oeuvre):
-    
-    def __init__(self, auteur, titre, date, materiau):
-        super().__init__(auteur, titre, date)
-        self.materiau = materiau
-    
-    def __str__(self):
-        output = super().__str__()
-        return output + "\nMateriau : "+ self.materiau
-```
 
 
 ```python
