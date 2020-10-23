@@ -186,10 +186,10 @@ You can also say that the **object of value 2** is an **instance** of the **inte
 
 ## Onwards Object-Oriented Programming: attributes of an object
 
-Objects in Python have an id, a type and a value.<br>
-Objects **may** also have attributes related to them.<br>
+Objects in Python have an **id**, a **type** and a **value**.<br>
+Objects **may** also have **attributes related to them**, and by "attributes" I refer to both OOP-attributes (variables) and methods in the frame of the object-oriented paradigm, related to an object.<br> 
 Let's talk about ```dir()``` first, it is a built-in function (we don't need to import a python package to call this function).<br>
-With an argument (here a), it returns a list of valid attributes for that object.
+With an argument (here a), it returns a list of valid "attributes" for that object.
 
 
 ```python
@@ -3443,41 +3443,80 @@ output:
 
 # Classes
 
+We have seen so far some primitive types (`int`, `float`, `str`, `tuple`, `list`, `dict`).<br>
+We have seen we could create a new integer simply writing `1` or using it's constructor `int(1)`. Same applies to `"bonjour"` and `str("bonjour")`.<br>
+We have seen that types and classes are unified concepts. 
+Moreover, `2` is **an** integer of **type** `int`.
+By now, we should thus reveal the other appealing face of `2` with another way of saying things, that is:<br>
+`2` is an **instance** of the **class** `int`!
+
+In this section, we are going to create our own custom classes, also identified as **user-defined class**, and then leverage the former idea, by inheriting some of those classes from built-in primitive types/classes, so to bring additional functionalities to either `list`, `str`, `dict` and so on !
+
+## Class definition and instanciation
+
+This is an example of class definition we will analyse:
 
 ```python
-class Oeuvre:
-    """Classe définissant une Oeuvre 
-        Attributs: 
-          param1
-          param2
-        Methodes:
-          method1
-          method2
-        Return 
-          une oeuvre
-    """
+class People:
+    """This is a docstring, it works for class definitions too!""" 
+    number_of_arms = 2
+    number_of_legs = 2
+
+    def __init__(self, name, job, age):
+        self.name = name
+        if job == "NA":
+            self.job = "No jobs"
+        self.age = age
+        
+    def accident(self):
+        self.number_of_arms -= 1
     
-    def __init__(self, auteur, titre, date):
-        self.auteur = auteur
-        self.titre  = titre
-        if date.count('/') == 2:    
-            self.date = date
-        else:
-            self.date = "01/01/2019"
-        # self.date = date if date.count('/')==2 else "01/01/2019"
-    
+    @classmethod
+    def apocalypse(cls):
+        cls.number_of_arms -= 1
+
+    @staticmethod
+    def power2(number):
+        return number ** 2
 
     def __str__(self):
-        output = "\nAuteur :{}, Titre : {}, Conçu à la date {}\n".format(
+        output = "Auteur :{}, Titre : {}, Conçu à la date {}\n".format(
             self.auteur, self.titre, self.date)
         return output
 ```
 
+And this is the corresponding class instantiation, that is, create a new instance of class/type `People`.
 
 ```python
-uneOeuvre = Oeuvre(auteur="Luc", titre="Cours avec IIM", date="12/11/2019")
+people1 = People("Luc", "Teacher", 25)
+# or using keywords, just like for functions calls
+people1 = People(name="Luc", job="Teacher", age=25)
 ```
 
+Of course you're not reduced to create only an instance, you can create multiple ones, they all share the same type, that is, the `People` class.
+Note that, by convention, a Class name is written in CamelCase, while an instance of this class is in lowercase.<br>
+Hence, later in the explanation by "people" we mean any instance of People.<br>
+
+Back to the class definition part, it is important to differentiate what belongs to the class and what belongs to any particular instance of a class:
+- **instance variables**, also called **instance attributes**, are variables defined on the instance level, their values might change from one people to the other, and are initialized in the initialization method. Here, all peoples are different hence `people1` does have a `"Teacher` job and a specific `age`. This is initialized in def __init__(self).
+- **instance methods** are functions that applies to the **instance itself**. Instance methods' **first parameter** is  `self` (referring to the instance) and calling the method on the instance object (e.g. `"bonjour".upper()` or `people1.accident()`) will implicitly pass the instance itself as first argument corresponding to the `self` parameter (no need to write: `"bonjour".upper("bonjour")`).
+- **class variables** are variables are variables defined on the class level. These are **shared among all instances of that class**. Here, `number_of_legs` and `number_of_arms` are class variables, as it is assumed that all peoples do have 2 arms and 2 legs (at basis).
+- **class methods** are functions that applies to the class itself. For a method to be applyable to the class and not to the instance of that class, you need to add the **decorator** (oh! a decorator!) `@classmethod`. The first parameter will be `cls` and its corresponding argument is implicitly the class, passed on call by either an instance (e.g. `people1.apocalypse()` will forward the class from which `people1` is instantiated), or by the class `People.apocalypse()` (here we directly have `People`).
+
+Finally static methods, described by the decorator `@staticmethod` does not have any first implicitly passed argument (like self or cls), and then does not interact at basis with either the instance or the class, although it has to be called from either of them (e.g. `people1.power2(25)` or `People.power2(25)`). It behaves just like a normal function. Main use case I have personally seen so far is to encapsulate functions with a common "scope", "purpose" or related context to mainly refactor code. E.g. we can imagine a class `Math` which does contain a lot of related mathematical functions that should be accessible from a same namespace: `Math.power2`, `Math.sqrt`, `Math.exp`, etc.
+
+I am open to any suggestions if you've seen other use cases.
+
+
+
+## Magic methods
+
+Among some of the defined instance methods you are seeing defined (or redifined) in `People`, some does have a special notation with 2 leading and trailing underscores (`__init__`, `__str__`). Those are Python methods that are not meant at first to be invoked directly by you, [but happens internally from the class on a certain action](https://www.tutorialsteacher.com/python/magic-methods-in-python). 
+
+When have seen some magic functions in actions when doing '+' (internally calling `__add__`), '+=' (calling `__iadd__`), the indexing notation `[i]` for a `list`, `str` or other iterable (internally calling `__getitem__`), same for the length of the list, string, or other iterable `len(liste)`, (internally calling `__len__`)
+
+
+__init__ is most certainly one of the most famous magic method always defined in the class definition. i
 
 ```python
 dir(uneOeuvre)
