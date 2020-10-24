@@ -4,7 +4,7 @@ title:  "A note on execution model"
 author: luc
 categories: [ TDs, Lecture, Python]
 image_folder: /assets/images/post_execution_model/
-image: assets/images/post_execution_model/cover.jpg
+image: assets/images/post_execution_model/index_img/cover.jpg
 image_index: assets/images/post_execution_model/index_img/cover.jpg
 toc: true
 
