@@ -193,16 +193,6 @@ It is often nice to differentiate, if possible, such risk function over the mode
 
 Note: Sometimes **cost function** is used as synonym of **loss function**, sometimes as the **risk** one. Hence you should always read the underlying equation in a paper to ascertain of the definition one use.
 
-### training vs test sets
-
-If we were to **preprocess data and later train a model** — that could be hyperparametrized — on these data, and finally compute a risk function applied on the model predictions for these same data versus the observed values, we could then be **tempted to lower the value** returned by the risk function by **changing our model hyperparameters** or changing the way we **processed data** (this could include changing the data representation of some input features, handling of outliers, handling of missing data, feature selection and feature engineering).<br>
-
-That would be such a bad idea though: how can one ensure the model will perform any better on a another sample from the population, so to say: **generalize** well to other inputs and probably unseed data from the generation process ? 
-
-In order to mitigate this, you split the main dataset in train and test datasets.
-* The data processing decisions and training of the model will be performed on the training dataset.
-*  **An unbiased evaluation of the trained model** (trained on the training dataset) will be raised by applying the risk function on a test set i.e. predicted outcome values on **new, possibly unseen data** from the test set will be **compared to** the **observed outcome values** from this same **test set**. This enables us to check how well does the model actually perform on new data in a **supervised learning framework**.
-
 ### Supervised vs Unsupervised Learning
 
 A supervised machine learning alorigthm makes used of the **presence of the outcome variable to guide the learning process** (Element of Statistical Analysis Book).
@@ -211,6 +201,16 @@ An **unsupervised machine learning** algorithm finds patterns in the data with *
 
 Taking one approach or the other depends on your use case (making prediction vs trying to get new insights of your data using ML).
 
+### training vs test sets
+
+If we were to **preprocess data and later train a model** — that could be hyperparametrized — on these data, and finally compute a risk function applied on the model predictions for these same data versus the observed values, we could then be **tempted to lower the value** returned by the risk function by **changing our model hyperparameters** or changing the way we **processed data** (this could include changing the data representation of some input features, handling of outliers, handling of missing data, feature selection and feature engineering).<br>
+
+That would be such a bad idea though: how can one ensure the model will perform any better on a another sample from the population, and not capture too much noise from the training set, so to say: **generalize** well to other inputs from the generation process, some '*unseed*' data ?
+
+In order to mitigate this, you split the main dataset in **train** and **test** datasets.
+* The data processing decisions and training of the model will be performed on the **training** dataset.
+*  **An unbiased evaluation of the trained model** (trained on the training dataset) will be raised by applying the risk function on a **test** set i.e. predicted outcome values on **new, possibly unseen data** from the test set will be **compared to** the **observed outcome values** from this same **test set**. This enables us to check how well does the model actually perform on new data in a **supervised learning framework**.
+*  For ***hyperparametrized model***, since actively tuning the hyperparameters **towards** the lowest risk function **on test set** (hoping for the better generalized model performance) leads to make external use of that test set in the training phase, we would actually go even further by splitting the dataset in **train**, **test** and **validation sets**. This prevents what is called called as **data leakage**.
 
 Although splitting data into training and testing sets is mainly granted for supervised problems, [unsupervised problems and algorithms can also benefit from this approach](https://stackoverflow.com/questions/31673388/is-train-test-split-in-unsupervised-learning-necessary-useful) 
 
@@ -222,8 +222,3 @@ This example should be fully understandable after reading the preceding question
 I directly quote this example framework from ***Elements of statistical Learning***:
 
 > In a typical scenario, we have an **outcome measurement**, usually **quantitative** (such as a **stock price**) or **categorical** (such as **yes** heart attack/**no** heart attack), that we **wish to predict** based on a **set of features** (such as diet and clinical **measurements**). We have a **training set of data**, in which **we observe the outcome and feature measurements** for a **set of observations** (such **as people**). Using **this** data we **build a prediction model**, or ***learner***, which will enable us to **predict the outcome for new unseen objects**. A good learner is **one that accurately predicts such an outcome**.
-
-## Modelling
-
-### Linear-Regression
-
