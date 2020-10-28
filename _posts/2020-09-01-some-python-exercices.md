@@ -32,14 +32,15 @@ OUTPUT: {1: 2, 3: 4, 5: 6, 7: 8}
 - using dict comprehension 
 - using dict constructor
 
-## Ex. 2: Counting letter frequencies in a text.
+## Ex. 2: Counting character frequencies in a text.
 
-1. You should count letter frequencies using these strategies: 
+1. You should count character frequencies (letter and ponctuation, whitespaces, etc.) using these strategies: 
 - using a simple Python dictionary
 - using `defaultdict` (subclass of `dict`)
 - using `Counter` (subclass of `dict`)
 `defaultdict` and `Counter` can be found in `collections` (i.e. `from collections import defaultdict, Counter`)
-2. Count word frequencies (store them in a Python dictionary).
+2. Count word frequencies (store them in a Python dictionary or dictionnary-like structure as above).<br>
+If ponctuation is an issue, you can either use `replace` method to replace them, or use regular expression.
 
 ```python
 text = """Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sagittis neque turpis, in gravida erat tincidunt a. Maecenas lobortis rutrum arcu, in posuere dolor fermentum sed. Duis imperdiet laoreet nibh, a pretium lectus condimentum eget. Maecenas eu elit vitae nibh euismod lacinia et a tortor. Donec at egestas leo, eget molestie quam. Sed elementum scelerisque sapien, quis suscipit ex malesuada vel. Aenean non mollis erat, in tincidunt massa.
@@ -71,7 +72,6 @@ amino_acids_from_triplets = {
  "Glu":    ("GAA", "GAG"),
  "Gly":    ("GGT", "GGC", "GGA", "GGG"),
  "His":    ("CAT", "CAC"),
- "START":  ("ATG"),
  "Ile":    ("ATT", "ATC", "ATA"),
  "Leu":    ("CTT", "CTC", "CTA", "CTG", "TTA", "TTG"),
  "Lys":    ("AAA", "AAG"),
@@ -91,21 +91,17 @@ amino_acids_from_triplets = {
 We will call this dictionary `all_triplets_to_amino_acids`
 
 2. Using dict comprehension, expand the tuples in dictionary `all_triplets_to_amino_acids` as simple keys for each element of the tuples. Hence you should have in the resulting dictionary multiple same amino acids values for some keys (e.g. "CAT": "His", "CAC": "His")<br>
-We will call this dictionary `triplets_to_amino_acids`<br>
+<u>**Warning**</u> Note that this dictionnary has a little flaw, some tuples (the ones with only one element) are not written correctly !<br>
+Indeed, according to the python docs:
+> a **tuple** with **one item** is constructed by **following a value with a comma** (it is **not** sufficient to enclose a single value in parentheses). Ugly, but effective.
+Hence, without changing the way the former dict was written, try to account for this quirk by checking whether we're facing a string (i.e. a wrongly typed tuple of one element), or an actual tuple.<br>
+We will call the final dictionary `triplets_to_amino_acids`<br>
 
 3. This is an mARN extract that is about to get translated in protein synthesis:<br>
-arn = 'GCCGAGTAACTAGCCAGCT
-ATGACACGATCCCGGCTAGGAAAGTG
-AACCCGCGGAAGTATATTGGTACCTC
-ACGGTAGGAGACGGCGGGATAATTCT
-TGTCGCTGTGTGTGCCATCGTACACG
-AGACGGGTCCACTGAGTAAAGCGAGT
-ATCACACAGACGAAGGTGACCTCCCC
-TTGTAGTCAGTAATCTTTCCTGAATC
-TAATTACTGTCATCGATTGCAAAACT
-TTGCAAAAAAACATTTGTAGACAACC
-GCTTACGTGGCGCTTCCTGCATTAAA
-CGATTCCGGTGCACGGAACAA'<br>
+```python
+arn = 'GCCGAGTAACTAGCCAGCTATGACACGATCCCGGCTAGGAAAGTGAACCCGCGGAAGTATATTGGTACCTCACGGTAGGAGACGGCGGGATAATTCTTGTCGCTGTGTGTGCCATCGTACACGAGACGGGTCCACTGAGTAAAGCGAGTATCACACAGACGAAGGTGACCTCCCCTTGTAGTCAGTAATCTTTCCTGAATCTAATTACTGTCATCGATTGCAAAACTTTGCAAAAAAACATTTGTAGACAACCGCTTACGTGGCGCTTCCTGCATTAAACGATTCCGGTGCACGGAACAA'
+```
+
 Split this arn in sequence of triplets to further get the amino-acids conversion (you can use list comprehension + `range`).
 
 4. Translate the sequence of triplets into a corresponding **string** of **amino acid** separated by a separator "-" (Hint: use a list comprehension for the looping part, then convert the resulting list into a string with "-" separators)/
@@ -176,7 +172,7 @@ Add some behavior in the function definition for arbitrarily named keywords argu
 
 ## Ex. 5: Sort a dictionary... by values !
 
-Hint: use `Ordereddict`
+(For those with Python below 3.6: use `Ordereddict`)
 
 ```python
 x = {1: 2, 3: 4, 4: 3, 2: 1, 0: 0}
