@@ -85,6 +85,9 @@ For example, the OLS estimate for a simple linear regression is $$(\hat{\alpha},
 
 In OLS again, you can think of the formulas to define the $$\beta$$s and the $$intercept$$ as **estimators**, and the corresponding estimates produced from **applying the estimators** on a given [sample or set of data](https://stats.stackexchange.com/questions/7581/what-is-the-relation-between-estimator-and-estimate).
 
+See MSE for estimators below.
+
+
 A **predictor** concerns the **independent observation/value** of another **random variable $$Z$$** whose distribution is **related to the unknown parameters we try to estimate using estimators**.<br> 
 Hence, $$Z$$ being a random variable, it also brings an additional uncertainty as the outcomes from $$Z$$ are random, not only from the randomness of the data, but the randomness of $$Z$$ itself.<br>
 The predictor applied on a single vector of data-points, and $$Z$$ itself, are not part of the dataset. Here we talk about [realizations of a **random variable that depends on the independent variables in the data** $$Z$$=$$Y(x)$$](https://stats.stackexchange.com/questions/17773/what-is-the-difference-between-estimation-and-prediction).
@@ -184,14 +187,35 @@ $$ L(Y, f(X)) =  (y - \hat{f}(X))^2 $$
 
 (nice as it is differentiable), indicative loss function (0/1), absolute difference loss function, or other.<br>
 
-Actually, more generally, a loss function can show how close an estimate is from its corresponding estimand (quantity of interest we try to estimate). Then, it could be how close an estimate $\hat{\beta}$ of the parameter $\beta$ is close to $\beta$ itself. Or it could be how close a model prediction $ \hat{f}(X) $ is close to the true observation y (e.g. MSE for an predictor, MSE for an estimator) given an single input vector (of features $$ X $$), which assign the prediction $$ \hat{y} $$.
+Actually, more generally, a loss function can show how close one estimate is from its corresponding estimand (quantity of interest we try to estimate). Then, it could be how close an estimate $\hat{\beta}$ of the parameter $\beta$ is close to $\beta$ itself. Or it could be how close a model prediction $ \hat{f}(X) $ is close to the true observation y, given an single input vector (of features $$ X $$), which assign the prediction $$ \hat{y} $$.
 
 The risk function, in a frequentist statistical theory, is the **expected loss** i.e. the **averaging over all of the loss functions**. It then describes how bad your model is on the **set** of data. Hence the **closer** the predictions **match** the real expected / true value, the **lower the prediction errors** are, and then the **lower the cost** functions gets, **so is the risk** function.
 We then seek to **minimize** the risk function.
 
-It is often nice to differentiate, if possible, such risk function over the model parameters, so to see how changing one parameter or the other could possibly minimize the risk function.  
+
+The MSE, for mean squared error, is an example of a risk function, using the squared error loss (it corresponds to the expected value of the squared error loss).
+
+It is important to address the difference in the definitions between MSE of an estimator vs MSE of a predictor, as MSE may be used to mean different things in different contexts.
+
+* for an estimator: We can compute a MSE for an estimator to assess the quality of this estimator: i.e. let's take a population of size $n$, $X_1, X_2,... X_n$.  Selecting subsets composed of individuals (with replacement) from this population we can use the estimator for estimating $\nu$: 
+$$ \bar{X} = \frac{1}{n}\sum_{i=1}^{n}{X_i} $$
+The MSE of an estimator is:
+$$ MSE(\hat{\theta}) = E[(\hat{\theta} - \theta)^2] $$
+The MSE of that estimator incorporates both the:
+- **variance** of the estimator: does each estimate from different samples differ greatly or not from one another 
+- **bias** how far is the average estimated value from the true unobserved value of the population. 
+The expected value equals here $\nu$ (the true mean) then we say that the estimator $\bar{X} is **unbiased**, the MSE then equals the variance of the estimator.
+
+* for a predictor: using its nickname *MSPE*, it is a measure of a predictor’s fit, or how well your predictor predicts the true value.
+$$ MSPE(L) = E[ \sum_{i=1}^{n}{ ( g(x_i) - \hat{g}(x_i) )^2} ] $$
+
+MSE for an estimator and predictor are atually the same thing, instead of estimating a scalar caracteristic from the population, we intent to estimate the true underlying function in the functional space: 
+> [here](https://towardsdatascience.com/mse-and-bias-variance-decomposition-77449dd2ff55) MSE for estimator measures how close our estimator is to the desirable quantity θ. MSE for predictor measures how close our function predictor is to the desirable function f in some functional space, where we measure the distance between two functions as the L2 distance, which is actually one of many ways one can define a distance between two functions in a functional space.
 
 Note: Sometimes **cost function** is used as synonym of **loss function**, sometimes as the **risk** one. Hence you should always read the underlying equation in a paper to ascertain of the definition one use.
+Note2: It is often nice to differentiate, if possible the MSPE over the model parameters, so to see how changing one parameter or the other could possibly minimize it.  
+
+
 
 ### Supervised vs Unsupervised Learning
 
@@ -213,6 +237,9 @@ In order to mitigate this, you split the main dataset in **train** and **test** 
 *  For ***hyperparametrized model***, since actively tuning the hyperparameters **towards** the lowest risk function **on test set** (hoping for the better generalized model performance) leads to make external use of that test set in the training phase, we would actually go even further by splitting the dataset in **train**, **test** and **validation sets**. This prevents what is called called as **data leakage**.
 
 Although splitting data into training and testing sets is mainly granted for supervised problems, [unsupervised problems and algorithms can also benefit from this approach](https://stackoverflow.com/questions/31673388/is-train-test-split-in-unsupervised-learning-necessary-useful) 
+
+The former formula defining the MSE can be later decomposed into 3 terms as followed:
+$$ MSE = E[ ( y - \hat{f_s}(x) )^2 ] = Var(f(x) - \hat{f_s}(x)) + Var(\epsilon) + (E[f(x)] - E[\hat{f_s(x)}])^2 $$
 
 
 ### A base scenario in a Supervised Learning problem
