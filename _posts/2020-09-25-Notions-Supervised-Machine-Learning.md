@@ -194,7 +194,7 @@ $$ L(Y, f(X)) =  (y - \hat{f}(X))^2 $$
 
 (nice as it is differentiable), indicative loss function (0/1), absolute difference loss function, or other.<br>
 
-Actually, more generally, a loss function can show how close one estimate is from its corresponding estimand (quantity of interest we try to estimate). Then, it could be how close an estimate $\hat{\beta}$ of the parameter $\beta$ is close to $\beta$ itself. Or it could be how close a model prediction $ \hat{f}(X) $ is close to the true observation y, given an single input vector (of features $$ X $$), which assign the prediction $$ \hat{y} $$.
+Actually, more generally, a loss function can show how close one estimate is from its corresponding estimand (quantity of interest we try to estimate). Then, it could be how close an estimate $$\hat{\beta}$$ of the parameter $$\beta$$ is close to $\beta$ itself. Or it could be how close a model prediction $$ \hat{f}(X) $$ is close to the true observation y, given an single input vector (of features $$ X $$), which assign the prediction $$ \hat{y} $$.
 
 The risk function, in a frequentist statistical theory, is the **expected loss** i.e. the **averaging over all of the loss functions**. It then describes how bad your model is on the **set** of data. Hence the **closer** the predictions **match** the real expected / true value, the **lower the prediction errors** are, and then the **lower the cost** functions gets, **so is the risk** function.
 We then seek to **minimize** the risk function.
@@ -205,14 +205,14 @@ The MSE, for mean squared error, is an example of a risk function, using the squ
 
 It is important to address the difference in the definitions between MSE of an estimator vs MSE of a predictor, as MSE may be used to mean different things in different contexts.
 
-* for an estimator: We can compute a MSE for an estimator to assess the quality of this estimator: i.e. let's take a population of size $n$, $X_1, X_2,... X_n$.  Selecting subsets composed of individuals (with replacement) from this population we can use the estimator for estimating $\nu$: 
+* for an estimator: We can compute a MSE for an estimator to assess the quality of this estimator: i.e. let's take a population of size $$n$$, $$X_1, X_2,... X_n$$.  Selecting subsets composed of individuals (with replacement) from this population we can use the estimator for estimating $$\nu$$: 
 $$ \bar{X} = \frac{1}{n}\sum_{i=1}^{n}{X_i} $$
 The MSE of an estimator is:
 $$ MSE(\hat{\theta}) = E[(\hat{\theta} - \theta)^2] $$
 The MSE of that estimator incorporates both the:
 - **variance** of the estimator: does each estimate from different samples differ greatly or not from one another 
 - **bias** how far is the average estimated value from the true unobserved value of the population. 
-The expected value equals here $\nu$ (the true mean) then we say that the estimator $\bar{X} is **unbiased**, the MSE then equals the variance of the estimator.
+The expected value equals here $$\nu$$ (the true mean) then we say that the estimator $$\bar{X}$$ is **unbiased**, the MSE then equals the variance of the estimator.
 
 * for a predictor: using its nickname *MSPE*, it is a measure of a predictor’s fit, or how well your predictor predicts the true value.
 $$ MSPE(L) = E[ \sum_{i=1}^{n}{ ( g(x_i) - \hat{g}(x_i) )^2} ] $$
@@ -231,11 +231,11 @@ $$ Y = f(x) + \epsilon $$
 
 or
 
-$$ \epsilon = y-f(x) $$  for one given $y$ value
+$$ \epsilon = y-f(x) $$  for one given $$y$$ value
 
-$\epsilon$ is comparable to the **statistical error term** defined a moment ago: it accounts for the unobservable difference between an observation $y$ and the expected true realization from an unobservable deterministic function $f$ applied on some value $x$.
+$$ \epsilon $$ is comparable to the **statistical error term** defined a moment ago: it accounts for the unobservable difference between an observation $$y$$ and the expected true realization from an unobservable deterministic function $$f$$ applied on some value $$x$$.
 
-If we assume this underlying **unobservable function to be linear**, and we **fit a linear model** on it, then compute the **difference between an observation** $y$ of an $y$ to its corresponding $fitted$ value $\hat{y}$ on the regression line - where $\hat{f}$ is an estimate of $f$ - then it actually boils down to compute the residual $\hat{\epsilon}$ which is observable. 
+If we assume this underlying **unobservable function to be linear**, and we **fit a linear model** on it, then compute the **difference between an observation** $$y$$ of an $$y$$ to its corresponding fitted value $$\hat{y}$$ on the regression line - where $$\hat{f}$$ is an estimate of $$f$$ - then it actually boils down to compute the residual $$\hat{\epsilon}$$ which is observable. 
 
 $$ \hat{\epsilon} = y - \hat{y} $$
 
