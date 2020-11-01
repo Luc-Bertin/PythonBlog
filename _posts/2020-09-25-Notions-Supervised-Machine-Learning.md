@@ -93,6 +93,11 @@ Hence, $$Z$$ being a random variable, it also brings an additional uncertainty a
 The predictor applied on a single vector of data-points, and $$Z$$ itself, are not part of the dataset. Here we talk about [realizations of a **random variable that depends on the independent variables in the data** $$Z$$=$$Y(x)$$](https://stats.stackexchange.com/questions/17773/what-is-the-difference-between-estimation-and-prediction).
 > in addition, there is uncertainty in just what value of $$Y(x)$$ will occur. This additional uncertainty - because $$Y(x)$$ is random - characterizes predictions. [...] The source of potential confusion is that the prediction usually builds on the estimated parameters and might even have the same formula as an estimator.
 
+### statistical error vs residual
+Let's take the heights of individuals in a population.
+- A **statistical error** is the amount by which an **observation differs** from its **expected (population) value** (typically unobservable) e.g. `height(person1) = 1.80` differs from `mean(population_height) = 1.75` of 0.05.
+- A **residual** is the difference between the person height and the within-sample observable estimate of the unobservable quantity e.g.`mean(sample_of_8_people_height)`, hence it is an **estimate** of the unobservable **statistical error** !
+
 ## The Data
 
 ### Units of observation
@@ -238,8 +243,11 @@ In order to mitigate this, you split the main dataset in **train** and **test** 
 
 Although splitting data into training and testing sets is mainly granted for supervised problems, [unsupervised problems and algorithms can also benefit from this approach](https://stackoverflow.com/questions/31673388/is-train-test-split-in-unsupervised-learning-necessary-useful) 
 
+Coming back to the definition of the MSE, let's name $f$ the true, underyling function mapping independent variables $Xs$ to the dependent one $Y$. The predictor is trained on some sample S of training data, but we want it to perform well on data that we did not observe yet. Therefore we want the MSE on the test set to be as small as possible.
+
 The former formula defining the MSE can be later decomposed into 3 terms as followed:
-$$ MSE = E[ ( y - \hat{f_s}(x) )^2 ] = Var(f(x) - \hat{f_s}(x)) + Var(\epsilon) + (E[f(x)] - E[\hat{f_s(x)}])^2 $$
+$$ MSE = E[ ( y - \hat{f_s}(x) )^2 ] = \color{blue}{Var(f(x) - \hat{f_s}(x))} + Var(\epsilon) + (E[f(x)] - E[\hat{f_s(x)}])^2 $$
+
 
 
 ### A base scenario in a Supervised Learning problem
