@@ -95,8 +95,10 @@ The predictor applied on a single vector of data-points, and $$Z$$ itself, are n
 
 ### statistical error vs residual
 Let's take the heights of individuals in a population.
-- A **statistical error** is the amount by which an **observation differs** from its **expected (population) value** (typically unobservable) e.g. `height(person1) = 1.80` differs from `mean(population_height) = 1.75` of 0.05.
-- A **residual** is the difference between the person height and the within-sample observable estimate of the unobservable quantity e.g.`mean(sample_of_8_people_height)`, hence it is an **estimate** of the unobservable **statistical error** !
+- A **statistical error** is the amount by which an **observation differs** from its **expected (population) value**, which is typically an unobservable quantity: e.g. `height(person1) = 1.80` differs from `mean(population_height) = 1.75` by 0.05.
+- A **residual** is the amount by which an **observation differs** from its **observable estimate** of the former unobservable quantity. Let's keep the **mean** as stated before and try to estimate the population **mean** using the mean of the sample. The residual is e.g.`height(person1) - mean(sample_of_8_people_height)`.
+Hence a residual is an **estimate** of the **statistical error** !
+
 
 ## The Data
 
@@ -197,6 +199,7 @@ Actually, more generally, a loss function can show how close one estimate is fro
 The risk function, in a frequentist statistical theory, is the **expected loss** i.e. the **averaging over all of the loss functions**. It then describes how bad your model is on the **set** of data. Hence the **closer** the predictions **match** the real expected / true value, the **lower the prediction errors** are, and then the **lower the cost** functions gets, **so is the risk** function.
 We then seek to **minimize** the risk function.
 
+#### MSE: Back to estimator vs predictor
 
 The MSE, for mean squared error, is an example of a risk function, using the squared error loss (it corresponds to the expected value of the squared error loss).
 
@@ -219,6 +222,28 @@ MSE for an estimator and predictor are atually the same thing, instead of estima
 
 Note: Sometimes **cost function** is used as synonym of **loss function**, sometimes as the **risk** one. Hence you should always read the underlying equation in a paper to ascertain of the definition one use.
 Note2: It is often nice to differentiate, if possible the MSPE over the model parameters, so to see how changing one parameter or the other could possibly minimize it.  
+
+#### errors: Back to residual vs statistical error
+
+A statistical model includes an error term (it is not deterministic) i.e.:
+
+$$ Y = f(x) + \epsilon $$
+
+or
+
+$$ \epsilon = y-f(x) $$  for one given $y$ value
+
+$\epsilon$ is comparable to the **statistical error term** defined a moment ago: it accounts for the unobservable difference between an observation $y$ and the expected true realization from an unobservable deterministic function $f$ applied on some value $x$.
+
+If we assume this underlying **unobservable function to be linear**, and we **fit a linear model** on it, then compute the **difference between an observation** $y$ of an $y$ to its corresponding $fitted$ value $\hat{y}$ on the regression line - where $\hat{f}$ is an estimate of $f$ - then it actually boils down to compute the residual $\hat{\epsilon}$ which is observable. 
+
+$$ \hat{\epsilon} = y - \hat{y} $$
+
+The regression residual is then an estimate of the statistical [error](https://stats.stackexchange.com/questions/193262/definition-of-residuals-versus-prediction-errors).
+
+An example in regression abbridged from Wikipedia:
+> In regression analysis, the distinction between errors and residuals is subtle and important, and leads to the concept of studentized residuals. Given an unobservable function that relates the independent variable to the dependent variable – say, a line – the deviations of the dependent variable observations from this function are the unobservable errors. If one runs a regression on some data, then the deviations of the dependent variable observations from the fitted function are the residuals. If the linear model is applicable, a scatterplot of residuals plotted against the independent variable should be random about zero with no trend to the residuals.[2] If the data exhibit a trend, the regression model is likely incorrect; for example, the true function may be a quadratic or higher order polynomial. If they are random, or have no trend, but "fan out" - they exhibit a phenomenon called heteroscedasticity. If all of the residuals are equal, or do not fan out, they exhibit homoscedasticity.
+
 
 
 
