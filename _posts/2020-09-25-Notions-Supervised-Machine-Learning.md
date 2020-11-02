@@ -246,7 +246,6 @@ An example in regression abbridged from Wikipedia:
 
 
 
-
 ### Supervised vs Unsupervised Learning
 
 A supervised machine learning alorigthm makes used of the **presence of the outcome variable to guide the learning process** (Element of Statistical Analysis Book).
@@ -271,7 +270,7 @@ Although splitting data into training and testing sets is mainly granted for sup
 Coming back to the definition of the MSE, let's name $f$ the true, underyling function mapping independent variables $Xs$ to the dependent one $Y$. The predictor is trained on some sample S of training data, but we want it to perform well on data that we did not observe yet. Therefore we want the MSE on the test set to be as small as possible.
 
 The former formula defining the MSE can be later decomposed into 3 terms as followed:
-$$ MSE = E[ ( y - \hat{f_s}(x) )^2 ] = \color{blue}{Var(f(x) - \hat{f_s}(x))} + Var(\epsilon) + (E[f(x)] - E[\hat{f_s(x)}])^2 $$
+$$ MS(P)E = E[ ( y - \hat{f_s}(x) )^2 ] = \color{blue}{Var(f(x) - \hat{f_s}(x))} + \color{red}{Var(\epsilon)} + \color{green}{(E[f(x)] - E[\hat{f_s(x)}])^2} $$
 
 
 
