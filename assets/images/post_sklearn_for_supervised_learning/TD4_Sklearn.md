@@ -1,21 +1,8 @@
----
-layout: post
-title:  "Sklearn for Supervised Learning - Practical example"
-author: luc
-categories: [ TDs, Sklearn, MachineLearning, Supervised ]
-image_folder: /assets/images/stats_en_vrac/
-image: assets/images/post_sklearn_for_supervised_learning/index_img/cover.jpg
-image_index: assets/images/post_sklearn_for_supervised_learning/index_img/cover.jpg
-tags: [featured]
-toc: true
-order: 5
-
----
 # Introduction to Scikit Learn library
 
 ## General Workflow
 
-<img src="{{page.image_folder}}img_ML_worflow.png" align="left" width="75%" style="display: inline-block;" class="center">
+<img src="td4_ressources/img_ML_worflow.png" align="left" width="75%">
 
 ### Step1: EDA  (Exploratory data analysis)
 
@@ -408,8 +395,7 @@ infos = pd.plotting.scatter_matrix(df, figsize=(15,15))
 ```
 
 
-<img src="{{page.image_folder}}output_19_0.png" align="left" width="75%" style="display: inline-block;" class="center">
-
+![png](output_19_0.png)
 
 
 Let's plot the target against each of those features
@@ -486,8 +472,7 @@ plt.tight_layout()
 ```
 
 
-<img src="{{page.image_folder}}output_25_0.png" align="left" width="75%" style="display: inline-block;" class="center">
-
+![png](output_25_0.png)
 
 
 # Preprocessing the data
@@ -500,7 +485,7 @@ many estimators are designed with the assumption [**all features vary on compara
 **Standard deviation** tells us about **how the data is distributed around the mean**.<br>
 Values from a standardized feature are expressed in **unit variances**. 
 
-* **Scalers** are affine transformers of a variable. 
+* **Scalers** are affine transformers of a variable**. 
 
 a standardization scaler (implementend as scikit-learn `StandardScaler`):
 
@@ -559,8 +544,7 @@ for ax, func in zip(axes, [identity, np.log, np.sqrt]):
 ```
 
 
-<img src="{{page.image_folder}}output_40_0.png" align="left" width="75%" style="display: inline-block;" class="center">
-
+![png](output_40_0.png)
 
 
 > `sklearn.preprocessing.PowerTransformer:`
@@ -690,8 +674,7 @@ plt.legend()
 
 
 
-<img src="{{page.image_folder}}output_55_1.png" align="left" width="75%" style="display: inline-block;" class="center">
-
+![png](output_55_1.png)
 
 
 ## Look for correlations (linear, or by ranking)
@@ -707,8 +690,7 @@ sns.heatmap(df.corr("pearson"),
 ```
 
 
-<img src="{{page.image_folder}}output_57_0.png" align="left" width="75%" style="display: inline-block;" class="center">
-
+![png](output_57_0.png)
 
 
 
@@ -722,15 +704,14 @@ sns.heatmap(df.corr("spearman"),
 ```
 
 
-<img src="{{page.image_folder}}output_58_0.png" align="left" width="75%" style="display: inline-block;" class="center">
-
+![png](output_58_0.png)
 
 
 # Sklearn estimator object: 
 
 A common interface for all models (below is the general use case for supervised learning tasks, as we have seen an example above as with LinearRegression estimator)
 
-<img src="{{page.image_folder}}sklearn_estimator_object.png" width="50%" align="left" style="display: inline-block;" class="center">
+<img src="td4_ressources/sklearn_estimator_object.png" width="50%" align="left">
 
 the following dictionary will enable me to save the **performances of the different built models trained on the training data and evaluated on the test set**.
 
@@ -894,8 +875,7 @@ plt.legend()
 
 
 
-<img src="{{page.image_folder}}output_76_2.png" align="left" width="75%" style="display: inline-block;" class="center">
-
+![png](output_76_2.png)
 
 
 
@@ -1083,8 +1063,7 @@ ax.plot_surface(*np.meshgrid(x1_coords, x2_coords), y_mean, alpha=0.2, color='re
 
 
 
-<img src="{{page.image_folder}}output_92_2.png" align="left" width="75%" style="display: inline-block;" class="center">
-
+![png](output_92_2.png)
 
 
 
@@ -1103,26 +1082,26 @@ for i in changing_nb_of_features:
             i, round(lm.score(xi_test, yi_test),3), lm.score(xi_train, yi_train)))
 ```
 
-    nb features: 1, score on test: -0.017 , on train: 0.02229306156403521
-    nb features: 11, score on test: -0.314  , on train: 0.2009091438607158
-    nb features: 21, score on test: -0.669  , on train: 0.2596417503392714
-    nb features: 31, score on test: -1.299  , on train: 0.3921095720388704
-    nb features: 41, score on test: -1.742  , on train: 0.6088360328426371
-    nb features: 51, score on test: -2.376  , on train: 0.7442686557239004
-    nb features: 61, score on test: -4.179  , on train: 0.8214859039888791
-    nb features: 71, score on test: -75.92  , on train: 0.9518660637721018
-    nb features: 81, score on test: -11.977 , on train: 1.0
-    nb features: 91, score on test: -5.209  , on train: 1.0
-    nb features: 101, score on test: -3.804 , on train: 1.0
-    nb features: 111, score on test: -3.03  , on train: 1.0
-    nb features: 121, score on test: -1.153 , on train: 1.0
-    nb features: 131, score on test: -1.032 , on train: 1.0
-    nb features: 141, score on test: -0.993 , on train: 1.0
-    nb features: 151, score on test: -1.041 , on train: 1.0
-    nb features: 161, score on test: -1.047 , on train: 1.0
-    nb features: 171, score on test: -0.608 , on train: 1.0
-    nb features: 181, score on test: -0.637 , on train: 1.0
-    nb features: 191, score on test: -0.641 , on train: 1.0
+    nb features: 1, score on test: -0.017	, on train: 0.02229306156403521
+    nb features: 11, score on test: -0.314	, on train: 0.2009091438607158
+    nb features: 21, score on test: -0.669	, on train: 0.2596417503392714
+    nb features: 31, score on test: -1.299	, on train: 0.3921095720388704
+    nb features: 41, score on test: -1.742	, on train: 0.6088360328426371
+    nb features: 51, score on test: -2.376	, on train: 0.7442686557239004
+    nb features: 61, score on test: -4.179	, on train: 0.8214859039888791
+    nb features: 71, score on test: -75.92	, on train: 0.9518660637721018
+    nb features: 81, score on test: -11.977	, on train: 1.0
+    nb features: 91, score on test: -5.209	, on train: 1.0
+    nb features: 101, score on test: -3.804	, on train: 1.0
+    nb features: 111, score on test: -3.03	, on train: 1.0
+    nb features: 121, score on test: -1.153	, on train: 1.0
+    nb features: 131, score on test: -1.032	, on train: 1.0
+    nb features: 141, score on test: -0.993	, on train: 1.0
+    nb features: 151, score on test: -1.041	, on train: 1.0
+    nb features: 161, score on test: -1.047	, on train: 1.0
+    nb features: 171, score on test: -0.608	, on train: 1.0
+    nb features: 181, score on test: -0.637	, on train: 1.0
+    nb features: 191, score on test: -0.641	, on train: 1.0
 
 
 $R^2$ compares the fit of the model with that of a horizontal straight line representing the mean of the data y (the null hypothesis) i.e. the outcome y is constant for all x. If the fit is worse, the $R^2$ can be negative.
@@ -1206,8 +1185,7 @@ fig_reg
 
 
 
-<img src="{{page.image_folder}}output_101_0.png" align="left" width="75%" style="display: inline-block;" class="center">
-
+![png](output_101_0.png)
 
 
 
@@ -1244,8 +1222,7 @@ fig
 
 
 
-<img src="{{page.image_folder}}output_107_1.png" align="left" width="75%" style="display: inline-block;" class="center">
-
+![png](output_107_1.png)
 
 
 
@@ -1262,8 +1239,7 @@ fig
 
 
 
-<img src="{{page.image_folder}}output_109_0.png" align="left" width="75%" style="display: inline-block;" class="center">
-
+![png](output_109_0.png)
 
 
 
@@ -1281,8 +1257,7 @@ fig
 
 
 
-<img src="{{page.image_folder}}output_111_0.png" align="left" width="75%" style="display: inline-block;" class="center">
-
+![png](output_111_0.png)
 
 
 
@@ -1359,8 +1334,7 @@ fig_sin
 
 
 
-<img src="{{page.image_folder}}output_113_1.png" align="left" width="75%" style="display: inline-block;" class="center">
-
+![png](output_113_1.png)
 
 
 
@@ -1384,7 +1358,7 @@ $$ MSPE(L) = E[  ( g(x_i) - \hat{g}(x_i) )^2 ] $$
 
 The former formula can be decomposed into 3 terms:
 
-<img src="{{page.image_folder}}bias_variance.png" width="50%" style="display: inline-block;" class="center">
+<img src="td4_ressources/bias_variance.png" width="50%">
 
 Having a high bias or a high variance, to the extreme, can be a real issue, we will see later why.
 
@@ -1489,8 +1463,7 @@ fig
 
 
 
-<img src="{{page.image_folder}}output_130_0.png" align="left" width="75%" style="display: inline-block;" class="center">
-
+![png](output_130_0.png)
 
 
 
@@ -1561,8 +1534,7 @@ fig
 
 
 
-<img src="{{page.image_folder}}output_138_0.png" align="left" width="75%" style="display: inline-block;" class="center">
-
+![png](output_138_0.png)
 
 
 
@@ -1708,8 +1680,7 @@ fig
 
 
 
-<img src="{{page.image_folder}}output_148_0.png" align="left" width="75%" style="display: inline-block;" class="center">
-
+![png](output_148_0.png)
 
 
 
@@ -1787,8 +1758,7 @@ plt.xticks(rotation=90)
 
 
 
-<img src="{{page.image_folder}}output_152_2.png" align="left" width="75%" style="display: inline-block;" class="center">
-
+![png](output_152_2.png)
 
 
 
@@ -1819,8 +1789,7 @@ plt.plot(x, 237.5537660813595
 
 
 
-<img src="{{page.image_folder}}output_153_1.png" align="left" width="75%" style="display: inline-block;" class="center">
-
+![png](output_153_1.png)
 
 
 
@@ -1856,8 +1825,7 @@ fig
 
 
 
-<img src="{{page.image_folder}}output_154_0.png" align="left" width="75%" style="display: inline-block;" class="center">
-
+![png](output_154_0.png)
 
 
 
@@ -1940,11 +1908,10 @@ plt.show()
 
 
 
-<img src="{{page.image_folder}}output_157_1.png" align="left" width="75%" style="display: inline-block;" class="center">
+![png](output_157_1.png)
 
 
-
-<img src="{{page.image_folder}}img_learning_curve.png" width="65%" align="left" style="display: inline-block;" class="center">
+<img src="td4_ressources/img_learning_curve.png" width="65%" align="left">
 
 How to make our model **simpler**, that is **introduce more bias** to **lower the variance**, when we have no idea of which of the coefficients should be discarded from the analysis ? (also when we can't simply check p-values from a regression analysis because 1. they could be useless or misleading if the assumptions are not met, 2. one could use something else than a regression model): **regularization** !
 
@@ -1956,9 +1923,9 @@ prediction given by OLS model should not be affected by multicolinearity, as ove
 
 # Regularization
 
-<img src="{{page.image_folder}}img_Ridge_Bias_variance_trade_off.png" width="65%" align="left" style="display: inline-block;" class="center">
+<img src="td4_ressources/img_Ridge_Bias_variance_trade_off.png" width="65%" align="left">
 
-<img src="{{page.image_folder}}img_regularization_Christoph_Wursch.png" width="65%" align="left" style="display: inline-block;" class="center">
+<img src="td4_ressources/img_regularization_Christoph_Wursch.png" width="65%" align="left">
 
 
 ```python
@@ -2094,8 +2061,7 @@ fig
 
 
 
-<img src="{{page.image_folder}}output_175_0.png" align="left" width="75%" style="display: inline-block;" class="center">
-
+![png](output_175_0.png)
 
 
 
@@ -2187,8 +2153,7 @@ plt.scatter(x=y_test, y=linear_model.predict(X_test))
 
 
 
-<img src="{{page.image_folder}}output_186_1.png" align="left" width="75%" style="display: inline-block;" class="center">
-
+![png](output_186_1.png)
 
 
 
@@ -2481,7 +2446,7 @@ Mais c'est toujours mieux de le faire. Expliquer pourquoi.
 wikipedia
 >Cross-validation,[1][2][3] sometimes called rotation estimation[4][5][6] or out-of-sample testing, is any of various similar model validation techniques for assessing how the results of a statistical analysis will generalize to an independent data set. It is mainly used in settings where the goal is prediction, and one wants to estimate how accurately a predictive model will perform in practice. In a prediction problem, a model is usually given a dataset of known data on which training is run (training dataset), and a dataset of unknown data (or first seen data) against which the model is tested (called the validation dataset or testing set).[7][8] The goal of cross-validation is to test the model's ability to predict new data that was not used in estimating it, in order to flag problems like overfitting or selection bias[9] and to give an insight on how the model will generalize to an independent dataset (i.e., an unknown dataset, for instance from a real problem).
 
-<img src="{{page.image_folder}}img_a_10_fold_cross_validation.png" width="65%" align="left" style="display: inline-block;" class="center">
+<img src="td4_ressources/img_a_10_fold_cross_validation.png" width="65%" align="left">
 
 
 ```python
@@ -2667,8 +2632,7 @@ test.plot(kind='bar', title='Cross-validation using all data with {} lignes'.for
 
 
 
-<img src="{{page.image_folder}}output_221_1.png" align="left" width="75%" style="display: inline-block;" class="center">
-
+![png](output_221_1.png)
 
 
 There are cases where the computational definition of R2 can yield negative values, depending on the definition used. This can arise when the predictions that are being compared to the corresponding outcomes have not been derived from a model-fitting procedure using those data. Even if a model-fitting procedure has been used, R2 may still be negative, for example when linear regression is conducted without including an intercept, or when a non-linear function is used to fit the data. In cases where negative values arise, the mean of the data provides a better fit to the outcomes than do the fitted function values, according to this particular criterion.
@@ -2706,8 +2670,7 @@ Image("td4_ressources/img_DecisionTreesSplitting_Criteria_ADELE-CUTLER-Ovronnaz_
 
 
 
-<img src="{{page.image_folder}}output_231_0.png" align="left" width="75%" style="display: inline-block;" class="center">
-
+![png](output_231_0.png)
 
 
 
@@ -2719,8 +2682,7 @@ Image("td4_ressources/img_gini index equation cart.png", retina=True)
 
 
 
-<img src="{{page.image_folder}}output_232_0.png" align="left" width="75%" style="display: inline-block;" class="center">
-
+![png](output_232_0.png)
 
 
 
@@ -2738,8 +2700,7 @@ Image("td4_ressources/img_random_forest_bagging_Houtao_Deng_Medium.png", retina=
 
 
 
-<img src="{{page.image_folder}}output_236_0.png" align="left" width="75%" style="display: inline-block;" class="center">
-
+![png](output_236_0.png)
 
 
 
@@ -2751,8 +2712,7 @@ Image("td4_ressources/img_random_forest_testing_Houtao_Deng_Medium.png",retina=T
 
 
 
-<img src="{{page.image_folder}}output_237_0.png" align="left" width="75%" style="display: inline-block;" class="center">
-
+![png](output_237_0.png)
 
 
 
@@ -2944,8 +2904,7 @@ df[["perf"]].plot(kind='line', rot=60)
 
 
 
-<img src="{{page.image_folder}}output_251_2.png" align="left" width="75%" style="display: inline-block;" class="center">
-
+![png](output_251_2.png)
 
 
 ## Aller au delà des hyperparamètres par défaut d'un modèle avec GridSearch
@@ -2954,7 +2913,7 @@ mieux d'utiliser n_jobs=-1 si plusieurs CPU pour paralléliser
 
 Par défaut scikit-learn optimise les hyperparamètres tout en faisant une **cross-validation**. Sans celle-ci, c’est comme si le modèle optimisait ses coefficients sur la base d’apprentissage et ses hyperparamètres sur la base de test. De ce fait, toutes les données servent à optimiser un paramètre. La cross-validation limite en **vérifiant la stabilité de l’apprentissage sur plusieurs découpages**. On peut également découper en train / test / validation mais cela réduit d’autant le nombre de données pour apprendre.
 
-<img src="{{page.image_folder}}how_to_split_datasets.png" style="display: inline-block;" class="center">
+<img src="td4_ressources/how_to_split_datasets.png">
 
 > Stackoverflow : 
 - All estimators in scikit where name ends with CV perform cross-validation. But you need to keep a separate test set for measuring the performance.
@@ -3768,8 +3727,7 @@ plt.xticks(rotation=90)
 
 
 
-<img src="{{page.image_folder}}output_266_2.png" align="left" width="75%" style="display: inline-block;" class="center">
-
+![png](output_266_2.png)
 
 
 
@@ -3790,8 +3748,7 @@ sns.heatmap(pivot.unstack().iloc[:, 1:])
 
 
 
-<img src="{{page.image_folder}}output_268_1.png" align="left" width="75%" style="display: inline-block;" class="center">
-
+![png](output_268_1.png)
 
 
 
@@ -4049,8 +4006,7 @@ plt.title("Boostrap procedure to assess model stability")
 
 
 
-<img src="{{page.image_folder}}output_288_2.png" align="left" width="75%" style="display: inline-block;" class="center">
-
+![png](output_288_2.png)
 
 
 
@@ -4108,7 +4064,7 @@ np.std(scores_decision_trees), np.std(scores_rf)
 
 ## Annexes, nice ressources // 
 
-<img src="{{page.image_folder}}img_model_complexity_trade_off.png" width="60%" align="left" style="display: inline-block;" class="center">
+<img src="td4_ressources/img_model_complexity_trade_off.png" width="60%" align="left">
 
 
 ```python
@@ -4118,12 +4074,11 @@ Image("td4_ressources/img_Ridge_Lasso_Regularization.png", retina=True)
 
 
 
-<img src="{{page.image_folder}}output_301_0.png" align="left" width="75%" style="display: inline-block;" class="center">
+![png](output_301_0.png)
 
 
 
-
-<img src="{{page.image_folder}}img_bias_and_variance_for_ridge.png" width="50%" align="left" style="display: inline-block;" class="center">
+<img src="td4_ressources/img_bias_and_variance_for_ridge.png" width="50%" align="left">
 
 
 ```python
@@ -4133,8 +4088,7 @@ Image("td4_ressources/img_bootstrap_limit_0638.png", width=600)
 
 
 
-<img src="{{page.image_folder}}output_303_0.png" align="left" width="75%" style="display: inline-block;" class="center">
-
+![png](output_303_0.png)
 
 
 
