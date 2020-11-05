@@ -3,7 +3,7 @@ layout: post
 title:  "Supervised Machine Learning"
 author: luc
 categories: [ TDs, StatsEnVrac ]
-image_folder: /assets/images/stats_en_vrac/
+image_folder: /assets/images/post_some_statistical_elements/
 image: assets/images/post_some_statistical_elements/index_img/cover.jpg
 image_index: assets/images/post_some_statistical_elements/index_img/cover.jpg
 tags: [featured]
