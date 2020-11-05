@@ -2324,19 +2324,6 @@ The hyperparameter is a regularization parameter here.
 For greater values of $\alpha$, the $\beta s$ will get shrunk towards 0 as we seek to find the $\beta s$ which minimize the overall equation where the 2nd part is getting more and more weight due to $\alpha$
 
 
-```python
-
-```
-
-
-```python
-as $\alpha$ increases, the b
-```
-
-
-```python
-
-```
 
 ## Mettre tout ceci sous forme d'une fonction
 
