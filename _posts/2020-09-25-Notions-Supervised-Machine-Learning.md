@@ -214,7 +214,7 @@ The MSE of that estimator incorporates both the:
 - **bias** how far is the average estimated value from the true unobserved value of the population. 
 The expected value equals here $$\nu$$ (the true mean) then we say that the estimator $$\bar{X}$$ is **unbiased**, the MSE then equals the variance of the estimator.
 
-* for a predictor: using its nickname *MSPE*, it is a measure of a predictor’s fit, or how well your predictor predicts the true value.
+* for a predictor: using its nickname *MSPE*, it is a measure of a predictor’s fit, or how well your predictor predicts the true unobservable function.
 $$ MSPE(L) = E[ \sum_{i=1}^{n}{ ( g(x_i) - \hat{g}(x_i) )^2} ] $$
 
 MSE for an estimator and predictor are atually the same thing, instead of estimating a scalar caracteristic from the population, we intent to estimate the true underlying function in the functional space: 
@@ -269,10 +269,9 @@ Although splitting data into training and testing sets is mainly granted for sup
 
 Coming back to the definition of the MSE, let's name $f$ the true, underyling function mapping independent variables $Xs$ to the dependent one $Y$. The predictor is trained on some sample S of training data, but we want it to perform well on data that we did not observe yet. Therefore we want the MSE on the test set to be as small as possible.
 
-The former formula defining the MSE can be later decomposed into 3 terms as followed:
-$$ MS(P)E = E[ ( y - \hat{f_s}(x) )^2 ] = \color{blue}{Var(f(x) - \hat{f_s}(x))} + \color{red}{Var(\epsilon)} + \color{green}{(E[f(x)] - E[\hat{f_s(x)}])^2} $$
+The former formula defining the MSE can be later decomposed as followed:
 
-
+<img src="{{page.image_folder}}bias_var.svg" width="800px" style="display: inline-block;" class="center">
 
 ### A base scenario in a Supervised Learning problem
 
