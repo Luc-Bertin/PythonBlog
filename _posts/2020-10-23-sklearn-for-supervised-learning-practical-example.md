@@ -23,7 +23,7 @@ order: 5
 
 
 
-<img src="{{page.image_folder}}img_ML_worflow.png" align="left" width="75%" style="display: block;">
+<img src="{{page.image_folder}}img_ML_worflow.png" align="left" width="75%" style="display: block !important;">
 
 
 ### Step1: EDA  (Exploratory data analysis)
@@ -419,7 +419,7 @@ infos = pd.plotting.scatter_matrix(df, figsize=(15,15))
 
 
 
-<img src="{{page.image_folder}}output_19_0.png" align="left" width="75%" style="display: block;">
+<img src="{{page.image_folder}}output_19_0.png" align="left" width="75%" style="display: block !important;">
 
 
 
@@ -500,7 +500,7 @@ plt.tight_layout()
 
 
 
-<img src="{{page.image_folder}}output_25_0.png" align="left" width="75%" style="display: block;">
+<img src="{{page.image_folder}}output_25_0.png" align="left" width="75%" style="display: block !important;">
 
 
 
@@ -577,7 +577,7 @@ for ax, func in zip(axes, [identity, np.log, np.sqrt]):
 
 
 
-<img src="{{page.image_folder}}output_40_0.png" align="left" width="75%" style="display: block;">
+<img src="{{page.image_folder}}output_40_0.png" align="left" width="75%" style="display: block !important;">
 
 
 
@@ -711,7 +711,7 @@ plt.legend()
 
 
 
-<img src="{{page.image_folder}}output_55_1.png" align="left" width="75%" style="display: block;">
+<img src="{{page.image_folder}}output_55_1.png" align="left" width="75%" style="display: block !important;">
 
 
 
@@ -731,7 +731,7 @@ sns.heatmap(df.corr("pearson"),
 
 
 
-<img src="{{page.image_folder}}output_57_0.png" align="left" width="75%" style="display: block;">
+<img src="{{page.image_folder}}output_57_0.png" align="left" width="75%" style="display: block !important;">
 
 
 
@@ -749,7 +749,7 @@ sns.heatmap(df.corr("spearman"),
 
 
 
-<img src="{{page.image_folder}}output_58_0.png" align="left" width="75%" style="display: block;">
+<img src="{{page.image_folder}}output_58_0.png" align="left" width="75%" style="display: block !important;">
 
 
 
@@ -760,7 +760,7 @@ A common interface for all models (below is the general use case for supervised 
 
 
 
-<img src="{{page.image_folder}}sklearn_estimator_object.png" width="50%" align="left" style="display: block;">
+<img src="{{page.image_folder}}sklearn_estimator_object.png" width="50%" align="left" style="display: block !important;">
 
 
 the following dictionary will enable me to save the **performances of the different built models trained on the training data and evaluated on the test set**.
@@ -927,7 +927,7 @@ plt.legend()
 
 
 
-<img src="{{page.image_folder}}output_76_2.png" align="left" width="75%" style="display: block;">
+<img src="{{page.image_folder}}output_76_2.png" align="left" width="75%" style="display: block !important;">
 
 
 
@@ -1119,7 +1119,7 @@ ax.plot_surface(*np.meshgrid(x1_coords, x2_coords), y_mean, alpha=0.2, color='re
 
 
 
-<img src="{{page.image_folder}}output_92_2.png" align="left" width="75%" style="display: block;">
+<img src="{{page.image_folder}}output_92_2.png" align="left" width="75%" style="display: block !important;">
 
 
 
@@ -1245,7 +1245,7 @@ fig_reg
 
 
 
-<img src="{{page.image_folder}}output_101_0.png" align="left" width="75%" style="display: block;">
+<img src="{{page.image_folder}}output_101_0.png" align="left" width="75%" style="display: block !important;">
 
 
 
@@ -1286,7 +1286,7 @@ fig
 
 
 
-<img src="{{page.image_folder}}output_107_1.png" align="left" width="75%" style="display: block;">
+<img src="{{page.image_folder}}output_107_1.png" align="left" width="75%" style="display: block !important;">
 
 
 
@@ -1307,7 +1307,7 @@ fig
 
 
 
-<img src="{{page.image_folder}}output_109_0.png" align="left" width="75%" style="display: block;">
+<img src="{{page.image_folder}}output_109_0.png" align="left" width="75%" style="display: block !important;">
 
 
 
@@ -1329,7 +1329,7 @@ fig
 
 
 
-<img src="{{page.image_folder}}output_111_0.png" align="left" width="75%" style="display: block;">
+<img src="{{page.image_folder}}output_111_0.png" align="left" width="75%" style="display: block !important;">
 
 
 
@@ -1410,7 +1410,7 @@ fig_sin
 
 
 
-<img src="{{page.image_folder}}output_113_1.png" align="left" width="75%" style="display: block;">
+<img src="{{page.image_folder}}output_113_1.png" align="left" width="75%" style="display: block !important;">
 
 
 
@@ -1438,7 +1438,7 @@ The former formula can be decomposed into 3 terms:
 
 
 
-<img src="{{page.image_folder}}bias_variance.png" width="50%" style="display: block;">
+<img src="{{page.image_folder}}bias_variance.png" width="50%" style="display: block !important;">
 
 
 Having a high bias or a high variance, to the extreme, can be a real issue, we will see later why.
@@ -1546,7 +1546,7 @@ fig
 
 
 
-<img src="{{page.image_folder}}output_130_0.png" align="left" width="75%" style="display: block;">
+<img src="{{page.image_folder}}output_130_0.png" align="left" width="75%" style="display: block !important;">
 
 
 
@@ -1621,7 +1621,7 @@ fig
 
 
 
-<img src="{{page.image_folder}}output_138_0.png" align="left" width="75%" style="display: block;">
+<img src="{{page.image_folder}}output_138_0.png" align="left" width="75%" style="display: block !important;">
 
 
 
@@ -1771,7 +1771,7 @@ fig
 
 
 
-<img src="{{page.image_folder}}output_148_0.png" align="left" width="75%" style="display: block;">
+<img src="{{page.image_folder}}output_148_0.png" align="left" width="75%" style="display: block !important;">
 
 
 
@@ -1853,7 +1853,7 @@ plt.xticks(rotation=90)
 
 
 
-<img src="{{page.image_folder}}output_152_2.png" align="left" width="75%" style="display: block;">
+<img src="{{page.image_folder}}output_152_2.png" align="left" width="75%" style="display: block !important;">
 
 
 
@@ -1888,7 +1888,7 @@ plt.plot(x, 237.5537660813595
 
 
 
-<img src="{{page.image_folder}}output_153_1.png" align="left" width="75%" style="display: block;">
+<img src="{{page.image_folder}}output_153_1.png" align="left" width="75%" style="display: block !important;">
 
 
 
@@ -1928,7 +1928,7 @@ fig
 
 
 
-<img src="{{page.image_folder}}output_154_0.png" align="left" width="75%" style="display: block;">
+<img src="{{page.image_folder}}output_154_0.png" align="left" width="75%" style="display: block !important;">
 
 
 
@@ -2015,14 +2015,14 @@ plt.show()
 
 
 
-<img src="{{page.image_folder}}output_157_1.png" align="left" width="75%" style="display: block;">
+<img src="{{page.image_folder}}output_157_1.png" align="left" width="75%" style="display: block !important;">
 
 
 
 
 
 
-<img src="{{page.image_folder}}img_learning_curve.png" width="65%" align="left" style="display: block;">
+<img src="{{page.image_folder}}img_learning_curve.png" width="65%" align="left" style="display: block !important;">
 
 
 How to make our model **simpler**, that is **introduce more bias** to **lower the variance**, when we have no idea of which of the coefficients should be discarded from the analysis ? (also when we can't simply check p-values from a regression analysis because 1. they could be useless or misleading if the assumptions are not met, 2. one could use something else than a regression model): **regularization** !
@@ -2037,11 +2037,11 @@ prediction given by OLS model should not be affected by multicolinearity, as ove
 
 
 
-<img src="{{page.image_folder}}img_Ridge_Bias_variance_trade_off.png" width="65%" align="left" style="display: block;">
+<img src="{{page.image_folder}}img_Ridge_Bias_variance_trade_off.png" width="65%" align="left" style="display: block !important;">
 
 
 
-<img src="{{page.image_folder}}img_regularization_Christoph_Wursch.png" width="65%" align="left" style="display: block;">
+<img src="{{page.image_folder}}img_regularization_Christoph_Wursch.png" width="65%" align="left" style="display: block !important;">
 
 
 ```python
@@ -2179,7 +2179,7 @@ fig
 
 
 
-<img src="{{page.image_folder}}output_175_0.png" align="left" width="75%" style="display: block;">
+<img src="{{page.image_folder}}output_175_0.png" align="left" width="75%" style="display: block !important;">
 
 
 
@@ -2275,7 +2275,7 @@ plt.scatter(x=y_test, y=linear_model.predict(X_test))
 
 
 
-<img src="{{page.image_folder}}output_186_1.png" align="left" width="75%" style="display: block;">
+<img src="{{page.image_folder}}output_186_1.png" align="left" width="75%" style="display: block !important;">
 
 
 
@@ -2559,7 +2559,7 @@ wikipedia
 
 
 
-<img src="{{page.image_folder}}img_a_10_fold_cross_validation.png" width="65%" align="left" style="display: block;">
+<img src="{{page.image_folder}}img_a_10_fold_cross_validation.png" width="65%" align="left" style="display: block !important;">
 
 
 ```python
@@ -2747,7 +2747,7 @@ test.plot(kind='bar', title='Cross-validation using all data with {} lignes'.for
 
 
 
-<img src="{{page.image_folder}}output_221_1.png" align="left" width="75%" style="display: block;">
+<img src="{{page.image_folder}}output_221_1.png" align="left" width="75%" style="display: block !important;">
 
 
 
@@ -2792,7 +2792,7 @@ Image("td4_ressources/img_DecisionTreesSplitting_Criteria_ADELE-CUTLER-Ovronnaz_
 
 
 
-<img src="{{page.image_folder}}output_231_0.png" align="left" width="75%" style="display: block;">
+<img src="{{page.image_folder}}output_231_0.png" align="left" width="75%" style="display: block !important;">
 
 
 
@@ -2811,7 +2811,7 @@ Image("td4_ressources/img_gini index equation cart.png", retina=True)
 
 
 
-<img src="{{page.image_folder}}output_232_0.png" align="left" width="75%" style="display: block;">
+<img src="{{page.image_folder}}output_232_0.png" align="left" width="75%" style="display: block !important;">
 
 
 
@@ -2836,7 +2836,7 @@ Image("td4_ressources/img_random_forest_bagging_Houtao_Deng_Medium.png", retina=
 
 
 
-<img src="{{page.image_folder}}output_236_0.png" align="left" width="75%" style="display: block;">
+<img src="{{page.image_folder}}output_236_0.png" align="left" width="75%" style="display: block !important;">
 
 
 
@@ -2855,7 +2855,7 @@ Image("td4_ressources/img_random_forest_testing_Houtao_Deng_Medium.png",retina=T
 
 
 
-<img src="{{page.image_folder}}output_237_0.png" align="left" width="75%" style="display: block;">
+<img src="{{page.image_folder}}output_237_0.png" align="left" width="75%" style="display: block !important;">
 
 
 
@@ -3051,7 +3051,7 @@ df[["perf"]].plot(kind='line', rot=60)
 
 
 
-<img src="{{page.image_folder}}output_251_2.png" align="left" width="75%" style="display: block;">
+<img src="{{page.image_folder}}output_251_2.png" align="left" width="75%" style="display: block !important;">
 
 
 
@@ -3064,7 +3064,7 @@ Par défaut scikit-learn optimise les hyperparamètres tout en faisant une **cro
 
 
 
-<img src="{{page.image_folder}}how_to_split_datasets.png" style="display: block;">
+<img src="{{page.image_folder}}how_to_split_datasets.png" style="display: block !important;">
 
 
 > Stackoverflow : 
@@ -3881,7 +3881,7 @@ plt.xticks(rotation=90)
 
 
 
-<img src="{{page.image_folder}}output_266_2.png" align="left" width="75%" style="display: block;">
+<img src="{{page.image_folder}}output_266_2.png" align="left" width="75%" style="display: block !important;">
 
 
 
@@ -3906,7 +3906,7 @@ sns.heatmap(pivot.unstack().iloc[:, 1:])
 
 
 
-<img src="{{page.image_folder}}output_268_1.png" align="left" width="75%" style="display: block;">
+<img src="{{page.image_folder}}output_268_1.png" align="left" width="75%" style="display: block !important;">
 
 
 
@@ -4168,7 +4168,7 @@ plt.title("Boostrap procedure to assess model stability")
 
 
 
-<img src="{{page.image_folder}}output_288_2.png" align="left" width="75%" style="display: block;">
+<img src="{{page.image_folder}}output_288_2.png" align="left" width="75%" style="display: block !important;">
 
 
 
@@ -4230,7 +4230,7 @@ np.std(scores_decision_trees), np.std(scores_rf)
 
 
 
-<img src="{{page.image_folder}}img_model_complexity_trade_off.png" width="60%" align="left" style="display: block;">
+<img src="{{page.image_folder}}img_model_complexity_trade_off.png" width="60%" align="left" style="display: block !important;">
 
 
 ```python
@@ -4245,7 +4245,7 @@ Image("td4_ressources/img_Ridge_Lasso_Regularization.png", retina=True)
 
 
 
-<img src="{{page.image_folder}}output_301_0.png" align="left" width="75%" style="display: block;">
+<img src="{{page.image_folder}}output_301_0.png" align="left" width="75%" style="display: block !important;">
 
 
 
@@ -4253,7 +4253,7 @@ Image("td4_ressources/img_Ridge_Lasso_Regularization.png", retina=True)
 
 
 
-<img src="{{page.image_folder}}img_bias_and_variance_for_ridge.png" width="50%" align="left" style="display: block;">
+<img src="{{page.image_folder}}img_bias_and_variance_for_ridge.png" width="50%" align="left" style="display: block !important;">
 
 
 ```python
@@ -4268,7 +4268,7 @@ Image("td4_ressources/img_bootstrap_limit_0638.png", width=600)
 
 
 
-<img src="{{page.image_folder}}output_303_0.png" align="left" width="75%" style="display: block;">
+<img src="{{page.image_folder}}output_303_0.png" align="left" width="75%" style="display: block !important;">
 
 
 
