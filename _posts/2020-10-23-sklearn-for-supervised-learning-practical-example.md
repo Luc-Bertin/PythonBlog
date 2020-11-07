@@ -2304,7 +2304,7 @@ sns.barplot(x=list(range(11)), y=scaling_and_gradient_descent.named_steps.linear
 
 
 
-<img src="{{page.image_folder}}output_26_1.png" align="left" style="display:block !important;">
+<img src="{{page.image_folder}}output_26_1.png" align="left" width="100%" style="display:block !important;">
 
 
 -----
@@ -2343,7 +2343,7 @@ plt.tight_layout(pad=0.6)
 ```
 
 
-<img src="{{page.image_folder}}output_31_0.png" align="left" style="display:block !important;">
+<img src="{{page.image_folder}}output_31_0.png" align="left" width="100%" style="display:block !important;">
 
 
 # K-Fold cross validation
@@ -2499,7 +2499,7 @@ cross_val_visualize(x2, y)
 
 
 
-<img src="{{page.image_folder}}output_48_1.png" align="left" style="display:block !important;">
+<img src="{{page.image_folder}}output_48_1.png" align="left" width="100%" style="display:block !important;">
 
 
 
@@ -2515,7 +2515,7 @@ cross_val_visualize(x2, y, 3)
 
 
 
-<img src="{{page.image_folder}}output_49_1.png" align="left" style="display:block !important;">
+<img src="{{page.image_folder}}output_49_1.png" align="left" width="100%" style="display:block !important;">
 
 
 
@@ -2535,7 +2535,7 @@ cross_val_visualize(x2, y, shuffle=True)
 
 
 
-<img src="{{page.image_folder}}output_50_1.png" align="left" style="display:block !important;">
+<img src="{{page.image_folder}}output_50_1.png" align="left"  width="100%" style="display:block !important;">
 
 
 Much more homogeneous results !
@@ -2631,7 +2631,7 @@ ax.get_legend().remove()
 
 
 
-<img src="{{page.image_folder}}output_62_1.png" align="left" style="display:block !important;">
+<img src="{{page.image_folder}}output_62_1.png" align="left" width="100%" style="display:block !important;">
 
 
 
@@ -2809,7 +2809,7 @@ sns.heatmap(pivot.unstack())
 
 
 
-<img src="{{page.image_folder}}output_66_1.png" align="left" style="display:block !important;">
+<img src="{{page.image_folder}}output_66_1.png" align="left" width="100%" style="display:block !important;">
 
 
 # Enhanced GridSearch over pipeline params ! :O
@@ -3013,7 +3013,7 @@ plt.plot(x, estimator.predict(x))
 
 
 
-<img src="{{page.image_folder}}output_79_1.png" align="left" style="display:block !important;">
+<img src="{{page.image_folder}}output_79_1.png" align="left"  width="100%" style="display:block !important;">
 
 
 We find back the sin ! :D
@@ -3184,7 +3184,7 @@ plt.plot(x, estimator.predict(x))
 
 
 
-<img src="{{page.image_folder}}output_83_3.png" align="left" style="display:block !important;">
+<img src="{{page.image_folder}}output_83_3.png" align="left"  width="100%" style="display:block !important;">
 
 
 Lasso might have canceled out some params i guess (at least on the 3rd model)
