@@ -553,19 +553,19 @@ Values from a standardized feature are expressed in **unit variances**.
 
 a standardization scaler (implementend as scikit-learn `StandardScaler`):
 
-$$ x_i = \frac{x_i - X_{mean}}{X_{std}} $$
+$$$ x_i = \frac{x_i - X_{mean}}{X_{std}} $$$
 
-for all $x_i$ in the realized observations of $X$
+for all $$x_i$$ in the realized observations of $$X$$
 
-Normalization scalers (still for features) **rescale** the values into a range of $[\alpha,\beta]$, commonly $[0,1]$.<br> 
-This can be useful if we need to have the values set in a positive range. Some normalizations rules can deal with outliers.<br> `MinMaxScaler` though is sensitive to outliers (max outliers are closer to 1, min are closer to 0, inliers are *compressed* in a tiny interval (included in the main one $[0,1]$).
+Normalization scalers (still for features) **rescale** the values into a range of $$[\alpha,\beta]$$, commonly $$[0,1]$$.<br> 
+This can be useful if we need to have the values set in a positive range. Some normalizations rules can deal with outliers.<br> `MinMaxScaler` though is sensitive to outliers (max outliers are closer to 1, min are closer to 0, inliers are *compressed* in a tiny interval (included in the main one $$[0,1]$$).
 
 An example of such, implemented in sklearn as `MinMaxScaler`
 :
 
-$$x_i = \frac{x - x_{min}}{x_{max} - x_{min}}$$ 
+$$$x_i = \frac{x - x_{min}}{x_{max} - x_{min}}$$$ 
 
-for all $x_i$ in the realized observations of $X$
+for all $$x_i$$ in the realized observations of $$X$$
 
 Using `StandardScaler` or `MinMaxScaler` might depend on your use case? some [guidance](https://datascience.stackexchange.com/questions/43972/when-should-i-use-standardscaler-and-when-minmaxscaler)
 
@@ -576,7 +576,7 @@ Also using penalization techniques (especially **ridge regression**, we will see
     * Box-Cox is another example of non-linear parametrized transformation where an optimal parameter `lambda` is found so to ultimately map an arbitriraly distributed set of observations to a normally distributed one (that can be later standardized). This also gives the effect of giving less importance to outliers since minimizing skewness.
     * QuantileTransformer is also non-linear transformer and greatly reduce the distance between outliers and inliers. Further explanation of the process can be found [here](https://stats.stackexchange.com/questions/325570/quantile-transformation-with-gaussian-distribution-sklearn-implementation)
 
-* Finally, Normalizer normalizes a **data vector** (per sample transformation) (not the feature column) to a specified norm ($L_2$, $L_1$, etc.), e.g. $\frac{x}{||x||2}$ for $L_2$ norm.
+* Finally, Normalizer normalizes a **data vector** (per sample transformation) (not the feature column) to a specified norm ($$L_2$$, $$L_1$$, etc.), e.g. $$\frac{x}{||x||2}$$ for $$L_2$$ norm.
 
 
 
@@ -628,11 +628,11 @@ applying it to the independent data or dependent one ?
 > The point is that you use this particular transformation to solve certain issue such as as heteroscedasticity of certain kind, and if this issue is not present in other variables then do not apply the transformation to [them](https://stats.stackexchange.com/questions/149908/box-cox-transformation-of-dependent-variable-only)
 
 Sometimes you even have to re-express both dependent and independent variables to attempt linearizing [relationships](https://stats.stackexchange.com/questions/35711/box-cox-like-transformation-for-independent-variables) (in the examlpe highlighted there: first log-ing the pressure and inverse-ing the temperature gives back the Clausus-Chapeyron relationship 
-$$ \color{red}
-            {\ln{P}} = \frac{L}{R}\color{blue}{\frac{1}{T}} + c$$
+$$$ \color{red}
+            {\ln{P}} = \frac{L}{R}\color{blue}{\frac{1}{T}} + c$$$
 
-$X$ is a feature: it is also mathematically considered as column vector.<br>
-Hence $X^T$ is the transposed used for a dot product ( shape of $X^T$ is $(1, p)$ )
+$$X$$ is a feature: it is also mathematically considered as column vector.<br>
+Hence $$X^T$$ is the transposed used for a dot product ( shape of $$X^T$$ is $$(1, p)$$ )
 
 
 ```python
@@ -754,23 +754,23 @@ plt.legend()
 Metrics are quantitative measurements. 
 The first, informal, definition of metric is consistent with the definition statistic, i.e. function of a sample <=> estimator 
 
-We could use the risk function MSE (mean squared error) to compare how bad in average (expected value) is each model at predicting values (using squared error loss), but in a regression case we could use a rather familiar statistic: the **coefficient of determination $R^2$. It shows the proportion of the variance in the dependent variable that is predictable from the independent variable(s).<br>
+We could use the risk function MSE (mean squared error) to compare how bad in average (expected value) is each model at predicting values (using squared error loss), but in a regression case we could use a rather familiar statistic: the **coefficient of determination $$R^2$$. It shows the proportion of the variance in the dependent variable that is predictable from the independent variable(s).<br>
 Closer to 1 is better, alhough it is important to check if there is no issues, like the **curse of dimensionality**.<br>
-$R^2$ is useful because it is often easier to interpret since it doesn't depend on the scale of the data but on the variance of $Y$ explained by the vars of $Xs$
+$$R^2$$ is useful because it is often easier to interpret since it doesn't depend on the scale of the data but on the variance of $$Y$$ explained by the vars of $$Xs$$
 
-Later we will use back and forth MSE and $R2$.
+Later we will use back and forth MSE and $$R2$$.
 
 
 
-# $R^2$ coefficient of determination 
+# $$R^2$$ coefficient of determination 
 
-In linear least squares multiple regression with an estimated intercept term, $R^2$ equals the **square of the Pearson correlation coefficient between the observed $y$** and **modeled (predicted) $\hat{y}$ data values of the dependent variable**.<br>
+In linear least squares multiple regression with an estimated intercept term, $$R^2$$ equals the **square of the Pearson correlation coefficient between the observed $$y$$** and **modeled (predicted) $$\hat{y}$$ data values of the dependent variable**.<br>
 
-In a linear least squares regression with an intercept term and a single explanator, this is also equal to the **squared Pearson correlation coefficient of the dependent variable $y$ and explanatory variable $x$.**
+In a linear least squares regression with an intercept term and a single explanator, this is also equal to the **squared Pearson correlation coefficient of the dependent variable $$y$$ and explanatory variable $$x$$.**
 
-How to derive $R^2$ ? We first need to define $SST$, $SSE$ and $RSS$:
+How to derive $$R^2$$ ? We first need to define $$SST$$, $$SSE$$ and $$RSS$$:
 
-$$SST = SSE + RSS$$ (variance in the data expressed as some of squares distances around the mean) = variance explained by the model + remaining variance of the errors)
+$$$SST = SSE + RSS$$$ (variance in the data expressed as some of squares distances around the mean) = variance explained by the model + remaining variance of the errors)
 
 
 --- 
@@ -780,25 +780,25 @@ Be cautious with the litterature !
 
 
 
-$$SST = \sum_{i=1}^{n}{(y_i - \bar{y})^2} $$
+$$$SST = \sum_{i=1}^{n}{(y_i - \bar{y})^2} $$$
 
-$$RSS = \sum_{i=1}^{n}{(y_i - \hat{y})^2} $$
+$$$RSS = \sum_{i=1}^{n}{(y_i - \hat{y})^2} $$$
 
-$$ESS = \sum_{i=1}^{n}{(\hat{y}-\bar{y})^2} $$
+$$$ESS = \sum_{i=1}^{n}{(\hat{y}-\bar{y})^2} $$$
 
 we seek to improve ESS, that is the variance explained by the model
 
-$$ R^2 = \frac{ESS}{TSS} = 1 - \frac{SSResiduals}{TotalSS} $$
+$$$ R^2 = \frac{ESS}{TSS} = 1 - \frac{SSResiduals}{TotalSS} $$$
 
-and $$MS(P)E = \frac{SSResiduals}{nbsamples} $$
+and $$$MS(P)E = \frac{SSResiduals}{nbsamples} $$$
 
-$R^2$ and $MS(P)E$ are linked by the following formula:
+$$R^2$$ and $$MS(P)E$$ are linked by the following formula:
 
-$$ MS(P)E(y,\hat{y}) = \frac{SSResiduals(y,\hat{y})}{Nsamples}$$
+$$$ MS(P)E(y,\hat{y}) = \frac{SSResiduals(y,\hat{y})}{Nsamples}$$$
 
 
 
-For example, curse of dimensionality, results as in higher dimensional training data, as we can always fit perfectly a n-dimension hyperplane to n+1 data points into a n+1 dimension input space. The more dimensions the data has, the easier it is to find a hyperplane fitting the points in the training data, hence falsely resulting in a huge $R^2$
+For example, curse of dimensionality, results as in higher dimensional training data, as we can always fit perfectly a n-dimension hyperplane to n+1 data points into a n+1 dimension input space. The more dimensions the data has, the easier it is to find a hyperplane fitting the points in the training data, hence falsely resulting in a huge $$R^2$$
 
 > How to get p-values and a nice summary in Python as R summary(lm) ? https://stackoverflow.com/questions/27928275/find-p-value-significance-in-scikit-learn-linearregression
 
@@ -926,7 +926,7 @@ plt.legend()
 
 
 
-$$SST = \sum_{i=1}^{n}{(y_i - \bar{y})^2} $$
+$$$SST = \sum_{i=1}^{n}{(y_i - \bar{y})^2} $$$
 
 
 
@@ -936,7 +936,7 @@ $$SST = \sum_{i=1}^{n}{(y_i - \bar{y})^2} $$
 SST = np.sum((y - np.mean(y))**2)
 ```
 
-$$RSS = \sum_{i=1}^{n}{(y_i - \hat{y})^2} $$
+$$$RSS = \sum_{i=1}^{n}{(y_i - \hat{y})^2} $$$
 
 
 
@@ -957,7 +957,7 @@ RSS, SST
 
 
 
-$$ R^2 = \frac{ESS}{TSS} = 1 - \frac{SSResiduals}{TotalSS} $$
+$$$ R^2 = \frac{ESS}{TSS} = 1 - \frac{SSResiduals}{TotalSS} $$$
 
 
 
@@ -1155,7 +1155,7 @@ for i in changing_nb_of_features:
     nb features: 191, score on test: -0.641 , on train: 1.0
 
 
-$R^2$ compares the fit of the model with that of a horizontal straight line representing the mean of the data y (the null hypothesis) i.e. the outcome y is constant for all x. If the fit is worse, the $R^2$ can be negative.
+$$R^2$$ compares the fit of the model with that of a horizontal straight line representing the mean of the data y (the null hypothesis) i.e. the outcome y is constant for all x. If the fit is worse, the $$R^2$$ can be negative.
 
 <!-- making sense of [dot product](https://math.stackexchange.com/questions/348717/dot-product-intuition) -->
 
@@ -1163,11 +1163,11 @@ That was an example of fitting a linear model using OLS method, making the assum
 
 You've maybe heard that the OLS estimator is **BLUE**, which stands for **Best Linear Unbiased Estimator**.<br>
 
-Let's say the **unobservable function is assumed to be of the form** $f(x) = y + \beta_1{x_1} + \varepsilon$ where $\varepsilon$ is the error term.<br>
+Let's say the **unobservable function is assumed to be of the form** $$f(x) = y + \beta_1{x_1} + \varepsilon$$ where $$\varepsilon$$ is the error term.<br>
 
-(Here $\varepsilon$ is a catch-all variable even for the population model that *may* include among others: variables omitted from the model, unpredictable effects, measurement errors, and omitted variables, as there is always some kind of irreducible or unknown randomness [error term](https://stats.stackexchange.com/questions/129055/understanding-the-error-term) ([here too](https://stats.stackexchange.com/questions/408734/is-the-difference-between-the-residual-and-error-term-in-a-regression-just-the-a))). <br>
+(Here $$\varepsilon$$ is a catch-all variable even for the population model that *may* include among others: variables omitted from the model, unpredictable effects, measurement errors, and omitted variables, as there is always some kind of irreducible or unknown randomness [error term](https://stats.stackexchange.com/questions/129055/understanding-the-error-term) ([here too](https://stats.stackexchange.com/questions/408734/is-the-difference-between-the-residual-and-error-term-in-a-regression-just-the-a))). <br>
 
-Then: the **OLS estimator** is **unbiased** (the expected value from the $\hat{\beta}s$ among multiple subsets from the population is assumed to be the true $\beta_1$ of the population) and of **minimum sampling variance** (how jumpy each $\beta_1$ is from one data subset to the other) if the Gauss–Markov theorem's assumptions are met:
+Then: the **OLS estimator** is **unbiased** (the expected value from the $$\hat{\beta}s$$ among multiple subsets from the population is assumed to be the true $$\beta_1$$ of the population) and of **minimum sampling variance** (how jumpy each $$\beta_1$$ is from one data subset to the other) if the Gauss–Markov theorem's assumptions are met:
 - equal variances of the errors
 - expected value of the errors is 0
 - errors uncorrelated with the [predictors](https://stats.stackexchange.com/questions/263324/how-can-the-regression-error-term-ever-be-correlated-with-the-explanatory-variab)
@@ -1407,9 +1407,9 @@ fig_sin
 
 The above simulation is inspired from ***Caltech ML course by Yaser Abu-Mostafa (Lecture 8 - Bias-Variance Tradeoff)***
 
-What if we took a rather "dummy" model doing nothing more than computing the mean of 2 $y$ values for some given realizations of $X$: $x$ then:
+What if we took a rather "dummy" model doing nothing more than computing the mean of 2 $$y$$ values for some given realizations of $$X$$: $$x$$ then:
 - we see the dummy trained models (on 2 data points) are more stable in their "predictions" mainly due to the fact they are simpler models, not affected / taking into account some of the variations in the data.
-- the regression models (trained on 2 data points) in average do perform better in trying to predict $y$ values, although the performance of the model are less stable from one another.
+- the regression models (trained on 2 data points) in average do perform better in trying to predict $$y$$ values, although the performance of the model are less stable from one another.
 
 This is also called the **Bias-Variance trade-off.**
 
@@ -1420,7 +1420,7 @@ The more complex the model gets, the **more it will capture data tendencies**, b
 The less complex (with **huge erroneous assumptions**) the model is, the **less sensible it is to capture the relations between the features and the output** but it won't be affected to different training sets.
 
 Actually... When we compute the performance of both of these models using the MSPE.
-$$ MSPE(L) = E[  ( g(x_i) - \hat{g}(x_i) )^2 ] $$ 
+$$$ MSPE(L) = E[  ( g(x_i) - \hat{g}(x_i) )^2 ] $$$ 
 (here i didn't compare using the Y, but just with respect to the unobservable function, hence the latter equation in 7.3 is slightly different)
 
 The former formula can be decomposed into 3 terms:
@@ -1445,7 +1445,7 @@ poly3 = PolynomialFeatures(degree=3)
 x_new = poly3.fit_transform(x[:, np.newaxis])
 ```
 
-We hence created **4 features out of one**, which hold the attributes: $constant, x, x**2, x**3$
+We hence created **4 features out of one**, which hold the attributes: $$constant, x, x**2, x**3$$
 
 
 ```python
@@ -1511,11 +1511,11 @@ x_new[:4, :]
 
 
 But we will now still use the **linear regression, using those new features** !<br>
-Indeed the relation is still **linear in its coefficient** $\beta$s, although not with respect to its features.
+Indeed the relation is still **linear in its coefficient** $$\beta$$s, although not with respect to its features.
 
 Be aware though that this can be affected by the curse of dimensionality, as the number of new features grows much faster than linearly with the growth of degree of polynomial.
 
-Let's assume then the true relationship (at least locally) is $$y = \beta_0 + \beta_1 x + \beta_2 x^2 + \beta_3  x^3$$
+Let's assume then the true relationship (at least locally) is $$$y = \beta_0 + \beta_1 x + \beta_2 x^2 + \beta_3  x^3$$$
 
 
 ```python
@@ -1543,7 +1543,7 @@ fig
 
 We get back *somehow* the **Taylor expansion** coeficients locally at the order 3
 
-$$ sin(x) = x - \frac{x^3}{3!} + \frac{x^5}{5!} - ...  $$
+$$$ sin(x) = x - \frac{x^3}{3!} + \frac{x^5}{5!} - ...  $$$
 
 
 ```python
@@ -1933,7 +1933,7 @@ To assess **overfitting**, one can use **cross-validation** techniques !
 
 By **splitting** the dataset into training and test set, you can validate whether your model will **generalize** well to unseen data. Hence if the model has started learning the noise in the training data, you should expect that:
 
-$$ MSPE(training_{data}) < MSPE(test_{data}) $$
+$$$ MSPE(training_{data}) < MSPE(test_{data}) $$$
 
 
 ```python
@@ -2180,15 +2180,15 @@ import matplotlib.pyplot as plt
 Ok so, so far we fitted a **model on a train** set and later computed an **MSE** on both the train, and **test** set to assess whether an **overfit** would have occured. And that was the case. 
 
 So we decided to use another model than the base linear regression one. We will use **Lasso**.<br>
-Lasso does have a **slightly difference risk function definition**: to the sum of squared errors risk function derived from OLS, Lasso **adds an additional penalty to constraint the amplitude (1-norm) of the estimated $\beta$s** while still trying to meet **minimization** of the sum of squared errors.
+Lasso does have a **slightly difference risk function definition**: to the sum of squared errors risk function derived from OLS, Lasso **adds an additional penalty to constraint the amplitude (1-norm) of the estimated $$\beta$$s** while still trying to meet **minimization** of the sum of squared errors.
 
-OLS estimator, being the **best linear unbiased estimator**, **adding an additional constraint** for the $\beta$s will **add bias to those estimations** of the $\beta$s (what we call **estimation bias**) which **adds up to** the bias the model may already have (**from assumptions, ommited variables or interactions** or other), what we call **model bias** (the difference from our best-fitting linear approximation and the true function).
+OLS estimator, being the **best linear unbiased estimator**, **adding an additional constraint** for the $$\beta$$s will **add bias to those estimations** of the $$\beta$$s (what we call **estimation bias**) which **adds up to** the bias the model may already have (**from assumptions, ommited variables or interactions** or other), what we call **model bias** (the difference from our best-fitting linear approximation and the true function).
 
 Why doing so ? In an attempt to **decrease variances around the estimates**, hence the **variance of the model itself**, and get a **lower MSE eventually**.
 
-The penality coefficient $lambda$ (or $alpha$ depending on the litterature or the API) is what we call an **hyperparameter**: we fix it **prior** to the **actual learning process**.<br> Here this hyperparameter is a called a regularization hyperparameter.<br>
+The penality coefficient $$lambda$$ (or $$alpha$$ depending on the litterature or the API) is what we call an **hyperparameter**: we fix it **prior** to the **actual learning process**.<br> Here this hyperparameter is a called a regularization hyperparameter.<br>
 In Scikit-Learn, they are passed as arguments to the constructor of the estimator classes.<br>
-So **which** $lambda$ to use so to get the most reduction in a MSE compared to our initial linear regression model ? <br>
+So **which** $$lambda$$ to use so to get the most reduction in a MSE compared to our initial linear regression model ? <br>
 and by the **way which MSE** are we talking about ? 
 
 Of course we are not going to control setting up our hyperparameters based on the MSE for the training set: that would lead exactly to the very first situation where we **shaped our mind, our representation of our data and our modelisation out of it to solely satisfy ourself on what we know, rather than what we don't yet** loosing all the predictive ability of our model, and getting back to the overfitting issue.
@@ -2205,7 +2205,7 @@ To give another example: it is as if you had to forecast whether or not to buy v
 This has a name: it is called **data leakage**.
 
 You would have to actually split the whole data in 3 sets: **train**, **test** and **validation**, so to keep at least one set of data only for estimating the expected prediction error of the final model.<br>
-You train the model with $lambda1$ on the training set, you monitor the MSE on the test set, you update $lambda$ to the new value, and once you found a satisfying minimum of the MSE, you can retrain on the whole available data (train+test) and finally evaluate the final model using the hold-out validation test.
+You train the model with $$lambda1$$ on the training set, you monitor the MSE on the test set, you update $$lambda$$ to the new value, and once you found a satisfying minimum of the MSE, you can retrain on the whole available data (train+test) and finally evaluate the final model using the hold-out validation test.
 
 
 ```python
@@ -2548,10 +2548,10 @@ If you followed the previous steps, here is what is going to be the overall sche
 
 1. Splitting the whole dataset in **train - validation** (e.g. of ratios: 0.80 / 0.20).
 2. Leave the validation set for a while, it will be use **at the end** for an estimation of the expected prediction error of the **final model**.
-3. Choose a **set of hyperparameters values** to try, if you have 2 hyperparameters $hyper1$ and $hyper2$, one would do want to try all combinations of the values taken by $(hyper1, hyper2)$
-4. Split the **training set** in **train - set**, or better, split into $k$ sets of $k-fold$ partitions.
-5. Select a model (or a set of models) and a **combination of its corresponding** hyperparameter $(hyper1, hyper2)$
-6. Train it $k$ times (one for each cross validation) and average the **MSE results**.
+3. Choose a **set of hyperparameters values** to try, if you have 2 hyperparameters $$hyper1$$ and $$hyper2$$, one would do want to try all combinations of the values taken by $$(hyper1, hyper2)$$
+4. Split the **training set** in **train - set**, or better, split into $$k$$ sets of $$k-fold$$ partitions.
+5. Select a model (or a set of models) and a **combination of its corresponding** hyperparameter $$(hyper1, hyper2)$$
+6. Train it $$k$$ times (one for each cross validation) and average the **MSE results**.
 7. Pick up the model which performed the best, using the average MSE with the best combination of hyperparameters' values.
 8. **Retrain** it on the whole initial training set (as it is the model you elected, you no longer need to use this/these intermediates test-sets.
 9. Evaluate the performance using the held-out validation set.
