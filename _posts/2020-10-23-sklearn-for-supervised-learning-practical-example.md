@@ -2131,7 +2131,7 @@ regLasso2.coef_
 
 
 
-oups... seems alpha=1.0 is too big and the regularization too high!
+oups... seems alpha=1.0 is too big and the regularization too high! it cancelled out most of the coefficients !
 
 
 ```python
@@ -2177,864 +2177,465 @@ fig
 
 
 
-
-
 <img src="{{page.image_folder}}output_175_0.png" align="left" width="75%" style="display: block !important;">
 
 
-
-
-
-# Going back to our example
-
-## Divide in train - test sets
-
+--- 
 
 ```python
-X = california_housing.data
-y = california_housing.target
-X.shape, y.shape
-```
-
-
-
-
-    ((20640, 8), (20640,))
-
-
-
-
-```python
-from sklearn.model_selection import train_test_split
-
-X_train, X_test, y_train, y_test = \
-        train_test_split(X, y, random_state=1234)
-
-X_train.shape, X_test.shape, y_train.shape, y_test.shape
-```
-
-
-```python
-[tuple_[0]/X.shape[0] for tuple_ in (X_train.shape, X_test.shape, y_train.shape, y_test.shape)]
-```
-
-#### the return of the standard Scaler 
-
-
-```python
-performances = dict()
-```
-
-
-```python
-scaler   = StandardScaler().fit(X_train)
-X_train  = scaler.transform(X_train)
-X_test   = scaler.transform(X_test)
-```
-
-
-```python
-linear_model = LinearRegression(fit_intercept=False, normalize=True)
-linear_model.fit(X_train, y_train)
-```
-
-
-
-
-    LinearRegression(fit_intercept=False, normalize=True)
-
-
-
-
-```python
-linear_model.score(X_test, y_test)
-```
-
-
-
-
-    -2.630399387268966
-
-
-
-
-```python
-## Predictions against True values
-%matplotlib inline
 import matplotlib.pyplot as plt
-plt.scatter(x=y_test, y=linear_model.predict(X_test))
 ```
 
+# Tuning hyperparameters or data processing steps
 
+Ok so, so far we fitted a **model on a train** set and later computed an **MSE** on both the train, and **test** set to assess whether an **overfit** would have occured. And that was the case. 
 
+So we decided to use another model than the base linear regression one. We will use **Lasso**.<br>
+Lasso does have a **slightly difference risk function definition**: to the sum of squared errors risk function derived from OLS, Lasso **adds an additional penalty to constraint the amplitude (1-norm) of the estimated $\beta$s** while still trying to meet **minimization** of the sum of squared errors.
 
-    <matplotlib.collections.PathCollection at 0x139fbd940>
+OLS estimator, being the **best linear unbiased estimator**, **adding an additional constraint** for the $\beta$s will **add bias to those estimations** of the $\beta$s (what we call **estimation bias**) which **adds up to** the bias the model may already have (**from assumptions, ommited variables or interactions** or other), what we call **model bias** (the difference from our best-fitting linear approximation and the true function).
 
+Why doing so ? In an attempt to **decrease variances around the estimates**, hence the **variance of the model itself**, and get a **lower MSE eventually**.
 
+The penality coefficient $lambda$ (or $alpha$ depending on the litterature or the API) is what we call an **hyperparameter**: we fix it **prior** to the **actual learning process**.<br> Here this hyperparameter is a called a regularization hyperparameter.<br>
+In Scikit-Learn, they are passed as arguments to the constructor of the estimator classes.<br>
+So **which** $lambda$ to use so to get the most reduction in a MSE compared to our initial linear regression model ? <br>
+and by the **way which MSE** are we talking about ? 
 
+Of course we are not going to control setting up our hyperparameters based on the MSE for the training set: that would lead exactly to the very first situation where we **shaped our mind, our representation of our data and our modelisation out of it to solely satisfy ourself on what we know, rather than what we don't yet** loosing all the predictive ability of our model, and getting back to the overfitting issue.
 
+# Cross validation to the rescourse !
 
+Cross-validation is the simplest method for estimating the **expected prediction error** i.e. the expected extra-sample error for when we fit a model to a training set and evaluate its predictions on **unseen data**.
 
-<img src="{{page.image_folder}}output_186_1.png" align="left" width="75%" style="display: block !important;">
+So we will check the MSE on the test set, in a bid to reduce it.
 
+But if you were to **tune** hyperparams or data preparation steps while **checking variations of MSE on test towards a minimization of it**, well, we would still somehow use a metric, a quantitative measure **we shouldn't be aware of**, as it is supposed to be the mean squared errors of the model on **unseen data**.<br>
+To give another example: it is as if you had to forecast whether or not to buy vegetables while not having access to the inside of the fridge. If you can **weight** the fridge itself, you might not know how many vegetables are left among all the food, but at least you have a taste of how likely the fridge is empty, considering the vegetables are the heaviest, hence you modify your behavior respectively.
 
+This has a name: it is called **data leakage**.
 
-
-
-```python
-linear_model.coef_
-```
-
-
-
-
-    array([ 4.40921745e-01,  9.73014997e-03, -1.16418460e-01,  7.21082459e-01,
-           -4.13919790e-06, -3.85206103e-03, -4.14706815e-01, -4.29215601e-01])
-
-
-
-
-```python
-performances[linear_model] = linear_model.score(X_test, y_test)
-```
-
-But train/test split does have its dangers — what if the split we make isn’t random? 
-
-Instead of algo1 we can use directly LinearRegression() as it will fit it anyway on the different splits
-
-
-```python
-performances
-```
-
-
-
-
-    {LinearRegression(): 0.5951538103198971}
-
-
-
-## Ridge and Lasso regressions
-
-This is an example of hyperparametrized model.
-The hyperparameter is a regularization parameter here.
-
-For greater values of $\alpha$, the $\beta s$ will get shrunk towards 0 as we seek to find the $\beta s$ which minimize the overall equation where the 2nd part is getting more and more weight due to $\alpha$
-
-
-
-## Mettre tout ceci sous forme d'une fonction
-
-
-```python
-def get_score(algorithme, X_train, X_test, y_train, y_test, display_graph=False, display_options=True):
-    if display_options:
-        print("fitting :\n"+ str(algorithme))
-        print("X_train:{} , X_test:{} ,  y_train:{} ,  y_test:{}".format(X_train.shape, X_test.shape, y_train.shape, y_test.shape))
-    modele = algorithme.fit(X_train, y_train)
-    score  = modele.score(X_test, y_test)
-    if display_graph:
-        import matplotlib.pyplot as plt
-        plt.scatter(x=y_test, y=algorithme.predict(X_test)) ## Predictions against True values
-    return score
-```
-
-
-```python
-get_score(LinearRegression(), *train_test_split(X, y, random_state=1234))
-```
-
-    fitting :
-    LinearRegression()
-    X_train:(15480, 8) , X_test:(5160, 8) ,  y_train:(15480,) ,  y_test:(5160,)
-
-
-
-
-
-    0.5951538103198971
-
-
-
-## Avons-nous besoin de Standardizer les valeurs ? 
+You would have to actually split the whole data in 3 sets: **train**, **test** and **validation**, so to keep at least one set of data only for estimating the expected prediction error of the final model.<br>
+You train the model with $lambda1$ on the training set, you monitor the MSE on the test set, you update $lambda$ to the new value, and once you found a satisfying minimum of the MSE, you can retrain on the whole available data (train+test) and finally evaluate the final model using the hold-out validation test.
 
 
 ```python
 from sklearn.preprocessing import StandardScaler
-scaler   = StandardScaler().fit(X_train)
-X_train  = scaler.transform(X_train)
-X_test   = scaler.transform(X_test)
+from sklearn.preprocessing import PolynomialFeatures
+from sklearn.linear_model import SGDRegressor
+from sklearn.linear_model import LinearRegression
+from sklearn.linear_model import Lasso
 ```
 
 
 ```python
-pd.DataFrame(X_train)
+funcs = [np.sin, np.cos, np.exp]
+```
+
+
+```python
+# scenario 1
+scaling_and_gradient_descent = BetterPipeline([
+    ('adding_features', AddFeatures(where_x=0, functions=funcs)),
+    ('poly', PolynomialFeatures(degree=2, interaction_only=True)),
+    ('scaler', StandardScaler()),
+    ('linear_reg', SGDRegressor(fit_intercept=False))
+])
+
+# scenario 2
+scaling_and_OLS = BetterPipeline([
+    ('adding_features', AddFeatures(where_x=0, functions=funcs)),
+    ('poly', PolynomialFeatures(degree=2, interaction_only=True)),
+    ('scaler', StandardScaler()),
+    ('linear_reg', LinearRegression(fit_intercept=False))
+])
+```
+
+
+```python
+scaling_and_gradient_descent.fit(x2, y)
+scaling_and_OLS.fit(x2, y)
 ```
 
 
 
 
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>0</th>
-      <th>1</th>
-      <th>2</th>
-      <th>3</th>
-      <th>4</th>
-      <th>5</th>
-      <th>6</th>
-      <th>7</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>-0.354739</td>
-      <td>-1.884591</td>
-      <td>0.088138</td>
-      <td>-0.087609</td>
-      <td>1.914435</td>
-      <td>0.044927</td>
-      <td>-0.494293</td>
-      <td>0.815921</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>0.127656</td>
-      <td>0.749561</td>
-      <td>0.036452</td>
-      <td>-0.287105</td>
-      <td>-0.177434</td>
-      <td>-0.061717</td>
-      <td>1.174861</td>
-      <td>-0.858112</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>1.469169</td>
-      <td>-0.527604</td>
-      <td>0.916167</td>
-      <td>-0.238028</td>
-      <td>0.439605</td>
-      <td>0.014134</td>
-      <td>-0.812227</td>
-      <td>0.850901</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>0.050005</td>
-      <td>0.589915</td>
-      <td>-0.060592</td>
-      <td>-0.358913</td>
-      <td>-0.727597</td>
-      <td>-0.049610</td>
-      <td>0.969139</td>
-      <td>-1.287864</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>-0.170006</td>
-      <td>-1.964414</td>
-      <td>0.360906</td>
-      <td>0.530414</td>
-      <td>0.049943</td>
-      <td>-0.056194</td>
-      <td>0.347298</td>
-      <td>-0.043583</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>15475</th>
-      <td>0.587404</td>
-      <td>-0.607427</td>
-      <td>-1.094179</td>
-      <td>-0.558997</td>
-      <td>-1.242094</td>
-      <td>-0.115526</td>
-      <td>-0.873008</td>
-      <td>0.666007</td>
-    </tr>
-    <tr>
-      <th>15476</th>
-      <td>-0.585187</td>
-      <td>-1.166186</td>
-      <td>0.166960</td>
-      <td>0.190634</td>
-      <td>-0.239851</td>
-      <td>-0.059006</td>
-      <td>0.824199</td>
-      <td>-0.143525</td>
-    </tr>
-    <tr>
-      <th>15477</th>
-      <td>0.174257</td>
-      <td>0.350447</td>
-      <td>-0.185899</td>
-      <td>0.140665</td>
-      <td>-0.311185</td>
-      <td>0.003595</td>
-      <td>-0.802876</td>
-      <td>0.621033</td>
-    </tr>
-    <tr>
-      <th>15478</th>
-      <td>1.477571</td>
-      <td>1.228497</td>
-      <td>0.419694</td>
-      <td>-0.263553</td>
-      <td>-0.166734</td>
-      <td>-0.044729</td>
-      <td>0.861603</td>
-      <td>-1.352827</td>
-    </tr>
-    <tr>
-      <th>15479</th>
-      <td>0.817486</td>
-      <td>-1.964414</td>
-      <td>1.121799</td>
-      <td>-0.015848</td>
-      <td>0.897926</td>
-      <td>0.028507</td>
-      <td>1.104729</td>
-      <td>-1.102971</td>
-    </tr>
-  </tbody>
-</table>
-<p>15480 rows × 8 columns</p>
-</div>
+    BetterPipeline(steps=[('adding_features',
+                           AddFeatures(functions=[<ufunc 'sin'>, <ufunc 'cos'>,
+                                                  <ufunc 'exp'>],
+                                       where_x=0)),
+                          ('poly', PolynomialFeatures(interaction_only=True)),
+                          ('scaler', StandardScaler()),
+                          ('linear_reg', LinearRegression(fit_intercept=False))])
 
 
 
 
 ```python
-get_score(LinearRegression(), X_train, X_test, y_train, y_test)
+x_transformed = scaling_and_gradient_descent.just_transforms(x2)
 ```
 
-    fitting :
-    LinearRegression()
-    X_train:(15480, 8) , X_test:(5160, 8) ,  y_train:(15480,) ,  y_test:(5160,)
+------
 
-
-
-
-
-    0.5951538103198968
-
-
-
-Pour une régression linéaire non. Expliquer pourquoi.
-
-Mais c'est toujours mieux de le faire. Expliquer pourquoi.
-
-## Cross validation
-
-wikipedia
->Cross-validation,[1][2][3] sometimes called rotation estimation[4][5][6] or out-of-sample testing, is any of various similar model validation techniques for assessing how the results of a statistical analysis will generalize to an independent data set. It is mainly used in settings where the goal is prediction, and one wants to estimate how accurately a predictive model will perform in practice. In a prediction problem, a model is usually given a dataset of known data on which training is run (training dataset), and a dataset of unknown data (or first seen data) against which the model is tested (called the validation dataset or testing set).[7][8] The goal of cross-validation is to test the model's ability to predict new data that was not used in estimating it, in order to flag problems like overfitting or selection bias[9] and to give an insight on how the model will generalize to an independent dataset (i.e., an unknown dataset, for instance from a real problem).
-
-
-
-<img src="{{page.image_folder}}img_a_10_fold_cross_validation.png" width="65%" align="left" style="display: block !important;">
+##### pour Denis
 
 
 ```python
-from sklearn.model_selection import cross_val_score
+lasso = Lasso(alpha=0.00000001, tol=1)
+lasso.fit(x_transformed, y)
+```
+
+
+
+
+    Lasso(alpha=1e-08, tol=1)
+
+
+
+
+```python
+import seaborn as sns
+```
+
+
+```python
+fig, axes = plt.subplots(nrows=1, ncols=3, figsize=(15,3), sharey=True)
+sns.barplot(x=list(range(11)), y=lasso.coef_, ax=axes[0]).set(
+    title="coefficients obtained using Lasso, lambda 1e-18")
+sns.barplot(x=list(range(11)), y=scaling_and_gradient_descent.named_steps.linear_reg.coef_, 
+            ax=axes[1]).set(title="coefficients obtained using Gradient Descent")
+#sns.barplot(x=list(range(11)), y=scaling_and_OLS.named_steps.linear_reg.coef_, 
+#            ax=axes[2]).set(title="coefficients obtained using OLS")
+```
+
+
+
+
+    [Text(0.5, 1.0, 'coefficients obtained using Gradient Descent')]
+
+
+
+
+<img src="{{page.image_folder}}output_26_1.png" align="left" style="display:block !important;">
+
+
+-----
+
+
+```python
+from sklearn.model_selection import train_test_split
+```
+
+
+```python
+X_train, X_test, y_train, y_test = train_test_split(x_transformed, y, train_size=0.70)
+```
+
+
+```python
+lasso_models, alphas, MSE_train, MSE_test = [], [], [], []
+for alpha in np.linspace(0.0000001,0.25,100):
+    lasso_model = Lasso(alpha=alpha, tol=0.5)
+    lasso_model.fit(X_train, y_train)
+    mse_train = mean_squared_error( lasso_model.predict(X_train), y_train )
+    mse_test  = mean_squared_error( lasso_model.predict(X_test), y_test )
+    alphas.append(alpha); MSE_train.append(mse_train); MSE_test.append(mse_test)
+```
+
+
+```python
+plt.plot(alphas, MSE_train, color='r', label="MSE train")
+plt.plot(alphas, MSE_test,  color='b', label="MSE test")
+plt.ylim(0.10, 0.35)
+plt.vlines(x=np.array(alphas)[np.argsort(MSE_test)[:20:2]], ymin=0, ymax=min(MSE_test), color='b', linestyles='-.', label="minimal values of MSE test")
+plt.legend()
+plt.suptitle("MSE on train and test sets", fontsize=14)
+plt.title("For some of Lasso regularization hyperparameter")
+plt.tight_layout(pad=0.6)
+```
+
+
+<img src="{{page.image_folder}}output_31_0.png" align="left" style="display:block !important;">
+
+
+# K-Fold cross validation
+
+Splitting data again and again in an attempt to put Chinese walls in your ML workflow, lead to another issue: what if you **don't have much** data? it is likely your MSE(test) on a **few dozen points could be overly optimistic**, what if by chance you got the right test points to have a sweet MSE that suit your needs for a certain model ? 
+
+K-Fold cross validation is an attempt to use every data points at least in the testing part.<br>
+It is still cross-validation, but this time you split your dataset in **K** aproximately equally sized **folds**.<br>
+Then you **train the model on K-1** folds and test it on the **remaining one**. You do it **K times** (each time tested for **each remaining test fold**). Yes, you end up with **K number of MSE(test-fold)**.
+- On a train-test design, the average of the MSE is still a good estimate for the expected prediction error of the model.
+- On a train-test-validation one, you still have more confidence that no data points were left while computing the MSE "on the test".
+
+Let's do a k-fold cross validation
+
+
+```python
+from sklearn.model_selection import cross_val_score, cross_val_predict
 from sklearn.model_selection import KFold
-```
-
-### CV parametre = nombre de folds
-
-
-```python
-results = cross_val_score(LinearRegression(), X, y, cv=3)
-display(results, results.mean(), results.std())
-```
-
-
-    array([0.55502126, 0.58837838, 0.58544641])
-
-
-
-    0.5762820158960853
-
-
-
-    0.015081199273597358
-
-
-
-```python
-results = cross_val_score(LinearRegression(), X, y, cv=5)
-display(results, results.mean(), results.std())
-```
-
-
-    array([0.54866323, 0.46820691, 0.55078434, 0.53698703, 0.66051406])
-
-
-
-    0.5530311140279233
-
-
-
-    0.06169160140952192
-
-
-### Attention à randomly select les données !
-
-
-```python
-random_indexes = np.random.choice(range(0,np.size(X, axis=0)),size=np.size(X, axis=0),replace=False)
-results = cross_val_score(LinearRegression(), 
-                X[random_indexes,:],
-                y[random_indexes],
-                cv=5)
-display(results, results.mean(), results.std())
-```
-
-
-    array([0.60599314, 0.60012143, 0.60743432, 0.60345929, 0.59470724])
-
-
-
-    0.602343086362268
-
-
-
-    0.004554809079823222
-
-
-#### mieux :
-
-
-```python
-results = cross_val_score(LinearRegression(), X, y, cv=KFold(shuffle=True, n_splits=5))
-display(results, results.mean(), results.std())
-```
-
-
-    array([0.60468889, 0.59824467, 0.57829859, 0.63738733, 0.59901735])
-
-
-
-    0.6035273665776618
-
-
-
-    0.01914463194628335
-
-
-
-```python
-def multiple_cross_val_scores(algorithme, X, y):
-    import numpy as np
-    results=dict()
-    for kfold in range(3,100, 20):
-        score = cross_val_score(algorithme, X, y,  cv = KFold(shuffle=True, n_splits=kfold), scoring='r2')
-        results[kfold] = score.mean(), score.std()
-    return results
+from sklearn.metrics import mean_squared_error, make_scorer
 ```
 
 
 ```python
-from sklearn.tree import DecisionTreeRegressor
-import pandas as pd
-test = multiple_cross_val_scores(DecisionTreeRegressor(),X, y)
-test = pd.DataFrame(test, index=["mean", "std"]).T
-test
+cross_val_score(LinearRegression(), x2, y, scoring="r2")
 ```
 
 
 
 
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>mean</th>
-      <th>std</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>3</th>
-      <td>0.596333</td>
-      <td>0.006556</td>
-    </tr>
-    <tr>
-      <th>23</th>
-      <td>0.605437</td>
-      <td>0.037804</td>
-    </tr>
-    <tr>
-      <th>43</th>
-      <td>0.610825</td>
-      <td>0.042940</td>
-    </tr>
-    <tr>
-      <th>63</th>
-      <td>0.606054</td>
-      <td>0.055790</td>
-    </tr>
-    <tr>
-      <th>83</th>
-      <td>0.611114</td>
-      <td>0.080461</td>
-    </tr>
-  </tbody>
-</table>
-</div>
+    array([-0.95596911, -2.89048347,  0.18178379, -5.47694298, -2.31706554])
 
 
+
+scoring takes a scoring parameter (greater is better), hence is used the R2 is an appropriate choice, 
+we could have taken the negation of the MSE too.
 
 
 ```python
-new_index = [str(x) + " folds" for x in test.index]
-test.index = new_index
-```
-
-
-```python
-test.plot(kind='bar', title='Cross-validation using all data with {} lignes'.format(X.shape[0]))
+cross_val_score(LinearRegression(), x2, y, scoring=make_scorer(mean_squared_error))
 ```
 
 
 
 
-    <AxesSubplot:title={'center':'Cross-validation using all data with 20640 lignes'}>
+    array([0.3279406 , 0.45555535, 0.25739018, 1.03002024, 1.27365498])
 
 
-
-
-
-
-<img src="{{page.image_folder}}output_221_1.png" align="left" width="75%" style="display: block !important;">
-
-
-
-
-There are cases where the computational definition of R2 can yield negative values, depending on the definition used. This can arise when the predictions that are being compared to the corresponding outcomes have not been derived from a model-fitting procedure using those data. Even if a model-fitting procedure has been used, R2 may still be negative, for example when linear regression is conducted without including an intercept, or when a non-linear function is used to fit the data. In cases where negative values arise, the mean of the data provides a better fit to the outcomes than do the fitted function values, according to this particular criterion.
-
-The constant minimizing the squared error is the mean. Since you are doing cross validation with left out data, **it can happen that the mean of your test set is wildly different from the mean of your training set**
-
-R² = 1 - RSS / TSS, where RSS is the residual sum of squares ∑(y - f(x))² and TSS is the total sum of squares ∑(y - mean(y))². Now for R² ≥ -1, it is required that RSS/TSS ≤ 2, but it's easy to construct a model and dataset for which this is not true:
-
-***Inspect shuffling first ! If data is sorted at first !!! *** 
-
-### Decision Tree Regressor
 
 
 ```python
-from sklearn.tree import DecisionTreeRegressor
-```
-
-
-```python
-algorithme = DecisionTreeRegressor()
-algorithme.fit(X_train, y_train)
-score = algorithme.score(X_test, y_test)
-performances[algorithme] = score
-```
-
-Criteria used for splitting
-
-*** Credits *** : © Adele Cutler
-
-
-```python
-
-
-Image("td4_ressources/img_DecisionTreesSplitting_Criteria_ADELE-CUTLER-Ovronnaz_Switzerland.png", width=400)
-
+- cross_val_score(LinearRegression(), x2, y, scoring="neg_mean_squared_error")
 ```
 
 
 
 
-
-
-<img src="{{page.image_folder}}output_231_0.png" align="left" width="75%" style="display: block !important;">
-
+    array([0.3279406 , 0.45555535, 0.25739018, 1.03002024, 1.27365498])
 
 
 
+- 5 folds
+- 5 model training
+- 5 test sets
+- 5 MSE
+
+Wow ? difference are so important from one test set to another ! why is so ?
+When the MSE is high, the R2 is low, sometimes negative ? worse than a simple dummy model (H0 hypthesis) using the average. Why is so ?
 
 
 ```python
+folding = KFold(5)
+```
 
 
-Image("td4_ressources/img_gini index equation cart.png", retina=True)
-
+```python
+folding.split(x2, y)
 ```
 
 
 
 
-
-
-<img src="{{page.image_folder}}output_232_0.png" align="left" width="75%" style="display: block !important;">
-
+    <generator object _BaseKFold.split at 0x12b2c5430>
 
 
 
-
-### Random Forest example
-
-interesting article introducing RandomForest & talking about intrees and RRF (regularized Random Forest): https://towardsdatascience.com/random-forest-3a55c3aca46d
-
-*** CREDITS : ***  © Houtao_Deng_Medium
+Wow ! a generator object !
 
 
 ```python
+generator = folding.split(x2, y)
+```
 
 
-Image("td4_ressources/img_random_forest_bagging_Houtao_Deng_Medium.png", retina=True)
-
+```python
+next(generator) # training indices, testing indices
 ```
 
 
 
 
-
-
-<img src="{{page.image_folder}}output_236_0.png" align="left" width="75%" style="display: block !important;">
-
-
+    (array([20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36,
+            37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53,
+            54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70,
+            71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87,
+            88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99]),
+     array([ 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14, 15, 16,
+            17, 18, 19]))
 
 
 
 
 ```python
+def cross_val_visualize(X, y, cv=5, shuffle=False):
+    from sklearn.model_selection import KFold
+    from sklearn.metrics import mean_squared_error
+    from sklearn.linear_model import LinearRegression
+
+    new_fig, axes =  plt.subplots(figsize=(cv*3, 3), ncols=cv, sharey=True)
+    regressions, MSE = [], []
+    folds = KFold(cv, shuffle=shuffle).split(X, y)
+    
+    for i_, (train_indices, test_indices) in enumerate(folds):
+        # train on each 4 folds subset
+        lm = LinearRegression()
+        lm.fit( X[train_indices], y[train_indices])
+        # predict on each test fold
+        y_pred = lm.predict(X[test_indices])
+        # compute MSE for those test fold
+        mse = mean_squared_error(lm.predict(X[test_indices]), y[test_indices])
+        # plot the training points, test points, and the fit for the fold
+        axes[i_].scatter( X[train_indices], y[train_indices], color='r')
+        axes[i_].scatter( X[test_indices], y[test_indices], color='g')
+        axes[i_].plot( X, lm.predict(X), color='black' )
+        # save the results | save the models
+        MSE.append(mse); regressions.append(lm)
+    return MSE
+```
 
 
-Image("td4_ressources/img_random_forest_testing_Houtao_Deng_Medium.png",retina=True)
-
+```python
+cross_val_visualize(x2, y)
 ```
 
 
 
 
+    [0.32794060000061515,
+     0.45555535076735226,
+     0.2573901788986118,
+     1.0300202445239781,
+     1.273654982470511]
 
 
-<img src="{{page.image_folder}}output_237_0.png" align="left" width="75%" style="display: block !important;">
 
 
-
+<img src="{{page.image_folder}}output_48_1.png" align="left" style="display:block !important;">
 
 
 
 ```python
-from sklearn.ensemble import RandomForestRegressor
-hyperparametres = { 'n_estimators':30 }
-algorithme = RandomForestRegressor(**hyperparametres)
-score = get_score(algorithme, X_train, X_test, y_train, y_test)
-performances[algorithme] = score
+cross_val_visualize(x2, y, 3)
 ```
 
-    fitting :
-    RandomForestRegressor(n_estimators=30)
-    X_train:(15480, 8) , X_test:(5160, 8) ,  y_train:(15480,) ,  y_test:(5160,)
+
+
+
+    [0.24514477688923542, 0.38705639490105015, 0.6231891770127047]
+
+
+
+
+<img src="{{page.image_folder}}output_49_1.png" align="left" style="display:block !important;">
 
 
 
 ```python
-hyperparametres = {"n_estimators"  :  30, "max_features"  :  3, "max_depth"     :  50,}
-algorithme = RandomForestRegressor(**hyperparametres)
-score = get_score(algorithme, X_train, X_test, y_train, y_test)
-performances[algorithme] = score
+cross_val_visualize(x2, y, shuffle=True)
 ```
 
-    fitting :
-    RandomForestRegressor(max_depth=50, max_features=3, n_estimators=30)
-    X_train:(15480, 8) , X_test:(5160, 8) ,  y_train:(15480,) ,  y_test:(5160,)
 
 
-### ExtraTreesRegressor
+
+    [0.3711358856524268,
+     0.3821283100103246,
+     0.5107607283792079,
+     0.4372335783422797,
+     0.37844005566106576]
 
 
-```python
-from sklearn.ensemble import ExtraTreesRegressor
-
-algorithme = ExtraTreesRegressor()
-score      = get_score(algorithme, X_train, X_test, y_train, y_test)
-performances[algorithme] = score
-```
-
-    fitting :
-    ExtraTreesRegressor()
-    X_train:(15480, 8) , X_test:(5160, 8) ,  y_train:(15480,) ,  y_test:(5160,)
 
 
-utiliser n_jobs = -1 c'est mieux pour paralléliser quand on a plusieurs CPUs
-
-### SVR 
+<img src="{{page.image_folder}}output_50_1.png" align="left" style="display:block !important;">
 
 
-```python
-from sklearn import svm
-algorithme = svm.SVR(kernel='linear')
-score      = get_score(algorithme, X_train, X_test, y_train, y_test)
-performances[algorithme] = score
-print(score)
-```
+Much more homogeneous results !
 
-    fitting :
-    SVR(kernel='linear')
-    X_train:(15480, 8) , X_test:(5160, 8) ,  y_train:(15480,) ,  y_test:(5160,)
-    0.22396975043473788
+Yes, the misleading results here are drawn by the fact the train and test set were not taken randomly
 
+# Bringing that up together: GridSearch
 
-### catboost
+If you followed the previous steps, here is what is going to be the overall scheme of the hyperparameter tuner (you :p)
 
-installation : !pip install catboost
+1. Splitting the whole dataset in **train - validation** (e.g. of ratios: 0.80 / 0.20).
+2. Leave the validation set for a while, it will be use **at the end** for an estimation of the expected prediction error of the **final model**.
+3. Choose a **set of hyperparameters values** to try, if you have 2 hyperparameters $hyper1$ and $hyper2$, one would do want to try all combinations of the values taken by $(hyper1, hyper2)$
+4. Split the **training set** in **train - set**, or better, split into $k$ sets of $k-fold$ partitions.
+5. Select a model (or a set of models) and a **combination of its corresponding** hyperparameter $(hyper1, hyper2)$
+6. Train it $k$ times (one for each cross validation) and average the **MSE results**.
+7. Pick up the model which performed the best, using the average MSE with the best combination of hyperparameters' values.
+8. **Retrain** it on the whole initial training set (as it is the model you elected, you no longer need to use this/these intermediates test-sets.
+9. Evaluate the performance using the held-out validation set.
+
+Actually, this is a pattern often used and sklearn provide a function for this (rather that implementing by hand and using nested for loops to find inside the hyperparameter space...)
 
 
 ```python
-from catboost import CatBoostRegressor
+from sklearn.model_selection import GridSearchCV
+from sklearn.metrics import mean_squared_error, make_scorer
+from sklearn.linear_model import Lasso, Ridge
 ```
 
 
 ```python
-#algorithme = CatBoostRegressor(task_type="CPU")
-#modele     = algorithme.fit(X_train, y_train)
-#score      = algorithme.score(X_test, y_test)
-#performances['catboost'] = score
+gs = GridSearchCV(
+    estimator=Lasso(tol=0.5),
+    param_grid={ "alpha" : np.linspace(0.000001, 0.25, 100) },
+    scoring=make_scorer(mean_squared_error),
+    cv=KFold(5, shuffle=True)
+)
 ```
-
-### Simple visualisation des performances des différents algos
 
 
 ```python
-from collections import OrderedDict
-dico_ordonne = OrderedDict(performances)
-
-import pandas as pd
-df = pd.DataFrame()
-df["perf"] = dico_ordonne.values()
-df["algo"] = dico_ordonne.keys()
-df['nom_algo'] = df.algo.apply(lambda algo: str(algo).split('(')[0])
-df.set_index('nom_algo', inplace=True)
-df
+gs.fit(x_transformed, y)
 ```
 
-    /Users/lucbertin/.pyenv/versions/3.8.4/lib/python3.8/site-packages/numpy/core/_asarray.py:83: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
-      return array(a, dtype, copy=False, order=order)
 
 
 
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>perf</th>
-      <th>algo</th>
-    </tr>
-    <tr>
-      <th>nom_algo</th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>LinearRegression</th>
-      <td>0.595154</td>
-      <td>LinearRegression()</td>
-    </tr>
-    <tr>
-      <th>DecisionTreeRegressor</th>
-      <td>0.609499</td>
-      <td>DecisionTreeRegressor()</td>
-    </tr>
-    <tr>
-      <th>RandomForestRegressor</th>
-      <td>0.794347</td>
-      <td>(DecisionTreeRegressor(max_features='auto', ra...</td>
-    </tr>
-    <tr>
-      <th>RandomForestRegressor</th>
-      <td>0.804353</td>
-      <td>(DecisionTreeRegressor(max_depth=50, max_featu...</td>
-    </tr>
-    <tr>
-      <th>ExtraTreesRegressor</th>
-      <td>0.802039</td>
-      <td>(ExtraTreeRegressor(random_state=1365029830), ...</td>
-    </tr>
-    <tr>
-      <th>SVR</th>
-      <td>0.223970</td>
-      <td>SVR(kernel='linear')</td>
-    </tr>
-    <tr>
-      <th>catboost</th>
-      <td>0.843861</td>
-      <td>catboost</td>
-    </tr>
-  </tbody>
-</table>
-</div>
+    GridSearchCV(cv=KFold(n_splits=5, random_state=None, shuffle=True),
+                 estimator=Lasso(tol=0.5),
+                 param_grid={'alpha': array([1.00000000e-06, 2.52624242e-03, 5.05148485e-03, 7.57672727e-03,
+           1.01019697e-02, 1.26272121e-02, 1.51524545e-02, 1.76776970e-02,
+           2.02029394e-02, 2.27281818e-02, 2.52534242e-02, 2.77786667e-02,
+           3.03039091e-02, 3.28291515e-02, 3.53543939e-02, 3.787963...
+           1.91919424e-01, 1.94444667e-01, 1.96969909e-01, 1.99495152e-01,
+           2.02020394e-01, 2.04545636e-01, 2.07070879e-01, 2.09596121e-01,
+           2.12121364e-01, 2.14646606e-01, 2.17171848e-01, 2.19697091e-01,
+           2.22222333e-01, 2.24747576e-01, 2.27272818e-01, 2.29798061e-01,
+           2.32323303e-01, 2.34848545e-01, 2.37373788e-01, 2.39899030e-01,
+           2.42424273e-01, 2.44949515e-01, 2.47474758e-01, 2.50000000e-01])},
+                 scoring=make_scorer(mean_squared_error))
 
 
 
 
 ```python
-df[["perf"]].plot(kind='line', rot=60)
+gs.best_estimator_, gs.best_params_
+```
+
+
+
+
+    (Lasso(alpha=0.25, tol=0.5), {'alpha': 0.25})
+
+
+
+
+```python
+df_grid = pd.DataFrame(gs.cv_results_)
+params = df_grid.params.apply(pd.Series)
+df_grid = pd.concat([params, df_grid], axis=1)
+```
+
+
+```python
+splits_measures = [col for col in df_grid if col.startswith("split")] 
+ax = df_grid.set_index(["alpha"])[splits_measures].T.plot(kind="line", figsize=(10,4))
+ax.get_legend().remove()
+#plt.xticks(rotation=90)
 ```
 
     /Users/lucbertin/.pyenv/versions/3.8.4/lib/python3.8/site-packages/pandas/plotting/_matplotlib/core.py:1235: UserWarning: FixedFormatter should only be used together with FixedLocator
@@ -3042,523 +2643,39 @@ df[["perf"]].plot(kind='line', rot=60)
 
 
 
+<img src="{{page.image_folder}}output_62_1.png" align="left" style="display:block !important;">
 
-
-    <AxesSubplot:xlabel='nom_algo'>
-
-
-
-
-
-
-<img src="{{page.image_folder}}output_251_2.png" align="left" width="75%" style="display: block !important;">
-
-
-
-
-## Aller au delà des hyperparamètres par défaut d'un modèle avec GridSearch
-
-mieux d'utiliser n_jobs=-1 si plusieurs CPU pour paralléliser
-
-Par défaut scikit-learn optimise les hyperparamètres tout en faisant une **cross-validation**. Sans celle-ci, c’est comme si le modèle optimisait ses coefficients sur la base d’apprentissage et ses hyperparamètres sur la base de test. De ce fait, toutes les données servent à optimiser un paramètre. La cross-validation limite en **vérifiant la stabilité de l’apprentissage sur plusieurs découpages**. On peut également découper en train / test / validation mais cela réduit d’autant le nombre de données pour apprendre.
-
-
-
-<img src="{{page.image_folder}}how_to_split_datasets.png" style="display: block !important;">
-
-
-> Stackoverflow : 
-- All estimators in scikit where name ends with CV perform cross-validation. But you need to keep a separate test set for measuring the performance.
-
-- So you need to split your whole data to train and test and then forget about this test data for a while.
-
-- you will then pass this train data only to grid-search. GridSearch will split this train data further into train and test to tune the hyper-parameters passed to it. And finally fit the model on the whole initial training data with best found parameters.
-
-- Now you need to test this model on the test data you kept aside since the beginning. This will give you the near real world performance of model.
-
-- If you use the whole data into GridSearchCV, then there would be leakage of test data into parameter tuning and then the final model may not perform that well on newer unseen data.
 
 
 ```python
-from sklearn.model_selection import GridSearchCV
-```
-
-
-```python
+from sklearn.svm import SVR
 param_grid = {
-    'C'     : np.linspace(0, 2, 10),
-    'gamma' : np.linspace(0, 2, 10)
+    'C'     : np.linspace(4, 15, 20),
+    'gamma' : np.linspace(0.001, 0.25, 20)
 }
-grid = GridSearchCV(estimator=svm.SVR(), 
-                    param_grid=param_grid, 
-                    n_jobs=-1, cv=3, verbose=2)
-```
-
-### ON ENTRAINE TOUJOURS LA GRILLE SUR LES DONNÉES D'ENTRAINEMENT !
-
-
-```python
-grid.fit(X_train, y_train) 
-```
-
-    Fitting 3 folds for each of 100 candidates, totalling 300 fits
-
-
-    [Parallel(n_jobs=-1)]: Using backend LokyBackend with 8 concurrent workers.
-    [Parallel(n_jobs=-1)]: Done  25 tasks      | elapsed:    1.6s
-    [Parallel(n_jobs=-1)]: Done 146 tasks      | elapsed:  1.8min
-    [Parallel(n_jobs=-1)]: Done 300 out of 300 | elapsed:  5.2min finished
-
-
-
-
-
-    GridSearchCV(cv=3, estimator=SVR(), n_jobs=-1,
-                 param_grid={'C': array([0.        , 0.22222222, 0.44444444, 0.66666667, 0.88888889,
-           1.11111111, 1.33333333, 1.55555556, 1.77777778, 2.        ]),
-                             'gamma': array([0.        , 0.22222222, 0.44444444, 0.66666667, 0.88888889,
-           1.11111111, 1.33333333, 1.55555556, 1.77777778, 2.        ])},
-                 verbose=2)
-
-
-
-
-```python
-grid.cv_results_
+gs = GridSearchCV(estimator=SVR(), param_grid=param_grid, cv=3, scoring=make_scorer(mean_squared_error))
+gs.fit(x_transformed, y)
 ```
 
 
 
 
-    {'mean_fit_time': array([2.87985802e-03, 3.07774544e-03, 3.49060694e-03, 2.83010801e-03,
-            2.54456202e-03, 2.36543020e-03, 2.96545029e-03, 3.14235687e-03,
-            3.02155813e-03, 3.10770671e-03, 4.35576518e+00, 5.45484789e+00,
-            5.33367936e+00, 5.08848143e+00, 5.11562395e+00, 4.93779731e+00,
-            4.91950901e+00, 5.02251569e+00, 5.07332786e+00, 5.24234764e+00,
-            3.71944729e+00, 5.53809182e+00, 5.72629245e+00, 5.48424172e+00,
-            5.61390662e+00, 6.21719495e+00, 6.61741455e+00, 6.58587146e+00,
-            6.17991837e+00, 6.43122490e+00, 4.15628123e+00, 5.49778763e+00,
-            5.55532972e+00, 5.82066313e+00, 6.00262809e+00, 6.07418243e+00,
-            6.31064606e+00, 6.41253972e+00, 6.76197767e+00, 7.19659233e+00,
-            4.11235499e+00, 5.60772665e+00, 5.92431696e+00, 6.16026799e+00,
-            6.48453363e+00, 6.71778830e+00, 6.82982937e+00, 7.30440140e+00,
-            7.63539052e+00, 7.89080628e+00, 3.90299853e+00, 5.95283906e+00,
-            6.32891870e+00, 6.68975941e+00, 7.01873430e+00, 7.41231783e+00,
-            7.84972676e+00, 8.32050602e+00, 8.49486796e+00, 8.66785638e+00,
-            3.87383556e+00, 5.91185093e+00, 6.61977267e+00, 7.17416008e+00,
-            7.70533657e+00, 7.98054099e+00, 8.38457656e+00, 8.90599338e+00,
-            9.21024982e+00, 9.78037429e+00, 3.85815088e+00, 6.25255768e+00,
-            6.95319104e+00, 7.59571107e+00, 8.28248064e+00, 8.57521605e+00,
-            9.13775206e+00, 9.74492041e+00, 1.02877928e+01, 1.07412132e+01,
-            3.86747773e+00, 6.58728067e+00, 7.41942898e+00, 8.11039710e+00,
-            9.01299262e+00, 9.49792027e+00, 9.89260801e+00, 1.54700281e+01,
-            2.64791640e+01, 2.70012914e+01, 4.19392085e+00, 6.72964390e+00,
-            7.76192323e+00, 8.80016200e+00, 9.86484130e+00, 1.05392163e+01,
-            1.10950196e+01, 1.14811863e+01, 1.12226790e+01, 9.87271778e+00]),
-     'std_fit_time': array([4.39120726e-04, 2.24039728e-04, 9.63629388e-04, 5.90233025e-04,
-            1.33952112e-04, 1.10682443e-04, 7.03725572e-04, 3.15952807e-04,
-            2.73406020e-04, 5.61604071e-04, 1.63486172e-02, 3.26892255e-02,
-            2.73474682e-01, 6.90403288e-02, 4.69917135e-02, 1.49403524e-01,
-            4.09500232e-02, 5.23185631e-02, 1.05207282e-01, 2.62526440e-02,
-            2.51185519e-02, 1.06445907e-01, 8.80014112e-02, 1.80576546e-01,
-            6.87593425e-02, 3.27420235e-02, 9.12644778e-02, 2.19233555e-01,
-            1.04023510e-01, 1.37735138e-01, 2.61240380e-01, 1.96230545e-01,
-            7.89759439e-02, 1.42985779e-02, 5.63498214e-02, 7.93775708e-02,
-            8.79950991e-02, 4.57558612e-02, 1.18140755e-01, 6.72603398e-02,
-            7.24628915e-02, 9.07270446e-02, 4.18443213e-02, 4.06271432e-02,
-            5.80198112e-02, 2.32368490e-02, 3.99548839e-02, 2.09543041e-02,
-            1.26502040e-01, 6.33546798e-02, 6.81969674e-02, 2.94051615e-02,
-            2.22950688e-02, 3.13332423e-02, 1.07354708e-01, 9.23337871e-02,
-            1.40262337e-01, 1.58560063e-01, 1.68726720e-02, 3.96816594e-02,
-            5.09282620e-02, 7.84815051e-02, 3.53948353e-02, 7.09583547e-02,
-            1.77196662e-01, 1.26913378e-01, 1.41470424e-01, 1.82113570e-01,
-            8.88552235e-02, 1.78381116e-01, 2.21484579e-02, 7.96942744e-02,
-            2.29605918e-02, 4.88893654e-02, 1.85853928e-02, 3.38966890e-02,
-            9.39823653e-02, 3.24714322e-02, 9.99877188e-02, 2.45509036e-01,
-            4.17044472e-02, 1.40062292e-02, 3.59729488e-02, 1.11045260e-01,
-            2.61532775e-02, 4.40995246e-02, 8.98449264e-02, 7.14027014e+00,
-            2.29746566e-01, 2.59416562e-01, 3.42676328e-02, 1.23958128e-01,
-            1.53038796e-01, 1.53760285e-01, 1.50391748e-02, 2.27918371e-02,
-            8.33621341e-02, 9.23326454e-03, 4.49305649e-01, 3.77896267e-01]),
-     'mean_score_time': array([0.        , 0.        , 0.        , 0.        , 0.        ,
-            0.        , 0.        , 0.        , 0.        , 0.        ,
-            1.01334174, 1.39820019, 1.38140059, 1.38459293, 1.33943232,
-            1.34464304, 1.35476192, 1.36010774, 1.40606324, 1.49319267,
-            1.14655471, 1.5387489 , 1.38927015, 1.51753855, 1.65721162,
-            1.76165215, 1.50650183, 1.46471723, 1.55877535, 1.47708575,
-            1.12892572, 1.42128094, 1.42207662, 1.41378133, 1.42802533,
-            1.43166773, 1.42867708, 1.49164494, 1.63885371, 1.47642366,
-            1.04644529, 1.45029195, 1.38384875, 1.41731866, 1.40839863,
-            1.42921901, 1.42967232, 1.53262091, 1.51914954, 1.48684541,
-            1.04018919, 1.44831729, 1.39343667, 1.45557785, 1.41621463,
-            1.49535179, 1.43779111, 1.45611699, 1.46412587, 1.47920791,
-            1.03665392, 1.45309464, 1.42944964, 1.41378482, 1.3948199 ,
-            1.47603122, 1.4938031 , 1.4521277 , 1.48234471, 1.50318392,
-            1.05117671, 1.43348948, 1.42842285, 1.38882923, 1.42496634,
-            1.43919929, 1.47427758, 1.517459  , 1.48970262, 1.52956994,
-            1.05095037, 1.45296311, 1.45929162, 1.45250424, 1.44710008,
-            1.52260264, 1.4304297 , 6.66711227, 1.52382278, 1.52635519,
-            1.14289053, 1.44785571, 1.46046607, 1.46218475, 1.51698263,
-            1.51476916, 1.51054168, 1.46357505, 1.088557  , 0.81571333]),
-     'std_score_time': array([0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00,
-            0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00,
-            0.00000000e+00, 0.00000000e+00, 9.00251796e-03, 4.75081373e-03,
-            8.14321463e-03, 4.93630370e-02, 1.01232671e-02, 1.24946931e-02,
-            2.53942545e-03, 2.43800006e-02, 2.30741952e-02, 2.53171208e-02,
-            2.44355808e-01, 2.88933494e-02, 1.98356648e-02, 1.28159998e-01,
-            3.58460830e-02, 3.98945383e-02, 1.57162358e-02, 2.68805308e-02,
-            1.68951467e-01, 3.55994691e-02, 9.39728080e-02, 2.37984539e-02,
-            1.55776607e-02, 1.31444478e-02, 2.26583323e-02, 7.47645314e-03,
-            5.64192456e-03, 4.41705367e-02, 1.71337106e-02, 6.25483878e-03,
-            1.22493320e-02, 2.59833053e-02, 9.25330534e-03, 2.11577944e-02,
-            1.65744892e-02, 7.77049759e-03, 1.01647613e-02, 6.56510468e-03,
-            5.30196345e-02, 4.48029742e-02, 1.99824705e-02, 3.27092097e-02,
-            2.20782211e-02, 1.14184596e-02, 2.25439165e-02, 9.52065400e-02,
-            5.53638073e-02, 1.00272988e-02, 2.75561257e-02, 6.51788108e-03,
-            1.34685479e-02, 1.53695876e-02, 1.64823381e-02, 3.52290862e-02,
-            9.49808503e-03, 1.54476588e-02, 2.68600702e-02, 2.60255336e-02,
-            9.37510511e-03, 1.76539821e-02, 5.10355420e-03, 2.77033717e-02,
-            1.04915173e-02, 2.15024769e-02, 9.31004694e-03, 1.10498854e-02,
-            1.06521243e-02, 5.29320796e-02, 1.06273821e-02, 2.12794663e-02,
-            1.08798859e-02, 4.65557245e-03, 1.00061232e-02, 5.14273985e-02,
-            9.36883777e-03, 7.31403699e-02, 1.01462077e-02, 7.00596557e+00,
-            2.10140152e-02, 2.03599772e-02, 1.01891002e-01, 5.20204475e-03,
-            2.84988438e-02, 1.54056191e-02, 8.68434921e-03, 3.62373004e-02,
-            3.27369714e-02, 6.46564053e-02, 1.92458941e-01, 3.40385330e-02]),
-     'param_C': masked_array(data=[0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
-                        0.2222222222222222, 0.2222222222222222,
-                        0.2222222222222222, 0.2222222222222222,
-                        0.2222222222222222, 0.2222222222222222,
-                        0.2222222222222222, 0.2222222222222222,
-                        0.2222222222222222, 0.2222222222222222,
-                        0.4444444444444444, 0.4444444444444444,
-                        0.4444444444444444, 0.4444444444444444,
-                        0.4444444444444444, 0.4444444444444444,
-                        0.4444444444444444, 0.4444444444444444,
-                        0.4444444444444444, 0.4444444444444444,
-                        0.6666666666666666, 0.6666666666666666,
-                        0.6666666666666666, 0.6666666666666666,
-                        0.6666666666666666, 0.6666666666666666,
-                        0.6666666666666666, 0.6666666666666666,
-                        0.6666666666666666, 0.6666666666666666,
-                        0.8888888888888888, 0.8888888888888888,
-                        0.8888888888888888, 0.8888888888888888,
-                        0.8888888888888888, 0.8888888888888888,
-                        0.8888888888888888, 0.8888888888888888,
-                        0.8888888888888888, 0.8888888888888888,
-                        1.1111111111111112, 1.1111111111111112,
-                        1.1111111111111112, 1.1111111111111112,
-                        1.1111111111111112, 1.1111111111111112,
-                        1.1111111111111112, 1.1111111111111112,
-                        1.1111111111111112, 1.1111111111111112,
-                        1.3333333333333333, 1.3333333333333333,
-                        1.3333333333333333, 1.3333333333333333,
-                        1.3333333333333333, 1.3333333333333333,
-                        1.3333333333333333, 1.3333333333333333,
-                        1.3333333333333333, 1.3333333333333333,
-                        1.5555555555555554, 1.5555555555555554,
-                        1.5555555555555554, 1.5555555555555554,
-                        1.5555555555555554, 1.5555555555555554,
-                        1.5555555555555554, 1.5555555555555554,
-                        1.5555555555555554, 1.5555555555555554,
-                        1.7777777777777777, 1.7777777777777777,
-                        1.7777777777777777, 1.7777777777777777,
-                        1.7777777777777777, 1.7777777777777777,
-                        1.7777777777777777, 1.7777777777777777,
-                        1.7777777777777777, 1.7777777777777777, 2.0, 2.0, 2.0,
-                        2.0, 2.0, 2.0, 2.0, 2.0, 2.0, 2.0],
-                  mask=[False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False,
-                        False, False, False, False],
-            fill_value='?',
-                 dtype=object),
-     'param_gamma': masked_array(data=[0.0, 0.2222222222222222, 0.4444444444444444,
-                        0.6666666666666666, 0.8888888888888888,
-                        1.1111111111111112, 1.3333333333333333,
-                        1.5555555555555554, 1.7777777777777777, 2.0, 0.0,
-                        0.2222222222222222, 0.4444444444444444,
-                        0.6666666666666666, 0.8888888888888888,
-                        1.1111111111111112, 1.3333333333333333,
-                        1.5555555555555554, 1.7777777777777777, 2.0, 0.0,
-                        0.2222222222222222, 0.4444444444444444,
-                        0.6666666666666666, 0.8888888888888888,
-                        1.1111111111111112, 1.3333333333333333,
-                        1.5555555555555554, 1.7777777777777777, 2.0, 0.0,
-                        0.2222222222222222, 0.4444444444444444,
-                        0.6666666666666666, 0.8888888888888888,
-                        1.1111111111111112, 1.3333333333333333,
-                        1.5555555555555554, 1.7777777777777777, 2.0, 0.0,
-                        0.2222222222222222, 0.4444444444444444,
-                        0.6666666666666666, 0.8888888888888888,
-                        1.1111111111111112, 1.3333333333333333,
-                        1.5555555555555554, 1.7777777777777777, 2.0, 0.0,
-                        0.2222222222222222, 0.4444444444444444,
-                        0.6666666666666666, 0.8888888888888888,
-                        1.1111111111111112, 1.3333333333333333,
-                        1.5555555555555554, 1.7777777777777777, 2.0, 0.0,
-                        0.2222222222222222, 0.4444444444444444,
-                        0.6666666666666666, 0.8888888888888888,
-                        1.1111111111111112, 1.3333333333333333,
-                        1.5555555555555554, 1.7777777777777777, 2.0, 0.0,
-                        0.2222222222222222, 0.4444444444444444,
-                        0.6666666666666666, 0.8888888888888888,
-                        1.1111111111111112, 1.3333333333333333,
-                        1.5555555555555554, 1.7777777777777777, 2.0, 0.0,
-                        0.2222222222222222, 0.4444444444444444,
-                        0.6666666666666666, 0.8888888888888888,
-                        1.1111111111111112, 1.3333333333333333,
-                        1.5555555555555554, 1.7777777777777777, 2.0, 0.0,
-                        0.2222222222222222, 0.4444444444444444,
-                        0.6666666666666666, 0.8888888888888888,
-                        1.1111111111111112, 1.3333333333333333,
-                        1.5555555555555554, 1.7777777777777777, 2.0],
-                  mask=[False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False,
-                        False, False, False, False, False, False, False, False,
-                        False, False, False, False],
-            fill_value='?',
-                 dtype=object),
-     'params': [{'C': 0.0, 'gamma': 0.0},
-      {'C': 0.0, 'gamma': 0.2222222222222222},
-      {'C': 0.0, 'gamma': 0.4444444444444444},
-      {'C': 0.0, 'gamma': 0.6666666666666666},
-      {'C': 0.0, 'gamma': 0.8888888888888888},
-      {'C': 0.0, 'gamma': 1.1111111111111112},
-      {'C': 0.0, 'gamma': 1.3333333333333333},
-      {'C': 0.0, 'gamma': 1.5555555555555554},
-      {'C': 0.0, 'gamma': 1.7777777777777777},
-      {'C': 0.0, 'gamma': 2.0},
-      {'C': 0.2222222222222222, 'gamma': 0.0},
-      {'C': 0.2222222222222222, 'gamma': 0.2222222222222222},
-      {'C': 0.2222222222222222, 'gamma': 0.4444444444444444},
-      {'C': 0.2222222222222222, 'gamma': 0.6666666666666666},
-      {'C': 0.2222222222222222, 'gamma': 0.8888888888888888},
-      {'C': 0.2222222222222222, 'gamma': 1.1111111111111112},
-      {'C': 0.2222222222222222, 'gamma': 1.3333333333333333},
-      {'C': 0.2222222222222222, 'gamma': 1.5555555555555554},
-      {'C': 0.2222222222222222, 'gamma': 1.7777777777777777},
-      {'C': 0.2222222222222222, 'gamma': 2.0},
-      {'C': 0.4444444444444444, 'gamma': 0.0},
-      {'C': 0.4444444444444444, 'gamma': 0.2222222222222222},
-      {'C': 0.4444444444444444, 'gamma': 0.4444444444444444},
-      {'C': 0.4444444444444444, 'gamma': 0.6666666666666666},
-      {'C': 0.4444444444444444, 'gamma': 0.8888888888888888},
-      {'C': 0.4444444444444444, 'gamma': 1.1111111111111112},
-      {'C': 0.4444444444444444, 'gamma': 1.3333333333333333},
-      {'C': 0.4444444444444444, 'gamma': 1.5555555555555554},
-      {'C': 0.4444444444444444, 'gamma': 1.7777777777777777},
-      {'C': 0.4444444444444444, 'gamma': 2.0},
-      {'C': 0.6666666666666666, 'gamma': 0.0},
-      {'C': 0.6666666666666666, 'gamma': 0.2222222222222222},
-      {'C': 0.6666666666666666, 'gamma': 0.4444444444444444},
-      {'C': 0.6666666666666666, 'gamma': 0.6666666666666666},
-      {'C': 0.6666666666666666, 'gamma': 0.8888888888888888},
-      {'C': 0.6666666666666666, 'gamma': 1.1111111111111112},
-      {'C': 0.6666666666666666, 'gamma': 1.3333333333333333},
-      {'C': 0.6666666666666666, 'gamma': 1.5555555555555554},
-      {'C': 0.6666666666666666, 'gamma': 1.7777777777777777},
-      {'C': 0.6666666666666666, 'gamma': 2.0},
-      {'C': 0.8888888888888888, 'gamma': 0.0},
-      {'C': 0.8888888888888888, 'gamma': 0.2222222222222222},
-      {'C': 0.8888888888888888, 'gamma': 0.4444444444444444},
-      {'C': 0.8888888888888888, 'gamma': 0.6666666666666666},
-      {'C': 0.8888888888888888, 'gamma': 0.8888888888888888},
-      {'C': 0.8888888888888888, 'gamma': 1.1111111111111112},
-      {'C': 0.8888888888888888, 'gamma': 1.3333333333333333},
-      {'C': 0.8888888888888888, 'gamma': 1.5555555555555554},
-      {'C': 0.8888888888888888, 'gamma': 1.7777777777777777},
-      {'C': 0.8888888888888888, 'gamma': 2.0},
-      {'C': 1.1111111111111112, 'gamma': 0.0},
-      {'C': 1.1111111111111112, 'gamma': 0.2222222222222222},
-      {'C': 1.1111111111111112, 'gamma': 0.4444444444444444},
-      {'C': 1.1111111111111112, 'gamma': 0.6666666666666666},
-      {'C': 1.1111111111111112, 'gamma': 0.8888888888888888},
-      {'C': 1.1111111111111112, 'gamma': 1.1111111111111112},
-      {'C': 1.1111111111111112, 'gamma': 1.3333333333333333},
-      {'C': 1.1111111111111112, 'gamma': 1.5555555555555554},
-      {'C': 1.1111111111111112, 'gamma': 1.7777777777777777},
-      {'C': 1.1111111111111112, 'gamma': 2.0},
-      {'C': 1.3333333333333333, 'gamma': 0.0},
-      {'C': 1.3333333333333333, 'gamma': 0.2222222222222222},
-      {'C': 1.3333333333333333, 'gamma': 0.4444444444444444},
-      {'C': 1.3333333333333333, 'gamma': 0.6666666666666666},
-      {'C': 1.3333333333333333, 'gamma': 0.8888888888888888},
-      {'C': 1.3333333333333333, 'gamma': 1.1111111111111112},
-      {'C': 1.3333333333333333, 'gamma': 1.3333333333333333},
-      {'C': 1.3333333333333333, 'gamma': 1.5555555555555554},
-      {'C': 1.3333333333333333, 'gamma': 1.7777777777777777},
-      {'C': 1.3333333333333333, 'gamma': 2.0},
-      {'C': 1.5555555555555554, 'gamma': 0.0},
-      {'C': 1.5555555555555554, 'gamma': 0.2222222222222222},
-      {'C': 1.5555555555555554, 'gamma': 0.4444444444444444},
-      {'C': 1.5555555555555554, 'gamma': 0.6666666666666666},
-      {'C': 1.5555555555555554, 'gamma': 0.8888888888888888},
-      {'C': 1.5555555555555554, 'gamma': 1.1111111111111112},
-      {'C': 1.5555555555555554, 'gamma': 1.3333333333333333},
-      {'C': 1.5555555555555554, 'gamma': 1.5555555555555554},
-      {'C': 1.5555555555555554, 'gamma': 1.7777777777777777},
-      {'C': 1.5555555555555554, 'gamma': 2.0},
-      {'C': 1.7777777777777777, 'gamma': 0.0},
-      {'C': 1.7777777777777777, 'gamma': 0.2222222222222222},
-      {'C': 1.7777777777777777, 'gamma': 0.4444444444444444},
-      {'C': 1.7777777777777777, 'gamma': 0.6666666666666666},
-      {'C': 1.7777777777777777, 'gamma': 0.8888888888888888},
-      {'C': 1.7777777777777777, 'gamma': 1.1111111111111112},
-      {'C': 1.7777777777777777, 'gamma': 1.3333333333333333},
-      {'C': 1.7777777777777777, 'gamma': 1.5555555555555554},
-      {'C': 1.7777777777777777, 'gamma': 1.7777777777777777},
-      {'C': 1.7777777777777777, 'gamma': 2.0},
-      {'C': 2.0, 'gamma': 0.0},
-      {'C': 2.0, 'gamma': 0.2222222222222222},
-      {'C': 2.0, 'gamma': 0.4444444444444444},
-      {'C': 2.0, 'gamma': 0.6666666666666666},
-      {'C': 2.0, 'gamma': 0.8888888888888888},
-      {'C': 2.0, 'gamma': 1.1111111111111112},
-      {'C': 2.0, 'gamma': 1.3333333333333333},
-      {'C': 2.0, 'gamma': 1.5555555555555554},
-      {'C': 2.0, 'gamma': 1.7777777777777777},
-      {'C': 2.0, 'gamma': 2.0}],
-     'split0_test_score': array([        nan,         nan,         nan,         nan,         nan,
-                    nan,         nan,         nan,         nan,         nan,
-            -0.06196089,  0.73214466,  0.73373369,  0.72516523,  0.71306186,
-             0.6972207 ,  0.67927592,  0.65960967,  0.63845234,  0.61735647,
-            -0.06196089,  0.74619528,  0.75232431,  0.74832296,  0.74104045,
-             0.73164661,  0.72104823,  0.70876707,  0.69596002,  0.68261156,
-            -0.06196089,  0.75232544,  0.76005406,  0.7581677 ,  0.75220469,
-             0.74498036,  0.73632244,  0.72637335,  0.7155938 ,  0.70475805,
-            -0.06196089,  0.75592446,  0.76376342,  0.76324036,  0.75897055,
-             0.75260532,  0.74434339,  0.73531514,  0.72607746,  0.71637782,
-            -0.06196089,  0.75859488,  0.76645781,  0.76604825,  0.76284854,
-             0.75735062,  0.74933674,  0.74063068,  0.73220623,  0.72348988,
-            -0.06196089,  0.76061269,  0.76869185,  0.76818664,  0.76557441,
-             0.76045075,  0.75264389,  0.74457286,  0.73623336,  0.7276496 ,
-            -0.06196089,  0.76208374,  0.77025589,  0.76980038,  0.76728463,
-             0.76192291,  0.75464277,  0.74720407,  0.7388729 ,  0.73016346,
-            -0.06196089,  0.76336257,  0.77131399,  0.7709491 ,  0.76843843,
-             0.76284687,  0.7559595 ,  0.74866539,  0.74045104,  0.73167153,
-            -0.06196089,  0.76462805,  0.77238269,  0.7717397 ,  0.76915783,
-             0.76338819,  0.75677199,  0.74926808,  0.74115954,  0.73252807]),
-     'split1_test_score': array([        nan,         nan,         nan,         nan,         nan,
-                    nan,         nan,         nan,         nan,         nan,
-            -0.05578486,  0.70925546,  0.71263101,  0.7037757 ,  0.69064622,
-             0.67489018,  0.65776269,  0.64016744,  0.62245759,  0.60420855,
-            -0.05578486,  0.72546588,  0.73110582,  0.72697991,  0.71782805,
-             0.70685319,  0.69559409,  0.68334078,  0.67065372,  0.65797179,
-            -0.05578486,  0.73271519,  0.73941457,  0.73551699,  0.72984562,
-             0.72084543,  0.71092616,  0.70073946,  0.69054849,  0.67957028,
-            -0.05578486,  0.73732419,  0.74422664,  0.7409822 ,  0.73546702,
-             0.72811885,  0.71938433,  0.71028719,  0.7008461 ,  0.69059352,
-            -0.05578486,  0.7403644 ,  0.74712832,  0.74470344,  0.73904543,
-             0.73205717,  0.72380531,  0.71588779,  0.70642145,  0.69655041,
-            -0.05578486,  0.74282525,  0.74903729,  0.74693045,  0.74155883,
-             0.73471893,  0.72714995,  0.71892022,  0.70969473,  0.70034312,
-            -0.05578486,  0.74492912,  0.75068064,  0.74863824,  0.74331287,
-             0.73647428,  0.72883023,  0.72075545,  0.71169396,  0.70261696,
-            -0.05578486,  0.74624316,  0.75196866,  0.75014681,  0.74463864,
-             0.73765643,  0.73006217,  0.721823  ,  0.71264965,  0.70380148,
-            -0.05578486,  0.74761514,  0.75294949,  0.75108777,  0.74537865,
-             0.7381543 ,  0.73073981,  0.72215701,  0.71304801,  0.70432754]),
-     'split2_test_score': array([        nan,         nan,         nan,         nan,         nan,
-                    nan,         nan,         nan,         nan,         nan,
-            -0.05590591,  0.71773474,  0.71852433,  0.70932816,  0.69671346,
-             0.68172197,  0.66593495,  0.64859334,  0.63037894,  0.61125081,
-            -0.05590591,  0.73388366,  0.73758405,  0.73264726,  0.72515391,
-             0.71560025,  0.70481182,  0.69306925,  0.68085439,  0.66867798,
-            -0.05590591,  0.74139986,  0.74582273,  0.74175064,  0.73578324,
-             0.72885252,  0.72134432,  0.71187724,  0.7019901 ,  0.69207519,
-            -0.05590591,  0.74597958,  0.75045729,  0.74732549,  0.7419171 ,
-             0.73580188,  0.7292087 ,  0.72200491,  0.71382636,  0.70470107,
-            -0.05590591,  0.74967325,  0.75403464,  0.75128892,  0.74599468,
-             0.74018626,  0.73356409,  0.72701376,  0.71940712,  0.71101437,
-            -0.05590591,  0.75242534,  0.75628728,  0.75359455,  0.74862935,
-             0.74250641,  0.73668183,  0.73010753,  0.72245676,  0.7141626 ,
-            -0.05590591,  0.75433044,  0.75811465,  0.75559549,  0.75028379,
-             0.74419546,  0.73853598,  0.73192635,  0.72433274,  0.71606835,
-            -0.05590591,  0.75561149,  0.7595856 ,  0.756823  ,  0.75154613,
-             0.74573729,  0.73992929,  0.73309495,  0.72531518,  0.71711271,
-            -0.05590591,  0.75697522,  0.7605724 ,  0.75774864,  0.75238758,
-             0.74670547,  0.74092649,  0.73375925,  0.7257051 ,  0.71743617]),
-     'mean_test_score': array([        nan,         nan,         nan,         nan,         nan,
-                    nan,         nan,         nan,         nan,         nan,
-            -0.05788389,  0.71971162,  0.72162967,  0.71275636,  0.70014051,
-             0.68461095,  0.66765785,  0.64945682,  0.63042962,  0.61093861,
-            -0.05788389,  0.73518161,  0.74033806,  0.73598338,  0.72800747,
-             0.71803335,  0.70715138,  0.69505903,  0.68248938,  0.66975378,
-            -0.05788389,  0.74214683,  0.74843045,  0.74514511,  0.73927785,
-             0.73155944,  0.72286431,  0.71299668,  0.70271079,  0.69213451,
-            -0.05788389,  0.74640941,  0.75281578,  0.75051602,  0.74545155,
-             0.73884201,  0.73097881,  0.72253574,  0.71358331,  0.7038908 ,
-            -0.05788389,  0.74954417,  0.75587359,  0.75401354,  0.74929621,
-             0.74319802,  0.73556871,  0.72784408,  0.71934493,  0.71035155,
-            -0.05788389,  0.75195443,  0.75800547,  0.75623721,  0.75192087,
-             0.74589203,  0.73882522,  0.7312002 ,  0.72279495,  0.71405177,
-            -0.05788389,  0.7537811 ,  0.75968372,  0.75801137,  0.7536271 ,
-             0.74753088,  0.74066966,  0.73329529,  0.72496654,  0.71628293,
-            -0.05788389,  0.75507241,  0.76095608,  0.7593063 ,  0.7548744 ,
-             0.74874686,  0.74198365,  0.73452778,  0.72613862,  0.71752857,
-            -0.05788389,  0.75640614,  0.7619682 ,  0.76019203,  0.75564135,
-             0.74941599,  0.74281276,  0.73506145,  0.72663755,  0.71809726]),
-     'std_test_score': array([       nan,        nan,        nan,        nan,        nan,
-                   nan,        nan,        nan,        nan,        nan,
-            0.0028833 , 0.00944845, 0.00889056, 0.00906247, 0.00946657,
-            0.00934247, 0.00886683, 0.00796071, 0.00652993, 0.00537215,
-            0.0028833 , 0.00851237, 0.00887861, 0.00902695, 0.00968886,
-            0.01026705, 0.01052247, 0.01047516, 0.01039574, 0.01008786,
-            0.0028833 , 0.00802326, 0.00862544, 0.00955355, 0.00945661,
-            0.01003724, 0.01042354, 0.01049489, 0.0102374 , 0.01028295,
-            0.0028833 , 0.00759961, 0.00814835, 0.00936273, 0.00991542,
-            0.01022509, 0.01026608, 0.01022451, 0.01030209, 0.01054198,
-            0.0028833 , 0.00744312, 0.00799765, 0.00892442, 0.00999407,
-            0.01054333, 0.01051911, 0.01011829, 0.01052668, 0.01100798,
-            0.0028833 , 0.00726932, 0.0081154 , 0.00887672, 0.01007679,
-            0.0107743 , 0.01051763, 0.01050111, 0.01083699, 0.0111481 ,
-            0.0028833 , 0.00701411, 0.00806821, 0.00880668, 0.01006793,
-            0.0106537 , 0.01064538, 0.0108409 , 0.0111048 , 0.01124683,
-            0.0028833 , 0.00699936, 0.00795693, 0.00867214, 0.00999719,
-            0.01050183, 0.01067187, 0.0110051 , 0.0113648 , 0.0113817 ,
-            0.0028833 , 0.00695714, 0.00799473, 0.00860632, 0.00997673,
-            0.01047847, 0.01071096, 0.01110628, 0.01149541, 0.0115223 ]),
-     'rank_test_score': array([100,  98,  97,  96,  95,  94,  93,  92,  99,  91,  87,  58,  57,
-             67,  72,  75,  78,  79,  80,  81,  85,  42,  36,  40,  49,  61,
-             69,  73,  76,  77,  87,  33,  25,  30,  37,  46,  54,  66,  71,
-             74,  84,  27,  17,  20,  29,  38,  48,  56,  65,  70,  82,  21,
-             10,  14,  23,  31,  41,  50,  59,  68,  85,  18,   7,   9,  19,
-             28,  39,  47,  55,  64,  90,  15,   4,   6,  16,  26,  35,  45,
-             53,  63,  82,  12,   2,   5,  13,  24,  34,  44,  52,  62,  89,
-              8,   1,   3,  11,  22,  32,  43,  51,  60], dtype=int32)}
+    GridSearchCV(cv=3, estimator=SVR(),
+                 param_grid={'C': array([ 4.        ,  4.57894737,  5.15789474,  5.73684211,  6.31578947,
+            6.89473684,  7.47368421,  8.05263158,  8.63157895,  9.21052632,
+            9.78947368, 10.36842105, 10.94736842, 11.52631579, 12.10526316,
+           12.68421053, 13.26315789, 13.84210526, 14.42105263, 15.        ]),
+                             'gamma': array([0.001     , 0.01410526, 0.02721053, 0.04031579, 0.05342105,
+           0.06652632, 0.07963158, 0.09273684, 0.10584211, 0.11894737,
+           0.13205263, 0.14515789, 0.15826316, 0.17136842, 0.18447368,
+           0.19757895, 0.21068421, 0.22378947, 0.23689474, 0.25      ])},
+                 scoring=make_scorer(mean_squared_error))
 
 
 
 
 ```python
-params = pd.DataFrame(grid.cv_results_.get("params"))
-results = pd.DataFrame(
-    {k:v for k,v in grid.cv_results_.items() 
-     if k.startswith('split')})
-df_grid = pd.concat([params, results], axis=1)
-```
-
-
-```python
+df_grid = show_params_as_df(gs, ['C', 'gamma'])
 df_grid
 ```
 
@@ -3593,43 +2710,43 @@ df_grid
   <tbody>
     <tr>
       <th>0</th>
-      <td>0.0</td>
-      <td>0.000000</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>4.0</td>
+      <td>0.001000</td>
+      <td>0.611261</td>
+      <td>0.261456</td>
+      <td>0.596544</td>
     </tr>
     <tr>
       <th>1</th>
-      <td>0.0</td>
-      <td>0.222222</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>4.0</td>
+      <td>0.014105</td>
+      <td>0.173154</td>
+      <td>0.232858</td>
+      <td>0.203825</td>
     </tr>
     <tr>
       <th>2</th>
-      <td>0.0</td>
-      <td>0.444444</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>4.0</td>
+      <td>0.027211</td>
+      <td>0.138710</td>
+      <td>0.243590</td>
+      <td>0.192375</td>
     </tr>
     <tr>
       <th>3</th>
-      <td>0.0</td>
-      <td>0.666667</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>4.0</td>
+      <td>0.040316</td>
+      <td>0.141636</td>
+      <td>0.228891</td>
+      <td>0.220583</td>
     </tr>
     <tr>
       <th>4</th>
-      <td>0.0</td>
-      <td>0.888889</td>
-      <td>NaN</td>
-      <td>NaN</td>
-      <td>NaN</td>
+      <td>4.0</td>
+      <td>0.053421</td>
+      <td>0.144939</td>
+      <td>0.238139</td>
+      <td>0.266923</td>
     </tr>
     <tr>
       <th>...</th>
@@ -3640,81 +2757,162 @@ df_grid
       <td>...</td>
     </tr>
     <tr>
-      <th>95</th>
-      <td>2.0</td>
-      <td>1.111111</td>
-      <td>0.763388</td>
-      <td>0.738154</td>
-      <td>0.746705</td>
+      <th>395</th>
+      <td>15.0</td>
+      <td>0.197579</td>
+      <td>0.404329</td>
+      <td>0.256850</td>
+      <td>0.741546</td>
     </tr>
     <tr>
-      <th>96</th>
-      <td>2.0</td>
-      <td>1.333333</td>
-      <td>0.756772</td>
-      <td>0.730740</td>
-      <td>0.740926</td>
+      <th>396</th>
+      <td>15.0</td>
+      <td>0.210684</td>
+      <td>0.422260</td>
+      <td>0.257666</td>
+      <td>0.784791</td>
     </tr>
     <tr>
-      <th>97</th>
-      <td>2.0</td>
-      <td>1.555556</td>
-      <td>0.749268</td>
-      <td>0.722157</td>
-      <td>0.733759</td>
+      <th>397</th>
+      <td>15.0</td>
+      <td>0.223789</td>
+      <td>0.441236</td>
+      <td>0.257839</td>
+      <td>0.856519</td>
     </tr>
     <tr>
-      <th>98</th>
-      <td>2.0</td>
-      <td>1.777778</td>
-      <td>0.741160</td>
-      <td>0.713048</td>
-      <td>0.725705</td>
+      <th>398</th>
+      <td>15.0</td>
+      <td>0.236895</td>
+      <td>0.461408</td>
+      <td>0.259146</td>
+      <td>0.911760</td>
     </tr>
     <tr>
-      <th>99</th>
-      <td>2.0</td>
-      <td>2.000000</td>
-      <td>0.732528</td>
-      <td>0.704328</td>
-      <td>0.717436</td>
+      <th>399</th>
+      <td>15.0</td>
+      <td>0.250000</td>
+      <td>0.485542</td>
+      <td>0.261651</td>
+      <td>0.934773</td>
     </tr>
   </tbody>
 </table>
-<p>100 rows × 5 columns</p>
+<p>400 rows × 5 columns</p>
 </div>
 
 
 
 
 ```python
-for name,group in df_grid.groupby(["C", "gamma"]):
-    group.plot()
+pivot = df_grid.pivot_table(index='C', columns='gamma').stack(level=1).apply(np.mean, axis=1)
 ```
 
 
-    ---------------------------------------------------------------------------
-
-    AttributeError                            Traceback (most recent call last)
-
-    <ipython-input-1357-18bdb0668317> in <module>
-    ----> 1 df_grid.groupby(["C", "gamma"]).stack().plot(kind="line")
-    
-
-    ~/.pyenv/versions/3.8.4/lib/python3.8/site-packages/pandas/core/groupby/groupby.py in __getattr__(self, attr)
-        701             return self[attr]
-        702 
-    --> 703         raise AttributeError(
-        704             f"'{type(self).__name__}' object has no attribute '{attr}'"
-        705         )
+```python
+sns.heatmap(pivot.unstack())
+```
 
 
-    AttributeError: 'DataFrameGroupBy' object has no attribute 'stack'
+
+
+    <AxesSubplot:xlabel='gamma', ylabel='C'>
+
+
+
+
+<img src="{{page.image_folder}}output_66_1.png" align="left" style="display:block !important;">
+
+
+# Enhanced GridSearch over pipeline params ! :O
+
+> Parameters of the estimators in the pipeline can be accessed using the **estimator__parameter** syntax. **Individual steps may also be replaced** as parameters, and **non-final steps may be ignored** by setting them to **'passthrough'**
+
+Let's take 2 scenarios set (each defined as a pipeline), the possibilities are endless by combining GridSearch with Pipelines:
+
+
+```python
+# Using GridSearch
+pipeline = BetterPipeline([
+    ('adding_features', AddFeatures(where_x=0)),
+    ('poly', PolynomialFeatures()),
+    ('scaler', StandardScaler()),
+    ('linear_reg', LinearRegression())
+])
+```
+
+
+```python
+def identity(x):
+    return x
+```
+
+
+```python
+param_grid = dict(
+    adding_features__functions = [[identity], [identity, np.sin, np.exp, np.cos], [np.sin], [np.exp]],
+    poly__degree = [1,2,3]
+)
+```
+
+
+```python
+gs = GridSearchCV(
+    pipeline,
+    param_grid=param_grid,
+    scoring="neg_mean_squared_error",
+    cv=KFold(3, shuffle=True)
+)
+gs.fit(x2_more_points, y_more_points)
+```
+
+
+
+
+    GridSearchCV(cv=KFold(n_splits=3, random_state=None, shuffle=True),
+                 estimator=BetterPipeline(steps=[('adding_features',
+                                                  AddFeatures(where_x=0)),
+                                                 ('poly', PolynomialFeatures()),
+                                                 ('scaler', StandardScaler()),
+                                                 ('linear_reg',
+                                                  LinearRegression())]),
+                 param_grid={'adding_features__functions': [[<function identity at 0x140f5a670>],
+                                                            [<function identity at 0x140f5a670>,
+                                                             <ufunc 'sin'>,
+                                                             <ufunc 'exp'>,
+                                                             <ufunc 'cos'>],
+                                                            [<ufunc 'sin'>],
+                                                            [<ufunc 'exp'>]],
+                             'poly__degree': [1, 2, 3]},
+                 scoring='neg_mean_squared_error')
+
 
 
 
 ```python
-df_grid.set_index(["C", "gamma"]).stack().unstack(-1).T
+df_grid = pd.DataFrame(gs.cv_results_)
+```
+
+
+```python
+gs.best_params_
+```
+
+
+
+
+    {'adding_features__functions': [<ufunc 'sin'>], 'poly__degree': 1}
+
+
+
+
+```python
+df_grid.rename(columns = { 'mean_test_score': 'neg_mean_test_score' }, inplace=True)
+```
+
+
+```python
+df_grid.sort_values('neg_mean_test_score', ascending=False)[:3] # 3 best performing models
 ```
 
 
@@ -3730,548 +2928,278 @@ df_grid.set_index(["C", "gamma"]).stack().unstack(-1).T
         vertical-align: top;
     }
 
-    .dataframe thead tr th {
-        text-align: left;
+    .dataframe thead th {
+        text-align: right;
     }
 </style>
 <table border="1" class="dataframe">
   <thead>
-    <tr>
-      <th>C</th>
-      <th colspan="10" halign="left">0.222222</th>
-      <th>...</th>
-      <th colspan="10" halign="left">2.000000</th>
-    </tr>
-    <tr>
-      <th>gamma</th>
-      <th>0.000000</th>
-      <th>0.222222</th>
-      <th>0.444444</th>
-      <th>0.666667</th>
-      <th>0.888889</th>
-      <th>1.111111</th>
-      <th>1.333333</th>
-      <th>1.555556</th>
-      <th>1.777778</th>
-      <th>2.000000</th>
-      <th>...</th>
-      <th>0.000000</th>
-      <th>0.222222</th>
-      <th>0.444444</th>
-      <th>0.666667</th>
-      <th>0.888889</th>
-      <th>1.111111</th>
-      <th>1.333333</th>
-      <th>1.555556</th>
-      <th>1.777778</th>
-      <th>2.000000</th>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>mean_fit_time</th>
+      <th>std_fit_time</th>
+      <th>mean_score_time</th>
+      <th>std_score_time</th>
+      <th>param_adding_features__functions</th>
+      <th>param_poly__degree</th>
+      <th>params</th>
+      <th>split0_test_score</th>
+      <th>split1_test_score</th>
+      <th>split2_test_score</th>
+      <th>neg_mean_test_score</th>
+      <th>std_test_score</th>
+      <th>rank_test_score</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>split0_test_score</th>
-      <td>-0.061961</td>
-      <td>0.732145</td>
-      <td>0.733734</td>
-      <td>0.725165</td>
-      <td>0.713062</td>
-      <td>0.697221</td>
-      <td>0.679276</td>
-      <td>0.659610</td>
-      <td>0.638452</td>
-      <td>0.617356</td>
-      <td>...</td>
-      <td>-0.061961</td>
-      <td>0.764628</td>
-      <td>0.772383</td>
-      <td>0.771740</td>
-      <td>0.769158</td>
-      <td>0.763388</td>
-      <td>0.756772</td>
-      <td>0.749268</td>
-      <td>0.741160</td>
-      <td>0.732528</td>
+      <th>6</th>
+      <td>0.002088</td>
+      <td>0.000064</td>
+      <td>0.000738</td>
+      <td>0.000011</td>
+      <td>[&lt;ufunc 'sin'&gt;]</td>
+      <td>1</td>
+      <td>{'adding_features__functions': [&lt;ufunc 'sin'&gt;]...</td>
+      <td>-0.040405</td>
+      <td>-0.040612</td>
+      <td>-0.047605</td>
+      <td>-0.042874</td>
+      <td>0.003346</td>
+      <td>1</td>
     </tr>
     <tr>
-      <th>split1_test_score</th>
-      <td>-0.055785</td>
-      <td>0.709255</td>
-      <td>0.712631</td>
-      <td>0.703776</td>
-      <td>0.690646</td>
-      <td>0.674890</td>
-      <td>0.657763</td>
-      <td>0.640167</td>
-      <td>0.622458</td>
-      <td>0.604209</td>
-      <td>...</td>
-      <td>-0.055785</td>
-      <td>0.747615</td>
-      <td>0.752949</td>
-      <td>0.751088</td>
-      <td>0.745379</td>
-      <td>0.738154</td>
-      <td>0.730740</td>
-      <td>0.722157</td>
-      <td>0.713048</td>
-      <td>0.704328</td>
+      <th>3</th>
+      <td>0.001898</td>
+      <td>0.000028</td>
+      <td>0.000752</td>
+      <td>0.000097</td>
+      <td>[&lt;function identity at 0x140f5a670&gt;, &lt;ufunc 's...</td>
+      <td>1</td>
+      <td>{'adding_features__functions': [&lt;function iden...</td>
+      <td>-0.040724</td>
+      <td>-0.040994</td>
+      <td>-0.047577</td>
+      <td>-0.043098</td>
+      <td>0.003169</td>
+      <td>2</td>
     </tr>
     <tr>
-      <th>split2_test_score</th>
-      <td>-0.055906</td>
-      <td>0.717735</td>
-      <td>0.718524</td>
-      <td>0.709328</td>
-      <td>0.696713</td>
-      <td>0.681722</td>
-      <td>0.665935</td>
-      <td>0.648593</td>
-      <td>0.630379</td>
-      <td>0.611251</td>
-      <td>...</td>
-      <td>-0.055906</td>
-      <td>0.756975</td>
-      <td>0.760572</td>
-      <td>0.757749</td>
-      <td>0.752388</td>
-      <td>0.746705</td>
-      <td>0.740926</td>
-      <td>0.733759</td>
-      <td>0.725705</td>
-      <td>0.717436</td>
+      <th>7</th>
+      <td>0.002207</td>
+      <td>0.000123</td>
+      <td>0.000740</td>
+      <td>0.000008</td>
+      <td>[&lt;ufunc 'sin'&gt;]</td>
+      <td>2</td>
+      <td>{'adding_features__functions': [&lt;ufunc 'sin'&gt;]...</td>
+      <td>-0.040817</td>
+      <td>-0.040947</td>
+      <td>-0.047645</td>
+      <td>-0.043137</td>
+      <td>0.003189</td>
+      <td>3</td>
     </tr>
   </tbody>
 </table>
-<p>3 rows × 90 columns</p>
 </div>
 
 
 
 
 ```python
-ax = df_grid.set_index(["C", "gamma"]).T.plot(kind="line", figsize=(10,4))
-ax.set_ylim(0.6, 0.8)
-ax.get_legend().remove()
-plt.xticks(rotation=90)
-```
-
-    /Users/lucbertin/.pyenv/versions/3.8.4/lib/python3.8/site-packages/pandas/plotting/_matplotlib/core.py:1235: UserWarning: FixedFormatter should only be used together with FixedLocator
-      ax.set_xticklabels(xticklabels)
-
-
-
-
-
-    (array([-0.25,  0.  ,  0.25,  0.5 ,  0.75,  1.  ,  1.25,  1.5 ,  1.75,
-             2.  ,  2.25]),
-     [Text(-0.25, 0, ''),
-      Text(0.0, 0, 'split0_test_score'),
-      Text(0.25, 0, ''),
-      Text(0.5, 0, ''),
-      Text(0.75, 0, ''),
-      Text(1.0, 0, 'split1_test_score'),
-      Text(1.25, 0, ''),
-      Text(1.5, 0, ''),
-      Text(1.75, 0, ''),
-      Text(2.0, 0, 'split2_test_score'),
-      Text(2.25, 0, '')])
-
-
-
-
-
-
-<img src="{{page.image_folder}}output_266_2.png" align="left" width="75%" style="display: block !important;">
-
-
-
-
-
-```python
-pivot = df_grid.pivot_table(index='C', columns='gamma').stack(level=1).apply(np.mean, axis=1)
+estimator =  gs.best_estimator_
 ```
 
 
 ```python
-sns.heatmap(pivot.unstack().iloc[:, 1:])
+plt.scatter(x, y, color='blue')
+plt.plot(x, estimator.predict(x))
 ```
 
 
 
 
-    <AxesSubplot:xlabel='gamma', ylabel='C'>
+    [<matplotlib.lines.Line2D at 0x140d3c3d0>]
 
 
 
 
+<img src="{{page.image_folder}}output_79_1.png" align="left" style="display:block !important;">
 
 
-<img src="{{page.image_folder}}output_268_1.png" align="left" width="75%" style="display: block !important;">
-
-
-
-
-
-```python
-grid.best_params_
-```
-
-
-
-
-    {'C': 2.0, 'gamma': 0.4444444444444444}
-
-
+We find back the sin ! :D
 
 
 ```python
-grid.best_estimator_
-```
-
-
-
-
-    SVR(C=2.0, gamma=0.4444444444444444)
-
-
-
-
-```python
-grid.best_score_
-```
-
-
-
-
-    0.7619681962801373
-
-
-
-### on peut alors réutiliser ce best estimator en le réentrainant sur l'ensemble de X_train et pas un subset de X_train 
-
-
-```python
-model = svm.SVR(C=1.5, cache_size=200, coef0=0.0, degree=3, epsilon=0.1, gamma=0.1,
-  kernel='rbf', max_iter=-1, shrinking=True, tol=0.001, verbose=False)
-```
-
-
-```python
-model.fit(X_train, y_train)
-```
-
-
-
-
-    SVR(C=1.5, gamma=0.1)
-
-
-
-
-```python
-model.score(X_test, y_test)
-```
-
-
-
-
-    0.726282532325518
-
-
-
-performance proche du split
-
-### à tâton pour trouver le meilleur modèle 
-
-
-```python
-hyperparametres_possibles = {
-    'C'     : [1.5, 2, 2.5],
-    'gamma' :[0.01, 0.05, 1]
+param_grid_lasso = { 
+    **param_grid,
+    "linear_reg" : [Lasso(tol=0.5)],
+    "linear_reg__alpha" : np.linspace(0.00000001, 1, 50)
 }
-grid = grid_search.GridSearchCV(estimator=svm.SVR(), 
-                                param_grid=hyperparametres_possibles, 
-                                n_jobs=-1)
-grid.fit(X_train, y_train)
-grid.best_score_
-grid.best_params_
+```
+
+
+```python
+gs = GridSearchCV(pipeline, param_grid=param_grid_lasso, 
+                  scoring="neg_mean_squared_error", cv=KFold(3, shuffle=True))
+gs.fit(x2_more_points, y_more_points)
 ```
 
 
 
 
-    {'C': 2.5, 'gamma': 0.05}
+    GridSearchCV(cv=KFold(n_splits=3, random_state=None, shuffle=True),
+                 estimator=BetterPipeline(steps=[('adding_features',
+                                                  AddFeatures(where_x=0)),
+                                                 ('poly', PolynomialFeatures()),
+                                                 ('scaler', StandardScaler()),
+                                                 ('linear_reg',
+                                                  LinearRegression())]),
+                 param_grid={'adding_features__functions': [[<function identity at 0x140f5a670>],
+                                                            [<function identity at 0x140f5a670>,
+                                                             <ufunc '...
+           5.71428576e-01, 5.91836739e-01, 6.12244902e-01, 6.32653065e-01,
+           6.53061228e-01, 6.73469391e-01, 6.93877554e-01, 7.14285717e-01,
+           7.34693880e-01, 7.55102043e-01, 7.75510206e-01, 7.95918369e-01,
+           8.16326532e-01, 8.36734696e-01, 8.57142859e-01, 8.77551022e-01,
+           8.97959185e-01, 9.18367348e-01, 9.38775511e-01, 9.59183674e-01,
+           9.79591837e-01, 1.00000000e+00]),
+                             'poly__degree': [1, 2, 3]},
+                 scoring='neg_mean_squared_error')
 
 
 
 
 ```python
-hyperparametres_possibles = {
-    'C'     : [2.5, 3, 3.5],
-    'gamma' :[0.01, 0.05, 1]
-}
-grid = grid_search.GridSearchCV(estimator=svm.SVR(), 
-                                param_grid=hyperparametres_possibles, 
-                                n_jobs=-1)
-grid.fit(X_train, y_train)
-grid.best_score_
-grid.best_params_
+df_grid = pd.DataFrame(gs.cv_results_)
+df_grid.rename(columns = { 'mean_test_score': 'neg_mean_test_score' }, inplace=True)
+display(df_grid.sort_values('neg_mean_test_score', ascending=False)[:3]) # 3 best performing models
+estimator =  gs.best_estimator_
+display(estimator)
+plt.scatter(x, y, color='blue')
+plt.plot(x, estimator.predict(x))
 ```
 
 
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>mean_fit_time</th>
+      <th>std_fit_time</th>
+      <th>mean_score_time</th>
+      <th>std_score_time</th>
+      <th>param_adding_features__functions</th>
+      <th>param_linear_reg</th>
+      <th>param_linear_reg__alpha</th>
+      <th>param_poly__degree</th>
+      <th>params</th>
+      <th>split0_test_score</th>
+      <th>split1_test_score</th>
+      <th>split2_test_score</th>
+      <th>neg_mean_test_score</th>
+      <th>std_test_score</th>
+      <th>rank_test_score</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>152</th>
+      <td>0.003711</td>
+      <td>0.000276</td>
+      <td>0.001259</td>
+      <td>0.000031</td>
+      <td>[&lt;function identity at 0x140f5a670&gt;, &lt;ufunc 's...</td>
+      <td>Lasso(alpha=1e-08, tol=0.5)</td>
+      <td>1e-08</td>
+      <td>3</td>
+      <td>{'adding_features__functions': [&lt;function iden...</td>
+      <td>-0.049015</td>
+      <td>-0.042963</td>
+      <td>-0.042469</td>
+      <td>-0.044815</td>
+      <td>0.002976</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>151</th>
+      <td>0.002369</td>
+      <td>0.000276</td>
+      <td>0.000835</td>
+      <td>0.000136</td>
+      <td>[&lt;function identity at 0x140f5a670&gt;, &lt;ufunc 's...</td>
+      <td>Lasso(alpha=1e-08, tol=0.5)</td>
+      <td>1e-08</td>
+      <td>2</td>
+      <td>{'adding_features__functions': [&lt;function iden...</td>
+      <td>-0.053484</td>
+      <td>-0.045553</td>
+      <td>-0.044973</td>
+      <td>-0.048004</td>
+      <td>0.003883</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>155</th>
+      <td>0.003686</td>
+      <td>0.000721</td>
+      <td>0.001281</td>
+      <td>0.000088</td>
+      <td>[&lt;function identity at 0x140f5a670&gt;, &lt;ufunc 's...</td>
+      <td>Lasso(alpha=1e-08, tol=0.5)</td>
+      <td>0.0204082</td>
+      <td>3</td>
+      <td>{'adding_features__functions': [&lt;function iden...</td>
+      <td>-0.055127</td>
+      <td>-0.046499</td>
+      <td>-0.045358</td>
+      <td>-0.048995</td>
+      <td>0.004361</td>
+      <td>3</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+
+
+    BetterPipeline(steps=[('adding_features',
+                           AddFeatures(functions=[<function identity at 0x140f5a670>,
+                                                  <ufunc 'sin'>, <ufunc 'exp'>,
+                                                  <ufunc 'cos'>],
+                                       where_x=0)),
+                          ('poly', PolynomialFeatures(degree=3)),
+                          ('scaler', StandardScaler()),
+                          ('linear_reg', Lasso(alpha=1e-08, tol=0.5))])
 
 
-    {'C': 3.5, 'gamma': 0.05}
 
 
 
+    [<matplotlib.lines.Line2D at 0x14102a2b0>]
 
-```python
-hyperparametres_possibles = {
-    'C'     : [3.5, 4, 5, 6],
-    'gamma' :[0.01, 0.05, 1]
-}
-grid = grid_search.GridSearchCV(estimator=svm.SVR(), 
-                                param_grid=hyperparametres_possibles, 
-                                n_jobs=-1)
-grid.fit(X_train, y_train)
-grid.best_score_, grid.best_params_
-```
 
 
 
+<img src="{{page.image_folder}}output_83_3.png" align="left" style="display:block !important;">
 
-    (0.7501429622074626, {'C': 6, 'gamma': 0.05})
 
+Lasso might have canceled out some params i guess (at least on the 3rd model)
 
 
 
-```python
-hyperparametres_possibles = {
-    'C'     : [ 6, 8, 10],
-    'gamma' :[0.01, 0.05, 1]
-}
-grid = grid_search.GridSearchCV(estimator=svm.SVR(), 
-                                param_grid=hyperparametres_possibles, 
-                                n_jobs=-1)
-grid.fit(X_train, y_train)
-grid.best_score_, grid.best_params_
-```
-
-
-
-
-    (0.7741648460590741, {'C': 10, 'gamma': 0.05})
-
-
-
-
-```python
-hyperparametres_possibles = {
-    'C'     : [ 10, 15, 20],
-    'gamma' :[0.01, 0.05, 1]
-}
-grid = grid_search.GridSearchCV(estimator=svm.SVR(), 
-                                param_grid=hyperparametres_possibles, 
-                                n_jobs=-1)
-grid.fit(X_train, y_train)
-grid.best_score_, grid.best_params_
-```
-
-
-
-
-    (0.7872540631505356, {'C': 15, 'gamma': 0.05})
-
-
-
-## Assess model stability (Using Bootstrap)
-
-
-```python
-from sklearn.utils import resample
-```
-
-
-```python
-resample(X, y, n_samples = 2, replace=True)
-```
-
-
-
-
-    [array([[7.52601e+00, 0.00000e+00, 1.81000e+01, 0.00000e+00, 7.13000e-01,
-             6.41700e+00, 9.83000e+01, 2.18500e+00, 2.40000e+01, 6.66000e+02,
-             2.02000e+01, 3.04210e+02, 1.93100e+01],
-            [4.41780e-01, 0.00000e+00, 6.20000e+00, 0.00000e+00, 5.04000e-01,
-             6.55200e+00, 2.14000e+01, 3.37510e+00, 8.00000e+00, 3.07000e+02,
-             1.74000e+01, 3.80340e+02, 3.76000e+00]]), array([13. , 31.5])]
-
-
-
-
-```python
-def Simulation(algorithme, X, y, nb_simulations=100):
-    from sklearn.model_selection import train_test_split
-    ## where we store all scores from simulations
-    scores = []
-    for i in range(nb_simulations):
-        ## Resample with replacement in all dataset
-        random_indexes = np.random.choice(range(np.size(X, axis=0)), size=np.size(X, axis=0),replace=True)
-        the_rest       = [x for x in range(np.size(X, axis=0)) if x not in random_indexes]
-        ## Split in Train, Test (0.75/0.25) and compute score
-        scores.append(get_score(algorithme, 
-                                X_train=X[random_indexes, :],
-                                X_test =X[the_rest, :],
-                                y_train=y[random_indexes],
-                                y_test =y[the_rest],
-                                display_options=False))
-    return scores
-```
-
-
-```python
-scores_decision_trees        = Simulation(DecisionTreeRegressor(),X, y, nb_simulations=1000)
-scores_rf                    = Simulation(RandomForestRegressor(),X, y, nb_simulations=1000)
-scores_linear_regression_OLS = Simulation(LinearRegression(),X, y, nb_simulations=1000)
-```
-
-
-```python
-import seaborn as sns
-fig, ax = plt.subplots(figsize=(12,4), nrows=1, ncols=1)
-sns.distplot(scores_decision_trees, ax=ax)
-sns.distplot(scores_rf, ax=ax)
-sns.distplot(scores_linear_regression_OLS, ax=ax)
-plt.legend(["Decision Tree Regressor", "Random Forest Regressor", "Linear Regressor"])
-plt.title("Boostrap procedure to assess model stability")
-#sns.distplot(scores_elasticnet, ax=ax)
-```
-
-    /Users/lucbertin/anaconda3/lib/python3.6/site-packages/scipy/stats/stats.py:1713: FutureWarning: Using a non-tuple sequence for multidimensional indexing is deprecated; use `arr[tuple(seq)]` instead of `arr[seq]`. In the future this will be interpreted as an array index, `arr[np.array(seq)]`, which will result either in an error or a different result.
-      return np.add.reduce(sorted[indexer] * weights, axis=axis) / sumval
-    /Users/lucbertin/anaconda3/lib/python3.6/site-packages/matplotlib/axes/_axes.py:6462: UserWarning: The 'normed' kwarg is deprecated, and has been replaced by the 'density' kwarg.
-      warnings.warn("The 'normed' kwarg is deprecated, and has been "
-    /Users/lucbertin/anaconda3/lib/python3.6/site-packages/matplotlib/axes/_axes.py:6462: UserWarning: The 'normed' kwarg is deprecated, and has been replaced by the 'density' kwarg.
-      warnings.warn("The 'normed' kwarg is deprecated, and has been "
-    /Users/lucbertin/anaconda3/lib/python3.6/site-packages/matplotlib/axes/_axes.py:6462: UserWarning: The 'normed' kwarg is deprecated, and has been replaced by the 'density' kwarg.
-      warnings.warn("The 'normed' kwarg is deprecated, and has been "
-
-
-
-
-
-    Text(0.5,1,'Boostrap procedure to assess model stability')
-
-
-
-
-
-
-<img src="{{page.image_folder}}output_288_2.png" align="left" width="75%" style="display: block !important;">
-
-
-
-
-
-```python
-from sklearn.linear_model import ElasticNet
-```
-
-
-```python
-def grid_search_best_score(algorithme, hyperparametres):
-    from sklearn.grid_search import GridSearchCV
-    grid = GridSearchCV(algorithme, param_grid=hyperparametres, scoring='r2', n_jobs=-1)
-    grid.fit(X_train, y_train)
-    return grid.best_score_, grid.best_estimator_
-```
-
-
-```python
-hyperparametres = {'alpha':[1.0], 'l1_ratio':[0.5]}
-grid_search_best_score(ElasticNet(), hyperparametres)
-```
-
-
-```python
-hyperparametres = {'alpha':np.linspace(0.1,0.9,50), 'l1_ratio':np.linspace(0.1,0.9,50)}
-grid_search_best_score(ElasticNet(), hyperparametres)
-```
-
-
-```python
-hyperparametres = {'alpha':np.linspace(0.01,0.1,10), 'l1_ratio':np.linspace(0.01,0.1,10)}
-grid_search_best_score(ElasticNet(), hyperparametres)
-```
-
-
-```python
-hyperparametres = {'alpha':np.linspace(0.025, 0.035,10), 'l1_ratio':[0.001]}
-grid_search_best_score(ElasticNet(), hyperparametres)
-```
-
-
-```python
-np.mean(scores_decision_trees), np.mean(scores_rf)
-```
-
-
-```python
-np.std(scores_decision_trees), np.std(scores_rf)
-```
-
-# Fin.
-
- 
-
-
-## Annexes, nice ressources // 
-
-
-
-<img src="{{page.image_folder}}img_model_complexity_trade_off.png" width="60%" align="left" style="display: block !important;">
-
-
-```python
-
-
-Image("td4_ressources/img_Ridge_Lasso_Regularization.png", retina=True)
-
-```
-
-
-
-
-
-
-<img src="{{page.image_folder}}output_301_0.png" align="left" width="75%" style="display: block !important;">
-
-
-
-
-
-
-
-<img src="{{page.image_folder}}img_bias_and_variance_for_ridge.png" width="50%" align="left" style="display: block !important;">
-
-
-```python
-
-
-Image("td4_ressources/img_bootstrap_limit_0638.png", width=600)
-
-```
-
-
-
-
-
-
-<img src="{{page.image_folder}}output_303_0.png" align="left" width="75%" style="display: block !important;">
-
-
-
-
-
-*** Credits: *** Stanford Edu
