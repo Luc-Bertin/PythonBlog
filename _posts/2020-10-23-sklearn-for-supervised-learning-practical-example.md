@@ -17,10 +17,8 @@ toc: true
 order: 5
 
 ---
-# Introduction to Scikit Learn library
 
-## General Workflow
-
+# ML Workflow
 
 
 <img src="{{page.image_folder}}img_ML_worflow.png" align="left" width="75%" style="display: block !important;">
@@ -43,7 +41,7 @@ Depending on what you want to achieve:
 * K-Fold cross validation or Bootstrap to check model predictions'stability / variance
 * Go back to step 1 or 2 if not satisfied
 
-## Import du dataset
+# import a dataset from the sklearn datasets collections
 
 
 ```python
@@ -128,10 +126,6 @@ california_housing.target_names
 
 
 
-discussion sur des critères discriminatoires : https://mail.python.org/pipermail/scikit-learn/2017-July/001683.html
-
-## Récupérer x et y
-
 
 ```python
 X = california_housing.data
@@ -146,7 +140,9 @@ X.shape, y.shape
 
 
 
-# Look at the data  (i.e. EDA = Exploratory Data Analysis)
+# Very very short EDA (Exploratory Data Analysis)
+
+As you've already covered a lot using Pandas, I'm just going to show a couple more things here.
 
 
 ```python
@@ -426,7 +422,7 @@ infos = pd.plotting.scatter_matrix(df, figsize=(15,15))
 
 Let's plot the target against each of those features
 
-
+<!-- 
 ```python
 ##def adding_plot_to_grid(fig, ncols):
 ##    from itertools import count, cycle, repeat, chain, permutations
@@ -473,7 +469,7 @@ Let's plot the target against each of those features
 # cell in order for the plot to be rendered.
 #from IPython.display import display
 #display(fig)
-```
+``` -->
 
 
 ```python
@@ -501,6 +497,42 @@ plt.tight_layout()
 
 
 <img src="{{page.image_folder}}output_25_0.png" align="left" width="75%" style="display: block !important;">
+
+
+Looking for correlations (linear)
+
+
+```python
+plt.figure(figsize=(10,10))
+sns.heatmap(df.corr("pearson"),
+            vmin=-1, vmax=1,
+            cmap='coolwarm',
+            annot=True, 
+            square=True);
+```
+
+
+
+<img src="{{page.image_folder}}output_57_0.png" align="left" width="75%" style="display: block !important;">
+
+or using another correlation coefficient
+
+
+
+```python
+plt.figure(figsize=(10,10))
+sns.heatmap(df.corr("spearman"),
+            vmin=-1, vmax=1,
+            cmap='coolwarm',
+            annot=True, 
+            square=True);
+```
+
+
+
+
+<img src="{{page.image_folder}}output_58_0.png" align="left" width="75%" style="display: block !important;">
+
 
 
 
@@ -682,6 +714,7 @@ By putting all transformed values to the same scale (**scaling**)
 
 ```python
 from sklearn.preprocessing import StandardScaler
+import numpy as np
 ```
 
 
@@ -709,61 +742,10 @@ plt.legend()
 
 
 
-
-
 <img src="{{page.image_folder}}output_55_1.png" align="left" width="75%" style="display: block !important;">
 
 
 
-
-## Look for correlations (linear, or by ranking)
-
-
-```python
-plt.figure(figsize=(10,10))
-sns.heatmap(df.corr("pearson"),
-            vmin=-1, vmax=1,
-            cmap='coolwarm',
-            annot=True, 
-            square=True);
-```
-
-
-
-
-<img src="{{page.image_folder}}output_57_0.png" align="left" width="75%" style="display: block !important;">
-
-
-
-
-
-```python
-plt.figure(figsize=(10,10))
-sns.heatmap(df.corr("spearman"),
-            vmin=-1, vmax=1,
-            cmap='coolwarm',
-            annot=True, 
-            square=True);
-```
-
-
-
-
-<img src="{{page.image_folder}}output_58_0.png" align="left" width="75%" style="display: block !important;">
-
-
-
-
-# Sklearn estimator object: 
-
-A common interface for all models (below is the general use case for supervised learning tasks, as we have seen an example above as with LinearRegression estimator)
-
-
-
-<img src="{{page.image_folder}}sklearn_estimator_object.png" width="50%" align="left" style="display: block !important;">
-
-
-the following dictionary will enable me to save the **performances of the different built models trained on the training data and evaluated on the test set**.
 
 # Choosing a performance metric
 
@@ -817,21 +799,28 @@ For example, curse of dimensionality, results as in higher dimensional training 
 > How to get p-values and a nice summary in Python as R summary(lm) ? https://stackoverflow.com/questions/27928275/find-p-value-significance-in-scikit-learn-linearregression
 
 
-```python
-import numpy as np
-```
+
+# Sklearn estimator object: 
+
+A common interface for all models (below is the general use case for supervised learning tasks, as we have seen an example above as with LinearRegression estimator)
+
+
+
+<img src="{{page.image_folder}}sklearn_estimator_object.png" width="50%" align="left" style="display: block !important;">
+
+
+
+## Example: simple linear regression on 3 data points with 1 feature
 
 
 ```python
 from sklearn.linear_model import LinearRegression
 ```
 
-#### Linear regression for 3 points with 1 feature
-
 
 ```python
 lm = LinearRegression(fit_intercept=True)
-x = np.array([[4], [5], [6]])
+x = np.array([[4], [5], [6]]) # 2D array, 3 rows, 1 column
 y = np.array([3.2, 4.5, 7])
 lm.fit(X=x, y=y)
 ```
@@ -1011,7 +1000,7 @@ mean_squared_error(y, lm.predict(x))
 
 
 
-#### Linear regression for 3 points with 2 features
+## Multiple linear regression on 3 data points with 2 features
 
 
 ```python
@@ -1164,7 +1153,7 @@ for i in changing_nb_of_features:
 
 $R^2$ compares the fit of the model with that of a horizontal straight line representing the mean of the data y (the null hypothesis) i.e. the outcome y is constant for all x. If the fit is worse, the $R^2$ can be negative.
 
-making sense of [dot product](https://math.stackexchange.com/questions/348717/dot-product-intuition)
+<!-- making sense of [dot product](https://math.stackexchange.com/questions/348717/dot-product-intuition) -->
 
 That was an example of fitting a linear model using OLS method, making the assumption the outcome variable y is assumed to have a linear relationship with the feature(s) x(s)
 
@@ -1242,11 +1231,7 @@ fig_reg
 
 
 
-
-
-
 <img src="{{page.image_folder}}output_101_0.png" align="left" width="75%" style="display: block !important;">
-
 
 
 
@@ -1255,7 +1240,7 @@ some other ressources from [Stanford Uni](https://web.stanford.edu/~mrosenfe/soc
 
 [linear regression expressed as conditional means](https://stats.stackexchange.com/questions/220507/linear-regression-conditional-expectations-and-expected-values)
 
-### Let's take some other data example
+## Example 2: Approximating a sinus
 
 
 ```python
