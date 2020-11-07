@@ -24,22 +24,24 @@ order: 5
 <img src="{{page.image_folder}}img_ML_worflow.png" align="left" width="75%" style="display: block !important;">
 
 
-### Step1: EDA  (Exploratory data analysis)
+Step1: EDA  (Exploratory data analysis)
 
-### Step2: Data preparation
+Step2: Data preparation
 * Data preprocessing & transformations
 * Feature engineering
 * (Feature selection)
 * Missing values imputations
 * Handling of outliers
 
-### Step3: Modeling  
+Step3: Modeling  
 Depending on what you want to achieve:
-* Split in Training and Test (randomly shuffled) (and/or validation set)
-* Train a model on Training set, validate on test set (or validation set)
-* model Hyperparameters tuning
-* K-Fold cross validation or Bootstrap to check model predictions'stability / variance
-* Go back to step 1 or 2 if not satisfied
+* Training / Test and or Validation set
+* Model Hyperparameters tuning
+* K-Fold cross validation or Bootstraping
+* **Feeedback loop to Step2**
+
+Step4: Deployment and monitoring
+
 
 # import a dataset from the sklearn datasets collections
 
@@ -2260,9 +2262,8 @@ scaling_and_OLS.fit(x2, y)
 x_transformed = scaling_and_gradient_descent.just_transforms(x2)
 ```
 
-------
 
-##### pour Denis
+pour Denis
 
 
 ```python
