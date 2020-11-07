@@ -18,7 +18,7 @@ order: 5
 
 ---
 
-# ML Workflow
+# Simple Machine Learning Workflow
 
 
 <img src="{{page.image_folder}}img_ML_worflow.png" align="left" width="75%" style="display: block !important;">
