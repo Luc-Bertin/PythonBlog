@@ -749,7 +749,7 @@ plt.legend()
 
 
 
-# Choosing a performance metric
+# MSE relationship with R2 for linear regression
 
 Metrics are quantitative measurements. 
 The first, informal, definition of metric is consistent with the definition statistic, i.e. function of a sample <=> estimator 
@@ -758,9 +758,11 @@ We could use the risk function MSE (mean squared error) to compare how bad in av
 Closer to 1 is better, alhough it is important to check if there is no issues, like the **curse of dimensionality**.<br>
 $R^2$ is useful because it is often easier to interpret since it doesn't depend on the scale of the data but on the variance of $Y$ explained by the vars of $Xs$
 
+Later we will use back and forth MSE and $R2$.
 
 
-## $R^2$ coefficient of determination 
+
+# $R^2$ coefficient of determination 
 
 In linear least squares multiple regression with an estimated intercept term, $R^2$ equals the **square of the Pearson correlation coefficient between the observed $y$** and **modeled (predicted) $\hat{y}$ data values of the dependent variable**.<br>
 
