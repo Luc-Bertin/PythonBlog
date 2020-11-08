@@ -215,7 +215,8 @@ The MSE of that estimator incorporates both the:
 The expected value equals here $$\nu$$ (the true mean) then we say that the estimator $$\bar{X}$$ is **unbiased**, the MSE then equals the variance of the estimator.
 
 * for a predictor: using its nickname *MSPE*, it is a measure of a predictor’s fit, or how well your predictor predicts the true unobservable function.
-$$ MSPE(L) = E[ \sum_{i=1}^{n}{ ( g(x_i) - \hat{g}(x_i) )^2} ] $$
+<!-- $$ MSPE(L) = E[ \sum_{i=1}^{n}{ ( g(x_i) - \hat{g}(x_i) )^2} ] $$ -->
+$$ MSPE(L) = E[ ( g(x_i) - \hat{g}(x_i) )^2 ] $$
 
 MSE for an estimator and predictor are atually the same thing, instead of estimating a scalar caracteristic from the population, we intent to estimate the true underlying function in the functional space: 
 > [here](https://towardsdatascience.com/mse-and-bias-variance-decomposition-77449dd2ff55) MSE for estimator measures how close our estimator is to the desirable quantity θ. MSE for predictor measures how close our function predictor is to the desirable function f in some functional space, where we measure the distance between two functions as the L2 distance, which is actually one of many ways one can define a distance between two functions in a functional space.
