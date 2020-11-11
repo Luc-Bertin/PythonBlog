@@ -4,17 +4,11 @@ title:  "Sklearn for Supervised Learning - Practical example"
 author: luc
 categories: [ TDs, Sklearn, MachineLearning, Supervised ]
 image_folder: /assets/images/post_sklearn_for_supervised_learning/
-
-
 image: assets/images/post_sklearn_for_supervised_learning/index_img/cover.jpg
-
-
-
 image_index: assets/images/post_sklearn_for_supervised_learning/index_img/cover.jpg
-
 tags: [featured]
 toc: true
-order: 5
+order: 6
 
 ---
 
