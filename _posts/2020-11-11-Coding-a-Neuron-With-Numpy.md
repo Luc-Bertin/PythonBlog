@@ -12,9 +12,9 @@ order: 7
 
 ---
 
-# TD5 • Coding a simple Neuron with Backprop
+# Coding a Neuron with Numpy
 
-<h3> Un <a href="http://playground.tensorflow.org/#activation=linear&regularization=L1&batchSize=29&dataset=gauss&regDataset=reg-plane&learningRate=0.001&regularizationRate=0.003&noise=15&networkShape=1&seed=0.37334&showTestData=true&discretize=false&percTrainData=50&x=false&y=false&xTimesY=true&xSquared=true&ySquared=true&cosX=false&sinX=false&cosY=false&sinY=false&collectStats=false&problem=classification&initZero=false&hideText=false">lien sympathique</a> pour s'amuser avec différentes architectures de réseau de neurones </h3>
+<!-- <h3> Un <a href="http://playground.tensorflow.org/#activation=linear&regularization=L1&batchSize=29&dataset=gauss&regDataset=reg-plane&learningRate=0.001&regularizationRate=0.003&noise=15&networkShape=1&seed=0.37334&showTestData=true&discretize=false&percTrainData=50&x=false&y=false&xTimesY=true&xSquared=true&ySquared=true&cosX=false&sinX=false&cosY=false&sinY=false&collectStats=false&problem=classification&initZero=false&hideText=false">lien sympathique</a> pour s'amuser avec différentes architectures de réseau de neurones </h3> -->
 
 
 ```python
@@ -821,6 +821,7 @@ vector1.shape, vector2.shape
     ((1,), (3,))
 
 
+<img src="{{page.image_folder}}/Example1-broadcasting.png" align="left" width="100%">
 
 
 ```python
@@ -853,8 +854,6 @@ vector1_transformed + vector2
     array([[2, 3, 4]])
 
 
-
-<img src="td5_ressources/broadcoast1.png" width="100%">
 
 > from https://cs231n.github.io/python-numpy-tutorial/#numpy-broadcasting:
 * If the arrays do not have the same rank (number of dimensions), **prepend the shape of the lower rank array** with **1s until both shapes have the same length**.
@@ -907,6 +906,9 @@ vector1.shape, vector2.shape
 
 
     ((2, 1), (3,))
+
+
+<img src="{{page.image_folder}}/Example2-broadcasting.png" align="left" width="100%">
 
 
 
@@ -993,6 +995,12 @@ except Exception as e:
 
     After prepending with 1 the vector2, impossible to match 2 to 3:
     operands could not be broadcast together with shapes (2,3) (2,) 
+
+
+Another example:
+
+<img src="{{page.image_folder}}/Example3-broadcasting.png" align="left" width="100%">
+
 
 
 # Finding the parameters in a simple linear regression case
@@ -1147,7 +1155,7 @@ plotting(*params.stack().idxmin())
 
 > “Usual” definition: a “unit” computing a **weighted sum of its inputs**, that can add a constant term, and **apply some non-linearity (sigmoïd, ReLU, ...)**
 
-<img src="td4_ressources/img_perceptron_towards_data_science.png" width=500>
+<img src="{{page.image_folder}}1neuron.png" align="left" width="100%">
 
 ## Behavior formulas
 
@@ -1245,18 +1253,9 @@ This derivative can be done in 2 different ways:
 Once computed, the gradient points **uphill** (maximize the loss), so we need to update the weights taking the opposite direction. Also we will carefully take each update a **little step in this same direction** by using the (negation of the) derivative by a coefficient also called **learning rate**: since it influences to what extent **newly acquired information overrides old information** (wikipedia always gives the best quote).
 
 
+<img src="{{page.image_folder}}Sgd-VS-BATCH.png" align="left" width="100%">
 
 
-
-
-
-
-
-<img src="td5_ressources/batch_gradient_formula.png" width="100%">
-
-<img src="td5_ressources/stochastic_gradient_formula.png" width="100%" >
-
-<img src="td5_ressources/gradient_descent.png" width="100%">
 
 How to compute such gradient w.r.t. to the weights ? We use the **chain rule** !
 
@@ -1268,11 +1267,15 @@ Here we face a **composite function**, as computing such derivative w.r.t one we
 - then see how the output of the activation function changes w.r.t. the variable before the activation function (weighted inputs sum)
 - then w.r.t. to the weight itself.
 
-<img src="td4_ressources/img_formula_gradient_descent_backprop_mattmazur.png" width=600>
+
+<img src="{{page.image_folder}}Gradient-descent.png" align="left" width="100%">
+
 
 # Recap 
 
-<img src="td5_ressources/img_explanations_Bertin_Luc.png">
+
+<img src="{{page.image_folder}}1neuron.png" align="left" width="100%">
+
 
 # Time to implement it 
 
