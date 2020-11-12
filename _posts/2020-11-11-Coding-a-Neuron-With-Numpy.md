@@ -723,7 +723,7 @@ except:
     Again, not aligned because in maths you do the transpose of the vector1 
 
 
-<img src="td5_ressources/dot product.png" width="100%">
+<img src="{{page.image_folder}}dot product.png" width="100%">
 
 
 ```python
@@ -821,7 +821,7 @@ vector1.shape, vector2.shape
     ((1,), (3,))
 
 
-<img src="{{page.image_folder}}/Example1-broadcasting.png" align="left" width="100%">
+<img src="{{page.image_folder}}Example1-broadcasting.png" align="left" width="100%">
 
 
 ```python
