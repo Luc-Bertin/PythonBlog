@@ -231,11 +231,13 @@ If the lists have different length, the sum is considered `longestliste[i] + 0`.
 
 2. Create a class `IntegerList` whose constructors creates a list of integers from any passed-in list (filtering-out the non-integer elements). E.g. `IntegerList([1,2,"hello", 3,4, (1,2), "test"])` returns `[1,2,3,4]`
 
-3. Create an instance method `apply_func`, that takes a function as parameter, and apply it on each element of the list (being integers, see **2.**)
+3. Create an instance method `apply_func`, that takes a function as parameter, and apply it on each element of the list (being integers, see ***2.***)
 
 4. When we **index** the `IntegerList` (e.g. `IntegerList[2]`), it should returns an additional message like "element of index \<i\> has for value \<value\>" in addition to return the elements. (a `print` is enough).
 
-5 Bonus: adapt also for **slicing** the `IntegerList` (e.g. `IntegerList[0:4]`).
+5 Bonus: Adapt also for **slicing** the `IntegerList` (e.g. `IntegerList[0:4]`).
+
+6. Bonus: Make `IntegerList` inherit from `List` so it also encapsulates the summing behavior from the latter (see ***1.***).
 
 
 
