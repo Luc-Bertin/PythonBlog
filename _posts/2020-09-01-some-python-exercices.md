@@ -101,7 +101,6 @@ We will call the final dictionary `triplets_to_amino_acids`<br>
 ```python
 arn = 'GCCGAGTAACTAGCCAGCTATGACACGATCCCGGCTAGGAAAGTGAACCCGCGGAAGTATATTGGTACCTCACGGTAGGAGACGGCGGGATAATTCTTGTCGCTGTGTGTGCCATCGTACACGAGACGGGTCCACTGAGTAAAGCGAGTATCACACAGACGAAGGTGACCTCCCCTTGTAGTCAGTAATCTTTCCTGAATCTAATTACTGTCATCGATTGCAAAACTTTGCAAAAAAACATTTGTAGACAACCGCTTACGTGGCGCTTCCTGCATTAAACGATTCCGGTGCACGGAACAA'
 ```
-
 Split this arn in sequence of triplets to further get the amino-acids conversion (you can use list comprehension + `range`).
 
 4. Translate the sequence of triplets into a corresponding **string** of **amino acid** separated by a separator "-" (Hint: use a list comprehension for the looping part, then convert the resulting list into a string with "-" separators)/
@@ -227,6 +226,17 @@ The results must be saved in a dictionary:
 
 ## Ex. 7: Create a custom list 😉
 
-Create a class `List` whose behavior upon doing `liste1 + liste2`  (with `liste1` and `liste2` being `List` instances), is to add each of their elements element-wise i.e. `liste1[i] + liste2[i]` for each `i`.
-
+1. Create a class `List` whose behavior upon doing `liste1 + liste2`  (with `liste1` and `liste2` being `List` instances), is to add each of their elements element-wise i.e. `liste1[i] + liste2[i]` for each `i`.<br>
 If the lists have different length, the sum is considered `longestliste[i] + 0`.
+
+2. Create a class `IntegerList` whose constructors creates a list of integers from any passed-in list (filtering-out the non-integer elements). E.g. `IntegerList([1,2,"hello", 3,4, (1,2), "test"])` returns `[1,2,3,4]`
+
+3. Create an instance method `apply_func`, that takes a function as parameter, and apply it on each element of the list (being integers, see **2.**)
+
+4. When we **index** the `IntegerList` (e.g. `IntegerList[2]`), it should returns an additional message like "element of index \<i\> has for value \<value\>" in addition to return the elements. (a `print` is enough).
+
+5 Bonus: adapt also for **slicing** the `IntegerList` (e.g. `IntegerList[0:4]`).
+
+
+
+
