@@ -47,7 +47,7 @@ we would prefer to build a function `set_pipeline` which would result in the fol
 
 ## Exo2: Create a range with decimal increment
 
-Create a generator function which gives you the behavior of range(start, stop, step) with step that could be a float
+Create a **generator function** `decimal_range` which gives you the behavior of range(start, stop, step) with step that could be a float
 
 
 ```python
@@ -58,6 +58,15 @@ except Exception as e:
 ```
 
     'float' object cannot be interpreted as an integer
+
+## Exo2b: Define 3 generators functions
+* one that just multiply by 2: `genfunction1`
+* one that power by 2: `genfunction2`
+* one that divide by 5: `genfunction3`
+
+Pipe the generator function together and verify the results obtained by:
+
+`genfunction3(genfunction2(genfunction1( decimal_range(0, 5, 0.4)  )))`
 
 
 ## Exo3 : Counting letter occurences in a large file
