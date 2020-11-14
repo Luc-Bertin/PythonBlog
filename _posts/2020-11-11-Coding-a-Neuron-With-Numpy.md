@@ -216,7 +216,7 @@ pd.DataFrame(vector_1D_of_multiple_elements)
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="styledtable">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -273,7 +273,7 @@ pd.DataFrame(matrix)
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="styledtable">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -320,7 +320,7 @@ pd.DataFrame(vector_1D_of_multiple_elements.T)
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="styledtable">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -386,7 +386,7 @@ pd.DataFrame(vector_1D_of_multiple_elements).T
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="styledtable">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -445,7 +445,7 @@ pd.DataFrame(as_matrix)
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="styledtable">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -512,7 +512,7 @@ pd.DataFrame(as_matrix)
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="styledtable">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -1274,7 +1274,7 @@ records
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="styledtable">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -1392,7 +1392,7 @@ df
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="styledtable">
   <thead>
     <tr style="text-align: right;">
       <th></th>
