@@ -997,14 +997,14 @@ From the last definition of what a neuron is we get:
 
 1. <span style="color: red;">Weighted sum of its inputs</span> and <span style="color: blue;">can add a constant term<span>.
 
-$$$ f(x_i) =  \color{red}{\sum_{i=1}^{p}{w_i x_i}}   + \color{blue}{cst}$$$
+$$ f(x_i) =  \color{red}{\sum_{i=1}^{p}{w_i x_i}}   + \color{blue}{cst}$$
 
 2. Apply some <span style="color: green;">non-linearity function g</span>:<br>
     Example: sigmoid function (g is Sigmoid)
-    $$$ g(z) = Sigmoid(z) = \color{green}{\frac{1}{1+e^{-z}}} $$$
+    $$ g(z) = Sigmoid(z) = \color{green}{\frac{1}{1+e^{-z}}} $$
 
 **Then the output of the neuron is:**
-$$$ y_i = ( g \circ f ) (x) = g(f(x)) = \color{green}{\frac{1}{1+e^{-\color{red}{\sum_{i=1}^{p}{w_i x_i}}   + \color{blue}{cst}}}} $$$
+$$ y_i = ( g \circ f ) (x) = g(f(x)) = \color{green}{\frac{1}{1+e^{-\color{red}{\sum_{i=1}^{p}{w_i x_i}}   + \color{blue}{cst}}}} $$
 
 Seems that **<span style='color: red;'><u>1.</u></span>** look very similar to a simple linear regression formula !<br>
 - The **weights** $$w_i$$ can be seen as the **coefficients** of a linear regression.
@@ -1013,11 +1013,11 @@ Seems that **<span style='color: red;'><u>1.</u></span>** look very similar to a
 
 We can rewrite this formula in **vector notation**, so we could scale this to **multiple input vectors**.
 
-$$$  Y = (g \circ f) (X) = g( X W + B ) $$$
+$$  Y = (g \circ f) (X) = g( X W + B ) $$
 
 or maybe using the indices so it is a little bit clearer
 
-$$$  Y_{k,1} = (g \circ f) (X_{k,p}) = g( X_{k,p} W_{p,k} + B_{k,1} ) $$$
+$$  Y_{k,1} = (g \circ f) (X_{k,p}) = g( X_{k,p} W_{p,k} + B_{k,1} ) $$
 
 Where $$X$$ is a **row vector of p features** (or a **matrix of n row vectors of p features**).<br>
 This notation is useful as it could be used for one single input, or many.
@@ -1048,26 +1048,26 @@ B = np.random.random(size=(x.shape[0], 1))
 Remembered the cost function ?<br>
 Let's take a **quadratic loss** as it is **nicely differentiable**,<br>
 
-Let's write: $$$ z = (g \circ f) $$$
+Let's write: $$ z = (g \circ f) $$
 
 then:
 
-$$$ L(y_i, \hat{y}_i) = L(y_i, z(x_i)) = (y_i - z(x_i))^2 $$$
+$$ L(y_i, \hat{y}_i) = L(y_i, z(x_i)) = (y_i - z(x_i))^2 $$
 
 Then in matrix notation:
 
-$$$ L(Y_{k,1}, \hat{Y}_{k,1}) = L(Y_{k,1}, z(X_{k,p}) =  (Y_{k,1} - z(X_{k,p}))^2 $$$
+$$ L(Y_{k,1}, \hat{Y}_{k,1}) = L(Y_{k,1}, z(X_{k,p}) =  (Y_{k,1} - z(X_{k,p}))^2 $$
 
 
 Hence the result is a vector of loss for each output.
 
 The cost function is the **expected loss value**, if we use the quadratic loss it then becomes the **Mean Squared error**.
 
-$$$ MSE = \sum_{i=1}^{n}{ ( y_i - z(x_i) )^2}$$$
+$$ MSE = \sum_{i=1}^{n}{ ( y_i - z(x_i) )^2}$$
 
 and in matrix notation:
 
-$$$ MSE = E[L(Y_{k,1}, \hat{Y}_{k,1})]= E[ (Y_{k,1} - z(X_{k,p}))^2 ) ] $$$
+$$ MSE = E[L(Y_{k,1}, \hat{Y}_{k,1})]= E[ (Y_{k,1} - z(X_{k,p}))^2 ) ] $$
 
 ### Backpropagation
 
