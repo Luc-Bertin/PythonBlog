@@ -18,8 +18,6 @@ order: 7
 We are going to deal with numpy arrays along this practice session.
 Prior to implementing any formulas using Numpy, let's be more knowledgeable with this data structure.
 
-<!-- <h3> Un <a href="http://playground.tensorflow.org/#activation=linear&regularization=L1&batchSize=29&dataset=gauss&regDataset=reg-plane&learningRate=0.001&regularizationRate=0.003&noise=15&networkShape=1&seed=0.37334&showTestData=true&discretize=false&percTrainData=50&x=false&y=false&xTimesY=true&xSquared=true&ySquared=true&cosX=false&sinX=false&cosY=false&sinY=false&collectStats=false&problem=classification&initZero=false&hideText=false">lien sympathique</a> pour s'amuser avec différentes architectures de réseau de neurones </h3> -->
-
 Importing needed librairies:
 
 ```python
@@ -63,7 +61,7 @@ print(vector_1D.size, vector_1D_of_multiple_elements.size)
     1 6
 
 
-## Transpose vector
+### Transpose vector
 
 You can use `T` attribute to transpose a vector or matrix.
 For a **1D** vector, the transpose does not change its representation.<br>
@@ -87,9 +85,9 @@ vector_1D_of_multiple_elements.ndim)
     (array([1, 2, 3, 4, 5, 6]), (6,), 1)
 
 
-# A matrix
+## A matrix
 
-## Creation
+### Creation
 
 1st dimension can be seen as the "rows" dimension.<br>
 2nd dimension can be seen as the "columns" dimension.<br>
@@ -116,7 +114,7 @@ matrix, matrix.shape, matrix.ndim, matrix.size
 
 
 
-## transpose matrix
+### transpose matrix
 
 Transposing a matrix results in inversing the *shape* tuple.<br>
 In 2D matrix example: from 2 rows and 3 columns, we got 3 rows and 2 columns.
@@ -1771,3 +1769,7 @@ plt.bar(x=np.arange(len(lm.coef_)), height=at_98, color='white', alpha = 0.8)
 
 <img src="{{page.image_folder}}output_173_1.png" align="left" width="100%">
 
+
+# Bonus
+
+Un <a href="http://playground.tensorflow.org/#activation=linear&regularization=L1&batchSize=29&dataset=gauss&regDataset=reg-plane&learningRate=0.001&regularizationRate=0.003&noise=15&networkShape=1&seed=0.37334&showTestData=true&discretize=false&percTrainData=50&x=false&y=false&xTimesY=true&xSquared=true&ySquared=true&cosX=false&sinX=false&cosY=false&sinY=false&collectStats=false&problem=classification&initZero=false&hideText=false">lien sympathique</a> pour s'amuser avec différentes architectures de réseau de neurones.
