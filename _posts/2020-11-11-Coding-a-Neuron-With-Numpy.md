@@ -880,7 +880,7 @@ How to find the coefficient $$\beta$$s (here the intercept $$\beta$$0 and the sl
 ```python
 def plotting(beta0, beta1):
     plt.scatter(x_scaled_and_centered, y)
-    plt.plot(x_scaled_and_centered, lm.intercept_ + lm.coef_ * x_scaled_and_centered, color='r')
+    plt.plot(x_scaled_and_centered, beta0 + beta1 * x_scaled_and_centered, color='r')
 ```
 
 ## Using OLS
@@ -894,8 +894,6 @@ from sklearn.linear_model import LinearRegression
 lm = LinearRegression().fit(x[:, np.newaxis], y)
 lm.intercept_, lm.coef_
 ```
-
-
 
 
     (37.18580177143173, array([8.22801749]))
@@ -913,11 +911,7 @@ lm.intercept_, lm.coef_
 ```
 
 
-
-
     (448.5866764712714, array([239.90962559]))
-
-
 
 
 ```python
@@ -962,15 +956,10 @@ sns.heatmap(params, cmap="coolwarm", ax=ax)
 ```
 
 
-
-
     <AxesSubplot:>
 
 
-
-
 <img src="{{page.image_folder}}output_93_1.png" align="left" width="100%">
-
 
 
 ```python
@@ -978,10 +967,7 @@ params.stack().idxmin()
 ```
 
 
-
-
     (454.54545454545496, 252.52525252525265)
-
 
 
 
@@ -1005,7 +991,7 @@ plotting(*params.stack().idxmin())
 
 <img src="{{page.image_folder}}1neuron.png" align="left" width="100%">
 
-## Behavior formulas
+### Behavior formulas
 
 From the last definition of what a neuron is we get:
 
@@ -1059,7 +1045,7 @@ the bias term:
 B = np.random.random(size=(x.shape[0], 1))
 ```
 
-## Loss and Risk function
+### Loss and Risk function
 
 Remembered the cost function ?<br>
 Let's take a **quadratic loss** as it is **nicely differentiable**,<br>
@@ -1085,7 +1071,7 @@ and in matrix notation:
 
 $$$ MSE = E[L(Y_{k,1}, \hat{Y}_{k,1})]= E[ (Y_{k,1} - z(X_{k,p}))^2 ) ] $$$
 
-## Backpropagation
+### Backpropagation
 
 At first the weights (coefficients for a linear regression here) are chosen **randomly**.<br>
 Of course, if we knew them before, why would we use an algorithm ? :P
@@ -1125,7 +1111,7 @@ Here we face a **composite function**, as computing such derivative w.r.t one we
 <img src="{{page.image_folder}}1neuron.png" align="left" width="100%">
 
 
-# Time to implement it 
+### Time to implement it 
 
 which activation are we going to use ?
 
@@ -1564,8 +1550,9 @@ plt.show()
 <img src="data:," width="0">
 
 
-# Let's try with multiple features ;-)
+## Let's try with multiple features ;-)
 
+### OLS
 
 ```python
 from sklearn.datasets import load_boston
@@ -1586,6 +1573,7 @@ print( "linear regression coefficients {}".format(lm.coef_) )
      -3.79786679]
 
 
+### with our Neuron
 
 ```python
 neuron_on_boston = Neuron(X_train, y_train, 
@@ -1656,7 +1644,7 @@ plt.bar(x=np.arange(len(lm.coef_)), height=at_98, color='white', alpha = 0.5)
 <img src="{{page.image_folder}}output_163_1.png" align="left" width="100%">
 
 
-# In Keras ? 
+## Add-on: using Keras ? 
 
 
 ```python
@@ -1674,7 +1662,7 @@ sgd = optimizers.SGD(lr=0.02)
 model.compile(loss='mean_squared_error', optimizer=sgd)
 ```
 
-## A callback to store weights
+### A callback to store weights
 
 
 ```python
@@ -1778,14 +1766,8 @@ plt.bar(x=np.arange(len(lm.coef_)), height=at_98, color='white', alpha = 0.8)
 ```
 
 
-
-
     <BarContainer object of 13 artists>
-
-
 
 
 <img src="{{page.image_folder}}output_173_1.png" align="left" width="100%">
 
-
-# Fin.
