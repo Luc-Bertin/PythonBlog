@@ -12,10 +12,15 @@ order: 7
 
 ---
 
-# Coding a Neuron with Numpy
+
+# Numpy arrays
+
+We are going to deal with numpy arrays along this practice session.
+Prior to implementing any formulas using Numpy, let's be more knowledgeable with this data structure.
 
 <!-- <h3> Un <a href="http://playground.tensorflow.org/#activation=linear&regularization=L1&batchSize=29&dataset=gauss&regDataset=reg-plane&learningRate=0.001&regularizationRate=0.003&noise=15&networkShape=1&seed=0.37334&showTestData=true&discretize=false&percTrainData=50&x=false&y=false&xTimesY=true&xSquared=true&ySquared=true&cosX=false&sinX=false&cosY=false&sinY=false&collectStats=false&problem=classification&initZero=false&hideText=false">lien sympathique</a> pour s'amuser avec différentes architectures de réseau de neurones </h3> -->
 
+Importing needed librairies:
 
 ```python
 import os
@@ -24,26 +29,22 @@ import numpy as np
 import matplotlib.pyplot as plt
 ```
 
-# A scalar
+## A scalar
 
+A real number, an element of a fied. Enables to define vector space.
 
 ```python
-scalar = 4
-scalar2 = np.array(4)
-scalar, scalar2, scalar2.shape
+scalar = 4.2 # a real number
 ```
 
+## A vector
 
+### Creation
 
-
-    (4, array(4), ())
-
-
-
-# A vector
-
-## Creation
-
+We are going to use the *array* constructor to create such vector.<br>
+The numpy `ndim` attribute gives the number of dimensions.<br>
+The numpy `shape` attribute gives the number of elements in each dimensions, hence returning a *tuple*.<br> 
+The numpy `size` attribute gives the number of elements in the array. You could also do the product between each number of elements in each dimension to get the same value: `np.prod(array.shape)`.<br>
 
 ```python
 vector_1D = np.array([4])
@@ -53,7 +54,6 @@ print(vector_1D, vector_1D_of_multiple_elements)
 print(vector_1D.shape, vector_1D_of_multiple_elements.shape)
 print(vector_1D.ndim, vector_1D_of_multiple_elements.ndim)
 
-# Number of elements in the array
 print(vector_1D.size, vector_1D_of_multiple_elements.size)
 ```
 
@@ -65,18 +65,17 @@ print(vector_1D.size, vector_1D_of_multiple_elements.size)
 
 ## Transpose vector
 
+You can use `T` attribute to transpose a vector or matrix.
+For a **1D** vector, the transpose does not change its representation.<br>
+But it is going to make sense as we express a vector as **matrix column vector** vs vector as **matrix row vector**.
 
 ```python
-(vector_1D_of_multiple_elements.T,
+(vector_1D_of_multiple_elements
+ vector_1D_of_multiple_elements.T,
  vector_1D_of_multiple_elements.T.shape) # same thing (in terms of representation)
 ```
 
-
-
-
     (array([1, 2, 3, 4, 5, 6]), (6,))
-
-
 
 
 ```python
@@ -85,32 +84,29 @@ vector_1D_of_multiple_elements.shape,
 vector_1D_of_multiple_elements.ndim)
 ```
 
-
-
-
     (array([1, 2, 3, 4, 5, 6]), (6,), 1)
-
 
 
 # A matrix
 
-## creation
+## Creation
+
+1st dimension can be seen as the "rows" dimension.<br>
+2nd dimension can be seen as the "columns" dimension.<br>
+
+Hence using the array constructor: the argument can be a **list of lists**, as **stacking rows of p features** (column elements).
 
 
 ```python
-matrix = np.array( [ 
-            [ 1,2,3], 
-            [ 4,5,6]
+matrix = np.array([ 
+            [ 1, 2, 3], 
+            [ 4, 5, 6]
           ])
 ```
-
 
 ```python
 matrix, matrix.shape, matrix.ndim, matrix.size
 ```
-
-
-
 
     (array([[1, 2, 3],
             [4, 5, 6]]),
@@ -122,13 +118,12 @@ matrix, matrix.shape, matrix.ndim, matrix.size
 
 ## transpose matrix
 
+Transposing a matrix results in inversing the *shape* tuple.<br>
+In 2D matrix example: from 2 rows and 3 columns, we got 3 rows and 2 columns.
 
 ```python
 matrix.T, matrix.T.shape, matrix.T.ndim, matrix.size
 ```
-
-
-
 
     (array([[1, 4],
             [2, 5],
@@ -139,63 +134,48 @@ matrix.T, matrix.T.shape, matrix.T.ndim, matrix.size
 
 
 
-# Re-shape a vector or matrix
+## Re-shape a vector or matrix
 
+It is possible to give a new shape to an array without changing its data, this is enabled by the numpy **reshape** method.
+
+A vector of one element.
 
 ```python
 vector_1D.size
 ```
 
-
-
-
     1
 
-
-
+A 2D matrix of 1 element (one row, one column):
 
 ```python
 vector_1D.reshape((1,1))
 ```
 
-
-
-
     array([[4]])
 
-
-
+A 3D matrix of 1 element (one row, one column, on "depth" (if we see it as a cube)):
 
 ```python
 vector_1D.reshape((1,1,1))
 ```
 
-
-
-
     array([[[4]]])
 
-
-
+Nor the number of elements neither the values did change. 
 
 ```python
 vector_1D_of_multiple_elements.size
 ```
 
-
-
-
     6
 
 
-
+Same thing using the vector of 6 elements, turning into a matrix of 3 rows and 2 columns (still valid shape for the total number of elements):
 
 ```python
 vector_1D_of_multiple_elements.reshape(3,2)
 ```
-
-
-
 
     array([[1, 2],
            [3, 4],
@@ -203,69 +183,27 @@ vector_1D_of_multiple_elements.reshape(3,2)
 
 
 
+Or a matrix of 2 rows and 3 columns:
 
 ```python
 vector_1D_of_multiple_elements.reshape(2, 3)
 ```
 
-
-
-
     array([[1, 2, 3],
            [4, 5, 6]])
 
 
-
 ## pd.DataFrame
 
+Recall pandas library ? Sometimes it is easier to see a 2D numpy array as a DataFrame using its constructor.
 
-```python
-pd.DataFrame(vector_1D)
-```
-
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>0</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>4</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-
-
+For a 1D vector it is seen as a column:
 
 ```python
 pd.DataFrame(vector_1D_of_multiple_elements)
 ```
 
 
-
-
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -317,15 +255,12 @@ pd.DataFrame(vector_1D_of_multiple_elements)
 </div>
 
 
-
+For the 2D matrix:
 
 ```python
 pd.DataFrame(matrix)
 ```
 
-
-
-
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -367,75 +302,12 @@ pd.DataFrame(matrix)
 </div>
 
 
-
-
-```python
-pd.DataFrame(vector_1D_of_multiple_elements) 
-```
-
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>0</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>1</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>2</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>3</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>4</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>5</td>
-    </tr>
-    <tr>
-      <th>5</th>
-      <td>6</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-
-
-
+Transposing the vector of multiple elements didn't change anything (as for its numpy array representation):
 
 ```python
 pd.DataFrame(vector_1D_of_multiple_elements.T)
 ```
 
-
-
-
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -486,28 +358,22 @@ pd.DataFrame(vector_1D_of_multiple_elements.T)
 </table>
 </div>
 
-
-
+ 
+If we were to use the **DataFrame constructor** on the vector, and THEN use the attribute `shape` (recall that pandas also share similarities in its API with numpy one), you can see that the vector as been turn in a "(matrix) column vector" (a matrix with only one column and multiple rows). 
 
 ```python
 pd.DataFrame(vector_1D_of_multiple_elements).shape
 ```
 
-
-
-
     (6, 1)
 
-
-
+Hence using **T**, you get a (matrix) row vector (matrix with multiple columns but only one row):
 
 ```python
 pd.DataFrame(vector_1D_of_multiple_elements).T
 ```
 
 
-
-
 <div>
 <style scoped>
     .dataframe tbody tr th:only-of-type {
@@ -550,7 +416,7 @@ pd.DataFrame(vector_1D_of_multiple_elements).T
 
 
 
-# Vector "as" matrix
+## Vector "as" matrix
 
 In linear algebra, a **column vector** or **column matrix** is an **m × 1 matrix**, that is, a **matrix consisting of a single column of m elements**
 
@@ -619,7 +485,7 @@ pd.DataFrame(as_matrix)
 
 
 
-Similarly, a row vector or row matrix is a 1 × m matrix, that is, a matrix consisting of a single row of m elements
+Similarly, a **row vector** or **row matrix** is a **1 × m matrix**, that is, a **matrix consisting of a single row of m elements**.
 
 
 ```python
@@ -675,8 +541,9 @@ pd.DataFrame(as_matrix)
 </div>
 
 
+## Operations between vectors and/or matrices
 
-# Dot Product (produit scalaire)
+### Dot Product (produit scalaire)
 
 
 ```python
@@ -694,23 +561,20 @@ except:
 
     Not the same number of elements to perform a dot product (must be aligned)
 
-
-
 ```python
 vector2 = np.array([2,4,1,1,1])
 ```
 
+The **algebraic dot product** gives the **sum of the component-wise multiplications** from **vector1** and **vector2** (in Cartesian coordinates; in Euclidian ones you multiply the magnitude of each and the cosine of the angle between them, and of course the definitions here are equivalents as in cartesian coordinates each component of the vector can be seen as a magnitude that multiplies a corresponding unit vector in an orthogonal basis. Hence each vector can be expressed as the sum of those basis vectors with corresponding component. The geometric dot product resulting in a cosine: $$cos(\theta) = 1$$) for 2 components in the same $$e_i$$ and $$cos(\theta) = 0$$ for 2 components in different  $$e_i$$. Hence Algebraic dot product equals geometric dot product).
+
+
+The **algebraic dot product** returns a scalar.
 
 ```python
 np.dot(vector1, vector2) # 1*2 + 2*4 + 3*1 + 4*1 + 5*1
 ```
 
-
-
-
     22
-
-
 
 
 ```python
@@ -735,27 +599,20 @@ result_matrix_product = np.matmul(vector1.reshape(1,5), vector2.reshape(1,5).T)
 result_dot_product, result_matrix_product
 ```
 
-
-
-
     (array([[22]]), array([[22]]))
 
 
 
-# elementwise multiplication (Hadamard Product on Matrices (or column/row vector)
-To not confuse with dot product:
+## "componentwise" multiplications (i.e. Hadamard Product on Matrices, or column/row vector)
 
+Not to confuse with dot product:
 
 ```python
 vector1 * vector2 # vector of element multiplications
 ```
-
-
-
+Returns a vector of the component-wise multiplications.
 
     array([2, 8, 3, 4, 5])
-
-
 
 
 ```python
@@ -763,28 +620,19 @@ vector1 * vector2 # vector of element multiplications
 np.multiply(vector1, vector2)
 ```
 
-
-
-
     array([2, 8, 3, 4, 5])
-
-
 
 
 ```python
 np.multiply(vector1.reshape(1,5), vector2.reshape(1,5))
 ```
 
-
-
-
     array([[2, 8, 3, 4, 5]])
-
 
 
 # Broadcasting rules numpy
 
-refers to how numpy **treats arrays** with **different shapes** during **arithmetic operations**.<br>
+Refers to how numpy **treats arrays** with **different shapes** during **arithmetic operations**.<br>
 Subject to certain constraints, the **smaller array is “broadcast” across the larger array** so that they have compatible shapes!
 
 * Same shapes, no problem:
