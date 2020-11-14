@@ -1024,7 +1024,7 @@ plt.show()
 <img src="{{page.image_folder}}output_80_0.png" align="left" width="100%">
 
 
-How to find the coefficient $\beta$s (here the intercept $\beta$0 and the slope $\beta$1) in order to have the best fitting (simple) linear model ? 
+How to find the coefficient $$\beta$$s (here the intercept $$\beta$$0 and the slope $$\beta$$1) in order to have the best fitting (simple) linear model ? 
 
 ## The plotting function
 
@@ -1165,34 +1165,34 @@ From the last definition of what a neuron is we get:
 
 1. <span style="color: red;">Weighted sum of its inputs</span> and <span style="color: blue;">can add a constant term<span>.
 
-$$ f(x_i) =  \color{red}{\sum_{i=1}^{p}{w_i x_i}}   + \color{blue}{cst}$$
+$$$ f(x_i) =  \color{red}{\sum_{i=1}^{p}{w_i x_i}}   + \color{blue}{cst}$$$
 
 2. Apply some <span style="color: green;">non-linearity function g</span>:<br>
     Example: sigmoid function (g is Sigmoid)
-    $$ g(z) = Sigmoid(z) = \color{green}{\frac{1}{1+e^{-z}}} $$
+    $$$ g(z) = Sigmoid(z) = \color{green}{\frac{1}{1+e^{-z}}} $$$
 
 **Then the output of the neuron is:**
-$$ y_i = ( g \circ f ) (x) = g(f(x)) = \color{green}{\frac{1}{1+e^{-\color{red}{\sum_{i=1}^{p}{w_i x_i}}   + \color{blue}{cst}}}} $$
+$$$ y_i = ( g \circ f ) (x) = g(f(x)) = \color{green}{\frac{1}{1+e^{-\color{red}{\sum_{i=1}^{p}{w_i x_i}}   + \color{blue}{cst}}}} $$$
 
 Seems that **<span style='color: red;'><u>1.</u></span>** look very similar to a simple linear regression formula !<br>
-- The **weights** $w_i$ can be seen as the **coefficients** of a linear regression.
-- The $x_i$ as the **features** of **one** data point (one **row vector** then i.e. **one line of a matrix** or one observation in a **dataframe** !). There is $p$ features for one input vector here using the former notation.
-- The output $y_i$ is a scalar, that is, the output for one input vector of features $i$
+- The **weights** $$w_i$$ can be seen as the **coefficients** of a linear regression.
+- The $$x_i$$ as the **features** of **one** data point (one **row vector** then i.e. **one line of a matrix** or one observation in a **dataframe** !). There is $$p$$ features for one input vector here using the former notation.
+- The output $$y_i$$ is a scalar, that is, the output for one input vector of features $$i$$
 
 We can rewrite this formula in **vector notation**, so we could scale this to **multiple input vectors**.
 
-$$  Y = (g \circ f) (X) = g( X W + B ) $$
+$$$  Y = (g \circ f) (X) = g( X W + B ) $$$
 
 or maybe using the indices so it is a little bit clearer
 
-$$  Y_{k,1} = (g \circ f) (X_{k,p}) = g( X_{k,p} W_{p,k} + B_{k,1} ) $$
+$$$  Y_{k,1} = (g \circ f) (X_{k,p}) = g( X_{k,p} W_{p,k} + B_{k,1} ) $$$
 
-Where $X$ is a **row vector of p features** (or a **matrix of n row vectors of p features**).<br>
+Where $$X$$ is a **row vector of p features** (or a **matrix of n row vectors of p features**).<br>
 This notation is useful as it could be used for one single input, or many.
-- if **one input row vector** is passed, then, it is a **simple dot product** between this vector and a column **weights vector** occur, forming one scalar output $Y_{1,1}$.
-- if multiple inputs are being passed (size $k x p$), then W is a matrix of size $p x k$, so that Y has k output (one for each input) and that each feature of x is multiplied by its corresponding feature in W, forming finally a vector of outputs $Y_{k,1}$.
+- if **one input row vector** is passed, then, it is a **simple dot product** between this vector and a column **weights vector** occur, forming one scalar output $$Y_{1,1}$$.
+- if multiple inputs are being passed (size $$k x p$$), then W is a matrix of size $$p x k$$, so that Y has k output (one for each input) and that each feature of x is multiplied by its corresponding feature in W, forming finally a vector of outputs $$Y_{k,1}$$.
 
-Let's see the simple linear regression as a specification of multiple linear regression: $W_{k,p}$ for k inputs of p features
+Let's see the simple linear regression as a specification of multiple linear regression: $$W_{k,p}$$ for k inputs of p features
 
 
 ```python
@@ -1216,26 +1216,26 @@ B = np.random.random(size=(x.shape[0], 1))
 Remembered the cost function ?<br>
 Let's take a **quadratic loss** as it is **nicely differentiable**,<br>
 
-Let's write: $$ z = (g \circ f) $$
+Let's write: $$$ z = (g \circ f) $$$
 
 then:
 
-$$ L(y_i, \hat{y}_i) = L(y_i, z(x_i)) = (y_i - z(x_i))^2 $$
+$$$ L(y_i, \hat{y}_i) = L(y_i, z(x_i)) = (y_i - z(x_i))^2 $$$
 
 Then in matrix notation:
 
-$$ L(Y_{k,1}, \hat{Y}_{k,1}) = L(Y_{k,1}, z(X_{k,p}) =  (Y_{k,1} - z(X_{k,p}))^2 $$
+$$$ L(Y_{k,1}, \hat{Y}_{k,1}) = L(Y_{k,1}, z(X_{k,p}) =  (Y_{k,1} - z(X_{k,p}))^2 $$$
 
 
 Hence the result is a vector of loss for each output.
 
 The cost function is the **expected loss value**, if we use the quadratic loss it then becomes the **Mean Squared error**.
 
-$$ MSE = \sum_{i=1}^{n}{ ( y_i - z(x_i) )^2}$$
+$$$ MSE = \sum_{i=1}^{n}{ ( y_i - z(x_i) )^2}$$$
 
 and in matrix notation:
 
-$$ MSE = E[L(Y_{k,1}, \hat{Y}_{k,1})]= E[ (Y_{k,1} - z(X_{k,p}))^2 ) ] $$
+$$$ MSE = E[L(Y_{k,1}, \hat{Y}_{k,1})]= E[ (Y_{k,1} - z(X_{k,p}))^2 ) ] $$$
 
 ## Backpropagation
 
