@@ -1103,8 +1103,9 @@ Here we face a **composite function**, as computing such derivative w.r.t one we
 <img src="{{page.image_folder}}Gradient-descent.png" align="left" width="100%">
 
 
-# Recap 
+### Recap 
 
+Here is just the same picture as before, so to always cross check everything is done right while creating the `Neuron` class for creating in the next section.
 
 <img src="{{page.image_folder}}1neuron.png" align="left" width="100%">
 
@@ -1548,9 +1549,9 @@ plt.show()
 <img src="data:," width="0">
 
 
-## Let's try with multiple features ;-)
+# Let's try with multiple features ;-)
 
-### OLS
+## OLS
 
 ```python
 from sklearn.datasets import load_boston
@@ -1571,7 +1572,7 @@ print( "linear regression coefficients {}".format(lm.coef_) )
      -3.79786679]
 
 
-### with our Neuron
+## With our Neuron
 
 ```python
 neuron_on_boston = Neuron(X_train, y_train, 
