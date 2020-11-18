@@ -547,7 +547,7 @@ Values from a standardized feature are expressed in **unit variances**.
 
 a standardization scaler (implementend as scikit-learn `StandardScaler`):
 
-$$$ x_i = \frac{x_i - X_{mean}}{X_{std}} $$$
+$$ x_i = \frac{x_i - X_{mean}}{X_{std}} $$
 
 for all $$x_i$$ in the realized observations of $$X$$
 
@@ -557,7 +557,7 @@ This can be useful if we need to have the values set in a positive range. Some n
 An example of such, implemented in sklearn as `MinMaxScaler`
 :
 
-$$$x_i = \frac{x - x_{min}}{x_{max} - x_{min}}$$$ 
+$$x_i = \frac{x - x_{min}}{x_{max} - x_{min}}$$ 
 
 for all $$x_i$$ in the realized observations of $$X$$
 
@@ -622,8 +622,8 @@ applying it to the independent data or dependent one ?
 > The point is that you use this particular transformation to solve certain issue such as as heteroscedasticity of certain kind, and if this issue is not present in other variables then do not apply the transformation to [them](https://stats.stackexchange.com/questions/149908/box-cox-transformation-of-dependent-variable-only)
 
 Sometimes you even have to re-express both dependent and independent variables to attempt linearizing [relationships](https://stats.stackexchange.com/questions/35711/box-cox-like-transformation-for-independent-variables) (in the examlpe highlighted there: first log-ing the pressure and inverse-ing the temperature gives back the Clausus-Chapeyron relationship 
-$$$ \color{red}
-            {\ln{P}} = \frac{L}{R}\color{blue}{\frac{1}{T}} + c$$$
+$$ \color{red}
+            {\ln{P}} = \frac{L}{R}\color{blue}{\frac{1}{T}} + c$$
 
 $$X$$ is a feature: it is also mathematically considered as column vector.<br>
 Hence $$X^T$$ is the transposed used for a dot product ( shape of $$X^T$$ is $$(1, p)$$ )
@@ -764,7 +764,7 @@ In a linear least squares regression with an intercept term and a single explana
 
 How to derive $$R^2$$ ? We first need to define $$SST$$, $$SSE$$ and $$RSS$$:
 
-$$$SST = SSE + RSS$$$ (variance in the data expressed as some of squares distances around the mean) = variance explained by the model + remaining variance of the errors)
+$$SST = SSE + RSS$$ (variance in the data expressed as some of squares distances around the mean) = variance explained by the model + remaining variance of the errors)
 
 
 --- 
@@ -774,21 +774,21 @@ Be cautious with the litterature !
 
 
 
-$$$SST = \sum_{i=1}^{n}{(y_i - \bar{y})^2} $$$
+$$SST = \sum_{i=1}^{n}{(y_i - \bar{y})^2} $$
 
-$$$RSS = \sum_{i=1}^{n}{(y_i - \hat{y})^2} $$$
+$$RSS = \sum_{i=1}^{n}{(y_i - \hat{y})^2} $$
 
-$$$ESS = \sum_{i=1}^{n}{(\hat{y}-\bar{y})^2} $$$
+$$ESS = \sum_{i=1}^{n}{(\hat{y}-\bar{y})^2} $$
 
 we seek to improve ESS, that is the variance explained by the model
 
-$$$ R^2 = \frac{ESS}{TSS} = 1 - \frac{SSResiduals}{TotalSS} $$$
+$$ R^2 = \frac{ESS}{TSS} = 1 - \frac{SSResiduals}{TotalSS} $$
 
-and $$$MS(P)E = \frac{SSResiduals}{nbsamples} $$$
+and $$MS(P)E = \frac{SSResiduals}{nbsamples} $$
 
 $$R^2$$ and $$MS(P)E$$ are linked by the following formula:
 
-$$$ MS(P)E(y,\hat{y}) = \frac{SSResiduals(y,\hat{y})}{Nsamples}$$$
+$$ MS(P)E(y,\hat{y}) = \frac{SSResiduals(y,\hat{y})}{Nsamples}$$
 
 
 
@@ -920,7 +920,7 @@ plt.legend()
 
 
 
-$$$SST = \sum_{i=1}^{n}{(y_i - \bar{y})^2} $$$
+$$SST = \sum_{i=1}^{n}{(y_i - \bar{y})^2} $$
 
 
 
@@ -930,7 +930,7 @@ $$$SST = \sum_{i=1}^{n}{(y_i - \bar{y})^2} $$$
 SST = np.sum((y - np.mean(y))**2)
 ```
 
-$$$RSS = \sum_{i=1}^{n}{(y_i - \hat{y})^2} $$$
+$$RSS = \sum_{i=1}^{n}{(y_i - \hat{y})^2} $$
 
 
 
@@ -951,7 +951,7 @@ RSS, SST
 
 
 
-$$$ R^2 = \frac{ESS}{TSS} = 1 - \frac{SSResiduals}{TotalSS} $$$
+$$ R^2 = \frac{ESS}{TSS} = 1 - \frac{SSResiduals}{TotalSS} $$
 
 
 
@@ -1414,7 +1414,7 @@ The more complex the model gets, the **more it will capture data tendencies**, b
 The less complex (with **huge erroneous assumptions**) the model is, the **less sensible it is to capture the relations between the features and the output** but it won't be affected to different training sets.
 
 Actually... When we compute the performance of both of these models using the MSPE.
-$$$ MSPE(L) = E[  ( g(x_i) - \hat{g}(x_i) )^2 ] $$$ 
+$$ MSPE(L) = E[  ( g(x_i) - \hat{g}(x_i) )^2 ] $$ 
 (here i didn't compare using the Y, but just with respect to the unobservable function, hence the latter equation in 7.3 is slightly different)
 
 The former formula can be decomposed into 3 terms:
@@ -1509,7 +1509,7 @@ Indeed the relation is still **linear in its coefficient** $$\beta$$s, although 
 
 Be aware though that this can be affected by the curse of dimensionality, as the number of new features grows much faster than linearly with the growth of degree of polynomial.
 
-Let's assume then the true relationship (at least locally) is $$$y = \beta_0 + \beta_1 x + \beta_2 x^2 + \beta_3  x^3$$$
+Let's assume then the true relationship (at least locally) is $$y = \beta_0 + \beta_1 x + \beta_2 x^2 + \beta_3  x^3$$
 
 
 ```python
@@ -1537,7 +1537,7 @@ fig
 
 We get back *somehow* the **Taylor expansion** coeficients locally at the order 3
 
-$$$ sin(x) = x - \frac{x^3}{3!} + \frac{x^5}{5!} - ...  $$$
+$$ sin(x) = x - \frac{x^3}{3!} + \frac{x^5}{5!} - ...  $$
 
 
 ```python
@@ -1927,7 +1927,7 @@ To assess **overfitting**, one can use **cross-validation** techniques !
 
 By **splitting** the dataset into training and test set, you can validate whether your model will **generalize** well to unseen data. Hence if the model has started learning the noise in the training data, you should expect that:
 
-$$$ MSPE(training_{data}) < MSPE(test_{data}) $$$
+$$ MSPE(training_{data}) < MSPE(test_{data}) $$
 
 
 ```python
