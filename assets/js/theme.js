@@ -135,10 +135,11 @@ $(function() {
   }
 });
 
-$("<button class='code_preview'>Show code</button>").insertBefore("div.language-python div.highlight")
-$("button.code_preview").click(function(){     
+$("<button whatfor='code_preview'>Show code</button>").insertBefore("div.language-python div.highlight")
+$("button[whatfor=code_preview]").click(function(){     
     $(this).next().slideToggle();
 });
+// $("button").className
 
 // // toggling code preview
 //     var state = false;
