@@ -141,7 +141,7 @@ $("button.code_preview").click(function(){
     $(this).next().slideToggle();
 });
 
-$('div.language-python pre').each(function(){
+$('div.language-python div').each(function(){
    if($(this).height()>=200){
      $(this).toggle();
    };
