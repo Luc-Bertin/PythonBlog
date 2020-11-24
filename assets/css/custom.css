@@ -109,6 +109,6 @@
 }
 
 .language-plaintext pre {
-    color: black !important;
+    /*color: black !important;*/
     background-color: transparent !important;
 }
