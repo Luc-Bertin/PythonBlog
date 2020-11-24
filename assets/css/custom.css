@@ -110,7 +110,7 @@
 
 .language-plaintext pre {
     /*color: black;*/
-    background-color: transparent;
+    background-color: transparent !important;
 }
 
 button.code_preview {
@@ -119,18 +119,15 @@ button.code_preview {
   box-sizing: border-box;
   font-family:'Roboto',sans-serif;
   font-weight:400;
-  color:#FFFFFF;
+  color: white;
   background-color:#6787e0;
   box-shadow:inset 0 -0.6em 0 -0.35em rgba(0,0,0,0.17);
   text-align:center;
   position:relative;
 }
-button.code_preview:active{
-  top:0.1em;
-}
-@media all and (max-width:30em){
-button.code_preview{
-  display:block;
-  margin:0.4em auto;
- }
-}
+/*@media all and (max-width:30em){*/
+/*button.code_preview{*/
+  /*display:block;*/
+  /*margin:0.4em auto;*/
+/* }*/
+/*}*/
