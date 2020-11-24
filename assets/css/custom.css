@@ -108,7 +108,7 @@
    transform: rotate(180deg);
 }
 
-.language-plaintext {
+.language-plaintext pre {
     color: black !important;
-    background-color: #d3d3d3 !important;
+    background-color: transparent !important;
 }

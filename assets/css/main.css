@@ -8574,8 +8574,8 @@ html {
   button.navbar-toggler span{
     color: rgba(255, 255, 255, 0.5) !important;
   }
-  .language-plaintext {
-    color: black !important;
-    background-color: #d3d3d3 !important;
+  .language-plaintext pre {
+    color: white !important;
+    background-color: transparent !important;
   }
 }
