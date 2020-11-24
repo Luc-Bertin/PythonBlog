@@ -40,15 +40,15 @@ Step4: Deployment and monitoring
 # import a dataset from the sklearn datasets collections
 
 
-```python
+<button class="code_preview">```python
 from sklearn.datasets import fetch_california_housing
-```
+```</button>
 
 
-```python
+<button class="code_preview">```python
 california_housing = fetch_california_housing()
 { k:type(v) for k,v in california_housing.items() }
-```
+```</button>
 
 
 
@@ -63,9 +63,9 @@ california_housing = fetch_california_housing()
 
 
 
-```python
+<button class="code_preview">```python
 print(california_housing.DESCR)
-```
+```</button>
 
     .. _california_housing_dataset:
     
@@ -111,9 +111,9 @@ print(california_housing.DESCR)
 
 
 
-```python
+<button class="code_preview">```python
 california_housing.target_names
-```
+```</button>
 
 
 
@@ -123,11 +123,11 @@ california_housing.target_names
 
 
 
-```python
+<button class="code_preview">```python
 X = california_housing.data
 y = california_housing.target
 X.shape, y.shape
-```
+```</button>
 
 
 
@@ -141,16 +141,16 @@ X.shape, y.shape
 As you've already covered a lot using Pandas, I'm just going to show a couple more things here.
 
 
-```python
+<button class="code_preview">```python
 import pandas as pd
-```
+```</button>
 
 
-```python
+<button class="code_preview">```python
 df = pd.DataFrame(california_housing.data, 
                   columns=california_housing.feature_names)
 df.head(5)
-```
+```</button>
 
 
 
@@ -246,9 +246,9 @@ df.head(5)
 
 
 
-```python
+<button class="code_preview">```python
 df.dtypes
-```
+```</button>
 
 
 
@@ -266,9 +266,9 @@ df.dtypes
 
 
 
-```python
+<button class="code_preview">```python
 df.describe().T
-```
+```</button>
 
 
 
@@ -399,14 +399,14 @@ df.describe().T
 Let's do a pairwise comparison between features 
 
 
-```python
+<button class="code_preview">```python
 import matplotlib.pyplot as plt
-```
+```</button>
 
 
-```python
+<button class="code_preview">```python
 infos = pd.plotting.scatter_matrix(df, figsize=(15,15))
-```
+```</button>
 
 
 
@@ -419,7 +419,7 @@ infos = pd.plotting.scatter_matrix(df, figsize=(15,15))
 Let's plot the target against each of those features
 
 <!-- 
-```python
+```py<button class="code_preview">thon
 ##def adding_plot_to_grid(fig, ncols):
 ##    from itertools import count, cycle, repeat, chain, permutations
 ##    import matplotlib.gridspec as gridspec
@@ -447,33 +447,33 @@ Let's plot the target against each of those features
 ##        
 ##        yield fig
 ## https://gist.github.com/LeoHuckvale/89683dc242f871c8e69b
-```
+```</button>
 
 
-```python
+<button class="code_preview">```python
 ## new_fig = pyplot.figure()
 ## gen = adding_plot_to_grid(new_fig, 3)
 ## %matplotlib inline
 ## fig = next(gen)
-```
+```</button>
 
 
-```python
+<button class="code_preview">```python
 #in a Jupyter Notebook, the command fig, ax = plt.subplots()
 #and a plot command need 
 # to be in the same 
 # cell in order for the plot to be rendered.
 #from IPython.display import display
 #display(fig)
-``` -->
+``` --><button class="code_preview">
 
 
-```python
+<button class="code_preview">```python
 import numpy as np
-```
+```</button>
 
 
-```python
+<button class="code_preview">```python
 ncols, nrows = 4, 2
 fig, axes = plt.subplots(figsize=(5*4,5*2), nrows=nrows, ncols=ncols, sharey=True)
 
@@ -487,7 +487,7 @@ for index, (name_col, col_series) in enumerate(df.iteritems()):
                     alpha=0.2)
     axes[i,j].set_xlabel(name_col)
 plt.tight_layout()
-```
+```</button>
 
 
 
@@ -498,14 +498,14 @@ plt.tight_layout()
 Looking for correlations (linear)
 
 
-```python
+<button class="code_preview">```python
 plt.figure(figsize=(10,10))
 sns.heatmap(df.corr("pearson"),
             vmin=-1, vmax=1,
             cmap='coolwarm',
             annot=True, 
             square=True);
-```
+```</button>
 
 
 
@@ -515,14 +515,14 @@ or using another correlation coefficient
 
 
 
-```python
+<button class="code_preview">```python
 plt.figure(figsize=(10,10))
 sns.heatmap(df.corr("spearman"),
             vmin=-1, vmax=1,
             cmap='coolwarm',
             annot=True, 
             square=True);
-```
+```</button>
 
 
 
@@ -574,23 +574,23 @@ Also using penalization techniques (especially **ridge regression**, we will see
 
 
 
-```python
+<button class="code_preview">```python
 from sklearn.preprocessing import StandardScaler
-```
+```</button>
 
 
-```python
+<button class="code_preview">```python
 import seaborn as sns
-```
+```</button>
 
 
-```python
+<button class="code_preview">```python
 def identity(x):
     return x
-```
+```</button>
 
 
-```python
+<button class="code_preview">```python
 fig, axes = plt.subplots(1,3, figsize=(10,3), sharey=True)
 plt.suptitle("Distribution of the outcome values", x=0.5, y=1.05)
 for ax, func in zip(axes, [identity, np.log, np.sqrt]):
@@ -600,7 +600,7 @@ for ax, func in zip(axes, [identity, np.log, np.sqrt]):
     ax.set_title(func.__name__)
     ax.set(ylabel=None)
     ax.set_xlim(-2.5,2.5)
-```
+```</button>
 
 
 
@@ -629,9 +629,9 @@ $$X$$ is a feature: it is also mathematically considered as column vector.<br>
 Hence $$X^T$$ is the transposed used for a dot product ( shape of $$X^T$$ is $$(1, p)$$ )
 
 
-```python
+<button class="code_preview">```python
 df.HouseAge.head(4)
-```
+```</button>
 
 
 
@@ -645,9 +645,9 @@ df.HouseAge.head(4)
 
 
 
-```python
+<button class="code_preview">```python
 np.array(df.loc[:,["HouseAge"]])[:4] # [:4] is just to show the 4th first elements
-```
+```</button>
 
 
 
@@ -660,9 +660,9 @@ np.array(df.loc[:,["HouseAge"]])[:4] # [:4] is just to show the 4th first elemen
 
 
 
-```python
+<button class="code_preview">```python
 np.array(df.HouseAge).reshape(-1,1)[:4] # [:4] is just to show the 4th first elements
-```
+```</button>
 
 
 
@@ -675,13 +675,13 @@ np.array(df.HouseAge).reshape(-1,1)[:4] # [:4] is just to show the 4th first ele
 
 
 
-```python
+<button class="code_preview">```python
 from sklearn.preprocessing import PowerTransformer
 pt_y = PowerTransformer(method="box-cox", standardize=True)
 pt_y.fit(y.reshape(-1, 1))
 print('lambda found: {}'.format(pt_y.lambdas_))
 y_box_coxed = pt_y.transform(y.reshape(-1, 1))
-```
+```</button>
 
     lambda found: [0.12474766]
 
@@ -689,14 +689,14 @@ y_box_coxed = pt_y.transform(y.reshape(-1, 1))
 > "RGB and RGBA are sequences of, respectively, 3 or 4 floats in the range 0-1." https://matplotlib.org/3.3.2/api/colors_api.html
 
 
-```python
+<button class="code_preview">```python
 randcolor = lambda : list(np.random.random(size=3)) 
-```
+```</button>
 
 
-```python
+<button class="code_preview">```python
 randcolor()
-```
+```</button>
 
 
 
@@ -708,13 +708,13 @@ randcolor()
 By putting all transformed values to the same scale (**scaling**)
 
 
-```python
+<button class="code_preview">```python
 from sklearn.preprocessing import StandardScaler
 import numpy as np
-```
+```</button>
 
 
-```python
+<button class="code_preview">```python
 fig, ax = plt.subplots(1,1)
 plt.suptitle("Distribution of the outcome values", x=0.5, y=1.05)
 for func in [identity, np.log, np.sqrt]:
@@ -728,7 +728,7 @@ for func in [identity, np.log, np.sqrt]:
     ax.set(ylabel=None)
 sns.kdeplot(y_box_coxed[:,0], ax=ax, color=randcolor(), label="box-cox")
 plt.legend()
-```
+```</button>
 
 
 
@@ -811,17 +811,17 @@ A common interface for all models (below is the general use case for supervised 
 ## Example: simple linear regression on 3 data points with 1 feature
 
 
-```python
+<button class="code_preview">```python
 from sklearn.linear_model import LinearRegression
-```
+```</button>
 
 
-```python
+<button class="code_preview">```python
 lm = LinearRegression(fit_intercept=True)
 x = np.array([[4], [5], [6]]) # 2D array, 3 rows, 1 column
 y = np.array([3.2, 4.5, 7])
 lm.fit(X=x, y=y)
-```
+```</button>
 
 
 
@@ -831,10 +831,10 @@ lm.fit(X=x, y=y)
 
 
 
-```python
+<button class="code_preview">```python
 R2 = lm.score(X=x, y=y)
 R2
-```
+``<button class="code_preview">`
 
 
 
@@ -844,9 +844,9 @@ R2
 
 
 
-```python
+<button class="code_preview">```python
 lm.coef_
-```
+```</button>
 
 
 
@@ -856,9 +856,9 @@ lm.coef_
 
 
 
-```python
+<button class="code_preview">```python
 lm.intercept_
-```
+```</button>
 
 
 
@@ -868,9 +868,9 @@ lm.intercept_
 
 
 
-```python
+<button class="code_preview">```python
 y - np.mean(y)
-```
+```</button>
 
 
 
@@ -880,7 +880,7 @@ y - np.mean(y)
 
 
 
-```python
+<button class="code_preview">```python
 plt.scatter(x,y)
 line_x_coords = np.linspace(3.9, 6.2, 3)
 plt.plot(line_x_coords, lm.predict(line_x_coords[:, np.newaxis]), label="regression model fitted line")
@@ -892,7 +892,7 @@ for ix,iy in zip(x,y):
     # for arrow to the fitted regression line
     plt.arrow(ix, iy, 0, -float(iy-lm.predict(ix[:,np.newaxis])), head_width=0.14, color="black", length_includes_head=True)
 plt.legend()
-```
+```</button>
 
     /Users/lucbertin/.pyenv/versions/3.8.4/lib/python3.8/site-packages/matplotlib/patches.py:1338: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
       verts = np.dot(coords, M) + (x + dx, y + dy)
@@ -926,23 +926,23 @@ $$SST = \sum_{i=1}^{n}{(y_i - \bar{y})^2} $$
 
 
 
-```python
+<button class="code_preview">```python
 SST = np.sum((y - np.mean(y))**2)
-```
+```</button>
 
 $$RSS = \sum_{i=1}^{n}{(y_i - \hat{y})^2} $$
 
 
 
 
-```python
+<button class="code_preview">```python
 RSS = np.sum((y-lm.predict(x))**2)
-```
+```</button>
 
 
-```python
+<button class="code_preview">```python
 RSS, SST
-```
+```</button>
 
 
 
@@ -956,11 +956,11 @@ $$ R^2 = \frac{ESS}{TSS} = 1 - \frac{SSResiduals}{TotalSS} $$
 
 
 
-```python
+<button class="code_preview">```python
 R2_train = 1 - RSS/SST
 print(R2_train == R2)
 R2_train
-```
+```</button>
 
     True
 
@@ -973,10 +973,10 @@ R2_train
 
 
 
-```python
+<button class="code_preview">```python
 MSPE = RSS/len(x)
 MSPE
-```
+```</button>
 
 
 
@@ -986,10 +986,10 @@ MSPE
 
 
 
-```python
+<button class="code_preview">```python
 from sklearn.metrics import mean_squared_error
 mean_squared_error(y, lm.predict(x))
-```
+```</button>
 
 
 
@@ -1001,10 +1001,10 @@ mean_squared_error(y, lm.predict(x))
 ## Multiple linear regression on 3 data points with 2 features
 
 
-```python
+<button class="code_preview">```python
 x = np.hstack([x, np.array([[3.2], [4.3], [1.2]])])
 x
-```
+`<button class="code_preview">``
 
 
 
@@ -1016,11 +1016,11 @@ x
 
 
 
-```python
+<button class="code_preview">```python
 lm = LinearRegression(fit_intercept=True)
 lm.fit(X=x, y=y)
 lm.score(X=x, y=y)
-```
+```</button>
 
 
 
@@ -1030,9 +1030,9 @@ lm.score(X=x, y=y)
 
 
 
-```python
+<button class="code_preview">```python
 lm.coef_
-```
+```</button>
 
 
 
@@ -1042,9 +1042,9 @@ lm.coef_
 
 
 
-```python
+<button class="code_preview">```python
 x
-```
+`<button class="code_preview">``
 
 
 
@@ -1056,9 +1056,9 @@ x
 
 
 
-```python
+<button class="code_preview">```python
 y
-```
+`<button class="code_preview">``
 
 
 
@@ -1068,7 +1068,7 @@ y
 
 
 
-```python
+<button class="code_preview">```python
 fig = plt.figure(figsize=(10,10))
 ax = fig.gca(projection='3d')
 x1_coords = np.linspace(3, 8, 9)
@@ -1091,7 +1091,7 @@ ax = fig.add_subplot(projection='3d')
 ax.scatter(x[:, 0], x[:, 1], y, marker='.', color='red', s=100)
 ax.plot_surface(*np.meshgrid(x1_coords, x2_coords), y_pred, alpha=0.2)
 ax.plot_surface(*np.meshgrid(x1_coords, x2_coords), y_mean, alpha=0.2, color='red')
-```
+```</button>
 
     1.0
 
@@ -1112,7 +1112,7 @@ ax.plot_surface(*np.meshgrid(x1_coords, x2_coords), y_mean, alpha=0.2, color='re
 
 
 
-```python
+<button class="code_preview">```python
 changing_nb_of_features = range(1,200,10)
 xi_randoms_data_point = np.random.uniform(0, 10, size=(100, 200))
 y_randoms_data_point = np.random.uniform(0, 10, size=(100,))
@@ -1125,7 +1125,7 @@ for i in changing_nb_of_features:
     lm.fit(xi_train, yi_train)
     print("nb features: {}, score on test: {}\t, on train: {}".format(
             i, round(lm.score(xi_test, yi_test),3), lm.score(xi_train, yi_train)))
-```
+```</button>
 
     nb features: 1, score on test: -0.017 , on train: 0.02229306156403521
     nb features: 11, score on test: -0.314  , on train: 0.2009091438607158
@@ -1169,23 +1169,23 @@ Then: the **OLS estimator** is **unbiased** (the expected value from the $$\hat{
 (Warning: as a result of applying the OLS method the residuals will be uncorrelated, but the error terms might not have been at [first uncorrelated](https://stats.stackexchange.com/questions/263324/how-can-the-regression-error-term-ever-be-correlated-with-the-explanatory-variab) (violating the assumptions of linear regression))
 
 
-```python
+<button class="code_preview">```python
 from matplotlib import gridspec
-```
+```</button>
 
 
-```python
+<button class="code_preview">```python
 import random
-```
+```</button>
 
 
-```python
+<button class="code_preview">```python
 import seaborn as sns
 from scipy import stats
-```
+```</button>
 
 
-```python
+<button class="code_preview">```python
 grid = gridspec.GridSpec(1,2, width_ratios=[3,1])
 fig_reg = plt.Figure(figsize=(12,9))
 
@@ -1225,7 +1225,7 @@ y_normal_density = stats.norm.pdf(x_coords, loc=beta, scale=1/150)
 #ax1.plot(x_coords, y_normal_density, 'r', lw=2)
 
 fig_reg
-```
+```</button>
 
 
 
@@ -1241,24 +1241,24 @@ some other ressources from [Stanford Uni](https://web.stanford.edu/~mrosenfe/soc
 ## Example 2: Approximating a sinus
 
 
-```python
+<button class="code_preview">```python
 x = np.linspace(0, 2*np.pi, 100)
 y = np.random.normal(np.sin(x), scale=0.4)
-```
+```</button>
 
 
-```python
+<button class="code_preview">```python
 %matplotlib inline
-```
+```</button>
 
 
-```python
+<button class="code_preview">```python
 fig = plt.Figure()
 ax = fig.add_subplot()
 ax.scatter(x,y, color='b')
 fig.tight_layout()
 fig
-```
+```</button>
 
     <ipython-input-2172-57d06bb97c23>:4: MatplotlibDeprecationWarning: savefig() got unexpected keyword argument "dpi" which is no longer supported as of 3.3 and will become an error two minor releases later
       fig.tight_layout()
@@ -1279,11 +1279,11 @@ Is the underlying unobservable function linear ? it seems not...<br>
 Let's say we know everything, that this function is the sinus
 
 
-```python
+<button class="code_preview">```python
 ax.plot(x, np.sin(x), color='r', label="true unobservable function")
 fig.legend(loc='upper left', bbox_to_anchor=(1, 1)) #upper left is placed at x=1 y=1 on the figb
 fig
-```
+```</button>
 
 
 
@@ -1299,13 +1299,13 @@ fig
 What if we tried to fit a linear model, assuming the unobservable function is linear in its coefficient (which is totally not the case) ?
 
 
-```python
+<button class="code_preview">```python
 lm = LinearRegression()
 lm.fit(x[:, np.newaxis], y)
 ax.plot(x, lm.predict(x[:, np.newaxis]), color='g', label='fitted regression line')
 fig.legend()
 fig
-```
+```</button>
 
 
 
@@ -1323,7 +1323,7 @@ Recall the OLS estimator being **BLUE**? Well it is indeed, if the parameter mod
 
 
 
-```python
+<button class="code_preview">```python
 # grid and figure
 grid = gridspec.GridSpec(1,2, width_ratios=[2,2])
 fig_sin = plt.Figure(figsize=(11,7))
@@ -1383,7 +1383,7 @@ ax.plot(x, np.tile(np.mean(means), reps=(len(x),)), color='g', label='"mean" of 
 
 fig_sin
 #fig_sin.legend(loc='upper left', bbox_to_anchor=(1, 1)) #upper left is placed at x=1 y=1 on the figb
-```
+```</button>
 
     -0.0023175740735309645
 
@@ -1433,18 +1433,18 @@ Let's take a **polynomial model** instead (locally it will aproximate well, alth
 To create this model, we are actually going to do some light feature engineering, in that case create new polynomial features from the original ones 
 
 
-```python
+<button class="code_preview">```python
 from sklearn.preprocessing import PolynomialFeatures
 poly3 = PolynomialFeatures(degree=3)
 x_new = poly3.fit_transform(x[:, np.newaxis])
-```
+```</button>
 
 We hence created **4 features out of one**, which hold the attributes: $$constant, x, x**2, x**3$$
 
 
-```python
+<button class="code_preview">```python
 x_new.shape
-```
+```</button>
 
 
 
@@ -1454,9 +1454,9 @@ x_new.shape
 
 
 
-```python
+<button class="code_preview">```python
 x[:4]
-```
+```</button>
 
 
 
@@ -1466,9 +1466,9 @@ x[:4]
 
 
 
-```python
+<button class="code_preview">```python
 x[:4]**2
-```
+```</button>
 
 
 
@@ -1478,9 +1478,9 @@ x[:4]**2
 
 
 
-```python
+<button class="code_preview">```python
 x[:4]**3
-```
+```</button>
 
 
 
@@ -1490,9 +1490,9 @@ x[:4]**3
 
 
 
-```python
+<button class="code_preview">```python
 x_new[:4, :]
-```
+```</button>
 
 
 
@@ -1512,17 +1512,17 @@ Be aware though that this can be affected by the curse of dimensionality, as the
 Let's assume then the true relationship (at least locally) is $$y = \beta_0 + \beta_1 x + \beta_2 x^2 + \beta_3  x^3$$
 
 
-```python
+<button class="code_preview">```python
 lm_poly = LinearRegression().fit(x_new, y) # x_new is already 2D data
-```
+```</button>
 
 
-```python
+<button class="code_preview">```python
 ax = fig.gca()
 ax.plot(x, lm_poly.predict(x_new), color='purple', label='regression on polynomial features degree 3')
 fig.legend()
 fig
-```
+```</button>
 
 
 
@@ -1540,9 +1540,9 @@ We get back *somehow* the **Taylor expansion** coeficients locally at the order 
 $$ sin(x) = x - \frac{x^3}{3!} + \frac{x^5}{5!} - ...  $$
 
 
-```python
+<button class="code_preview">```python
 lm_poly.coef_ # first is the intercept due to the poly transform
-```
+```</button>
 
 
 
@@ -1554,12 +1554,12 @@ lm_poly.coef_ # first is the intercept due to the poly transform
 By the way, as highlighted in the sklearn docs, when you have multiple data processing and modelisation you can chain all those functions / pipe them using the Pipeline object
 
 
-```python
+<button class="code_preview">```python
 from sklearn.pipeline import Pipeline
-```
+```</button>
 
 
-```python
+<button class="code_preview">```python
 # Intermediate steps of the pipeline must be 'transforms', that is, they
 # must implement fit and transform methods.
 # The final estimator only needs to implement fit.
@@ -1567,10 +1567,10 @@ pipeline = Pipeline([
     ('poly', PolynomialFeatures()),
     ('linear', LinearRegression())
 ])
-```
+``<button class="code_preview">`
 
 
-```python
+<button class="code_preview">```python
 # The purpose of the pipeline is to assemble several steps that can be
 # cross-validated together while setting different parameters.
 # For this, it enables setting parameters of the various steps using their
@@ -1581,7 +1581,7 @@ pipeline.set_params(poly__degree=5)
 # data, then fit the transformed data using the final estimator
 
 pipeline.fit(x[:, np.newaxis], y)
-```
+```</button>
 
 
 
@@ -1592,12 +1592,12 @@ pipeline.fit(x[:, np.newaxis], y)
 
 
 
-```python
+<button class="code_preview">```python
 ax = fig.gca()
 ax.plot(x, pipeline.predict(x[:,np.newaxis]), color='orange', label='regression on polynomial features degree 5 (using pipeline)')
 fig.legend()
 fig
-```
+```</button>
 
 
 
@@ -1622,7 +1622,7 @@ We started doing feature engineering, why not adding other features such as:
 for all types of "x" (x, x*2, x*3)
 
 
-```python
+<button class="code_preview">```python
 from sklearn.base import BaseEstimator, TransformerMixin
 
 class AddFeatures(BaseEstimator, TransformerMixin):
@@ -1646,10 +1646,10 @@ class AddFeatures(BaseEstimator, TransformerMixin):
         self.funcs_applied = ["{}".format(func.__name__) for func in self.functions]
         cols =  np.hstack([func(x_) for func in self.functions])
         return np.hstack([X, cols])
-```
+```</button>
 
 
-```python
+<button class="code_preview">```python
 class BetterPipeline(Pipeline):
     """ Since pipeline.transform does work only when all estimators are transformers of the data,
     and mostly i'm fitting a model as last estimator, i prefer creating a just_transform method for that"""
@@ -1667,10 +1667,10 @@ class BetterPipeline(Pipeline):
         for name, transform in self.steps[:-1]:
             Xt = transform.transform(Xt)
         return Xt
-```
+```</button>
 
 
-```python
+<button class="code_preview">```python
 funcs = [np.sin, np.cos, np.exp]
 
 pipeline = BetterPipeline([
@@ -1681,7 +1681,7 @@ pipeline = BetterPipeline([
 
 pipeline.set_params(adding_features__functions=funcs)
 pipeline.fit(x[:, np.newaxis], y)
-```
+```</button>
 
 
 
@@ -1698,9 +1698,9 @@ pipeline.fit(x[:, np.newaxis], y)
 let's build again a linear model out of them:
 
 
-```python
+<button class="code_preview">```python
 pipeline.named_steps.adding_features.funcs_applied
-```
+```</button>
 
 
 
@@ -1710,9 +1710,9 @@ pipeline.named_steps.adding_features.funcs_applied
 
 
 
-```python
+<button class="code_preview">```python
 x[:,np.newaxis][:4]
-```
+```</button>
 
 
 
@@ -1725,10 +1725,10 @@ x[:,np.newaxis][:4]
 
 
 
-```python
+<button class="code_preview">```python
 pipeline.just_transforms(x[:, np.newaxis])[:4].shape
 # cst, x1, x2, x3, f1(x1), f2(x1),..., f5(x1), ..., f5(x3)
-```
+```</button>
 
 
 
@@ -1738,7 +1738,7 @@ pipeline.just_transforms(x[:, np.newaxis])[:4].shape
 
 
 
-```python
+<button class="code_preview">```python
 fig = plt.Figure()
 ax = fig.gca()
 ax.plot(x, np.sin(x))
@@ -1747,7 +1747,7 @@ ax.plot(x, pipeline.predict(x[:, np.newaxis]), color='r',
 fig.legend()
 fig.set_size_inches(5,3)
 fig
-```
+```</button>
 
 
 
@@ -1761,19 +1761,19 @@ fig
 
 
 
-```python
+<button class="code_preview">```python
 params = dict(zip(["x0", "x1", "x2", "x3"], ["x"]+pipeline.named_steps.adding_features.funcs_applied))
 list_of_features = []
 for feature in pipeline.named_steps.poly.get_feature_names():
     for el in params:
         feature = feature.replace(el, params.get(el))
     list_of_features.append(feature)
-```
+```</button>
 
 
-```python
+<button class="code_preview">```python
 params
-```
+```</button>
 
 
 
@@ -1783,10 +1783,10 @@ params
 
 
 
-```python
+<button class="code_preview">```python
 results = dict(zip(list_of_features, pipeline.named_steps.linear_reg.coef_))
 results
-```
+```</button>
 
 
 
@@ -1806,10 +1806,10 @@ results
 
 
 
-```python
+<button class="code_preview">```python
 sns.barplot(list(results.keys()), list(results.values()))
 plt.xticks(rotation=90)
-```
+```</button>
 
     /Users/lucbertin/.pyenv/versions/3.8.4/lib/python3.8/site-packages/seaborn/_decorators.py:36: FutureWarning: Pass the following variables as keyword args: x, y. From version 0.12, the only valid positional argument will be `data`, and passing other arguments without an explicit keyword will result in an error or misinterpretation.
       warnings.warn(
@@ -1842,7 +1842,7 @@ plt.xticks(rotation=90)
 
 
 
-```python
+<button class="code_preview">```python
 plt.plot(x, np.sin(x))
 plt.plot(x, 237.5537660813595
          -42.176913529594344*x
@@ -1859,7 +1859,7 @@ plt.plot(x, 237.5537660813595
         label='regression on all the added extra features')
 
 
-```
+<button class="code_preview">```
 
 
 
@@ -1877,7 +1877,7 @@ plt.plot(x, 237.5537660813595
 
 
 
-```python
+<button class="code_preview">```python
 def inverse(x):
     return 1/(1+x)
 def log_and_1(x):
@@ -1904,7 +1904,7 @@ ax.scatter(x, y)
 fig.legend()
 fig.set_size_inches(5,4)
 fig
-```
+```</button>
 
 
 
@@ -1930,17 +1930,17 @@ By **splitting** the dataset into training and test set, you can validate whethe
 $$ MSPE(training_{data}) < MSPE(test_{data}) $$
 
 
-```python
+<button class="code_preview">```python
 # set indexes for the training data (we chose 75% of the data for training, the rest as test set)
 train_index = list(set(np.random.choice(len(x_after_feature_engineering), size=75, replace=False)))
 test_index = list(set(range(100)) - set(train_index))
 # the training 
 X_train, y_train = x_after_feature_engineering[train_index], y[train_index]
 X_test, y_test = x_after_feature_engineering[test_index], y[test_index]
-```
+```</button>
 
 
-```python
+<button class="code_preview">```python
 # train the big pipeline on the training set
 pipeline.fit(X_train, y_train)
 
@@ -1989,7 +1989,7 @@ for ax in axes.flatten():
 
 plt.legend()
 plt.show()
-```
+```</button>
 
     MSE train/test with the pipeline 0.16079231932432714, 0.4153474547263636
     MSE train/test with poly and linear regression 0.14298871828570994, 0.11952029155922295
@@ -2027,19 +2027,19 @@ prediction given by OLS model should not be affected by multicolinearity, as ove
 <img src="{{page.image_folder}}img_regularization_Christoph_Wursch.png" width="100%" align="left" style="display: block !important;">
 
 
-```python
+<button class="code_preview">```python
 x_after_feature_engineering = pipeline.just_transforms(x[:, np.newaxis])
-```
+```</button>
 
 
-```python
+<button class="code_preview">```python
 xnz = StandardScaler().fit_transform(x_after_feature_engineering)
-```
+```</button>
 
 
-```python
+<button class="code_preview">```python
 LinearRegression(fit_intercept=False).fit(xnz,y).coef_
-```
+```</button>
 
 
 
@@ -2051,15 +2051,15 @@ LinearRegression(fit_intercept=False).fit(xnz,y).coef_
 
 
 
-```python
+<button class="code_preview">```python
 from sklearn.linear_model import Lasso
-```
+```</button>
 
 
-```python
+<button class="code_preview">```python
 regLasso1 = Lasso(fit_intercept=False, normalize=False, alpha=1)
 regLasso1.get_params()
-```
+```</button>
 
 
 
@@ -2079,10 +2079,10 @@ regLasso1.get_params()
 
 
 
-```python
+<button class="code_preview">```python
 regLasso1.fit(x_after_feature_engineering, y)
 regLasso1.coef_
-```
+```</button>
 
 
 
@@ -2094,12 +2094,12 @@ regLasso1.coef_
 
 
 
-```python
+<button class="code_preview">```python
 regLasso2 = Lasso(fit_intercept=False, normalize=False, 
                   alpha=0.00001)
 regLasso2.fit(x_after_feature_engineering, y)
 regLasso2.coef_
-```
+```</button>
 
     /Users/lucbertin/.pyenv/versions/3.8.4/lib/python3.8/site-packages/sklearn/linear_model/_coordinate_descent.py:529: ConvergenceWarning: Objective did not converge. You might want to increase the number of iterations. Duality gap: 6.725850754163225, tolerance: 0.00597784722657327
       model = cd_fast.enet_coordinate_descent(
@@ -2117,22 +2117,22 @@ regLasso2.coef_
 oups... seems alpha=1.0 is too big and the regularization too high! it cancelled out most of the coefficients !
 
 
-```python
+<button class="code_preview">```python
 my_alphas = np.append(np.linspace(0.01, 0.25, 100), np.linspace(0.25, 0.8, 50))
-```
+```</button>
 
 
-```python
+<button class="code_preview">```python
 # lasso_path() produce the esimated coefs_ for different values of alphas:
 from sklearn.linear_model import lasso_path
 alpha_for_path, coefs_lasso, _ = lasso_path(x_after_feature_engineering, y, alphas=my_alphas, 
                                             tol=0.8, normalize=False, fit_intercept=False)
-```
+```</button>
 
 
-```python
+<button class="code_preview">```python
 coefs_lasso.shape
-```
+```</button>
 
 
 
@@ -2142,7 +2142,7 @@ coefs_lasso.shape
 
 
 
-```python
+<button class="code_preview">```python
 import matplotlib.cm as cm
 colors = cm.rainbow(np.linspace(0,1,16))
 fig = plt.Figure(figsize=(12,5))
@@ -2155,7 +2155,7 @@ ax.set_ylabel('Coefficients')
 ax.set_title('Lasso path')
 fig.legend()
 fig
-```
+```</button>
 
 
 
@@ -2165,9 +2165,9 @@ fig
 
 --- 
 
-```python
+<button class="code_preview">```python
 import matplotlib.pyplot as plt
-```
+```</button>
 
 # Tuning hyperparameters or data processing steps
 
@@ -2202,21 +2202,21 @@ You would have to actually split the whole data in 3 sets: **train**, **test** a
 You train the model with $$lambda1$$ on the training set, you monitor the MSE on the test set, you update $$lambda$$ to the new value, and once you found a satisfying minimum of the MSE, you can retrain on the whole available data (train+test) and finally evaluate the final model using the hold-out validation test.
 
 
-```python
+<button class="code_preview">```python
 from sklearn.preprocessing import StandardScaler
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn.linear_model import SGDRegressor
 from sklearn.linear_model import LinearRegression
 from sklearn.linear_model import Lasso
-```
+```</button>
 
 
-```python
+<button class="code_preview">```python
 funcs = [np.sin, np.cos, np.exp]
-```
+```</button>
 
 
-```python
+<button class="code_preview">```python
 # scenario 1
 scaling_and_gradient_descent = BetterPipeline([
     ('adding_features', AddFeatures(where_x=0, functions=funcs)),
@@ -2232,13 +2232,13 @@ scaling_and_OLS = BetterPipeline([
     ('scaler', StandardScaler()),
     ('linear_reg', LinearRegression(fit_intercept=False))
 ])
-```
+``<button class="code_preview">`
 
 
-```python
+<button class="code_preview">```python
 scaling_and_gradient_descent.fit(x2, y)
 scaling_and_OLS.fit(x2, y)
-```
+```</button>
 
 
 
@@ -2254,18 +2254,18 @@ scaling_and_OLS.fit(x2, y)
 
 
 
-```python
+<button class="code_preview">```python
 x_transformed = scaling_and_gradient_descent.just_transforms(x2)
-```
+```</button>
 
 
 pour Denis
 
 
-```python
+<button class="code_preview">```python
 lasso = Lasso(alpha=0.00000001, tol=1)
 lasso.fit(x_transformed, y)
-```
+```</button>
 
 
 
@@ -2275,12 +2275,12 @@ lasso.fit(x_transformed, y)
 
 
 
-```python
+<button class="code_preview">```python
 import seaborn as sns
-```
+```</button>
 
 
-```python
+<button class="code_preview">```python
 fig, axes = plt.subplots(nrows=1, ncols=3, figsize=(15,3), sharey=True)
 sns.barplot(x=list(range(11)), y=lasso.coef_, ax=axes[0]).set(
     title="coefficients obtained using Lasso, lambda 1e-18")
@@ -2288,7 +2288,7 @@ sns.barplot(x=list(range(11)), y=scaling_and_gradient_descent.named_steps.linear
             ax=axes[1]).set(title="coefficients obtained using Gradient Descent")
 #sns.barplot(x=list(range(11)), y=scaling_and_OLS.named_steps.linear_reg.coef_, 
 #            ax=axes[2]).set(title="coefficients obtained using OLS")
-```
+```</button>
 
 
 
@@ -2304,17 +2304,17 @@ sns.barplot(x=list(range(11)), y=scaling_and_gradient_descent.named_steps.linear
 -----
 
 
-```python
+<button class="code_preview">```python
 from sklearn.model_selection import train_test_split
-```
+```</button>
 
 
-```python
+<button class="code_preview">```python
 X_train, X_test, y_train, y_test = train_test_split(x_transformed, y, train_size=0.70)
-```
+```</button>
 
 
-```python
+<button class="code_preview">```python
 lasso_models, alphas, MSE_train, MSE_test = [], [], [], []
 for alpha in np.linspace(0.0000001,0.25,100):
     lasso_model = Lasso(alpha=alpha, tol=0.5)
@@ -2322,10 +2322,10 @@ for alpha in np.linspace(0.0000001,0.25,100):
     mse_train = mean_squared_error( lasso_model.predict(X_train), y_train )
     mse_test  = mean_squared_error( lasso_model.predict(X_test), y_test )
     alphas.append(alpha); MSE_train.append(mse_train); MSE_test.append(mse_test)
-```
+```</button>
 
 
-```python
+<button class="code_preview">```python
 plt.plot(alphas, MSE_train, color='r', label="MSE train")
 plt.plot(alphas, MSE_test,  color='b', label="MSE test")
 plt.ylim(0.10, 0.35)
@@ -2334,7 +2334,7 @@ plt.legend()
 plt.suptitle("MSE on train and test sets", fontsize=14)
 plt.title("For some of Lasso regularization hyperparameter")
 plt.tight_layout(pad=0.6)
-```
+```</button>
 
 
 <img src="{{page.image_folder}}output_31_0.png" align="left" width="100%" style="display:block !important;">
@@ -2353,16 +2353,16 @@ Then you **train the model on K-1** folds and test it on the **remaining one**. 
 Let's do a k-fold cross validation
 
 
-```python
+<button class="code_preview">```python
 from sklearn.model_selection import cross_val_score, cross_val_predict
 from sklearn.model_selection import KFold
 from sklearn.metrics import mean_squared_error, make_scorer
-```
+```</button>
 
 
-```python
+<button class="code_preview">```python
 cross_val_score(LinearRegression(), x2, y, scoring="r2")
-```
+```</button>
 
 
 
@@ -2375,9 +2375,9 @@ scoring takes a scoring parameter (greater is better), hence is used the R2 is a
 we could have taken the negation of the MSE too.
 
 
-```python
+<button class="code_preview">```python
 cross_val_score(LinearRegression(), x2, y, scoring=make_scorer(mean_squared_error))
-```
+```</button>
 
 
 
@@ -2387,9 +2387,9 @@ cross_val_score(LinearRegression(), x2, y, scoring=make_scorer(mean_squared_erro
 
 
 
-```python
+<button class="code_preview">```python
 - cross_val_score(LinearRegression(), x2, y, scoring="neg_mean_squared_error")
-```
+```</button>
 
 
 
@@ -2407,14 +2407,14 @@ Wow ? difference are so important from one test set to another ! why is so ?
 When the MSE is high, the R2 is low, sometimes negative ? worse than a simple dummy model (H0 hypthesis) using the average. Why is so ?
 
 
-```python
+<button class="code_preview">```python
 folding = KFold(5)
-```
+```</button>
 
 
-```python
+<button class="code_preview">```python
 folding.split(x2, y)
-```
+```</button>
 
 
 
@@ -2426,14 +2426,14 @@ folding.split(x2, y)
 Wow ! a generator object !
 
 
-```python
+<button class="code_preview">```python
 generator = folding.split(x2, y)
-```
+```</button>
 
 
-```python
+<button class="code_preview">```python
 next(generator) # training indices, testing indices
-```
+```</button>
 
 
 
@@ -2449,7 +2449,7 @@ next(generator) # training indices, testing indices
 
 
 
-```python
+<button class="code_preview">```python
 def cross_val_visualize(X, y, cv=5, shuffle=False):
     from sklearn.model_selection import KFold
     from sklearn.metrics import mean_squared_error
@@ -2474,12 +2474,12 @@ def cross_val_visualize(X, y, cv=5, shuffle=False):
         # save the results | save the models
         MSE.append(mse); regressions.append(lm)
     return MSE
-```
+```</button>
 
 
-```python
+<button class="code_preview">```python
 cross_val_visualize(x2, y)
-```
+```</button>
 
 
 
@@ -2497,9 +2497,9 @@ cross_val_visualize(x2, y)
 
 
 
-```python
+<button class="code_preview">```python
 cross_val_visualize(x2, y, 3)
-```
+```</button>
 
 
 
@@ -2513,9 +2513,9 @@ cross_val_visualize(x2, y, 3)
 
 
 
-```python
+<button class="code_preview">```python
 cross_val_visualize(x2, y, shuffle=True)
-```
+```</button>
 
 
 
@@ -2553,26 +2553,26 @@ If you followed the previous steps, here is what is going to be the overall sche
 Actually, this is a pattern often used and sklearn provide a function for this (rather that implementing by hand and using nested for loops to find inside the hyperparameter space...)
 
 
-```python
+<button class="code_preview">```python
 from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import mean_squared_error, make_scorer
 from sklearn.linear_model import Lasso, Ridge
-```
+```</button>
 
 
-```python
+<button class="code_preview">```python
 gs = GridSearchCV(
     estimator=Lasso(tol=0.5),
     param_grid={ "alpha" : np.linspace(0.000001, 0.25, 100) },
     scoring=make_scorer(mean_squared_error),
     cv=KFold(5, shuffle=True)
 )
-```
+`<button class="code_preview">``
 
 
-```python
+<button class="code_preview">```python
 gs.fit(x_transformed, y)
-```
+```</button>
 
 
 
@@ -2594,9 +2594,9 @@ gs.fit(x_transformed, y)
 
 
 
-```python
+<button class="code_preview">```python
 gs.best_estimator_, gs.best_params_
-```
+```</button>
 
 
 
@@ -2606,19 +2606,19 @@ gs.best_estimator_, gs.best_params_
 
 
 
-```python
+<button class="code_preview">```python
 df_grid = pd.DataFrame(gs.cv_results_)
 params = df_grid.params.apply(pd.Series)
 df_grid = pd.concat([params, df_grid], axis=1)
-```
+```</button>
 
 
-```python
+<button class="code_preview">```python
 splits_measures = [col for col in df_grid if col.startswith("split")] 
 ax = df_grid.set_index(["alpha"])[splits_measures].T.plot(kind="line", figsize=(10,4))
 ax.get_legend().remove()
 #plt.xticks(rotation=90)
-```
+```</button>
 
     /Users/lucbertin/.pyenv/versions/3.8.4/lib/python3.8/site-packages/pandas/plotting/_matplotlib/core.py:1235: UserWarning: FixedFormatter should only be used together with FixedLocator
       ax.set_xticklabels(xticklabels)
@@ -2629,7 +2629,7 @@ ax.get_legend().remove()
 
 
 
-```python
+<button class="code_preview">```python
 from sklearn.svm import SVR
 param_grid = {
     'C'     : np.linspace(4, 15, 20),
@@ -2637,7 +2637,7 @@ param_grid = {
 }
 gs = GridSearchCV(estimator=SVR(), param_grid=param_grid, cv=3, scoring=make_scorer(mean_squared_error))
 gs.fit(x_transformed, y)
-```
+```</button>
 
 
 
@@ -2656,10 +2656,10 @@ gs.fit(x_transformed, y)
 
 
 
-```python
+<button class="code_preview">```python
 df_grid = show_params_as_df(gs, ['C', 'gamma'])
 df_grid
-```
+```</button>
 
 
 
@@ -2786,14 +2786,14 @@ df_grid
 
 
 
-```python
+<button class="code_preview">```python
 pivot = df_grid.pivot_table(index='C', columns='gamma').stack(level=1).apply(np.mean, axis=1)
-```
+```</button>
 
 
-```python
+<button class="code_preview">```python
 sns.heatmap(pivot.unstack())
-```
+```</button>
 
 
 
@@ -2813,7 +2813,7 @@ sns.heatmap(pivot.unstack())
 Let's take 2 scenarios set (each defined as a pipeline), the possibilities are endless by combining GridSearch with Pipelines:
 
 
-```python
+<button class="code_preview">```python
 # Using GridSearch
 pipeline = BetterPipeline([
     ('adding_features', AddFeatures(where_x=0)),
@@ -2821,24 +2821,24 @@ pipeline = BetterPipeline([
     ('scaler', StandardScaler()),
     ('linear_reg', LinearRegression())
 ])
-```
+``<button class="code_preview">`
 
 
-```python
+<button class="code_preview">```python
 def identity(x):
     return x
-```
+```</button>
 
 
-```python
+<button class="code_preview">```python
 param_grid = dict(
     adding_features__functions = [[identity], [identity, np.sin, np.exp, np.cos], [np.sin], [np.exp]],
     poly__degree = [1,2,3]
 )
-```
+`<button class="code_preview">``
 
 
-```python
+<button class="code_preview">```python
 gs = GridSearchCV(
     pipeline,
     param_grid=param_grid,
@@ -2846,7 +2846,7 @@ gs = GridSearchCV(
     cv=KFold(3, shuffle=True)
 )
 gs.fit(x2_more_points, y_more_points)
-```
+```</button>
 
 
 
@@ -2871,14 +2871,14 @@ gs.fit(x2_more_points, y_more_points)
 
 
 
-```python
+<button class="code_preview">```python
 df_grid = pd.DataFrame(gs.cv_results_)
-```
+```</button>
 
 
-```python
+<button class="code_preview">```python
 gs.best_params_
-```
+```</button>
 
 
 
@@ -2888,14 +2888,14 @@ gs.best_params_
 
 
 
-```python
+<button class="code_preview">```python
 df_grid.rename(columns = { 'mean_test_score': 'neg_mean_test_score' }, inplace=True)
-```
+```</button>
 
 
-```python
+<button class="code_preview">```python
 df_grid.sort_values('neg_mean_test_score', ascending=False)[:3] # 3 best performing models
-```
+```</button>
 
 
 
@@ -2989,15 +2989,15 @@ df_grid.sort_values('neg_mean_test_score', ascending=False)[:3] # 3 best perform
 
 
 
-```python
+<button class="code_preview">```python
 estimator =  gs.best_estimator_
-```
+```</button>
 
 
-```python
+<button class="code_preview">```python
 plt.scatter(x, y, color='blue')
 plt.plot(x, estimator.predict(x))
-```
+```</button>
 
 
 
@@ -3013,20 +3013,20 @@ plt.plot(x, estimator.predict(x))
 We find back the sin ! :D
 
 
-```python
+<button class="code_preview">```python
 param_grid_lasso = { 
     **param_grid,
     "linear_reg" : [Lasso(tol=0.5)],
     "linear_reg__alpha" : np.linspace(0.00000001, 1, 50)
 }
-```
+`<button class="code_preview">``
 
 
-```python
+<button class="code_preview">```python
 gs = GridSearchCV(pipeline, param_grid=param_grid_lasso, 
                   scoring="neg_mean_squared_error", cv=KFold(3, shuffle=True))
 gs.fit(x2_more_points, y_more_points)
-```
+```</button>
 
 
 
@@ -3053,7 +3053,7 @@ gs.fit(x2_more_points, y_more_points)
 
 
 
-```python
+<button class="code_preview">```python
 df_grid = pd.DataFrame(gs.cv_results_)
 df_grid.rename(columns = { 'mean_test_score': 'neg_mean_test_score' }, inplace=True)
 display(df_grid.sort_values('neg_mean_test_score', ascending=False)[:3]) # 3 best performing models
@@ -3061,7 +3061,7 @@ estimator =  gs.best_estimator_
 display(estimator)
 plt.scatter(x, y, color='blue')
 plt.plot(x, estimator.predict(x))
-```
+```</button>
 
 
 <div>

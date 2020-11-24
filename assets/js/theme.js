@@ -134,3 +134,16 @@ $(function() {
     }
   }
 });
+
+// toggling code preview
+    var state = false;
+
+    var button = document.getElementByClassName("code_preview");
+    button.onclick = function() {
+      state = !state;
+      if (state) {
+        button.innerHTML = "ON";
+      } else {
+        button.innerHTML = "OFF";
+      }
+    }
