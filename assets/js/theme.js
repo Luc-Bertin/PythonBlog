@@ -136,13 +136,15 @@ $(function() {
 });
 
 $("<button class='code_preview'>Show code</button>").insertBefore("div.language-python div.highlight")
+
+$("button.code_preview").click(function(){     
+    $(this).next().slideToggle();
+});
+
 $('div.language-python pre').each(function(){
    if($(this).height()>=200){
      $(this).toggle();
    };
-});
-$("button.code_preview").click(function(){     
-    $(this).next().slideToggle();
 });
 // new_row.className
 
