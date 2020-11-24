@@ -135,11 +135,17 @@ $(function() {
   }
 });
 
-$("<button whatfor='code_preview'>Show code</button>").insertBefore("div.language-python div.highlight")
-$("button[whatfor=code_preview]").click(function(){     
+$("<button class='code_preview'>Show code</button>").insertBefore("div.language-python div.highlight")
+$('div.language-python pre').each(function(){
+   if($(this).height()>=200){
+     $(this).toggle();
+   };
+});
+$("button.code_preview").click(function(){     
     $(this).next().slideToggle();
 });
-// $("button").className
+// new_row.className
+
 
 // // toggling code preview
 //     var state = false;
