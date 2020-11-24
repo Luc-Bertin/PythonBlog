@@ -129,11 +129,11 @@ button.code_preview {
  text-align:center;
  position:relative;
 }
-a.button6:active{
+button.code_preview:active{
  top:0.1em;
 }
 @media all and (max-width:30em){
- a.button6{
+button.code_preview{
   display:block;
   margin:0.4em auto;
  }
