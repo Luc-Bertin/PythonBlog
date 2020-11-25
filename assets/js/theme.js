@@ -135,19 +135,30 @@ $(function() {
   }
 });
 
-$("<button class='code_preview'>Show code</button>").insertBefore("div.language-python div.highlight")
 
+// selecting code that are larger in height than 80 to create a button
+let code_banners = $("div.language-python div.highlight").filter( function() {
+        return $(this).height() >= 80
+});
+$("<button class='code_preview'>Show code</button>").insertBefore(code_banners)
+
+// create toggling behavior on buttons click to hide next element
 $("button.code_preview").click(function(){     
     $(this).next().slideToggle();
 });
 
+// automatic hiding for elements with height greater than 200
 $('div.language-python div').each(function(){
    if($(this).height()>=200){
      $(this).toggle();
    };
 });
-// new_row.className
 
+// hide outputs and code
+$('button#hide-outputs').click(function(){
+    $("div.language-python").slideToggle();
+    $("div.language-plaintext").slideToggle();
+});
 
 // // toggling code preview
 //     var state = false;
