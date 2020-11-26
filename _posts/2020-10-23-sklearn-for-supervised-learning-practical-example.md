@@ -917,7 +917,7 @@ plt.legend()
 <img src="{{page.image_folder}}output_76_2.png" align="left" width="100%" style="display: block !important;">
 
 
-
+with the equations:
 
 
 $$SST = \sum_{i=1}^{n}{(y_i - \bar{y})^2} $$
@@ -2193,30 +2193,18 @@ Cross-validation is the simplest method for estimating the **expected prediction
 
 So we will check the MSE on the test set, in a bid to reduce it.
 
-But if you were to **tune** hyperparams or data preparation steps while **checking variations of MSE on test towards a minimization of it**, well, we would still somehow use a metric, a quantitative measure **we shouldn't be aware of**, as it is supposed to be the mean squared errors of the model on **unseen data**.<br>
-To give another example: it is as if you had to forecast whether or not to buy vegetables while not having access to the inside of the fridge. If you can **weight** the fridge itself, you might not know how many vegetables are left among all the food, but at least you have a taste of how likely the fridge is empty, considering the vegetables are the heaviest, hence you modify your behavior respectively.
 
-This has a name: it is called **data leakage**.
-
-You would have to actually split the whole data in 3 sets: **train**, **test** and **validation**, so to keep at least one set of data only for estimating the expected prediction error of the final model.<br>
-You train the model with $$lambda1$$ on the training set, you monitor the MSE on the test set, you update $$lambda$$ to the new value, and once you found a satisfying minimum of the MSE, you can retrain on the whole available data (train+test) and finally evaluate the final model using the hold-out validation test.
-
-
+(pour Denis:)
 ```python
 from sklearn.preprocessing import StandardScaler
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn.linear_model import SGDRegressor
 from sklearn.linear_model import LinearRegression
 from sklearn.linear_model import Lasso
-```
 
-
-```python
+# features from the functions to add
 funcs = [np.sin, np.cos, np.exp]
-```
 
-
-```python
 # scenario 1
 scaling_and_gradient_descent = BetterPipeline([
     ('adding_features', AddFeatures(where_x=0, functions=funcs)),
@@ -2232,55 +2220,20 @@ scaling_and_OLS = BetterPipeline([
     ('scaler', StandardScaler()),
     ('linear_reg', LinearRegression(fit_intercept=False))
 ])
-```
 
-
-```python
+# fit the scenarii to the inputs
 scaling_and_gradient_descent.fit(x2, y)
 scaling_and_OLS.fit(x2, y)
-```
 
-
-
-
-    BetterPipeline(steps=[('adding_features',
-                           AddFeatures(functions=[<ufunc 'sin'>, <ufunc 'cos'>,
-                                                  <ufunc 'exp'>],
-                                       where_x=0)),
-                          ('poly', PolynomialFeatures(interaction_only=True)),
-                          ('scaler', StandardScaler()),
-                          ('linear_reg', LinearRegression(fit_intercept=False))])
-
-
-
-
-```python
+# transform (and save) the inputs for either of them (same preprocessing steps for both scenarii)
 x_transformed = scaling_and_gradient_descent.just_transforms(x2)
-```
 
-
-pour Denis
-
-
-```python
 lasso = Lasso(alpha=0.00000001, tol=1)
 lasso.fit(x_transformed, y)
-```
 
-
-
-
-    Lasso(alpha=1e-08, tol=1)
-
-
-
-
-```python
+# display
 import seaborn as sns
-```
 
-
-```python
 fig, axes = plt.subplots(nrows=1, ncols=3, figsize=(15,3), sharey=True)
 sns.barplot(x=list(range(11)), y=lasso.coef_, ax=axes[0]).set(
     title="coefficients obtained using Lasso, lambda 1e-18")
@@ -2290,42 +2243,31 @@ sns.barplot(x=list(range(11)), y=scaling_and_gradient_descent.named_steps.linear
 #            ax=axes[2]).set(title="coefficients obtained using OLS")
 ```
 
-
-
-
     [Text(0.5, 1.0, 'coefficients obtained using Gradient Descent')]
-
-
 
 
 <img src="{{page.image_folder}}output_26_1.png" align="left" width="100%" style="display:block !important;">
 
 
------
-
-
 ```python
+# Finally split in train / test sets !
 from sklearn.model_selection import train_test_split
-```
 
-
-```python
 X_train, X_test, y_train, y_test = train_test_split(x_transformed, y, train_size=0.70)
-```
 
-
-```python
 lasso_models, alphas, MSE_train, MSE_test = [], [], [], []
 for alpha in np.linspace(0.0000001,0.25,100):
+    # apply Lasso for each different alphas
     lasso_model = Lasso(alpha=alpha, tol=0.5)
     lasso_model.fit(X_train, y_train)
+    # record mse on train set
     mse_train = mean_squared_error( lasso_model.predict(X_train), y_train )
+    # record mse on test set
     mse_test  = mean_squared_error( lasso_model.predict(X_test), y_test )
+    # record the alpha used at each iteration
     alphas.append(alpha); MSE_train.append(mse_train); MSE_test.append(mse_test)
-```
 
-
-```python
+# plot the MSEs against alphas
 plt.plot(alphas, MSE_train, color='r', label="MSE train")
 plt.plot(alphas, MSE_test,  color='b', label="MSE test")
 plt.ylim(0.10, 0.35)
@@ -2336,9 +2278,16 @@ plt.title("For some of Lasso regularization hyperparameter")
 plt.tight_layout(pad=0.6)
 ```
 
-
 <img src="{{page.image_folder}}output_31_0.png" align="left" width="100%" style="display:block !important;">
 
+
+But if you were to **tune** hyperparams or data preparation steps while **checking variations of MSE on test towards a minimization of it**, well, we would still somehow use a metric, a quantitative measure **we shouldn't be aware of**, as it is supposed to be the mean squared errors of the model on **unseen data**.<br>
+To give another example: it is as if you had to forecast whether or not to buy vegetables while not having access to the inside of the fridge. If you can **weight** the fridge itself, you might not know how many vegetables are left among all the food, but at least you have a taste of how likely the fridge is empty, considering the vegetables are the heaviest, hence you modify your behavior respectively.
+
+This has a name: it is called **data leakage**.
+
+You would have to actually split the whole data in 3 sets: **train**, **test** and **validation**, so to keep at least one set of data only for estimating the expected prediction error of the final model.<br>
+You train the model with $$lambda1$$ on the training set, you monitor the MSE on the test set, you update $$lambda$$ to the new value, and once you found a satisfying minimum of the MSE, you can retrain on the whole available data (train+test) and finally evaluate the final model using the hold-out validation test.
 
 # K-Fold cross validation
 
