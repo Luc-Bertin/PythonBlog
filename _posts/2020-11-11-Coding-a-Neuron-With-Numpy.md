@@ -1010,14 +1010,14 @@ $$  Y = (g \circ f) (X) = g( X W + B ) $$
 
 or maybe using the indices so it is a little bit clearer
 
-$$  Y_{k,1} = (g \circ f) (X_{k,p}) = g( X_{k,p} W_{p,k} + B_{k,1} ) $$
+$$  Y_{k,1} = (g \circ f) (X_{k,p}) = g( X_{k,p} W_{p,1} + B_{k,1} ) $$
 
 Where $$X$$ is a **row vector of p features** (or a **matrix of n row vectors of p features**).<br>
 This notation is useful as it could be used for one single input, or many.
 - if **one input row vector** is passed, then, it is a **simple dot product** between this vector and a column **weights vector** occur, forming one scalar output $$Y_{1,1}$$.
-- if multiple inputs are being passed (size $$k x p$$), then W is a matrix of size $$p x k$$, so that Y has k output (one for each input), in other terms the p weights are copied over each row (each data point, to do the scalar product for each input row vector $$X$$), forming finally a vector of outputs $$Y_{k,1}$$.
+- if multiple inputs are being passed (size $$k x p$$), then W is a matrix of size $$p x 1$$ (for $$\hat{Y}$$ being univariate or $$p x j$$ if you want $$\hat{Y}$$ to be a multivariate output of k rows/observations of j features each (one for each input)), forming finally a vector of outputs $$Y_{k,1}$$.
 
-Let's see the simple linear regression $$W_{1,k}$$ as a specification of multiple linear regression: $$W_{p,k}$$ for k inputs of p features. So let's see in the general form (multiple linear regression) how we can write $$W$$ depending on $$X$$.
+Let's see the simple univariate linear regression with $$W_{1,1}$$ as a specification of multiple univariate linear regression: $$W_{p,1}$$ for k inputs of p features. So let's see in the general form (multiple linear regression) how we can write $$W$$ depending on $$X$$.
 
 
 ```python
@@ -1073,13 +1073,13 @@ $$ MSE = E[L(Y_{k,1}, \hat{Y}_{k,1})]= E[ (Y_{k,1} - z(X_{k,p}))^2 ) ] $$
 At first the weights (coefficients for a linear regression here) are chosen **randomly**.<br>
 Of course, if we knew them before, why would we use an algorithm ? :P
 
-We are going to use **Gradient descent**: a **first-order** iterative optimization algorithm for **finding a local minimum of a differentiable function**. We want to minimize the errors produces, we will perform the gradient descent of the loss function. It implies computing the derivative of the loss function w.r.t. the weights. The **quadratic loss function** is then a good choice here as it is differentiable.
+We are going to use **Gradient descent**: a **first-order** iterative optimization algorithm for **finding a local minimum of a differentiable function**. We want to minimize the produced errors, we will perform the gradient descent of the loss function. It implies computing the derivative of the loss function w.r.t. the weights. The **quadratic loss function** is then a good choice here as it is differentiable.
 
-Computing the gradient of the **loss function** with respect to the **weights** enable us to later find the direction in the weight/parameter space that **minimizes the loss**.
+Computing the gradient of the **loss function** with respect to the **weights** enable us to later find (using the opposite) the direction in the weight/parameter space that **minimizes the loss**.
 
 This derivative can be done in 2 different ways:
 - each iteration can use **one input vector**. Each of the weights will be updated computing the derivative on the loss function w.r.t. the weights for **that single input vector** that had been passed forward to compute the output and so the errors, this is named: **stochastic gradient descent**.
-- or each iteration can use a **batch of multiple vectors** (extreme case is using a bach equaling to the training set, the whole data available, that is, **k row vectors**) to compute the **expected loss value for that batch of inputs**, this is named: **batch gradient descent**. This means that each weight will be updating by the same quantity **meaned** over the grouped information from the predictions errors drawn from passing **k input vectors**.  
+- or each iteration can use a **batch of multiple vectors** (extreme case is using a bach that equals the training set, the whole data available, that is, **k row vectors**) to compute the **expected loss value for that batch of inputs**, this is named: **batch gradient descent**. This means that each weight will be updating by the one quantity **meaned** over the grouped information/directions from the predictions errors drawn from passing **k input vectors**.  
 
 Once computed, the gradient points **uphill** (maximize the loss), so we need to update the weights taking the opposite direction. Also we will carefully take each update a **little step in this same direction** by using the (negation of the) derivative by a coefficient also called **learning rate**: since it influences to what extent **newly acquired information overrides old information** (wikipedia always gives the best quote).
 
