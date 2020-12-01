@@ -68,8 +68,7 @@ For a **1D** vector, the transpose does not change its representation.<br>
 But it is going to make sense as we express a vector as **matrix column vector** vs vector as **matrix row vector**.
 
 ```python
-(vector_1D_of_multiple_elements
- vector_1D_of_multiple_elements.T,
+(vector_1D_of_multiple_elements.T,
  vector_1D_of_multiple_elements.T.shape) # same thing (in terms of representation)
 ```
 
@@ -656,7 +655,7 @@ vector1 + vector2
 
 
 ```python
-vector1 = np.array([1])
+vector1 = np.array([2])
 vector2 = np.array([1,2,3])
 vector1.shape, vector2.shape
 ```
@@ -667,7 +666,7 @@ vector1.shape, vector2.shape
     ((1,), (3,))
 
 
-<img src="{{page.image_folder}}Example1-broadcasting.png" align="left" width="100%">
+<!-- <img src="{{page.image_folder}}Example1-broadcasting.png" align="left" width="100%"> -->
 
 
 ```python
@@ -677,7 +676,7 @@ vector1 + vector2
 
 
 
-    array([2, 3, 4])
+    array([3, 4, 5])
 
 
 
@@ -685,19 +684,15 @@ This is the same thing as:
 
 
 ```python
-vector1_transformed = np.tile(vector1, reps=(1,3))
+vector1_transformed = np.tile(vector1, reps=(3,))
 print( vector1_transformed )
-
 vector1_transformed + vector2
 ```
 
-    [[1 1 1]]
+    [2 2 2]
 
 
-
-
-
-    array([[2, 3, 4]])
+    array([[3, 4, 5]])
 
 
 
