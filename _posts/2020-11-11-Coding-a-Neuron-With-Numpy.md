@@ -1076,7 +1076,7 @@ Hence the result is a vector of loss for each output.
 
 The cost function is the **expected loss value**, if we use the quadratic loss it then becomes the **Mean Squared Error**.
 
-$$ MSE = \sum_{i=1}^{n}{ ( y_i - \hat{f}(x_i) )^2}$$
+$$ MSE = \frac{1}{n}\sum_{i=1}^{n}{ ( y_i - \hat{f}(x_i) )^2}$$
 
 and in matrix notation:
 
