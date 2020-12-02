@@ -810,11 +810,11 @@ np.tile(vector1, reps=(1, 3))
 
 
 
-<u>**Example3:**</u>
+<u><strong>Example3:</strong></u>
 
 
 ```python
-vector1 = np.array([[1, 4, 5], [2, 2, 5]]) # 2 rows, 1 column
+vector1 = np.array([[1, 4, 5], [2, 2, 5]]) # 2 rows, 3 column
 vector2 = np.array([1, 2]) # 1D vector
 vector1.shape, vector2.shape
 ```
