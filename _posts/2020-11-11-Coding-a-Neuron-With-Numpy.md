@@ -1122,7 +1122,7 @@ For a (scalar) weight $$j$$ associated to a feature number $$j$$:
 
 $$ w_j = w_j - \alpha \frac{\partial E}{\partial w_j} $$
 
-or in matrix notation for all the weights $$1...j...p$$ for a single neuron (in our linear regression framework):
+or in matrix notation for all the weights $$1... j... p$$ for a single neuron (in our linear regression framework):
 
 $$ W_{p,1} = W_{p,1} - \alpha \frac{\partial E}{\partial W_{p,1}} $$
 
@@ -1130,7 +1130,7 @@ Where E, for a batch, is the expected loss we want to differentiate (hence the M
 
 $$ W_{p,1} = W_{p,1} - \alpha \frac{\partial MSE}{\partial W_{p,1}} $$
 
-$$ W_{p,1} = W_{p,1} - \alpha \frac{\partial \EX[L(Y_{n,1}, \hat{Y_{n,1}})]}{\partial W_{p,1}} $$
+$$ W_{p,1} = W_{p,1} - \alpha \frac{\partial \E[L(Y_{n,1}, \hat{Y_{n,1}})]}{\partial W_{p,1}} $$
 
 with $$n$$ a **grouped collection of n data points**, also named a **batch**.
 - $$n$$ could be $$<= k$$ the number of data points for the entire (training) dataset
