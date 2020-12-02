@@ -1099,6 +1099,24 @@ Once computed, the gradient points **uphill** (maximize the loss), so we need to
 
 Following subsection gives the mathematical formulas of each of them.
 
+#### Stochastic Gradient Descent (SGD)
+
+For a (scalar) weight $$j$$ associated to a feature number $$j$$ (in simple linear regression, there would be only one anyway), the updating formula can be written as:
+
+$$ w_j = w_j - \alpha \frac{\partial L}{\partial w_j} $$
+
+Here L is the loss (hence computed on one input data point).
+
+or in matrix notation for all the weights $$1...j...p$$ for a single neuron (in a multiple linear regression framework):
+
+$$ W_{p,1} = W_{p,1} - \alpha \frac{\partial L}{\partial W_{p,1}} $$
+
+Here:
+- at each iteration, to update of the weights we use one single data point as input.
+- at each iteration, to update of the weights is driven by the prediction error made on that single input data point.
+- at each iteration, the corresponding computation of the derivative of the loss of the prediction error for that data point serves as a basis to update all the weights in the weight (column) matrix W_{p,1}.
+
+
 #### Batch or mini-batch Gradient Descent (BGD)
 
 For a (scalar) weight $$j$$ associated to a feature number $$j$$:
@@ -1119,10 +1137,6 @@ with $$n$$ a **grouped collection of n data points**, also named a **batch**.
 - $$n$$ could be $$<= k$$ the number of data points for the entire (training) dataset
 - if $$n$$ equals to $$k$$, then the entire meaned predictions errors on the entire dataset as input has been used to drive the update process of each of the weights in the weight column matrix 
 $$ W_{p,1} $$
-
-
-#### Stochastic Gradient Descent (SGD)
-
 
 
 
