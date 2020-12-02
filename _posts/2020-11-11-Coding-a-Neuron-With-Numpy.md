@@ -1076,11 +1076,11 @@ Hence the result is a vector of loss for each output.
 
 The cost function is the **expected loss value**, if we use the quadratic loss it then becomes the **Mean Squared Error**.
 
-$$ MSE = \sum_{i=1}^{n}{ ( y_i - z(x_i) )^2}$$
+$$ MSE = \sum_{i=1}^{n}{ ( y_i - \hat{f}(x_i) )^2}$$
 
 and in matrix notation:
 
-$$ MSE = E[L(Y_{k,1}, \hat{Y}_{k,1})]= E[ (Y_{k,1} - z(X_{k,p}))^2 ) ] $$
+$$ MSE = E[L(Y_{k,1}, \hat{Y}_{k,1})]= E[ (Y_{k,1} - \hat{f}(X_{k,p}))^2 ) ] $$
 
 ### Backpropagation
 
@@ -1096,6 +1096,34 @@ This derivative can be done in 2 different ways:
 - or each iteration can use a **batch of multiple vectors** (extreme case is using a bach that equals the training set, the whole data available, that is, **k row vectors**) to compute the **expected loss value for that batch of inputs**, this is named: **batch gradient descent**. This means that each weight will be updating by the one quantity **meaned** over the grouped information/directions from the predictions errors drawn from passing **k input vectors**.  
 
 Once computed, the gradient points **uphill** (maximize the loss), so we need to update the weights taking the opposite direction. Also we will carefully take each update a **little step in this same direction** by using the (negation of the) derivative by a coefficient also called **learning rate**: since it influences to what extent **newly acquired information overrides old information** (wikipedia always gives the best quote).
+
+Following subsection gives the mathematical formulas of each of them.
+
+#### Batch or mini-batch Gradient Descent (BGD)
+
+For a (scalar) weight $$j$$ associated to a feature number $$j$$:
+
+$$ w_j = w_j - \alpha \frac{\partial E}{\partial w_j} $$
+
+or in matrix notation for all the weights $$1...j...p$$ for a single neuron (in our linear regression framework):
+
+$$ W_{p,1} = W_{p,1} - \alpha \frac{\partial E}{\partial W_{p,1}} $$
+
+Where E, for a batch, is the expected loss we want to differentiate (hence the MSE here since we took a quadratic loss):
+
+$$ W_{p,1} = W_{p,1} - \alpha \frac{\partial MSE}{\partial W_{p,1}} $$
+
+$$ W_{p,1} = W_{p,1} - \alpha \frac{\partial \EX[L(Y_{n,1}, \hat{Y_{n,1}})]}{\partial W_{p,1}} $$
+
+with $$n$$ a **grouped collection of n data points**, also named a **batch**.
+- $$n$$ could be $$<= k$$ the number of data points for the entire (training) dataset
+- if $$n$$ equals to $$k$$, then the entire meaned predictions errors on the entire dataset as input has been used to drive the update process of each of the weights in the weight column matrix 
+$$ W_{p,1} $$
+
+
+#### Stochastic Gradient Descent (SGD)
+
+
 
 
 <img src="{{page.image_folder}}Sgd-VS-BATCH.png" align="left" width="100%">
