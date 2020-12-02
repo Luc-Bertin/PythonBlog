@@ -1017,29 +1017,43 @@ This notation is useful as it could be used for one single input, or many.
 - if **one input row vector** is passed, then, it is a **simple dot product** between this vector and a column **weights vector** occur, forming one scalar output $$Y_{1,1}$$.
 - if multiple inputs are being passed (size $$k x p$$), then W is a matrix of size $$p x 1$$ (for $$\hat{Y}$$ being univariate or $$p x j$$ if you want $$\hat{Y}$$ to be a multivariate output of k rows/observations of j features each (one for each input)), forming finally a vector of outputs $$Y_{k,1}$$.
 
-Let's see the simple univariate linear regression with $$W_{1,1}$$ as a specification of multiple univariate linear regression: $$W_{p,1}$$ for k inputs of p features. So let's see in the general form (multiple linear regression) how we can write $$W$$ depending on $$X$$.
+* For a **simple** (1 feature) **univariate** (1 output) linear regression (no need of non-linear activation function) handled by a **single** neuron, the matrix of weights will be: $$W_{1,1}$$. That is 1 single weight w1 so the formula is: $$\hat{y_i} = \hat{f}(x_{i,feature_1}) = w_1\*x_{i,feature_1})$$
+* For a **multiple** (many features) **univariate** (1 output) linear regression (no need of non-linear activation function) handled by a **single** neuron, the matrix of weights will be $$W_{p,1}$$. That is **p** weight (adapting to the **p** different features) and 1 single output (of activated(weighted sum + bias)).
 
+Hence you can see the weight matrix does not depend of the number of data points, but on the number of features the data embed.
+You also have 1 added term/bias for each neuron, so the number of bias does not depend on the number of features but the number of neurons, and will be broadcasted to the number of data points (if you see the bias as an intercept, on each prediction you add the intercept of course).
+
+In Python code,
+
+the data:
 
 ```python
-x = x[:, np.newaxis] # to set x as a matrix of row vectors of 1 feature kx1
+# to set x as a matrix of row vectors of 1 feature each kx1
+# for simple linear reg
+x = x[:, np.newaxis]
 ```
 
+the weight matrix:
 
 ```python
-W = np.random.random(size=tuple(reversed(x.shape))) 
-# all are between 0 and 1 for stability reason, 
-# at first 1xk for simple linear regression
-# or pxk for multiple one
+W = np.random.random(size=(x.shape[1], 1)) 
+# randomly generated weights
+# depends on the number of features/cols in X
+# 1xk for simple linear regression
+# pxk for multiple one
+# 1 col <=> 1 neuron <=> 1 output value (here we directly want y_pred)
 ```
 
-the bias term:
-
+and the bias term:
 
 ```python
 B = np.random.random(size=(x.shape[0], 1)) 
-# one bias term for each neuron (1 here -> a single output variable), 
-# but applied on each input kx1
-# broadcasted on the data then
+# one bias term for each neuron 
+# does not depend on the number of features in the data
+# 1 neuron here -> as one single output variable y_pred,
+# 1 bias then. 
+# it will be broadcoasted to the number of rows/data points
+# hence applied on each input k (of 1 feature each)
 ```
 
 ### Loss and Risk function
@@ -1051,11 +1065,11 @@ Let's write: $$ z = (g \circ f) $$
 
 then:
 
-$$ L(y_i, \hat{y}_i) = L(y_i, z(x_i)) = (y_i - z(x_i))^2 $$
+$$ L(y_i, \hat{y_i}) = L(y_i, \hat{f}(x_i)) = (y_i - \hat{f}(x_i))^2 $$
 
 Then in matrix notation:
 
-$$ L(Y_{k,1}, \hat{Y}_{k,1}) = L(Y_{k,1}, z(X_{k,p}) =  (Y_{k,1} - z(X_{k,p}))^2 $$
+$$ L(Y_{k,1}, \hat{Y_{k,1}}) = L(Y_{k,1}, \hat{f}(X_{k,p}) =  (Y_{k,1} - \hat{f}(X_{k,p}))^2 $$
 
 
 Hence the result is a vector of loss for each output.
