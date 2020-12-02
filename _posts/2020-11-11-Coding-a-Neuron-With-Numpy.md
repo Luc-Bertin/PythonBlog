@@ -1116,7 +1116,6 @@ Here:
 - at each iteration, to update of the weights is driven by the prediction error made on that single input data point.
 - at each iteration, the corresponding computation of the derivative of the loss of the prediction error for that data point serves as a basis to update all the weights in the weight (column) matrix W_{p,1}.
 
-
 #### Batch or mini-batch Gradient Descent (BGD)
 
 For a (scalar) weight $$j$$ associated to a feature number $$j$$:
@@ -1137,11 +1136,6 @@ with $$n$$ a **grouped collection of n data points**, also named a **batch**.
 - $$n$$ could be $$<= k$$ the number of data points for the entire (training) dataset
 - if $$n$$ equals to $$k$$, then the entire meaned predictions errors on the entire dataset as input has been used to drive the update process of each of the weights in the weight column matrix 
 $$ W_{p,1} $$
-
-
-
-<img src="{{page.image_folder}}Sgd-VS-BATCH.png" align="left" width="100%">
-
 
 
 How to compute such gradient w.r.t. to the weights ? We use the **chain rule** !
