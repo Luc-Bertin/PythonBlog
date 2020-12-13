@@ -639,7 +639,9 @@ ol.list-featured li:before {
 footer {
 	margin-top:50px;
 	z-index:1022;
-	position:relative;
+	/* position:relative; */
+	position: absolute;
+	bottom: 0;
 }
 .sticky-top-offset {
 	top:70px;
