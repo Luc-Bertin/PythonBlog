@@ -154,7 +154,6 @@ $("<button class='code_preview disable_code_preview'>Do not show code</button>")
 $('div.language-python div').each(function(){
     if($(this).height()>=200){
       $(this).toggle();
-      togglingButtonPreview($(this), 'Show code', 'Do not show code');
     };
  });
 
