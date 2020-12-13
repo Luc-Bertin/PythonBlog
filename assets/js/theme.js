@@ -135,72 +135,39 @@ $(function() {
   }
 });
 
+// Switch from button with text === state1 and a class to the other with state2 and the other class
+function togglingButtonPreview(el, state1, state2){
+    // toggling Add OR Remove the class depending on its presence or not
+    // in the DOM. Hence simply using toggling in any cases should do the trick
+    el.toggleClass('code_preview');
+    el.toggleClass('disable_code_preview');
+    (el.text() === state1) ? el.text(state2) : el.text(state1);
+}
 
 // selecting code that are larger in height than 80 to create a button
 let code_banners = $("div.language-python div.highlight").filter( function() {
         return $(this).height() >= 80
 });
-$("<button class='code_preview'>Show code</button>").insertBefore(code_banners)
+$("<button class='disable_code_preview'>Show code</button>").insertBefore(code_banners)
 
 
-function togglingButtonPreview(el, state1, state2){
-    // toggling Add OR Remove the class depending on its presence or not
-    el.toggleClass('code_preview');
-    el.toggleClass('code_disable_preview');
-    (el.text() === state1) ? el.text(state2) : el.text(state1);
-}
+// automatic hiding for elements with height greater than 200
+$('div.language-python div').each(function(){
+    if($(this).height()>=200){
+      $(this).toggle();
+      togglingButtonPreview($(this), 'Show code', 'Do not show code')
+    };
+ });
+
 // create toggling behavior on buttons click to hide next element
 $("button.code_preview").click(function(){     
     $(this).next().slideToggle();
     togglingButtonPreview($(this), 'Show code', 'Do not show code')
-    // // toggling Add OR Remove the class depending on its presence or not
-    // $(this).toggleClass('code_preview');
-    // $(this).toggleClass('code_disable_preview');
-    // if ($(this).text() === 'Show code'){
-    //     $(this).text('Do not show code');
-    //     // el.css({"background-color":"#6787e0"}); // blue
-    // } else { 
-    //     $(this).text('Show code');
-    //     // el.css({"background-color":"#ff4646"}); // red
-    // }
-});
-
-// automatic hiding for elements with height greater than 200
-$('div.language-python div').each(function(){
-   if($(this).height()>=200){
-     $(this).toggle();
-     //  if the user want to see the code anyway
-     $(this).addClass('code_preview')
-   };
 });
 
 // hide outputs and code
 $('button#hide-outputs').click(function(){
     $("div.language-python").slideToggle();
     $("div.language-plaintext").slideToggle();
-    // toggling Add OR Remove the class depending on its presence or not
-    // in the DOM. Hence simply using toggling in any cases should do the trick
-    el.toggleClass('code_disable_preview');
-    el.toggleClass('code_preview');
-    var el = $(this)
-    if (el.text() === 'Disable code blocks and outputs'){
-        el.text('Show code blocks and outputs');
-        // el.css({"background-color":"#6787e0"}); // blue
-    } else { 
-        el.text('Disable code blocks and outputs');
-        // el.css({"background-color":"#ff4646"}); // red
-    }
+    togglingButtonPreview($(this), 'Disable code blocks and outputs', 'Show code blocks and outputs')
 });
-
-// // toggling code preview
-//     var state = false;
-
-//     var button = document.getElementByClassName("code_preview");
-//     button.onclick = function() {
-//       state = !state;
-//       if (state) {
-//         button.innerHTML = "ON";
-//       } else {
-//         button.innerHTML = "OFF";
-//       }
-//     }
