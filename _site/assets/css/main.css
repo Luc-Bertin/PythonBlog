@@ -54,7 +54,8 @@
 
 
 html {
-  height: 100% !important;
+  height: 100%;
+  margin: 0;
   font-family: sans-serif;
   line-height: 1.15;
   -webkit-text-size-adjust: 100%;
@@ -8535,9 +8536,12 @@ html {
     border: none !important;
     background-color: #394867 !important;
   }
-  /*footer {
+  footer {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
     background-color: #061F2F !important;
-  }*/
+  }
   .alertbar {
     background-color: #061F2F !important;
   }
