@@ -161,9 +161,13 @@ $('button#hide-outputs').click(function(){
     var el = $(this)
     if (el.text() === 'Disable code blocks and outputs'){
         el.text('Show code blocks and outputs');
+        // el.css({"background-color":"#6787e0"}); // blue
     } else { 
         el.text('Disable code blocks and outputs');
+        // el.css({"background-color":"#ff4646"}); // red
     }
+    el.toggleClass('code_disable_preview');
+    el.toggleClass('code_preview');
 });
 
 // // toggling code preview
