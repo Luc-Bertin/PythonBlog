@@ -139,7 +139,6 @@ $(function() {
 function togglingButtonPreview(el, state1, state2){
     // toggling Add OR Remove the class depending on its presence or not
     // in the DOM. Hence simply using toggling in any cases should do the trick
-    el.toggleClass('code_preview');
     el.toggleClass('disable_code_preview');
     (el.text() === state1) ? el.text(state2) : el.text(state1);
 }
@@ -148,7 +147,7 @@ function togglingButtonPreview(el, state1, state2){
 let code_banners = $("div.language-python div.highlight").filter( function() {
         return $(this).height() >= 80
 });
-$("<button class='disable_code_preview'>Do not show code</button>").insertBefore(code_banners)
+$("<button class='code_preview disable_code_preview'>Do not show code</button>").insertBefore(code_banners)
 
 
 // automatic hiding for elements with height greater than 200
