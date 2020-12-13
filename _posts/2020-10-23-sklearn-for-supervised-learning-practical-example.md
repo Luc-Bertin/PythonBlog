@@ -169,7 +169,7 @@ df.head(5)
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="styledtable">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -287,7 +287,7 @@ df.describe().T
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="styledtable">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -2627,7 +2627,7 @@ df_grid
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="styledtable">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -2863,7 +2863,7 @@ df_grid.sort_values('neg_mean_test_score', ascending=False)[:3] # 3 best perform
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="styledtable">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -3027,7 +3027,7 @@ plt.plot(x, estimator.predict(x))
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="styledtable">
   <thead>
     <tr style="text-align: right;">
       <th></th>

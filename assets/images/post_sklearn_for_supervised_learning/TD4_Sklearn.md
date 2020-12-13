@@ -155,7 +155,7 @@ df.head(5)
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="styledtable">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -273,7 +273,7 @@ df.describe().T
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="styledtable">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -2277,7 +2277,7 @@ pd.DataFrame(X_train)
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="styledtable">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -2573,7 +2573,7 @@ test
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="styledtable">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -2832,7 +2832,7 @@ df
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="styledtable">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -3427,7 +3427,7 @@ df_grid
         text-align: right;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="styledtable">
   <thead>
     <tr style="text-align: right;">
       <th></th>
@@ -3582,7 +3582,7 @@ df_grid.set_index(["C", "gamma"]).stack().unstack(-1).T
         text-align: left;
     }
 </style>
-<table border="1" class="dataframe">
+<table border="1" class="styledtable">
   <thead>
     <tr>
       <th>C</th>
