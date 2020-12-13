@@ -68,6 +68,8 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
   display: block; }
 
 body {
+  /* adding height 100% to fill the entire screen*/
+  height: 100%;
   margin: 0;
   font-family: "Segoe UI", "Helvetica Neue", "Arial";
   font-size: 1rem;
