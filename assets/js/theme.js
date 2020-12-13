@@ -158,7 +158,7 @@ $('div.language-python div').each(function(){
  });
 
 // create toggling behavior on buttons click to hide next element
-$("button.code_preview").click(function(){     
+$("button.code_preview:not(#hide-outputs)").click(function(){     
     $(this).next().slideToggle();
     togglingButtonPreview($(this), 'Show code', 'Do not show code');
 });
