@@ -59,7 +59,10 @@ html {
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
   -ms-overflow-style: scrollbar;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); 
+  height: 100vh !important;
+  min-height: 100% !important;
+}
 
 @-ms-viewport {
   width: device-width; }
@@ -7356,7 +7359,6 @@ a.text-lightblue:hover, a.text-lightblue:focus {
   width: device-width; }
 
 html {
-  height: 100vh !important;
   margin: 0 !important;
   box-sizing: border-box;
   -ms-overflow-style: scrollbar; }
