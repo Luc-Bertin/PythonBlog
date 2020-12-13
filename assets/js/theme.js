@@ -143,17 +143,17 @@ function togglingButtonPreview(el, state1, state2){
     (el.text() === state1) ? el.text(state2) : el.text(state1);
 }
 
-// selecting code that are larger in height than 80 to create a button
-let code_banners = $("div.language-python div").filter( function() {
-        return $(this).height() >= 80
+// selecting code that are larger in height than 80 but smaller than 200 to create a Show code buttons
+let code_blocks_medium_height = $("div.language-python div").filter( function() {
+    return ($(this).height() >= 80 && $(this).height() <= 200)
 });
-$("<button class='code_preview disable_code_preview'>Do not show code</button>").insertBefore(code_banners)
-
+$("<button class='code_preview disable_code_preview'>Do not show code</button>").insertBefore(code_blocks_medium_height)
 
 // automatic hiding for elements with height greater than 200
 $('div.language-python div').each(function(){
     if($(this).height()>=200){
       $(this).toggle();
+      $("<button class='code_preview'>Show code</button>").insertBefore(this)
     };
  });
 
