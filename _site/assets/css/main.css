@@ -7356,8 +7356,8 @@ a.text-lightblue:hover, a.text-lightblue:focus {
   width: device-width; }
 
 html {
-  height: 100%;
-  margin: 0;
+  height: 100vh !important;
+  margin: 0 !important;
   box-sizing: border-box;
   -ms-overflow-style: scrollbar; }
 
