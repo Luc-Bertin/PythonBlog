@@ -158,6 +158,12 @@ $('div.language-python div').each(function(){
 $('button#hide-outputs').click(function(){
     $("div.language-python").slideToggle();
     $("div.language-plaintext").slideToggle();
+    var el = $(this)
+    if (el.text() === 'Disable code blocks and outputs'){
+        el.text('Show code blocks and outputs');
+    } else { 
+        el.text('Disable code blocks and outputs');
+    }
 });
 
 // // toggling code preview
