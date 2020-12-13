@@ -69,7 +69,7 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
 
 body {
   /* adding height 100% to fill the entire screen*/
-  height: 100vh;
+  height: 100%;
   margin: 0;
   font-family: "Segoe UI", "Helvetica Neue", "Arial";
   font-size: 1rem;
@@ -7356,6 +7356,8 @@ a.text-lightblue:hover, a.text-lightblue:focus {
   width: device-width; }
 
 html {
+  height: 100%;
+  margin: 0;
   box-sizing: border-box;
   -ms-overflow-style: scrollbar; }
 
