@@ -158,6 +158,10 @@ $('div.language-python div').each(function(){
 $('button#hide-outputs').click(function(){
     $("div.language-python").slideToggle();
     $("div.language-plaintext").slideToggle();
+    // toggling Add OR Remove the class depending on its presence or not
+    // in the DOM. Hence simply using toggling in any cases should do the trick
+    el.toggleClass('code_disable_preview');
+    el.toggleClass('code_preview');
     var el = $(this)
     if (el.text() === 'Disable code blocks and outputs'){
         el.text('Show code blocks and outputs');
@@ -166,8 +170,6 @@ $('button#hide-outputs').click(function(){
         el.text('Disable code blocks and outputs');
         // el.css({"background-color":"#ff4646"}); // red
     }
-    el.toggleClass('code_disable_preview');
-    el.toggleClass('code_preview');
 });
 
 // // toggling code preview
