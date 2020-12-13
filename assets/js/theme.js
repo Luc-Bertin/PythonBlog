@@ -148,7 +148,7 @@ function togglingButtonPreview(el, state1, state2){
 let code_banners = $("div.language-python div.highlight").filter( function() {
         return $(this).height() >= 80
 });
-$("<button class='disable_code_preview'>Show code</button>").insertBefore(code_banners)
+$("<button class='disable_code_preview'>Do not show code</button>").insertBefore(code_banners)
 
 
 // automatic hiding for elements with height greater than 200
