@@ -142,15 +142,35 @@ let code_banners = $("div.language-python div.highlight").filter( function() {
 });
 $("<button class='code_preview'>Show code</button>").insertBefore(code_banners)
 
+
+function togglingButtonPreview(el, state1, state2){
+    // toggling Add OR Remove the class depending on its presence or not
+    el.toggleClass('code_preview');
+    el.toggleClass('code_disable_preview');
+    (el.text() === state1) ? el.text(state2) : el.text(state1);
+}
 // create toggling behavior on buttons click to hide next element
 $("button.code_preview").click(function(){     
     $(this).next().slideToggle();
+    togglingButtonPreview($(this), 'Show code', 'Do not show code')
+    // // toggling Add OR Remove the class depending on its presence or not
+    // $(this).toggleClass('code_preview');
+    // $(this).toggleClass('code_disable_preview');
+    // if ($(this).text() === 'Show code'){
+    //     $(this).text('Do not show code');
+    //     // el.css({"background-color":"#6787e0"}); // blue
+    // } else { 
+    //     $(this).text('Show code');
+    //     // el.css({"background-color":"#ff4646"}); // red
+    // }
 });
 
 // automatic hiding for elements with height greater than 200
 $('div.language-python div').each(function(){
    if($(this).height()>=200){
      $(this).toggle();
+     //  if the user want to see the code anyway
+     $(this).addClass('code_preview')
    };
 });
 
