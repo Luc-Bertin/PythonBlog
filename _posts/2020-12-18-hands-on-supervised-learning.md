@@ -46,7 +46,6 @@ fig
 
 
 
-
 <img src="{{page.image_folder}}/output_5_0.png" align="center">
 
 
@@ -1177,40 +1176,57 @@ for i, knn in enumerate(estimators):
 
 <img src="{{page.image_folder}}/output_91_0.png" align="center">
 
+Does the models on the right look really better than the one on the left ? 🤔
 
-# cross-validation: or how to automatically pick the best compromise between bias and variance using  `max_depth` ? 
+Right models seem so complex that it has actually started learning the **noise in the training data**, this is a great example where the bias (systematic error) is **low**, but the generalization of the model is not guaranteed, i.e. **the model variance** is very **high**, we call this phenomenon **overfitting**.
+
+Left models show the actual inverse, that is, **underfitting** ("immutable" model due to its simplicity built from exagerated reductive assumptions)
+
+
+To assess **overfitting** issues, one can use **cross-validation** techniques !
 
 
 ```python
 from sklearn.model_selection import train_test_split
 ```
 
-
 ```python
 X_train, X_test, y_train, y_test = train_test_split(df, y, test_size=0.2) 
 ```
-
 
 ```python
 X_train.shape, X_test.shape, y_train.shape, y_test.shape
 ```
 
-
-
-
     ((48, 1), (12, 1), (48,), (12,))
 
 
+By **splitting** the dataset into **training** and **test** sets, you can validate whether your model will **generalize** well to **unseen data**. We fit the model on the training set, we evaluate on the train and above all **test set**.
+
+Hence if the model has started learning **the noise** in the training data, you should expect that:
+
+$$ MSPE(training_{data}) < MSPE(test_{data}) $$
+
+How to make our model **simpler**, that is **introduce more bias to lower the variance**, when we have no idea of which of the branch, coefficients, or other model construct should be discarded ? We can act on regularization techniques.
+
+In most ML algorithms, regularization techniques are introduced as **hyperparameters** you set **to constrain** your model into not trying to learn overly-complex (and often misleading) patterns in the data.
+
+You've actually crossed some multiple times: have a look at the `max_depth` and `min_samples_leaf` or `min_samples_split` for example ! What do you think we should prune a tree for ?
 
 
-```python
-MSE_train, MSE_test = {}, {}
-for i in range(1, 12): # maxdepth different values
-    tree = DecisionTreeRegressor(max_depth=i)
-    tree.fit(X_train, y_train)
-    MSE_train[i] = mse(y_train, tree.predict(X_train))
-    MSE_test[i] = mse(y_test, tree.predict(X_test))
-```
+# Tuning hyperparameters (or data processing steps)
+
+Ok so, we know we could fit a **model on a train set** and later compute a **MSE** on both the train, and **test** set to assess whether an **overfit** would have occured. And overfitting can be seen on the right models. 
+We know that we can act on some hyperparameters like `max_depth` to **regularize** such an overfit, and we wish to lower down the `MSE(test set)` as much as we could get it (as MSE encapsulates both bias and variance term, we would be guaranted the model perform well in practice and generalize well either)!
+
+Cross-validation is the simplest method for estimating the **expected prediction error** i.e. the expected extra-sample error for when we fit a model to a training set and evaluate its predictions on **unseen data**.
+
+
+For an hyperparametrized model such as the `DecisionTree`, that would actually be quite nice if we could find the best `max_depth` to achieve the best **MSE on test set**. 
+
+One again, of course we are not going to control which `max_depth` value to finally pick based on the MSE of the training set: that would lead exactly to the very first situation where we **shaped our mind, our representation of our data and our modelisation out of it to solely satisfy ourself on what we know, rather than what we don't yet** loosing all the predictive ability of our model, and getting back to the overfitting/generalization issue.
+
+So we will try multiple values of `max_depth` and later check the MSE on the **test set**, in a bid to reduce it.
 
 
 ```python
@@ -1224,12 +1240,7 @@ sns.scatterplot(x="max_depth", y="MSE(train)", color='r',
                 data= pd.DataFrame(MSE_train.items(), columns=["max_depth", "MSE(train)"])).set_ylabel("MSE")
 ```
 
-
-
-
     Text(0, 0.5, 'MSE')
-
-
 
 
 <img src="{{page.image_folder}}/output_97_1.png" align="center">
@@ -1255,7 +1266,7 @@ for i in max_depth_range:
         pass
 ```
 
-### better: grid search
+## better: grid search
 
 
 ```python
@@ -1330,4 +1341,143 @@ ax.set_title("MSE on test with diff hyperparameters values")
 
 
 <img src="{{page.image_folder}}/output_109_1.png" align="center">
+
+But if you were to **tune** hyperparams or data preparation steps while **checking variations of MSE on test towards a minimization of it**, well, we would still somehow use a metric, a quantitative measure **we shouldn't be aware of**, as it is supposed to be the mean squared errors of the model on **unseen data**.<br>
+To give another example: it is as if you had to forecast whether or not to buy vegetables while not having access to the inside of the fridge. If you can **weight** the fridge itself, you might not know how many vegetables are left among all the food, but at least you have a taste of how likely the fridge is empty, considering the vegetables are the heaviest, hence you modify your behavior respectively.
+
+This has a name: it is called **data leakage**.
+
+You would have to actually split the whole data in 3 sets: **train**, **test** and **validation**, so to keep at least one set of data only for estimating the expected prediction error of the final model.<br>
+You train the model with $$lambda1$$ on the training set, you monitor the MSE on the test set, you update $$lambda$$ to the new value, and once you found a satisfying minimum of the MSE, you can retrain on the whole available data (train+test) and finally evaluate the final model using the hold-out validation test.
+
+# K-Fold cross validation
+
+Splitting data again and again in an attempt to put Chinese walls in your ML workflow, lead to another issue: what if you **don't have much** data? it is likely your MSE(test) on a **few dozen points could be overly optimistic**, what if by chance you got the right test points to have a sweet MSE that suit your needs for a certain model ? 
+
+K-Fold cross validation is an attempt to use every data points at least in the testing part.<br>
+It is still cross-validation, but this time you split your dataset in **K** aproximately equally sized **folds**.<br>
+Then you **train the model on K-1** folds and test it on the **remaining one**. You do it **K times** (each time tested for **each remaining test fold**). Yes, you end up with **K number of MSE(test-fold)**.
+- On a train-test design, the average of the MSE is still a good estimate for the expected prediction error of the model.
+- On a train-test-validation one, you still have more confidence that no data points were left while computing the MSE "on the test".
+
+Let's do a k-fold cross validation on a data generated from a sine function with some noise following gaussian distribution.
+
+```python
+from sklearn.model_selection import cross_val_score, cross_val_predict
+from sklearn.model_selection import KFold
+from sklearn.metrics import mean_squared_error, make_scorer
+```
+
+```python
+cross_val_score(LinearRegression(), x, y, scoring="r2")
+```
+
+    array([-0.95596911, -2.89048347,  0.18178379, -5.47694298, -2.31706554])
+
+
+scoring takes a scoring parameter (greater is better), hence is used the R2 is an appropriate choice, 
+we could have taken the negation of the MSE too.
+
+
+```python
+- cross_val_score(LinearRegression(), x2, y, scoring="neg_mean_squared_error")
+```
+
+    array([0.3279406 , 0.45555535, 0.25739018, 1.03002024, 1.27365498])
+
+
+- 5 folds
+- 5 model training
+- 5 test sets
+- 5 MSE
+
+Wow ? difference are so important from one test set to another ! why is so ?
+When the MSE is high, the R2 is low, sometimes negative ? worse than a simple dummy model (H0 hypthesis) using the average. Why is so ?
+
+```python
+folding = KFold(5)
+```
+
+
+```python
+folding.split(x2, y)
+```
+
+    <generator object _BaseKFold.split at 0x12b2c5430>
+
+Wow ! a generator object !
+
+
+```python
+generator = folding.split(x2, y)
+
+
+
+```python
+def cross_val_visualize(X, y, cv=5, shuffle=False):
+    from sklearn.model_selection import KFold
+    from sklearn.metrics import mean_squared_error
+    from sklearn.linear_model import LinearRegression
+
+    new_fig, axes =  plt.subplots(figsize=(cv*3, 3), ncols=cv, sharey=True)
+    regressions, MSE = [], []
+    folds = KFold(cv, shuffle=shuffle).split(X, y)
+    
+    for i_, (train_indices, test_indices) in enumerate(folds):
+        # train on each 4 folds subset
+        lm = LinearRegression()
+        lm.fit( X[train_indices], y[train_indices])
+        # predict on each test fold
+        y_pred = lm.predict(X[test_indices])
+        # compute MSE for those test fold
+        mse = mean_squared_error(lm.predict(X[test_indices]), y[test_indices])
+        # plot the training points, test points, and the fit for the fold
+        axes[i_].scatter( X[train_indices], y[train_indices], color='r')
+        axes[i_].scatter( X[test_indices], y[test_indices], color='g')
+        axes[i_].plot( X, lm.predict(X), color='black' )
+        # save the results | save the models
+        MSE.append(mse); regressions.append(lm)
+    return MSE
+```
+
+
+```python
+cross_val_visualize(x2, y)
+```
+
+    [0.32794060000061515,
+     0.45555535076735226,
+     0.2573901788986118,
+     1.0300202445239781,
+     1.273654982470511]
+
+<img src="{{page.image_folder}}output_48_1.png" align="left" width="100%" style="display:block !important;">
+
+
+
+```python
+cross_val_visualize(x2, y, 3)
+```
+
+    [0.24514477688923542, 0.38705639490105015, 0.6231891770127047]
+
+<img src="{{page.image_folder}}output_49_1.png" align="left" width="100%" style="display:block !important;">
+
+
+
+```python
+cross_val_visualize(x2, y, shuffle=True)
+```
+
+    [0.3711358856524268,
+     0.3821283100103246,
+     0.5107607283792079,
+     0.4372335783422797,
+     0.37844005566106576]
+
+<img src="{{page.image_folder}}output_50_1.png" align="left"  width="100%" style="display:block !important;">
+
+
+
+
 
