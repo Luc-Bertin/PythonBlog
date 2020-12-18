@@ -47,7 +47,7 @@ fig
 
 
 
-<img src="{{page.image_folder}}/output_5_0.png" align="left" width="100%">
+<img src="{{page.image_folder}}/output_5_0.png" align="center">
 
 
 
@@ -97,7 +97,7 @@ fig
 
 
 
-<img src="{{page.image_folder}}/output_12_0.png" align="left" width="100%">
+<img src="{{page.image_folder}}/output_12_0.png" align="center">
 
 
 
@@ -147,7 +147,7 @@ fig
 
 
 
-<img src="{{page.image_folder}}/output_19_0.png" align="left" width="100%">
+<img src="{{page.image_folder}}/output_19_0.png" align="center">
 
 
 
@@ -317,7 +317,7 @@ fig
 
 
 
-<img src="{{page.image_folder}}/output_25_0.png" align="left" width="100%">
+<img src="{{page.image_folder}}/output_25_0.png" align="center">
 
 
 
@@ -373,7 +373,7 @@ fig
 
 
 
-<img src="{{page.image_folder}}/output_34_0.png" align="left" width="100%">
+<img src="{{page.image_folder}}/output_34_0.png" align="center">
 
 
 
@@ -409,7 +409,7 @@ fig
 
 
 
-<img src="{{page.image_folder}}/output_36_0.png" align="left" width="100%">
+<img src="{{page.image_folder}}/output_36_0.png" align="center">
 
 
 
@@ -424,7 +424,7 @@ fig
 
 
 
-<img src="{{page.image_folder}}/output_37_0.png" align="left" width="100%">
+<img src="{{page.image_folder}}/output_37_0.png" align="center">
 
 
 
@@ -453,7 +453,7 @@ create_and_show_tree(df, y, DecisionTreeRegressor(max_depth=1) )
 
 
 
-<img src="{{page.image_folder}}/output_40_1.png" align="left" width="100%">
+<img src="{{page.image_folder}}/output_40_1.png" align="center">
 
 
 the MSE came back ! 
@@ -498,7 +498,7 @@ plt.tight_layout()
 ```
 
 
-<img src="{{page.image_folder}}/output_46_0.png" align="left" width="100%">
+<img src="{{page.image_folder}}/output_46_0.png" align="center">
 
 
 
@@ -575,7 +575,7 @@ create_and_show_tree(df, y, DecisionTreeRegressor(max_depth=1), axes[1])
 
 
 
-<img src="{{page.image_folder}}/output_52_1.png" align="left" width="100%">
+<img src="{{page.image_folder}}/output_52_1.png" align="center">
 
 
 ## We can set `maxdepth ` before training anything. This is called an <i>  hyperparameter</i>
@@ -593,7 +593,7 @@ create_and_show_tree(df, y, DecisionTreeRegressor(max_depth=2))
 
 
 
-<img src="{{page.image_folder}}/output_54_1.png" align="left" width="100%">
+<img src="{{page.image_folder}}/output_54_1.png" align="center">
 
 
 
@@ -610,7 +610,7 @@ create_and_show_tree(df, y, DecisionTreeRegressor(max_depth=3))
 
 
 
-<img src="{{page.image_folder}}/output_55_1.png" align="left" width="100%">
+<img src="{{page.image_folder}}/output_55_1.png" align="center">
 
 
 
@@ -627,7 +627,7 @@ create_and_show_tree(df, y, DecisionTreeRegressor(
 
 
 
-<img src="{{page.image_folder}}/output_56_1.png" align="left" width="100%">
+<img src="{{page.image_folder}}/output_56_1.png" align="center">
 
 
 
@@ -644,7 +644,7 @@ create_and_show_tree(df, y, DecisionTreeRegressor(
 
 
 
-<img src="{{page.image_folder}}/output_57_1.png" align="left" width="100%">
+<img src="{{page.image_folder}}/output_57_1.png" align="center">
 
 
 ## What about creating a tree with a very huge max depth ?
@@ -683,7 +683,7 @@ fig
 
 
 
-<img src="{{page.image_folder}}/output_61_0.png" align="left" width="100%">
+<img src="{{page.image_folder}}/output_61_0.png" align="center">
 
 
 
@@ -718,7 +718,7 @@ fig
 
 
 
-<img src="{{page.image_folder}}/output_65_0.png" align="left" width="100%">
+<img src="{{page.image_folder}}/output_65_0.png" align="center">
 
 
 
@@ -773,7 +773,7 @@ for i, tree in enumerate(rf.estimators_):
 ```
 
 
-<img src="{{page.image_folder}}/output_73_0.png" align="left" width="100%">
+<img src="{{page.image_folder}}/output_73_0.png" align="center">
 
 
 ## predictions
@@ -836,7 +836,7 @@ fig
 
 
 
-<img src="{{page.image_folder}}/output_80_0.png" align="left" width="100%">
+<img src="{{page.image_folder}}/output_80_0.png" align="center">
 
 
 
@@ -853,7 +853,7 @@ fig
 
 
 
-<img src="{{page.image_folder}}/output_81_0.png" align="left" width="100%">
+<img src="{{page.image_folder}}/output_81_0.png" align="center">
 
 
 
@@ -933,43 +933,43 @@ for i in [1,2,3,4,5,10,15,20,30,50]:
 ```
 
 
-<img src="{{page.image_folder}}/output_83_0.png" align="left" width="100%">
+<img src="{{page.image_folder}}/output_83_0.png" align="center">
 
 
 
-<img src="{{page.image_folder}}/output_83_1.png" align="left" width="100%">
+<img src="{{page.image_folder}}/output_83_1.png" align="center">
 
 
 
-<img src="{{page.image_folder}}/output_83_2.png" align="left" width="100%">
+<img src="{{page.image_folder}}/output_83_2.png" align="center">
 
 
 
-<img src="{{page.image_folder}}/output_83_3.png" align="left" width="100%">
+<img src="{{page.image_folder}}/output_83_3.png" align="center">
 
 
 
-<img src="{{page.image_folder}}/output_83_4.png" align="left" width="100%">
+<img src="{{page.image_folder}}/output_83_4.png" align="center">
 
 
 
-<img src="{{page.image_folder}}/output_83_5.png" align="left" width="100%">
+<img src="{{page.image_folder}}/output_83_5.png" align="center">
 
 
 
-<img src="{{page.image_folder}}/output_83_6.png" align="left" width="100%">
+<img src="{{page.image_folder}}/output_83_6.png" align="center">
 
 
 
-<img src="{{page.image_folder}}/output_83_7.png" align="left" width="100%">
+<img src="{{page.image_folder}}/output_83_7.png" align="center">
 
 
 
-<img src="{{page.image_folder}}/output_83_8.png" align="left" width="100%">
+<img src="{{page.image_folder}}/output_83_8.png" align="center">
 
 
 
-<img src="{{page.image_folder}}/output_83_9.png" align="left" width="100%">
+<img src="{{page.image_folder}}/output_83_9.png" align="center">
 
 
 # KNN Regressor
@@ -1011,55 +1011,55 @@ for k in range(1, 50, 4):
 ```
 
 
-<img src="{{page.image_folder}}/output_87_0.png" align="left" width="100%">
+<img src="{{page.image_folder}}/output_87_0.png" align="center">
 
 
 
-<img src="{{page.image_folder}}/output_87_1.png" align="left" width="100%">
+<img src="{{page.image_folder}}/output_87_1.png" align="center">
 
 
 
-<img src="{{page.image_folder}}/output_87_2.png" align="left" width="100%">
+<img src="{{page.image_folder}}/output_87_2.png" align="center">
 
 
 
-<img src="{{page.image_folder}}/output_87_3.png" align="left" width="100%">
+<img src="{{page.image_folder}}/output_87_3.png" align="center">
 
 
 
-<img src="{{page.image_folder}}/output_87_4.png" align="left" width="100%">
+<img src="{{page.image_folder}}/output_87_4.png" align="center">
 
 
 
-<img src="{{page.image_folder}}/output_87_5.png" align="left" width="100%">
+<img src="{{page.image_folder}}/output_87_5.png" align="center">
 
 
 
-<img src="{{page.image_folder}}/output_87_6.png" align="left" width="100%">
+<img src="{{page.image_folder}}/output_87_6.png" align="center">
 
 
 
-<img src="{{page.image_folder}}/output_87_7.png" align="left" width="100%">
+<img src="{{page.image_folder}}/output_87_7.png" align="center">
 
 
 
-<img src="{{page.image_folder}}/output_87_8.png" align="left" width="100%">
+<img src="{{page.image_folder}}/output_87_8.png" align="center">
 
 
 
-<img src="{{page.image_folder}}/output_87_9.png" align="left" width="100%">
+<img src="{{page.image_folder}}/output_87_9.png" align="center">
 
 
 
-<img src="{{page.image_folder}}/output_87_10.png" align="left" width="100%">
+<img src="{{page.image_folder}}/output_87_10.png" align="center">
 
 
 
-<img src="{{page.image_folder}}/output_87_11.png" align="left" width="100%">
+<img src="{{page.image_folder}}/output_87_11.png" align="center">
 
 
 
-<img src="{{page.image_folder}}/output_87_12.png" align="left" width="100%">
+<img src="{{page.image_folder}}/output_87_12.png" align="center">
 
 
 # What are the best hyperparameters I should choose ?
@@ -1081,7 +1081,7 @@ fig
 
 
 
-<img src="{{page.image_folder}}/output_89_0.png" align="left" width="100%">
+<img src="{{page.image_folder}}/output_89_0.png" align="center">
 
 
 
@@ -1119,7 +1119,7 @@ sns.lineplot(x="x", y=tree2.predict(df),
 
 
 
-<img src="{{page.image_folder}}/output_90_1.png" align="left" width="100%">
+<img src="{{page.image_folder}}/output_90_1.png" align="center">
 
 
 
@@ -1175,7 +1175,7 @@ for i, knn in enumerate(estimators):
 ```
 
 
-<img src="{{page.image_folder}}/output_91_0.png" align="left" width="100%">
+<img src="{{page.image_folder}}/output_91_0.png" align="center">
 
 
 # cross-validation: or how to automatically pick the best compromise between bias and variance using  `max_depth` ? 
@@ -1232,7 +1232,7 @@ sns.scatterplot(x="max_depth", y="MSE(train)", color='r',
 
 
 
-<img src="{{page.image_folder}}/output_97_1.png" align="left" width="100%">
+<img src="{{page.image_folder}}/output_97_1.png" align="center">
 
 
 # Wait, i can also try changing `min_samples_leaf ` with `max_depth` => onwards to GridSearch 
@@ -1329,5 +1329,5 @@ ax.set_title("MSE on test with diff hyperparameters values")
 
 
 
-<img src="{{page.image_folder}}/output_109_1.png" align="left" width="100%">
+<img src="{{page.image_folder}}/output_109_1.png" align="center">
 
