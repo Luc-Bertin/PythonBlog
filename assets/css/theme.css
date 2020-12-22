@@ -15,8 +15,6 @@ body {
 }
 img {
 	max-width:100%;
-	/* for night mode, avoid transparencies in graphs */
-	background-color: white !important;
 }
 .tofront {
 	position:relative;

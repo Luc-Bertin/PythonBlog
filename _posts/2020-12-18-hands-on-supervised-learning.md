@@ -63,7 +63,9 @@ Let's first try to model the relationship between y and X using a linear regress
 
 We want to find the "best" (estimated) parameters  $$\hat{\beta}_s$$ as part of:
 
-$$ y_{pred} = \hat{y} = \hat{\beta}_0  + \hat{\beta}_1x_1 + \hat{\beta}_2 x_2 + ... \hat{\beta}_n x_n$$ from the *data* we have, such that we minimize the expected quadratic loss i.e. **average** square distances between the $$\hat{y}$$ and $$y_{true} = y$$ expressed as: 
+$$ y_{pred} = \hat{y} = \hat{\beta}_0  + \hat{\beta}_1x_1 + \hat{\beta}_2 x_2 + ... \hat{\beta}_n x_n$$ 
+
+... from the *data* we have, such that we minimize the expected quadratic loss i.e. **average** square distances between the $$\hat{y}$$ and $$y_{true} = y$$ expressed as: 
 
 $$ (y_{true} - y_{pred})^2  = (y - \hat{y})^2 $$
 
@@ -106,7 +108,7 @@ $$ y = -2.44 + 6.14 * x_1$$
 The model is rather simplistic, too simple to catch all the fluctuations in the data, it is said to be biased. This results in a systematic made error.
 
 
-## Adding a new feature $$ e^X $$
+## Adding a new feature $$ e^x $$
 
 By creating a **new feature**: $$x_2 = e^x$$ 
 
@@ -149,6 +151,7 @@ lm.intercept_, lm.coef_
 and replacing them accordingly in the former expression:
 
 $$ \hat{y} = -0.51  + 0.455 * x_1 + 0.93 * x_2 $$
+
 $$ \Leftrightarrow  \hat{y} = -0.51  + 0.455 * x + 0.93* e^x $$
 
 We can see it leans on a non-null x1 (=x), while the model wasn’t expressed directly linearly w.r.t to variations on x.
@@ -292,11 +295,6 @@ df.head()
 </div>
 
 
-We see the model “seems” to fit even better the data. But does it ? 
-Actually as you made your model more complex, this model is less biased (the systematic error is greatly reduced) but to a point where the model know even fits the noise, which should actually be an irreducible error on its own.
-The model will not likely generalise well to unseen data as we will see later.
-
-
 ```python
 from sklearn.linear_model import LinearRegression
 lm = LinearRegression()
@@ -307,15 +305,16 @@ fig
 ```
 
 
-
-
 <img src="{{page.image_folder}}/output_25_0.png" align="center">
 
+We see the model “seems” to fit even better the data. But does it ?  
+Actually as you made your model more complex, this model is less biased (the systematic error is greatly reduced) but to a point where the model know even fits the noise, which should actually be an irreducible error on its own.  
+The model will not likely generalise well to unseen data as we will see later.
 
-
-Is it really better ? no...
 
 # Decision Tree Regressor
+
+## Summary
 
 Decision Trees (DTs) are a **non-parametric** **supervised learning** method used for **classification and regression**.
 
@@ -332,6 +331,9 @@ Some disadvantages are:
 - can create **over-complex** **low biased** schemas, but that does **not generalize well** => it tends to captures the **noise** of the data, rather than catching the overall trend.
 - might be unstable to small variations in the data.
 
+## Some other suited data
+
+Let's generate some new data and target for this regression problem.
 
 ```python
 df = pd.DataFrame(dict(
@@ -355,6 +357,7 @@ y5 = np.random.uniform(13,17,10)
 y = np.concatenate((y1,y2,y3,y4,y5))
 ```
 
+And plot te data:
 
 ```python
 fig = plt.Figure()
@@ -363,12 +366,10 @@ fig
 ```
 
 
-
-
 <img src="{{page.image_folder}}/output_34_0.png" align="center">
 
 
-
+Let's create 2 decision tree models with `max_depth=1` and `max_depth=2` respectively:
 
 ```python
 from sklearn.tree import DecisionTreeRegressor, plot_tree
@@ -382,14 +383,7 @@ tree2 = DecisionTreeRegressor(max_depth=2)
 tree2.fit(df, y)
 
 ```
-
-
-
-
-    DecisionTreeRegressor(max_depth=2)
-
-
-
+For the first Decision Tree model:
 
 ```python
 sns.lineplot(x="x", y=tree.predict(df), 
@@ -398,12 +392,9 @@ sns.lineplot(x="x", y=tree.predict(df),
 fig
 ```
 
-
-
-
 <img src="{{page.image_folder}}/output_36_0.png" align="center">
 
-
+And the second one:
 
 
 ```python
@@ -414,13 +405,12 @@ fig
 ```
 
 
-
-
 <img src="{{page.image_folder}}/output_37_0.png" align="center">
 
 
+We have a "piecewise" broken prediction line in both cases (don't be confused, matploltlib still try to connect the points when using `plt.plot`, hence the apparent negative slope between 15 and 30, on the second, green, which does not exist in practice).
 
-We have a discontinued line, let's see why so by introspecting the tree.
+Let's introspect the first tree.
 
 
 ```python
@@ -455,29 +445,33 @@ the MSE came back !
 But which "errors" are we talking about ? 
 
 the errors from an hypothetical very simple model where:
-$$y_{pred} = \beta_0 = mean(y)$$
+$$y_{pred} = \hat{y} = \hat{\beta}_0 = mean(y)$$
 
-a constant.
+this is actually the definition of the variance of the target y (again, the variance is the average of the squared differences from the mean).
 
+We seek out a decrease in this variance after a dataset is split on a given attribute.
+
+Were there multiple attributes to choose to split the dataset on, the one producing the highest variance reduction is picked.
+
+
+Let's define the mse in simple terms:
 
 ```python
 mse = lambda y, y_pred: np.mean((y - y_pred)**2)
 ```
 
+Let's compute the first MSE before split.
 
 ```python
 MSE = mse(y, np.mean(y))
 MSE
 ```
 
-
-
-
     107.27602396460631
 
 
-
-It would then assess where it could partition the data into two to achieve the greatest reduction in overall MSE.
+The decision tree algorithm would then assess where it could partition the data into two to achieve the greatest reduction in overall MSE.  
+We have only one attribute, let's choose it, and scroll on the whole range of the axis x.
 
 
 ```python
@@ -493,16 +487,14 @@ plt.tight_layout()
 <img src="{{page.image_folder}}/output_46_0.png" align="center">
 
 
+https://www.saedsayad.com/decision_tree_reg.htm
+Let's recompute the MSE.
 
 ```python
 mse(y, tree.predict(df))
 ```
 
-
-
-
     70.16706950247945
-
 
 
 https://stackoverflow.com/questions/20224526/how-to-extract-the-decision-rules-from-scikit-learn-decision-tree
@@ -513,13 +505,10 @@ tresh = tree.tree_.threshold[0]
 tresh
 ```
 
-
-
-
     39.5
 
 
-
+Let's do the same within each child node 
 
 ```python
 combine_x_y = pd.concat([df, pd.Series(y).to_frame('y')], axis=1)
@@ -537,11 +526,10 @@ mse_child1, mse_child2
 ```
 
 
-
-
     (67.74905504225981, 75.00309842291871)
 
 
+We can see the plot produced by scikit gives the same results.
 
 
 ```python
@@ -578,15 +566,10 @@ create_and_show_tree(df, y, DecisionTreeRegressor(max_depth=2))
 ```
 
 
-
-
     DecisionTreeRegressor(max_depth=2)
 
 
-
-
 <img src="{{page.image_folder}}/output_54_1.png" align="center">
-
 
 
 ```python
