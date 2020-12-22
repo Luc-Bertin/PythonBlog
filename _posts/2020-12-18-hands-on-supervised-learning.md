@@ -562,34 +562,30 @@ We can see the former plot produced by scikit gives the same results.
 
 ## We can set `maxdepth ` before training anything. This is called an <i>hyperparameter</i>
 
+The hyperparemeter is set prior to the learning process and may influence it. Here, from `maxdepth=2`, here is the built tree from the training data:
 
 ```python
 create_and_show_tree(df, y, DecisionTreeRegressor(max_depth=2))
 ```
-
 
     DecisionTreeRegressor(max_depth=2)
 
 
 <img src="{{page.image_folder}}/output_54_1.png" align="center">
 
+Adding one feature and setting `maxdepth=3`, here is the tree we got:
 
 ```python
 df["exp_x"] = np.exp(df.x)
 create_and_show_tree(df, y, DecisionTreeRegressor(max_depth=3))
 ```
 
-
-
-
     DecisionTreeRegressor(max_depth=3)
-
-
 
 
 <img src="{{page.image_folder}}/output_55_1.png" align="center">
 
-
+Setting 2 other hyperparameters to some values we may get different trees on the same data used for training (actually the whole data we have here):
 
 ```python
 create_and_show_tree(df, y, DecisionTreeRegressor(
@@ -597,16 +593,14 @@ create_and_show_tree(df, y, DecisionTreeRegressor(
 ```
 
 
-
-
     DecisionTreeRegressor(max_depth=3, max_features=1, min_samples_leaf=15)
 
 
-
+The tree can even become asymetrical.
 
 <img src="{{page.image_folder}}/output_56_1.png" align="center">
 
-
+Changing some:
 
 ```python
 create_and_show_tree(df, y, DecisionTreeRegressor(
@@ -614,10 +608,7 @@ create_and_show_tree(df, y, DecisionTreeRegressor(
 ```
 
 
-
-
     DecisionTreeRegressor(max_depth=3, min_samples_leaf=10)
-
 
 
 
