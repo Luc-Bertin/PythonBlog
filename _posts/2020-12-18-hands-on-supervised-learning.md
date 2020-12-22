@@ -12,9 +12,11 @@ order: 10
 
 ---
 
+In this lecture, we will be checking the regression part of some well known models.
 
-# Some modelisations 
+# Some modelisations on some data
 
+We first import the common packages for data processing and visualization:
 
 ```python
 import numpy as np
@@ -23,6 +25,11 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 ```
 
+We will generate data from an supposedly unobservable function that we will try to approximate.
+
+The function is expressed solely by the form $$ f(x) = e^x $$
+
+Let's add some random noise following a gaussian distribution with conditional mean of 0 (strong endogeneity i.e. there is no leakage of information posed by independent variables into the error term). 
 
 ```python
 data = pd.DataFrame(dict(
@@ -30,13 +37,11 @@ data = pd.DataFrame(dict(
     y_true = np.random.normal(np.exp(x), scale=2.0)))
 ```
 
+Separating in X (a matrix of one single column = feature = independent variable) and y...
 
 ```python
 df, y = data.drop("y_true", axis=1), data.y_true
 ```
-
-# A regression problem
-
 
 ```python
 fig = plt.Figure()
@@ -44,36 +49,22 @@ sns.scatterplot(x="x", y=y, data=df, ax=fig.gca())
 fig
 ```
 
-
-
 <img src="{{page.image_folder}}/output_5_0.png" align="center">
 
 
+# A regression problem
 
-
-```python
-from sklearn.neighbors import KNeighborsRegressor
-knn = KNeighborsRegressor(n_neighbors=k)
-knn.fit(df, y)
-knn.predict([[2]])
-```
-
-
-
-
-    array([9.96463757])
-
-
+Because we are trying to predict a **numerically valued random variable Y**.
 
 # Using a Linear Regression model
 
-We want to find the "best" parameters $$\hat{\beta}_s$$ as part of:
+Let's first try to model the relationship between y and X using a linear regression model.
 
-$$ y_{pred} = \hat{\beta}_0  + \hat{\beta}_1x_1 + \hat{\beta}_2 x_2 + ... \hat{\beta}_n x_n$$
+We want to find the "best" (estimated) parameters  $$\hat{\beta}_s$$ as part of:
 
-Such that we minimize the **average** distance between the $$y_{pred}$$ and $$y_{true}$$ expressed as: 
+$$ y_{pred} = \hat{y} = \hat{\beta}_0  + \hat{\beta}_1x_1 + \hat{\beta}_2 x_2 + ... \hat{\beta}_n x_n$$ from the *data* we have, such that we minimize the expected quadratic loss i.e. **average** square distances between the $$\hat{y}$$ and $$y_{true} = y$$ expressed as: 
 
-$$ (y_{true} - y_{pred})^2 $$
+$$ (y_{true} - y_{pred})^2  = (y - \hat{y})^2 $$
 
 Hence trying to minimize:
 $$ mean((y_{true} - y_{pred})^2) $$
@@ -81,7 +72,8 @@ $$ mean((y_{true} - y_{pred})^2) $$
 which is the definition of the **MSE = mean squared errors**
 
 Here we have one feature $$x_1 = x$$ and we don't have any more features in our dataset, hence the preceding formula can be expressed as:
-$$    y_{pred} = \hat{\beta}_0  + \hat{\beta}_1 x $$
+
+$$    \hat{y} = \hat{\beta}_0  + \hat{\beta}_1 x $$
 
 
 ```python
@@ -93,30 +85,27 @@ sns.lineplot(x="x", y=lm.predict(df),
 fig
 ```
 
-
-
-
 <img src="{{page.image_folder}}/output_12_0.png" align="center">
 
 
-
+The **estimated** values from the data of the coefficients are $$ \hat{\beta}_0 $$ (the intercept) and $$ \hat{\beta}_1 $$ (the slope w.r.t x1 = x).
 
 ```python
 lm.intercept_, lm.coef_
 ```
 
-
-
-
     (-2.438624719373448, array([6.1438942]))
 
+So we can replace them here in the equation.
+
+$$ \hat{\beta}_0 $$  = -2.44 ,   $$ \hat{\beta}_1 $$  = 6.14
+
+$$ y = -2.44 + 6.14 * x_1$$
+
+The model is rather simplistic, too simple to catch all the fluctuations in the data, it is said to be biased. This results in a systematic made error.
 
 
-$$ \beta_0 $$  = -2.18 ,      $$ \beta_1 $$  = 5.99
-
-$$ y = -2.18 + 5.99 * x_1$$
-
-## adding a new feature
+## Adding a new feature $$ e^X $$
 
 By creating a **new feature**: $$x_2 = e^x$$ 
 
