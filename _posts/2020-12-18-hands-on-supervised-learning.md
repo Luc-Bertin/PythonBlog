@@ -94,12 +94,12 @@ $$ y_{pred} = \hat{y} = \hat{\beta}_0  + \hat{\beta}_1x_1 + \hat{\beta}_2 x_2 + 
 
 where the residuals is an estimate itself of the error term based on the *data* we have.
 
-We strive for the minimization of the expected quadratic loss i.e. **average** square distances between the $$\hat{y}$$ and $$y_{true} = y$$ expressed as: 
+We strive for the minimization of the expected quadratic loss i.e. **average** square distances between the $$y_{pred} = \hat{y}$$ and $$y$$ expressed as: 
 
-$$ (y - y_{pred})^2  = (y - \hat{y})^2 $$
+$$ (y - \hat{y})^2 $$
 
 Hence trying to minimize:
-$$ mean((y - y_{pred})^2) $$
+$$ mean((y - \hat{y})^2) $$
 
 which is the definition of the **MSE = mean squared errors**
 
@@ -783,7 +783,7 @@ sns.scatterplot(x="x", y=y, data=df, ax=fig.gca())
 fig
 ```
 
-<img src="{{page.image_folder}}/output_80_0.png" align="center">
+<img src="{{page.image_folder}}/output_12_0.png" align="center">
 
 
 ```python
@@ -796,7 +796,7 @@ fig
 ```
 
 
-<img src="{{page.image_folder}}/output_81_0.png" align="center">
+<img src="{{page.image_folder}}/output_14_0.png" align="center">
 
 
 ```python
@@ -817,79 +817,97 @@ def create_tree_graph(model, df):
 
 
 ```python
-xi = df[["x"]].copy()
-yi = y.copy()
-
-# Initialize predictions with average
-predf = np.ones(len(yi)) * np.mean(yi)
-# Compute residuals
-ei = y.reshape(-1,) - predf
-# Learning rate
-lr = 0.3
-
-# Iterate according to the number of iterations chosen
-for i in [1,2,3,4,5,10,15,20,30,50]:
-    # Fit the a stump (max_depth = 1) on xi, ei
-    tree = DecisionTreeRegressor(max_depth=1)
-    tree.fit(xi, ei)
-    # Use the fitted model to predict yi
-    predi = tree.predict(xi)
+def create_gradient_descent_demo(df, y, lr=0.3, iterations=10):
+    # to avoid matplotlib creating a false "slope" to connect points further away 
+    x = np.linspace(df.x.min(), df.x.max(), 1000)
     
-    # Final predictions
-    pred_new = predf + lr * predi
-    # Compute the new residuals, 
-    ei = y.reshape(-1,) - pred_new
+    xi, yi = df[["x"]].copy(), y.copy()
 
-    # Every iteration, plot the prediction vs the actual data
-    # Create 2x2 sub plots
-    gs = gridspec.GridSpec(2, 2)
-
-
-    fig, axes = plt.subplots(figsize=(20,8))
-    plt.subplot(gs[0, 0])
-    plt.plot(df.x, predf, c='b', label="Previous predictions")
-    plt.plot(df.x, pred_new, c='r', label='Overall predictions (learning rate)')
-    plt.scatter(df.x, y)
-    plt.title("Iteration " + str(i))
-    plt.legend()
-
-    axis = plt.subplot(gs[:, 1])
-    #plt.gca().set_aspect('equal', adjustable='datalim')
-    plt.imshow(imageio.imread(create_tree_graph(tree, df)))
-    axis.xaxis.set_visible(False)  # hide the x axis
-    axis.yaxis.set_visible(False)  # hide the y axis
+    # Initialize predictions with average
+    predf = np.ones(len(yi)) * np.mean(yi)
     
-    plt.subplot(gs[1, 0])
-    plt.scatter(df.x, ei,  c='g')
-    plt.plot(df.x, predi, c='g', label='Single tree predictions on residuals')
-    plt.legend()
+    # same predictions on lot of x points
+    predf_x = np.ones(len(x)) * np.mean(yi)
     
-    #plt.savefig('bonus_ressources_gradient_boosting/iterations/imgs_iteration{}.png'.format(str(i).zfill(2)))
-    plt.show()
-    # update
-    predf = pred_new
+    
+    # Compute residuals
+    ei = y.reshape(-1,) - predf
+    
+    # Iterate according to the number of iterations chosen
+    for i in range(iterations):
+        
+        # creating the plot
+        # Every iteration, plot the prediction vs the actual data
+        # Create 2x2 sub plots
+        fig, axes = plt.subplots(figsize=(20,8))
+        gs = gridspec.GridSpec(2, 2)
+        plt.subplot(gs[0, 0])
+        plt.title("Iteration " + str(i))
+        
+        plt.scatter(xi, yi)
+        plt.plot(x, predf_x, c='b', label="Previous predictions")
+
+        # Fit the a stump (max_depth = 1) on xi, ei
+        tree = DecisionTreeRegressor(max_depth=1).fit(xi, ei)
+        
+        # Final predictions
+        pred_new = predf + lr * tree.predict(xi)
+        
+        # Final predictions on lot of x points
+        pred_new_x = predf_x + lr * tree.predict(x[:, np.newaxis]) 
+        # plotting
+        plt.plot(x, pred_new_x, c='r', label='Overall predictions (learning rate)')
+        
+        # previous residuals, on which the tree is fit
+        plt.subplot(gs[1, 0])
+        plt.scatter(df.x, ei,  c='g')
+        plt.plot(x, tree.predict(x[:, np.newaxis]), c='g', label='Single tree predictions on residuals')
+        plt.legend()
+        
+        # Compute the new residuals,
+        ei = y.reshape(-1,) - pred_new
+        plt.legend()
+        
+        axis = plt.subplot(gs[:, 1])
+        plt.imshow(imageio.imread(create_tree_graph(tree, df)))
+        axis.xaxis.set_visible(False)  # hide the x axis
+        axis.yaxis.set_visible(False)  # hide the y axis
+
+
+        #plt.savefig('bonus_ressources_gradient_boosting/iterations/imgs_iteration{}.png'.format(str(i).zfill(2)))
+        plt.show()
+        # update
+        predf = pred_new
+        predf_x = pred_new_x
 ```
 
+```python
+create_gradient_descent_demo(df, y, lr=0.3, iterations=5)
+```
 
-<img src="{{page.image_folder}}/output_83_0.png" align="center">
+<img src="{{page.image_folder}}/output_19_05.png" align="center">
 
-<img src="{{page.image_folder}}/output_83_1.png" align="center">
+<img src="{{page.image_folder}}/output_19_1.png" align="center">
 
-<img src="{{page.image_folder}}/output_83_2.png" align="center">
+<img src="{{page.image_folder}}/output_19_2.png" align="center">
 
-<img src="{{page.image_folder}}/output_83_3.png" align="center">
+<img src="{{page.image_folder}}/output_19_3.png" align="center">
 
-<img src="{{page.image_folder}}/output_83_4.png" align="center">
+<img src="{{page.image_folder}}/output_19_4.png" align="center">
 
-<img src="{{page.image_folder}}/output_83_5.png" align="center">
+```python
+create_gradient_descent_demo(df, y, lr=1, iterations=5)
+```
 
-<img src="{{page.image_folder}}/output_83_6.png" align="center">
+<img src="{{page.image_folder}}/output_20_0.png" align="center">
 
-<img src="{{page.image_folder}}/output_83_7.png" align="center">
+<img src="{{page.image_folder}}/output_20_1.png" align="center">
 
-<img src="{{page.image_folder}}/output_83_8.png" align="center">
+<img src="{{page.image_folder}}/output_20_2.png" align="center">
 
-<img src="{{page.image_folder}}/output_83_9.png" align="center">
+<img src="{{page.image_folder}}/output_20_3.png" align="center">
+
+<img src="{{page.image_folder}}/output_20_4.png" align="center">
 
 
 ## KNN Regressor
@@ -960,7 +978,7 @@ Which "best" values should we pick for them to get the best achieving model ?
 
 ## A matter of bias/variance trade-off
 
-Let's first go back to the data:
+Let's first go back to the data and check how are performing some KNN and Decision Tree models
 
 ```python
 # generate some data for the example
@@ -974,36 +992,34 @@ fig = plt.Figure()
 sns.scatterplot(x="x", y=y, data=df, ax=fig.gca())
 fig
 ```
-
-<img src="{{page.image_folder}}/output_89_0.png" align="center">
-
-
+<!-- <img src="{{page.image_folder}}/output_89_0.png" align="center"> -->
 ```python
 # a tree with depth = 1
 tree = DecisionTreeRegressor(max_depth=1)
 tree.fit(df, y)
-# another tree with depth = 8
-tree2 = DecisionTreeRegressor(max_depth=8)
+# another tree with depth = 3
+tree2 = DecisionTreeRegressor(max_depth=3)
 tree2.fit(df, y)
 # another tree with depth = 8
-tree3 = DecisionTreeRegressor(max_depth=3)
+tree3 = DecisionTreeRegressor(max_depth=8)
 tree3.fit(df, y)
 
 fig, axes = plt.subplots(1, 3, figsize=(14,5))
 for ax in axes:
     sns.scatterplot(x="x", y=y, data=df, ax=ax)
-sns.lineplot(x="x", y=tree.predict(df), 
-            color='r', data=df, ax = axes[0],
+
+# to avoid matplotlib creating a false "slope" to connect points further away 
+x = np.linspace(df.x.min(), df.x.max(), 1000)
+sns.lineplot(x=x, y=tree.predict(x[:, np.newaxis]), 
+            color='r', ax = axes[0],
             label="tree with depth=1").set_ylabel("y_true")
-sns.lineplot(x="x", y=tree3.predict(df), 
-            color='b', data=df, ax = axes[1],
+sns.lineplot(x=x, y=tree2.predict(x[:, np.newaxis]), 
+            color='b', ax = axes[1],
             label="tree with depth=3").set_ylabel("y_true")
-sns.lineplot(x="x", y=tree2.predict(df),
-            color='g', data=df, ax = axes[2],
+sns.lineplot(x=x, y=tree3.predict(x[:, np.newaxis]),
+            color='g', ax = axes[2],
             label="tree with depth=8").set_ylabel("y_true")
 ```
-
-    Text(0, 0.5, 'y_true')
 
 <img src="{{page.image_folder}}/output_90_1.png" align="center">
 
@@ -1313,7 +1329,7 @@ cross_val_visualize(x2, y)
      1.0300202445239781,
      1.273654982470511]
 
-<img src="{{page.image_folder}}output_48_1.png" align="left" width="100%" style="display:block !important;">
+<img src="{{page.image_folder}}output_48_1.png" align="center" width="100%" style="display:block !important;">
 
 
 
@@ -1323,7 +1339,7 @@ cross_val_visualize(x2, y, 3)
 
     [0.24514477688923542, 0.38705639490105015, 0.6231891770127047]
 
-<img src="{{page.image_folder}}output_49_1.png" align="left" width="100%" style="display:block !important;">
+<img src="{{page.image_folder}}output_49_1.png" align="center" width="100%" style="display:block !important;">
 
 
 
@@ -1337,7 +1353,7 @@ cross_val_visualize(x2, y, shuffle=True)
      0.4372335783422797,
      0.37844005566106576]
 
-<img src="{{page.image_folder}}output_50_1.png" align="left"  width="100%" style="display:block !important;">
+<img src="{{page.image_folder}}output_50_1.png" align="center"  width="100%" style="display:block !important;">
 
 
 
