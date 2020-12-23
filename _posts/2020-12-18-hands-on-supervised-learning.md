@@ -8,7 +8,7 @@ image: assets/images/post_hands_on_supervised_learning_sklearn_regression_models
 image_index: assets/images/post_hands_on_supervised_learning_sklearn_regression_models_example/index_img/cover.png
 tags: [featured]
 toc: true
-order: 10
+order: 7
 
 ---
 

@@ -8,7 +8,7 @@ image: assets/images/post_classification_quick_example/index_img/titanic.jpg
 image_index: assets/images/post_classification_quick_example/index_img/titanic.jpg
 tags: [featured]
 toc: true
-order: 10
+order: 8
 
 ---
 

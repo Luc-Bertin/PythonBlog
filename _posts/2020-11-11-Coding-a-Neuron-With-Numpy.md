@@ -8,7 +8,7 @@ image: assets/images/post_coding_a_neuron_with_numpy/index_img/network.jpg
 image_index: assets/images/post_coding_a_neuron_with_numpy/index_img/network.jpg
 tags: [featured]
 toc: true
-order: 7
+order: 9
 
 ---
 
