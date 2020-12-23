@@ -1078,11 +1078,12 @@ for i, knn in enumerate(estimators):
 
 <img src="{{page.image_folder}}/output_91_0.png" align="center">
 
-Does the models on the right look really better than the one on the left ? 🤔
+- In the first set of figures (decision trees), does the model showed **on the right** really look better than the one on the left ? 🤔
+- In the second set of figures (knn), does the model **on the left** really look better than the one on the right ? 🤔
 
-Right models seem so complex that it has actually started learning the **noise in the training data**, this is a great example where the bias (systematic error) is **low**, but the generalization of the model is not guaranteed, i.e. **the model variance** is very **high**, we call this phenomenon **overfitting**.
+In both of these 2 cases, the models got so complex that they actually started learning the **noise in the training data**, this is a great example where the bias (systematic error) is **low**, but the generalization of the model is not guaranteed, i.e. **the model variance** is very **high**, we call this phenomenon **overfitting**.
 
-Left models show the actual inverse, that is, **underfitting** ("immutable" model due to its simplicity built from exagerated reductive assumptions)
+In the other way around (left side in figure 1, right side in figure 2), the models showed the actual inverse, that is, **underfitting** ("immutable" model due to its simplicity built from exagerated reductive assumptions)
 
 
 To assess **overfitting** issues, one can use **cross-validation** techniques !
