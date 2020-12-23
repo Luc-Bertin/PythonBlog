@@ -953,8 +953,14 @@ for k in range(1, 50, 4):
 <img src="{{page.image_folder}}/output_87_12.png" align="center">
 
 
-# What are the best hyperparameters I should choose ?
+# Hyperparameter tuning
 
+We have been looking at some models already, some had hyperparameters. 
+Which "best" values should we pick for them to get the best achieving model ?
+
+## A matter of bias/variance trade-off
+
+Let's first go back to the data:
 
 ```python
 # generate some data for the example
@@ -969,12 +975,7 @@ sns.scatterplot(x="x", y=y, data=df, ax=fig.gca())
 fig
 ```
 
-
-
-
 <img src="{{page.image_folder}}/output_89_0.png" align="center">
-
-
 
 
 ```python
@@ -1002,16 +1003,9 @@ sns.lineplot(x="x", y=tree2.predict(df),
             label="tree with depth=8").set_ylabel("y_true")
 ```
 
-
-
-
     Text(0, 0.5, 'y_true')
 
-
-
-
 <img src="{{page.image_folder}}/output_90_1.png" align="center">
-
 
 
 ```python
@@ -1101,7 +1095,7 @@ In most ML algorithms, regularization techniques are introduced as **hyperparame
 You've actually crossed some multiple times: have a look at the `max_depth` and `min_samples_leaf` or `min_samples_split` for example ! What do you think we should prune a tree for ?
 
 
-# Tuning hyperparameters (or data processing steps)
+## Tuning hyperparameters (or data processing steps)
 
 Ok so, we know we could fit a **model on a train set** and later compute a **MSE** on both the train, and **test** set to assess whether an **overfit** would have occured. And overfitting can be seen on the right models. 
 We know that we can act on some hyperparameters like `max_depth` to **regularize** such an overfit, and we wish to lower down the `MSE(test set)` as much as we could get it (as MSE encapsulates both bias and variance term, we would be guaranted the model perform well in practice and generalize well either)!
@@ -1133,11 +1127,9 @@ sns.scatterplot(x="max_depth", y="MSE(train)", color='r',
 <img src="{{page.image_folder}}/output_97_1.png" align="center">
 
 
-# Wait, i can also try changing `min_samples_leaf ` with `max_depth` => onwards to GridSearch 
+### Changing `min_samples_leaf ` AND `max_depth`
 
-
-## using a simple loop ? 
-
+#### using a simple loop ? 
 
 ```python
 max_depth_range = range(1, 10)
@@ -1148,8 +1140,7 @@ for i in max_depth_range:
         pass
 ```
 
-## better: grid search
-
+## better: onwards to GridSearch 
 
 ```python
 param_grid={
@@ -1172,8 +1163,6 @@ grid = GridSearchCV(
 ```python
 grid.fit(df, y)
 ```
-
-
 
 
     GridSearchCV(cv=KFold(n_splits=5, random_state=None, shuffle=True),
@@ -1215,24 +1204,23 @@ ax.set_title("MSE on test with diff hyperparameters values")
 ```
 
 
-
-
     Text(0.5, 1.0, 'MSE on test with diff hyperparameters values')
 
 
-
-
 <img src="{{page.image_folder}}/output_109_1.png" align="center">
+
+
+### Need for a validation set
 
 But if you were to **tune** hyperparams or data preparation steps while **checking variations of MSE on test towards a minimization of it**, well, we would still somehow use a metric, a quantitative measure **we shouldn't be aware of**, as it is supposed to be the mean squared errors of the model on **unseen data**.<br>
 To give another example: it is as if you had to forecast whether or not to buy vegetables while not having access to the inside of the fridge. If you can **weight** the fridge itself, you might not know how many vegetables are left among all the food, but at least you have a taste of how likely the fridge is empty, considering the vegetables are the heaviest, hence you modify your behavior respectively.
 
 This has a name: it is called **data leakage**.
 
-You would have to actually split the whole data in 3 sets: **train**, **test** and **validation**, so to keep at least one set of data only for estimating the expected prediction error of the final model.<br>
+You would have to actually split the whole data in 3 sets: **train**, **validation** and **test**, so to keep at least one set of data only for estimating the expected prediction error of the final model.<br>
 You train the model with $$lambda1$$ on the training set, you monitor the MSE on the test set, you update $$lambda$$ to the new value, and once you found a satisfying minimum of the MSE, you can retrain on the whole available data (train+test) and finally evaluate the final model using the hold-out validation test.
 
-# K-Fold cross validation
+### K-Fold cross validation
 
 Splitting data again and again in an attempt to put Chinese walls in your ML workflow, lead to another issue: what if you **don't have much** data? it is likely your MSE(test) on a **few dozen points could be overly optimistic**, what if by chance you got the right test points to have a sweet MSE that suit your needs for a certain model ? 
 
@@ -1313,6 +1301,7 @@ def cross_val_visualize(X, y, cv=5, shuffle=False):
     return MSE
 ```
 
+Fitting on some random splits in the data, the MSE among each split is more homogeneous.
 
 ```python
 cross_val_visualize(x2, y)
