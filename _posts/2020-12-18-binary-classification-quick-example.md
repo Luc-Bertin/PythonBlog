@@ -1152,22 +1152,22 @@ plot.legend(["Died", "Survived"])
 
 
 
-```python
+<!-- ```python
 #df["AgeCut"] = pd.cut(df.Age, bins=[0, 18, 25, 35, df.Age.max()])
 #sns.catplot(x="Sex", y="Survived", hue="AgeCut", kind="bar", data=df).set_ylabels("survival probability")
-```
+``` -->
 
 2 other plots (try to reproduce them):
 - number of people for survivor and deceased person w.r.t. their Pclass and sex category
 - distribution of ages for survivor and deceased person w.r.t their Pclass and sex
 
-
+<!-- 
 ```python
 g = sns.FacetGrid(data=df, row="Pclass", col="Sex")
 g.map(sns.countplot, "Survived")
-```
+``` -->
 
-    /Users/lucbertin/.pyenv/versions/3.8.6/envs/base/lib/python3.8/site-packages/seaborn/axisgrid.py:643: UserWarning: Using the countplot function without specifying `order` is likely to produce an incorrect plot.
+<!--     /Users/lucbertin/.pyenv/versions/3.8.6/envs/base/lib/python3.8/site-packages/seaborn/axisgrid.py:643: UserWarning: Using the countplot function without specifying `order` is likely to produce an incorrect plot.
       warnings.warn(warning)
 
 
@@ -1177,28 +1177,28 @@ g.map(sns.countplot, "Survived")
     <seaborn.axisgrid.FacetGrid at 0x178cdd190>
 
 
-
+ -->
 
     
 <img src="{{page.image_folder}}/output_72_2.png" align="center">
     
 
-
+<!-- 
 
 ```python
 g = sns.FacetGrid(data=df, row="Pclass", col="Sex", hue="Survived")
 g.map(sns.kdeplot, "Age")
 g.add_legend()
-```
+``` -->
 
-
+<!-- 
 
 
     <seaborn.axisgrid.FacetGrid at 0x178f22b50>
 
 
 
-
+ -->
     
 <img src="{{page.image_folder}}/output_73_1.png" align="center">
     
