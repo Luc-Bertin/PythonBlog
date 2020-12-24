@@ -14,7 +14,7 @@ order: 8
 
 This is a classification scenario where you try to predict a **categorical binary** ***target y*** if the person survived (***1***) or not (***0***) from the Titanic.  
 This example is **really short** and here just to cover an example of **classification** as we mainly focused on regression so far.  
-Most of the supervised learning workflow does not change. You though have to use classifier **estimator** from scikit and pick the corresponding loss function if [necessary](https://stats.stackexchange.com/questions/379264/loss-function-and-evaluation-metric), and a global metric that is most suited for your [use-case](https://en.wikipedia.org/wiki/Sensitivity_and_specificity).
+Most of the supervised learning workflow does not change. You will most likely use classifier estimators from scikit, can also pick a different [loss function](https://stats.stackexchange.com/questions/379264/loss-function-and-evaluation-metric), and a global metric that is most suited for your [use-case](https://en.wikipedia.org/wiki/Sensitivity_and_specificity).
 
 
 ```python
@@ -355,7 +355,7 @@ df.drop("Ticket", axis=1, inplace=True)
 categorical_cols.remove("Ticket")
 ```
 
-### `df.describe()` an easy-win
+### an easy-win: `df.describe()` 
 
 
 ```python

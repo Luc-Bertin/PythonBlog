@@ -1235,7 +1235,7 @@ To give another example: it is as if you had to forecast whether or not to buy v
 This has a name: it is called **data leakage**.
 
 You would have to actually split the whole data in 3 sets: **train**, **validation** and **test**, so to keep at least one set of data only for estimating the expected prediction error of the final model.<br>
-You train the model with $$lambda1$$ on the training set, you monitor the MSE on the test set, you update $$lambda$$ to the new value, and once you found a satisfying minimum of the MSE, you can retrain on the whole available data (train+test) and finally evaluate the final model using the hold-out validation test.
+You set a `max_depth` (and/or other hyperparameters) prior to training the model, you train the model on the training set, you monitor the MSE on the validation set, you update `max_depth` to a new value, and so on. Once you have found a satisfying minimum of the MSE on the validation set, you can retrain on the whole available data (train+validation) and finally evaluate the final model using the hold-out test set.
 
 ### K-Fold cross validation
 
@@ -1356,6 +1356,18 @@ cross_val_visualize(x2, y, shuffle=True)
 
 <img src="{{page.image_folder}}output_50_1.png" align="center"  width="100%" style="display:block !important;">
 
+### Bringing all together 
+
+If you followed the previous steps, here is what is going to be the overall scheme of the hyperparameter tuner (you :p)
+
+1. Splitting the whole dataset in **train - test** (e.g. of ratios: 0.80 / 0.20 or 0.90/0.10, this depends on your data available).
+2. Leave the test set for a while, it will be used **at the end** for an estimation of the expected prediction error of the **final model**.
+3. Select a model (or a set of models) and a set of corresponding hyperparameters. Pick some values for each hyperparameter to try: if you have 2 hyperparameters $$hyper1$$ and $$hyper2$$, one would do want to try all combinations of the values taken by $$(hyper1, hyper2)$$ using a hyperparameter grid.
+4. Further split the **training set** in **train and validation**, or, if using k-fold cross validation: split into $$k$$ different training and validation sets.
+5. If you choose a k-fold, you are going to train the same model & hyperparameter values $$k$$ times (one for each partition), and can later compute the mean and std of the **MSE results on the k validation sets**.
+6. Pick the model which performed the best, using the average MSE.
+7. You can now **re-train** it on the whole initial training set, the one you had before you further split into train and validation sets.
+8. Evaluate the performance using the **held-out test set**.
 
 
 # Add-ons
