@@ -12,10 +12,10 @@ order: 3
 
 Some exercices following tutorial *Discover Pandas* to make you more comfortable with the concepts.
 
-<u><strong>SendTo</strong>:</u> contact  \< at \>   lucbertin   \< dot \>  com <br>
-<u><strong>Subject</strong>:</u> PANDAS - EXERCICES1 - \<SCHOOL\> - \<FIRSTNAMES LASTNAMES\> <br>
-<u><strong>CC</strong>:</u> your teammates' email if any<br>
-<u><strong>Content</strong>:</u> A Jupyter Notebook <strong>converted in HTML</strong> file <br>
+<u><strong>SendTo</strong>:</u> school  \< at \>   lucbertin   \< dot \>  com <br>
+<u><strong>Subject</strong>:</u> PYTHON - EXS - \<SCHOOL\> - \<FIRSTNAME LASTNAME (of the team referee)\> <br>
+<u><strong>Body of the email</strong>:</u>First and lastnames of all the team members (included you) + their school email adress<br>
+<u><strong>Attached</strong>:</u> A Jupyter Notebook <strong>converted in HTML</strong> file <br>
 
 
 # Base de données accidents corporels de la circulation
