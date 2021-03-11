@@ -229,15 +229,30 @@ The results must be saved in a dictionary:
 1. Create a class `List` whose behavior upon doing `liste1 + liste2`  (with `liste1` and `liste2` being `List` instances), is to add each of their elements element-wise i.e. `liste1[i] + liste2[i]` for each `i`.<br>
 If the lists have different length, the sum is considered `longestliste[i] + 0`.
 
-2. Create a class `IntegerList` whose constructors creates a list of integers from any passed-in list (filtering-out the non-integer elements). E.g. `IntegerList([1,2,"hello", 3,4, (1,2), "test"])` returns `[1,2,3,4]`
+2. Create a class `IntegerList` whose constructors creates a list of integers from any passed-in list (filtering-out the non-integer elements). E.g. `IntegerList([1,2,"hello", 3,4, (1,2), "test"])` returns this IntegerList instance: `[1,2,3,4]`
 
-3. Create an instance method `apply_func`, that takes a function as parameter, and apply it on each element of the list (being integers, see ***2.***)
+3. Create an instance method `apply_func`, that takes a function as arg, and apply it on each element of the `Integerlist` instance (being integers, see ***2.***).
+You have the choice to mutate the instance itself or returning a new `Integerlist` instance as output.<br> 
+Create a function, and check that `apply_func` is working, e.g.:
+	
+		myintegerlist = IntegerList([1,2,3,4])
+		# this is an example
+		myintegerlist.apply_func(multiply2)
+		# result
+		Out: [2,4,6,8]
+		# or can return nothing and apply changes in-place
 
-4. When we **index** the `IntegerList` (e.g. `IntegerList[2]`), it should returns an additional message like "element of index \<i\> has for value \<value\>" in addition to return the elements. (a `print` is enough).
 
-5 Bonus: Adapt also for **slicing** the `IntegerList` (e.g. `IntegerList[0:4]`).
+4. When we **index** the `IntegerList` e.g.:
 
-6. Bonus: Make `IntegerList` inherit from `List` so it also encapsulates the summing behavior from the latter (see ***1.***).
+		myintegerlist = IntegerList([1,2,3,4])
+		myintegerlist[1]
+
+ it should display (a `print` is enough) a message "element of index \<i\> has for value \<value\>" in addition to return the value for the given index `i`.
+
+5. Bonus: Display this message for each index walked through when **slicing** the `IntegerList` (e.g. `IntegerList[0:4]` should display the message in 4. for each index from index 0 to 3 included).
+
+6. Bonus: Make `IntegerList` inherit from `List` rather than `list` so it also encapsulates the summing behavior from the latter (see ***1.***).
 
 
 
