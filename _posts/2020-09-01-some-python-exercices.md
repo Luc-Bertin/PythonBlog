@@ -11,7 +11,7 @@ image_index: assets/images/post_some_exercices_in_python/index_img/cover.png
 
 Some exercices following tutorial *Beginning in Python* to make you more comfortable with some object-oriented concepts in Python ;) 
 
-<u><strong>SendTo</strong>:</u> school  \< at \>   lucbertin   \< dot \>  com <br>
+<u><strong>SendTo</strong>:</u> schools  \< at \>   lucbertin   \< dot \>  com <br>
 <u><strong>Subject</strong>:</u> PYTHON - EXS - \<SCHOOL\> - \<FIRSTNAME LASTNAME (of the team referee)\> <br>
 <u><strong>Body of the email</strong>:</u>First and lastnames of all the team members (included you) + their school email adress<br>
 <u><strong>Attached</strong>:</u> A Jupyter Notebook <strong>converted in HTML</strong> file <br>
